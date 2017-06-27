@@ -13,6 +13,7 @@ $path = $getfunc['path']; //set path for include
 $querytype = $getfunc['querytype']; //set query type search or insert/update
 
 include $path;
+
 unset($_POST['func']);
 
 $output = ($func()); //execute func and get result
@@ -23,7 +24,6 @@ if (!empty($output) and $querytype = 'search')
 		'message' => 'success',
 		'data' => $output,
 	);
-		echo json_encode ($result, JSON_UNESCAPED_SLASHES);
 }
 else if ($output == true and $querytype = 'insert')
 {
@@ -31,16 +31,17 @@ else if ($output == true and $querytype = 'insert')
 		'status' => '0',
 		'message' => 'success',
 	);
-		echo json_encode ($result, JSON_UNESCAPED_SLASHES);
 }	
-else	
+else
 {
 	$result = array (
 		'status' => '0',
 		'message' => 'fail',
 	);
-		echo json_encode ($result, JSON_UNESCAPED_SLASHES);
 }
+var_dump($result);
+$fp = fopen('result.php', 'w');
+fwrite($fp, json_encode ($result, JSON_UNESCAPED_SLASHES));
 
 $dbhandler0->close();
 //======================================================================

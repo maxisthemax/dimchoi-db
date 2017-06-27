@@ -45,11 +45,14 @@ function getComp()
 	$state = !empty($_POST['state']) ? $_POST['state'] : '';
 	$city = !empty($_POST['city']) ? $_POST['city'] : '';
     $companysearch = !empty($_POST['companysearch']) ? $_POST['companysearch'] : '';
+    $total = !empty($_POST['total']) ? $_POST['total'] : '';
+    $startfrom = !empty($_POST['startfrom']) ? $_POST['startfrom'] : '';
+    $feature = !empty($_POST['feature']) ? $_POST['feature'] : '';
     //===============================================
 
     //===============================================
     //start query
-    $sqlcheck = "SELECT *
+    $sqlcheck = "SELECT a.i_res_id ,a.va_res_name,a.va_company_logo
     FROM restaurant a 
     LEFT JOIN state b ON a.i_state_id = b.i_state_id 
     LEFT JOIN city c ON c.i_city_id = a.i_city_id 
@@ -67,11 +70,26 @@ function getComp()
     	}
         if (!empty($companysearch) or $companysearch != 0)
         {
-            $sqlcheck .= " and (a.va_comp_name like '%".$companysearch."%' OR c.i_city_name like '%".$companysearch."%')";  
-        }          	
+            $sqlcheck .= " and (a.va_res_name like '%".$companysearch."%' OR c.i_city_name like '%".$companysearch."%')";  
+        }     
+        if (!empty($feature) or $feature != 0)
+        {
+            $sqlcheck .= " and a.i_feature = $feature";  
+        }             	
+    }
+
+    if (!empty($total) or $total != 0)
+    {
+        $sqlcheck .= " LIMIT $total";
+
+        if (!empty($startfrom) or $startfrom != 0)
+        {
+        $startfrom = $startfrom - 1;
+                $sqlcheck .= " OFFSET $startfrom";
+        }
     }
     //===================================================
-    
+    var_dump($sqlcheck);
     $res = $dbhandler0->query($sqlcheck);
     return ($res);  
 }
