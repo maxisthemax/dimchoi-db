@@ -39,10 +39,9 @@ else
 		'message' => 'fail',
 	);
 }
-var_dump($result);
 $fp = fopen('result.php', 'w');
 fwrite($fp, json_encode ($result, JSON_UNESCAPED_SLASHES));
-
+echo(json_encode ($result, JSON_UNESCAPED_SLASHES));
 $dbhandler0->close();
 //======================================================================
 ?>

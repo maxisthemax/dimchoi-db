@@ -89,7 +89,6 @@ function getRes()
         }
     }
     //===================================================
-    var_dump($sqlcheck);
     $res = $dbhandler0->query($sqlcheck);
     return ($res);  
 }
@@ -147,7 +146,6 @@ function getResbyfeature()
         }
     }
     //===================================================
-    var_dump($sqlcheck);
     $res = $dbhandler0->query($sqlcheck);
     return ($res);  
 }
