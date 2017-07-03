@@ -2,36 +2,104 @@
 <html>
 <body>
 
+
+  <h1>DEBUGGING OPTION</h1>
+  <form action="test.php" method='post'>
+  <input type="radio" name="devoption" value='{"dev":"1"}'> PROD index  
+  <input type="radio" name="devoption" value='{"dev":"2"}'> PROD test
+  <input type="radio" name="devoption" value='{"dev":"3"}'> Local test
+  <input type='submit' value='Add text'>
+  </form>
+  <?php
+  echo $json[1]['settings'];
+  // Open the text file
+  $f = fopen("settings.php", "w");
+  // Write text
+  fwrite($f, $_POST["devoption"]); 
+  // Close the text file
+  fclose($f);
+  ?>
+ <br><br> 
 getallstateandcity
 <form action="index.php" method="post" target="_blank">
   <input type="submit" name="func" value="getallstateandcity"><br>
 </form>
-
-<br><br>
-<br><br>
-
-getres
+<br>
 <form action="index.php" method="post" target="_blank">
-  state <input type="text" name="state"><br><br>
-  city <input type="text" name="city"><br><br>
-  search <input type="text" name="ressearch"><br><br> 
-  total <input type="text" name="total"><br><br>  
-  start from <input type="text" name="startfrom"><br><br> 
-  <input type="radio" name="feature" value=1>Feature 1<br>
-  <input type="radio" name="feature" value=2>Feature 2<br>
-  <input type="submit" name="func" value="getres">
+  <table>
+  <tr>
+    <td>Function Name</td><td>getres</td>
+  </tr>   
+  <tr>
+    <td>state</td><td><input type="text" name="state"></td>
+  </tr>
+  <tr>
+    <td>city</td><td><input type="text" name="city"></td>
+  </tr>
+  <tr>
+    <td>search</td><td><input type="text" name="ressearch"></td>
+  </tr>
+  <tr>     
+    <td>total</td><td><input type="text" name="total"></td>
+  </tr>
+  <tr>    
+    <td>start from</td><td><input type="text" name="startfrom"></td>
+  </tr> 
+  <tr>
+    <td><input type="radio" name="feature" value=1></td>
+    <td>Feature 1</td>
+  </tr> 
+  <tr>
+    <td><input type="radio" name="feature" value=2></td>
+    <td>Feature 2</td>
+  </tr> 
+  <tr>    
+  <td colspan=2><input type="submit" name="func" value="getres"></td>
+  </table>
 </form>
 
-<br><br>
-<br><br>
-
-insertnewres
+<form action="index.php" method="post" target="_blank">
+  <table>
+  <tr>
+    <td>Function Name</td><td>getresbyfeature</td>
+  </tr>   
+  <tr>
+    <td>state</td><td><input type="text" name="state"></td>
+  </tr>
+  <tr>
+    <td>city</td><td><input type="text" name="city"></td>
+  </tr>
+  <tr>
+    <td>search</td><td><input type="text" name="ressearch"></td>
+  </tr>
+  <tr>     
+    <td>total</td><td><input type="text" name="total"></td>
+  </tr>
+  <tr>    
+    <td>start from</td><td><input type="text" name="startfrom"></td>
+  </tr> 
+  <tr>
+    <td><input type="radio" name="feature" value=1></td>
+    <td>Feature 1</td>
+  </tr> 
+  <tr>
+    <td><input type="radio" name="feature" value=2></td>
+    <td>Feature 2</td>
+  </tr> 
+  <tr>    
+  <td colspan=2><input type="submit" name="func" value="getresbyfeature"></td>
+  </table>
+</form>
+<!---insertnewres
 <form action="index.php" method="post" target="_blank">
   new res name <input type="text" name="newres"><br><br>
   new res state <input type="text" name="state"><br><br>
   new res city <input type="text" name="city"><br>
   <input type="submit" name="func" value="insertnewres">
-</form>
+</form>-->
 
 </body>
 </html>
+
+
+
