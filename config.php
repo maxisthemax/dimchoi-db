@@ -1,6 +1,6 @@
 <?php
 
-header('Content-Type: application/json; charset=utf-8;text/plain');
+header('Content-Type:text/html; application/json; charset=utf-8');
 
 //Set connection time limit/memory limit to infinity/unlimited
 set_time_limit(0);

@@ -16,12 +16,13 @@ include "system/function.php";
 //get restaurant from query string variable
 function insertnewres() {
     global $dbhandler0;
-    $newres = !empty($_POST['newres']) ? $_POST['newres'] : '';
-    $state = !empty($_POST['state']) ? $_POST['state'] : '';
-    $city = !empty($_POST['city']) ? $_POST['city'] : '';
+    $resname = !empty($_POST['resname_new']) ? $_POST['resname_new'] : '';
+    $reslogo = !empty($_POST['reslogo_new']) ? $_POST['reslogo_new'] : '';
+    $state = !empty($_POST['state_new']) ? $_POST['state_new'] : '';
+    $city = !empty($_POST['city_new']) ? $_POST['city_new'] : '';
     $todaydate = date("Y-m-d H:i:s");
 
-    if (empty($newres) or empty($state) or empty($city))
+    if (empty($resname) or empty($state) or empty($city))
     {
         return false;
     }
@@ -30,7 +31,7 @@ function insertnewres() {
     $sqlcheck = 
         "SELECT a.i_res_id,a.va_res_name
         FROM restaurant a
-        WHERE a.va_res_name = '$newres'";
+        WHERE a.va_res_name = '$resname'";
         $res = $dbhandler0->query($sqlcheck);
     //================================================== 
 
@@ -39,7 +40,7 @@ function insertnewres() {
             //start insert  
                 $sqlcheck = 
                 "INSERT INTO restaurant (va_res_name, i_state_id, i_city_id)
-                VALUES ('$newres',$state,$city)";
+                VALUES ('$resname',$state,$city)";
                 $res = $dbhandler0->insert($sqlcheck);
                 return ($res);
             //=================================================== 

@@ -52,7 +52,7 @@ function getRes()
 
     //===============================================
     //start query
-    $sqlcheck = "SELECT a.i_res_id ,a.va_res_name,a.va_res_logo
+    $sqlcheck = "SELECT a.i_res_id ,a.va_res_name,a.va_res_logo,a.va_res_code
     FROM restaurant a 
     LEFT JOIN state b ON a.i_state_id = b.i_state_id 
     LEFT JOIN city c ON c.i_city_id = a.i_city_id 

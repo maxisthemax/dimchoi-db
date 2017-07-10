@@ -11,7 +11,6 @@
   <input type='submit' value='Add text'>
   </form>
   <?php
-  echo $json[1]['settings'];
   // Open the text file
   $f = fopen("settings.php", "w");
   // Write text
@@ -90,13 +89,9 @@ getallstateandcity
   <td colspan=2><input type="submit" name="func" value="getresbyfeature"></td>
   </table>
 </form>
-<!---insertnewres
-<form action="index.php" method="post" target="_blank">
-  new res name <input type="text" name="newres"><br><br>
-  new res state <input type="text" name="state"><br><br>
-  new res city <input type="text" name="city"><br>
-  <input type="submit" name="func" value="insertnewres">
-</form>-->
+
+
+
 
 </body>
 </html>

@@ -7,7 +7,7 @@ class database
         $this->connection = mysqli_connect($dbhost, $dbuser, $dbpass, $db);
         if (!$this->connection || !mysqli_select_db($this->connection,$db)) 
         {
-            return false;
+            echo mysqli_error($this->connection);
         } 
         else 
         {
@@ -26,18 +26,30 @@ class database
         {
             return $return;
         } else {
-            return false;
+            echo mysqli_error($this->connection);
         }  
         mysqli_free_result($query);               
     }
 
+    function update($sql) 
+    {
+        if (mysqli_query($this->connection,$sql) === TRUE) 
+        {
+            mysqli_commit($this->connection);  
+            return true;
+        } 
+        else 
+        {
+            echo mysqli_error($this->connection);
+        }
+    }
     function insert($sql) 
     {   mysqli_autocommit($this->connection, FALSE);
             if (mysqli_query($this->connection,$sql) === TRUE) {
                 mysqli_commit($this->connection);  
                 return true;
             } else {
-                return false;
+                echo mysqli_error($this->connection);
             }
     }
     function close() 

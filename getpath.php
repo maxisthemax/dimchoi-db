@@ -13,6 +13,9 @@ function get_path($func)
 		case "insertnewres":
 	    	return array("path" => "query/insert/func.php","querytype"=>"insert");
 	        break;	
+		case "updateres":
+	    	return array("path" => "query/update/func.php","querytype"=>"update");
+	        break;		        
 	}
 }
 
