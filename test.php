@@ -1,29 +1,33 @@
 <!DOCTYPE html>
 <html>
 <body>
-
-
-  <h1>DEBUGGING OPTION</h1>
+  <h1>DATASOURCE SWITCHING</h1>
   <form action="test.php" method='post'>
-  <input type="radio" name="devoption" value='{"dev":"1"}'> PROD index  
-  <input type="radio" name="devoption" value='{"dev":"2"}'> PROD test
-  <input type="radio" name="devoption" value='{"dev":"3"}'> Local test
-  <input type='submit' value='Add text'>
+  <input type="radio" name="devoption" value='{"dev":"1"}'> PROD test  
+  <input type="radio" name="devoption" value='{"dev":"3"}'> LOCAL test
+  <br>
+  <input type="radio" name="devoption" value='{"dev":"2"}'> PROD index (LIVE VERSION)
+  <br><br>
+  <input type='submit' value='SWITCH DB'>
   </form>
   <?php
   // Open the text file
   $f = fopen("settings.php", "w");
   // Write text
-  fwrite($f, $_POST["devoption"]); 
+   if (!empty($_POST["devoption"]))
+  {
+    fwrite($f, $_POST["devoption"]);
+  }
   // Close the text file
   fclose($f);
   ?>
  <br><br> 
+<h1>DEBUGGING OPTION</h1>
 getallstateandcity
 <form action="index.php" method="post" target="_blank">
   <input type="submit" name="func" value="getallstateandcity"><br>
 </form>
-<br>
+ <br><br> 
 <form action="index.php" method="post" target="_blank">
   <table>
   <tr>
@@ -56,7 +60,7 @@ getallstateandcity
   <td colspan=2><input type="submit" name="func" value="getres"></td>
   </table>
 </form>
-
+ <br><br> 
 <form action="index.php" method="post" target="_blank">
   <table>
   <tr>

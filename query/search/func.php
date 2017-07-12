@@ -21,11 +21,11 @@ function getAllStateAndCity()
 
     //===============================================
     //start query
-    $sqlcheck = "SELECT b.va_state_name,c.i_city_name 
+    $sqlcheck = "SELECT b.va_state_name,c.va_city_name,a.i_state_id,a.i_city_id 
     FROM state_city a 
     left join state b on a.i_state_id = b.i_state_id 
     left join city c on c.i_city_id = a.i_city_id 
-    order by c.i_city_name";
+    order by c.va_city_name";
     //===============================================
 
     $res = $dbhandler0->query($sqlcheck);
@@ -52,7 +52,7 @@ function getRes()
 
     //===============================================
     //start query
-    $sqlcheck = "SELECT a.i_res_id ,a.va_res_name,a.va_res_logo,a.va_res_code
+    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name  
     FROM restaurant a 
     LEFT JOIN state b ON a.i_state_id = b.i_state_id 
     LEFT JOIN city c ON c.i_city_id = a.i_city_id 
