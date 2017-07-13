@@ -25,8 +25,7 @@
             <tr><td>Name :</td><td><input name = "resname_new" value=""></td></tr> 
             <tr><td>Res Code :</td><td><input name = "rescode_new" value=""></td></tr>
             <tr><td>Logo Url :</td><td><input name = "reslogo_new" value=""></td></tr>
-            <tr><td>State :</td><td><input name = "state_new" value=""></td></tr>
-            <tr><td>City :</td><td><input name = "city_new" value=""></td></tr>
+            <tr><td>City :</td><td><select id = "city_new" name = "city_new"></select></td></tr>
         </table>
     </div>
 
@@ -59,19 +58,37 @@ $(document).ready(function()
     });  
    
     $("#func").on('change', function()
-    {
+    {                  
         var inhalt = $('#func option:selected').val();
         if (inhalt=='updateres')
         {
             $('#updateres').show();
-            $('#insertnewres').hide();
+            $('#insertnewres').hide();             
         }
         else if (inhalt=='insertnewres')
         {
             $('#insertnewres').show();
-            $('#updateres').hide();
-
-        }       
+            $('#updateres').hide();                       
+            var city_new = $('#city_new');
+            city_new.empty();
+            city_new.append("<option></option>");
+            var place = {func: 'getallstateandcity'};        
+            $.ajax({
+                url: 'index.php',
+                type: "post",
+                data: place,
+                success:function(response)
+                {
+                var display = JSON.parse(response);
+                $.each(display.data, function(i, location) 
+                    {
+                        city_new.append($("<option></option>")
+                        .attr("value",location.va_city_name)
+                        .text(location.va_city_name));                                  
+                    });
+                }
+            })  
+        }      
     });    
 
     $("#Options").change(function()
@@ -96,7 +113,7 @@ $(document).ready(function()
                         tb.append("<tr><td>Res Code:</td><td>"+"<input name = 'rescode' value='"+value.va_res_code+"'>" + "</td></tr>");   
                         tb.append("<tr><td>Logo Url:</td><td>"+"<input name = 'reslogo' value='"+value.va_res_logo+"'>" + "</td></tr>");
                         tb.append("<tr><td>Logo Url:</td><td>"+"<img src="+value.va_res_logo+" height='400'>" + "</td></tr>");
-                        tb.append("<tr><td>Feature:</td><td>"+"<input name = 'resname' value='"+value.i_feature+"'>" + "</td></tr>");
+                        tb.append("<tr><td>Feature:</td><td>"+"<input name = 'resfeature' value='"+value.i_feature+"'>" + "</td></tr>");
                         tb.append("<tr><td>City:</td><td><select id='city' name='city'><option></option></select></td></tr>");
                         tb.append("<tr><td>State:</td><td id = 'state' name='state'></div></td></tr>");
                         tb.append("<input hidden name = 'resid' value='"+value.i_res_id+"'>");
@@ -114,7 +131,7 @@ $(document).ready(function()
                                     city.append($("<option></option>")
                                     .attr("value",location.va_city_name)
                                     .text(location.va_city_name));
-                                    $("#state").html(location.va_state_name);                                    
+                                    $("#state").html(value.va_state_name);                                    
                                 });
                             $("#city").val(value.va_city_name);
                             }

@@ -8,6 +8,7 @@ function get_path($func)
 		case "getallstateandcity":
 	    case "getres":
 	    case "getresbyfeature":
+	    case "getresbylocation":
 	    	return array("path" => "query/search/func.php","querytype"=>"search");
 	        break;
 		case "insertnewres":
