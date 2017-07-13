@@ -47,7 +47,7 @@ function insertnewres() {
                 i_city_id)
                 VALUES (
                 '$resname_new',
-                '$rescodenew',
+                '$rescode_new',
                 '$reslogo_new',
                 (SELECT i_state_id FROM state_city WHERE i_city_id=(SELECT i_city_id FROM city WHERE va_city_name='$city_new' LIMIT 1) LIMIT 1),
                 (SELECT i_city_id FROM city WHERE va_city_name='$city_new' LIMIT 1))";
