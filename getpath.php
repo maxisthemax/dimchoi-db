@@ -9,6 +9,8 @@ function get_path($func)
 	    case "getres":
 	    case "getresbyfeature":
 	    case "getresbylocation":
+	    case "getresfoodmenu":
+	    case "getresbeveragemenu":
 	    	return array("path" => "query/search/func.php","querytype"=>"search");
 	        break;
 		case "insertnewres":

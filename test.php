@@ -125,9 +125,62 @@
   <tr>    
   <td colspan=2><input type="submit" name="func" value="getresbylocation"></td>
   </table>
+<br><br> 
+<form action="index.php" method="post" target="_blank">
+  <table>
+  <tr>
+    <td><h2>getresfoodmenu</h2></td>
+  </tr>   
+    <td>Restaurant</td><td><select id="res_id1" name="res_id1"></select></td>
+  </tr>    
+  <tr>    
+  <td colspan=2><input type="submit" name="func" value="getresfoodmenu"></td>
+  </table>  
+</form>
+<br><br> 
+<form action="index.php" method="post" target="_blank">
+  <table>
+  <tr>
+    <td><h2>getresbeveragemenu</h2></td>
+  </tr>   
+    <td>Restaurant</td><td><select id="res_id2" name="res_id2"></select></td>
+  </tr>    
+  <tr>    
+  <td colspan=2><input type="submit" name="func" value="getresbeveragemenu"></td>
+  </table>  
 </form>
 </body>
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+            var res = {func: 'getres'};   
+            var res_id1 = $('#res_id1');
+            var res_id2 = $('#res_id2');
+            var res_code = $('#res_code');
+            res_id1.empty();
+            res_id1.append("<option></option>");  
+            res_id2.empty();
+            res_id2.append("<option></option>");                        
+            $.ajax({
+                url: 'index.php',
+                type: "post",
+                data: res,
+                success:function(response)
+                {
+                var display = JSON.parse(response);
+                $.each(display.data, function(i, restaurant) 
+                    {
+                        res_id1.append($("<option></option>")
+                        .attr("value",restaurant.i_res_id)
+                        .text(restaurant.va_res_name+' - '+restaurant.va_res_code));     
+                        res_id2.append($("<option></option>")
+                        .attr("value",restaurant.i_res_id)
+                        .text(restaurant.va_res_name+' - '+restaurant.va_res_code));                                                           
+                    });
+                }
+            })  
+</script>
+
 
 
 

@@ -35,7 +35,7 @@ function getAllStateAndCity()
 
 //===================================================
 //get restaurant from query string variable
-function getRes() 
+function getres() 
 {
 
     global $dbhandler0;
@@ -92,7 +92,7 @@ function getRes()
     $res = $dbhandler0->query($sqlcheck);
     return ($res);  
 }
-function getResbyfeature() 
+function getresbyfeature() 
 {
 
     global $dbhandler0;
@@ -149,7 +149,7 @@ function getResbyfeature()
     $res = $dbhandler0->query($sqlcheck);
     return ($res);  
 }
-function getResbylocation() 
+function getresbylocation() 
 {
 
     global $dbhandler0;
@@ -202,6 +202,62 @@ function getResbylocation()
                 $sqlcheck .= " OFFSET $startfrom";
         }
     }
+    //===================================================
+    $res = $dbhandler0->query($sqlcheck);
+    return ($res);  
+}
+function getresfoodmenu() 
+{
+
+    
+    global $dbhandler0;
+
+    //=============================================== 
+    //define variable for query
+    $res_id = !empty($_POST['res_id']) ? $_POST['res_id'] : '';
+    //===============================================
+
+    //===============================================
+    //start query
+    $sqlcheck = "SELECT *
+    FROM menu a 
+    LEFT JOIN food b ON b.i_menu_id = a.i_menu_id
+    WHERE b.i_menu_id = a.i_menu_id";
+    if (!empty($_POST)) //if all string url variable is 0 or null
+    {
+         if (!empty($res_id) or $res_id != 0)
+        {
+            $sqlcheck .= " and a.i_res_id = $res_id";    
+        }           
+    }   
+    //===================================================
+    $res = $dbhandler0->query($sqlcheck);
+    return ($res);  
+}
+function getresbeveragemenu() 
+{
+
+    
+    global $dbhandler0;
+
+    //=============================================== 
+    //define variable for query
+    $res_id = !empty($_POST['res_id']) ? $_POST['res_id'] : '';
+    //===============================================
+
+    //===============================================
+    //start query
+    $sqlcheck = "SELECT *
+    FROM menu a 
+    LEFT JOIN beverage b ON b.i_menu_id = a.i_menu_id
+    WHERE b.i_menu_id = a.i_menu_id";
+    if (!empty($_POST)) //if all string url variable is 0 or null
+    {
+         if (!empty($res_id) or $res_id != 0)
+        {
+            $sqlcheck .= " and a.i_res_id = $res_id";    
+        }           
+    }   
     //===================================================
     $res = $dbhandler0->query($sqlcheck);
     return ($res);  
