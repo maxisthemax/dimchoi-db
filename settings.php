@@ -3,12 +3,18 @@ include "system/function.php";
 include "lib/db.php";
 include "config.php";
 include "getpath.php";
-
- global $dbhandler0;
-    $sqlcheck = "SELECT value
+global $dbhandler0;
+    $dev = isset($_POST['dev']) ? $_POST['dev'] : '';
+    if (!empty($dev) or $dev != 0)
+    {   
+        $sqlcheck = "UPDATE settings SET va_value = '$dev' WHERE va_name = 'dev'";
+        $res = $dbhandler0->update($sqlcheck);
+    }
+    //===============================================
+    $sqlcheck = "SELECT va_value
     FROM settings 
-    where name = 'dev'";
+    where va_name = 'dev'";
     //===============================================
     $res = $dbhandler0->query($sqlcheck);
-    var_dump(expression)$res,1[];
+    echo($res[0]['va_value']);
 ?>

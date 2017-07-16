@@ -3,10 +3,9 @@
 <body>
   <h1>DATASOURCE SWITCHING</h1>
   <form action="settings.php" method='post'>
-  <input type="radio" name="devoption" value='{"dev":"1"}'> PROD test  
-  <input type="radio" name="devoption" value='{"dev":"3"}'> LOCAL test
-  <br>
-  <input type="radio" name="devoption" value='{"dev":"2"}'> PROD index (LIVE VERSION)
+  <input type="radio" name="dev" id="dev_1" value='{"dev":"1"}'> PROD test  
+  <input type="radio" name="dev" id="dev_2" value='{"dev":"2"}'> PROD index (LIVE VERSION)  
+  <input type="radio" name="dev" id="dev_3" value='{"dev":"3"}'> LOCAL test
   <br><br>
   <input type='submit' value='SWITCH DB'>
   </form>
@@ -143,6 +142,26 @@
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
+$(document).ready(function(){
+
+  
+            $.getJSON('settings.php',function(data)
+            {
+              var settings = data.dev;
+              if (settings == 1)
+              {
+                $("#dev_1").attr('checked', 'checked');
+              }
+              else if (settings == 2)
+              {
+                $("#dev_2").attr('checked', 'checked');
+              }
+              else if (settings == 3)
+              {
+                $("#dev_3").attr('checked', 'checked');
+              }              
+            });  
+
             var res = {func: 'getres'};   
             var res_id1 = $('#res_id1');
             var res_id2 = $('#res_id2');
@@ -169,6 +188,7 @@
                     });
                 }
             })  
+});
 </script>
 
 
