@@ -1,3 +1,6 @@
+<?php
+include "setvariable.php";
+?>
 <div id="escDivTable" class="subText">RESTAURANT NAME</div>
 <br><br>
 
@@ -71,23 +74,16 @@ $(document).ready(function()
             $('#updateres').hide();                       
             var city_new = $('#city_new');
             city_new.empty();
-            city_new.append("<option></option>");
-            var place = {func: 'getallstateandcity'};        
-            $.ajax({
-                url: 'index.php',
-                type: "post",
-                data: place,
-                success:function(response)
-                {
-                var display = JSON.parse(response);
-                $.each(display.data, function(i, location) 
-                    {
+            city_new.append("<option></option>");     
+            $.getJSON('data/place.php',function(data)
+            {
+                $.each(data.data,function(i,location)
+                {  
                         city_new.append($("<option></option>")
                         .attr("value",location.va_city_name)
-                        .text(location.va_city_name));                                  
-                    });
-                }
-            })  
+                        .text(location.va_city_name));                          
+                });                         
+            }); 
         }      
     });    
 
@@ -97,14 +93,9 @@ $(document).ready(function()
         var tb = $('#tab');
         tb.empty();
         var res = {func: 'getres'}; 
-        $.ajax({
-            url: 'index.php',
-            type: "post",
-            data: res,
-            success:function(response)
+        $.getJSON('data/res.php',function(data)
             {
-            var display = JSON.parse(response);
-            $.each(display.data, function(i, value) 
+            $.each(data.data, function(i, value) 
                 {
                     if (value.va_res_name == name)
                     {
@@ -118,28 +109,21 @@ $(document).ready(function()
                         tb.append("<tr><td>State:</td><td id = 'state' name='state'></div></td></tr>");
                         tb.append("<input hidden name = 'resid' value='"+value.i_res_id+"'>");
                         var city = $('#city');
-                        var place = {func: 'getallstateandcity'}; 
-                        $.ajax({
-                            url: 'index.php',
-                            type: "post",
-                            data: place,
-                            success:function(response)
-                            {
-                            var display = JSON.parse(response);
-                            $.each(display.data, function(i, location) 
-                                {
+                        $.getJSON('data/place.php',function(data)
+                        {
+                            $.each(data.data,function(i,location)
+                            {  
                                     city.append($("<option></option>")
                                     .attr("value",location.va_city_name)
-                                    .text(location.va_city_name));
-                                    $("#state").html(value.va_state_name);                                    
-                                });
-                            $("#city").val(value.va_city_name);
-                            }
-                        })                           
+                                    .text(location.va_city_name));                          
+                            });  
+                            $("#city").val(value.va_city_name);    
+                            $("#state").html(value.va_state_name);                        
+                        });                           
                     }
                 });
-            }
         })                 
     });
 });
 </script>
+

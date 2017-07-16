@@ -2,7 +2,7 @@
 <html>
 <body>
   <h1>DATASOURCE SWITCHING</h1>
-  <form action="test.php" method='post'>
+  <form action="settings.php" method='post'>
   <input type="radio" name="devoption" value='{"dev":"1"}'> PROD test  
   <input type="radio" name="devoption" value='{"dev":"3"}'> LOCAL test
   <br>
@@ -10,17 +10,7 @@
   <br><br>
   <input type='submit' value='SWITCH DB'>
   </form>
-  <?php
-  // Open the text file
-  $f = fopen("settings.php", "w");
-  // Write text
-   if (!empty($_POST["devoption"]))
-  {
-    fwrite($f, $_POST["devoption"]);
-  }
-  // Close the text file
-  fclose($f);
-  ?>
+ 
  <br><br> 
 <h1>DEBUGGING OPTION</h1>
 <h2>getallstateandcity</h2>
