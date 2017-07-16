@@ -1,8 +1,29 @@
 <!DOCTYPE html>
+<?php
+include "system/function.php";
+include "lib/db.php";
+include "config.php";
+include "getpath.php";
+global $dbhandler0;
+    $dev = isset($_POST['dev']) ? $_POST['dev'] : '';
+    if (!empty($dev) or $dev != 0)
+    {   
+        $sqlcheck = "UPDATE settings SET va_value = '$dev' WHERE va_name = 'dev'";
+        $res = $dbhandler0->update($sqlcheck);
+    }
+    //===============================================
+    $sqlcheck = "SELECT va_value
+    FROM settings 
+    where va_name = 'dev'";
+    //===============================================
+    $res = $dbhandler0->query($sqlcheck);
+    $fp = fopen('settings.php', 'w');
+    fwrite($fp, $res[0]['va_value']);
+?>
 <html>
 <body>
   <h1>DATASOURCE SWITCHING</h1>
-  <form action="settings.php" method='post'>
+  <form action="test.php" method='post'>
   <input type="radio" name="dev" id="dev_1" value='{"dev":"1"}'> PROD test  
   <input type="radio" name="dev" id="dev_2" value='{"dev":"2"}'> PROD index (LIVE VERSION)  
   <input type="radio" name="dev" id="dev_3" value='{"dev":"3"}'> LOCAL test

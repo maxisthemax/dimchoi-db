@@ -214,7 +214,7 @@ function getresfoodmenu()
 
     //=============================================== 
     //define variable for query
-    $res_id = !empty($_POST['res_id']) ? $_POST['res_id'] : '';
+    $res_id1 = !empty($_POST['res_id1']) ? $_POST['res_id1'] : '';
     //===============================================
 
     //===============================================
@@ -225,12 +225,13 @@ function getresfoodmenu()
     WHERE b.i_menu_id = a.i_menu_id";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
-         if (!empty($res_id) or $res_id != 0)
+         if (!empty($res_id1) or $res_id1 != 0)
         {
-            $sqlcheck .= " and a.i_res_id = $res_id";    
+            $sqlcheck .= " and a.i_res_id = $res_id1";    
         }           
     }   
     //===================================================
+
     $res = $dbhandler0->query($sqlcheck);
     return ($res);  
 }
@@ -242,7 +243,7 @@ function getresbeveragemenu()
 
     //=============================================== 
     //define variable for query
-    $res_id = !empty($_POST['res_id']) ? $_POST['res_id'] : '';
+    $res_id2 = !empty($_POST['res_id2']) ? $_POST['res_id2'] : '';
     //===============================================
 
     //===============================================
@@ -253,9 +254,9 @@ function getresbeveragemenu()
     WHERE b.i_menu_id = a.i_menu_id";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
-         if (!empty($res_id) or $res_id != 0)
+         if (!empty($res_id2) or $res_id2 != 0)
         {
-            $sqlcheck .= " and a.i_res_id = $res_id";    
+            $sqlcheck .= " and a.i_res_id = $res_id2";    
         }           
     }   
     //===================================================
