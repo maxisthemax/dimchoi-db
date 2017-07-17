@@ -12,12 +12,21 @@ include "system/function.php";
     order by c.va_city_name";
 
     $res = $dbhandler0->query($sqlcheck);
-
+if (!empty($res))
+{
     $result = array (
             'status' => '1',
             'message' => 'success',
             'data' => $res,
         );
+}
+else
+{
+    $result = array (
+        'status' => '0',
+        'message' => 'fail',
+    );
+}    
     $fp = fopen('data/place.php', 'w');
     fwrite($fp, json_encode ($result, JSON_UNESCAPED_SLASHES));
 //==============================================================================================
