@@ -37,5 +37,39 @@ include "system/function.php";
         );
     $fp = fopen('data/res.php', 'w');
     fwrite($fp, json_encode ($result, JSON_UNESCAPED_SLASHES));
-//==============================================================================================       
+//==============================================================================================
+    global $dbhandler0;
+    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name  
+    FROM restaurant a 
+    LEFT JOIN state b ON a.i_state_id = b.i_state_id 
+    LEFT JOIN city c ON c.i_city_id = a.i_city_id 
+    WHERE a.i_res_stat = 1 AND a.i_feature =1";
+
+    $res = $dbhandler0->query($sqlcheck);
+
+    $result = array (
+            'status' => '1',
+            'message' => 'success',
+            'data' => $res,
+        );
+    $fp = fopen('data/resfeature1.php', 'w');
+    fwrite($fp, json_encode ($result, JSON_UNESCAPED_SLASHES));
+//==============================================================================================
+    global $dbhandler0;
+    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name  
+    FROM restaurant a 
+    LEFT JOIN state b ON a.i_state_id = b.i_state_id 
+    LEFT JOIN city c ON c.i_city_id = a.i_city_id 
+    WHERE a.i_res_stat = 1 AND a.i_feature =2";
+
+    $res = $dbhandler0->query($sqlcheck);
+
+    $result = array (
+            'status' => '1',
+            'message' => 'success',
+            'data' => $res,
+        );
+    $fp = fopen('data/resfeature2.php', 'w');
+    fwrite($fp, json_encode ($result, JSON_UNESCAPED_SLASHES));
+//==============================================================================================               
 ?>
