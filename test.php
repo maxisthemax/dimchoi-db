@@ -163,52 +163,45 @@ global $dbhandler0;
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-$(document).ready(function(){
+$(document).ready(function()
+{
+  $.getJSON('settings.php',function(data)
+    {
+      var settings = data.dev;
+      if (settings == 1)
+      {
+        $("#dev_1").attr('checked', 'checked');
+      }
+      else if (settings == 2)
+      {
+        $("#dev_2").attr('checked', 'checked');
+      }
+      else if (settings == 3)
+      {
+        $("#dev_3").attr('checked', 'checked');
+      }              
+    });  
 
-  
-            $.getJSON('settings.php',function(data)
-            {
-              var settings = data.dev;
-              if (settings == 1)
-              {
-                $("#dev_1").attr('checked', 'checked');
-              }
-              else if (settings == 2)
-              {
-                $("#dev_2").attr('checked', 'checked');
-              }
-              else if (settings == 3)
-              {
-                $("#dev_3").attr('checked', 'checked');
-              }              
-            });  
+var res_id1 = $('#res_id1');
+var res_id2 = $('#res_id2');
+var res_code = $('#res_code');
+res_id1.empty();
+res_id1.append("<option></option>");  
+res_id2.empty();
+res_id2.append("<option></option>"); 
 
-            var res = {func: 'getres'};   
-            var res_id1 = $('#res_id1');
-            var res_id2 = $('#res_id2');
-            var res_code = $('#res_code');
-            res_id1.empty();
-            res_id1.append("<option></option>");  
-            res_id2.empty();
-            res_id2.append("<option></option>");                        
-            $.ajax({
-                url: 'index.php',
-                type: "post",
-                data: res,
-                success:function(response)
-                {
-                var display = JSON.parse(response);
-                $.each(display.data, function(i, restaurant) 
-                    {
-                        res_id1.append($("<option></option>")
-                        .attr("value",restaurant.i_res_id)
-                        .text(restaurant.va_res_name+' - '+restaurant.va_res_code));     
-                        res_id2.append($("<option></option>")
-                        .attr("value",restaurant.i_res_id)
-                        .text(restaurant.va_res_name+' - '+restaurant.va_res_code));                                                           
-                    });
-                }
-            })  
+$.getJSON('data/res.php',function(data)
+  {
+  $.each(data.data, function(i, restaurant)
+    {
+      res_id1.append($("<option></option>")
+      .attr("value",restaurant.i_res_id)
+      .text(restaurant.va_res_name+' - '+restaurant.va_res_code));
+      res_id2.append($("<option></option>")
+      .attr("value",restaurant.i_res_id)
+      .text(restaurant.va_res_name+' - '+restaurant.va_res_code));
+    });
+  })
 });
 </script>
 

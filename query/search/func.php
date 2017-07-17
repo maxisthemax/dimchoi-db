@@ -209,7 +209,6 @@ function getresbylocation()
 function getresfoodmenu() 
 {
 
-    
     global $dbhandler0;
 
     //=============================================== 
@@ -238,7 +237,6 @@ function getresfoodmenu()
 function getresbeveragemenu() 
 {
 
-    
     global $dbhandler0;
 
     //=============================================== 

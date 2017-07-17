@@ -1,6 +1,4 @@
 <?php
-//func techf act
-
 function get_path($func) 
 {
 	switch ($func) 
@@ -21,5 +19,4 @@ function get_path($func)
 	        break;		        
 	}
 }
-
 ?>
