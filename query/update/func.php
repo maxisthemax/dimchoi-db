@@ -11,7 +11,8 @@ function updateres()
     $resname = !empty($_POST['resname']) ? $_POST['resname'] : '';
     $reslogo = !empty($_POST['reslogo']) ? $_POST['reslogo'] : '';
     $rescode = !empty($_POST['rescode']) ? $_POST['rescode'] : '';   
-    $resfeature = !empty($_POST['resfeature']) ? $_POST['resfeature'] : '';    
+    $resfeature = !empty($_POST['resfeature']) ? $_POST['resfeature'] : ''; 
+    $featuread = !empty($_POST['featuread']) ? $_POST['featuread'] : '';     
     $city = !empty($_POST['city']) ? $_POST['city'] : '';
     $state = !empty($_POST['state']) ? $_POST['state'] : '';
    
@@ -23,6 +24,7 @@ function updateres()
     va_res_logo = '$reslogo', 
     va_res_code = '$rescode',
     i_feature = '$resfeature',
+    va_feature_ad = '$featuread',
     i_city_id = (SELECT i_city_id FROM city WHERE va_city_name='$city' LIMIT 1),
     i_state_id = (SELECT i_state_id FROM state_city WHERE i_city_id=(SELECT i_city_id FROM city WHERE va_city_name='$city' LIMIT 1) LIMIT 1)
     where i_res_id = $resid";
