@@ -1,8 +1,5 @@
 <?php
-include "lib/db.php";
-include "config.php";
-include "getpath.php";
-include "system/function.php";
+
 //==============================================================================================
     global $dbhandler0;
     $sqlcheck = "SELECT b.va_state_name,c.va_city_name,a.i_state_id,a.i_city_id 

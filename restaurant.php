@@ -1,4 +1,7 @@
 <?php
+include "lib/db.php";
+include "config.php";
+include "getpath.php";
 include "setvariable.php";
 ?>
 <div id="escDivTable" class="subText">RESTAURANT NAME</div>
