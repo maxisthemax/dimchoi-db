@@ -4,6 +4,7 @@
 include "lib/db.php";
 include "config.php";
 include "getpath.php";
+include "setvariable.php";
 header('Access-Control-Allow-Origin: *');
 //======================================================================
 $func =  $_POST['func']; //get func from post

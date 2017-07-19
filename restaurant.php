@@ -38,7 +38,7 @@ include "setvariable.php";
 <script>
 $(document).ready(function() 
 {
-    $.getJSON('result.php',function(data)
+    $.getJSON('data/res.php',function(data)
     {
       var combo = $("#Options");
       $.each(data.data,function(i,value)
@@ -92,6 +92,8 @@ $(document).ready(function()
                         tb.append("<tr><td>Res Code:</td><td>"+"<input name = 'rescode' value='"+value.va_res_code+"'>" + "</td></tr>");
                         tb.append("<tr><td>Logo Url:</td><td>"+"<input name = 'reslogo' value='"+value.va_res_logo+"'>" + "</td></tr>");
                         tb.append("<tr><td>Logo Url:</td><td>"+"<img src="+value.va_res_logo+" height='400'>" + "</td></tr>");
+                        tb.append("<tr><td>Feature Ad:</td><td>"+"<input name = 'featuread' value='"+value.va_feature_ad+"'>" + "</td></tr>");
+                        tb.append("<tr><td>Feature Ad:</td><td>"+"<img src="+value.va_feature_ad+" height='400'>" + "</td></tr>");
                         tb.append("<tr><td>Feature:</td><td>"+"<input name = 'resfeature' value='"+value.i_feature+"'>" + "</td></tr>");
                         tb.append("<tr><td>City:</td><td><select id='city' name='city'><option></option></select></td></tr>");
                         tb.append("<tr><td>State:</td><td id = 'state' name='state'></div></td></tr>");

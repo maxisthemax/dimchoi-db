@@ -1,0 +1,1 @@
+{"status":"1","message":"success","data":[{"i_res_id":"8","va_res_name":"testing max 1","va_res_code":"123","i_state_id":"1","i_city_id":"5","i_res_stat":"1","va_res_logo":"123","dt_create":"2017-07-15 23:48:20","i_feature":"99","va_feature_ad":"","va_state_name":"Selangor","va_city_name":"Ampang"}]}
