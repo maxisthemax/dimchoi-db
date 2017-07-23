@@ -6,13 +6,23 @@
     FROM state_city a 
     left join state b on a.i_state_id = b.i_state_id 
     left join city c on c.i_city_id = a.i_city_id 
-    order by c.va_city_name";
+    order by c.i_city_id";
     $res = $dbhandler0->query($sqlcheck);
 
-    if($res)
-    {
-        resultarray($res,'data/place.php');
+    $in = json_encode($res);
+
+    $data = json_decode($in, true);
+    $out = [];
+
+    foreach($data as $element) {
+            $out[$element['va_state_name']][] = ['va_city_name' => $element['va_city_name'], 'i_city_id' => $element['i_city_id']];
     }
+
+    if($out)
+    {
+        resultarray($out,'data/place.php');
+    }
+    
 //==============================================================================================
     global $dbhandler0;
     $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name  
@@ -69,22 +79,8 @@
     {
         resultarray($res,'data/resfeature99.php');
     }
-//==============================================================================================     
-    global $dbhandler0;
-    //===============================================
-    //start query
-    $sqlcheck = "SELECT a.*
-    FROM state a 
-    order by a.va_state_name";
-    //===============================================
-    $res = $dbhandler0->query($sqlcheck);
-
-    if($res)
-    {
-        resultarray($res,'data/allstates.php');
-    }
-//==============================================================================================     
-    function resultarray($res,$filenameurl)
+//==============================================================================================
+function resultarray($res,$filenameurl)
     {
         if (!empty($res))
         {

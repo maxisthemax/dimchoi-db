@@ -206,6 +206,35 @@ function getresbylocation()
     $res = $dbhandler0->query($sqlcheck);
     return ($res);  
 }
+function getresfoodtype() 
+{
+
+    global $dbhandler0;
+
+    //=============================================== 
+    //define variable for query
+    $res_id = !empty($_POST['res_id']) ? $_POST['res_id'] : '';
+    //===============================================
+
+    //===============================================
+    //start query
+    $sqlcheck = "SELECT DISTINCT c.va_food_type_name
+    FROM menu a 
+    LEFT JOIN food b ON b.i_menu_id = a.i_menu_id
+    LEFT JOIN food_type c on b.i_food_type_id = c.i_food_type_id
+    WHERE b.i_menu_id = a.i_menu_id";
+    if (!empty($_POST)) //if all string url variable is 0 or null
+    {
+         if (!empty($res_id) or $res_id != 0)
+        {
+            $sqlcheck .= " and a.i_res_id = $res_id";    
+        }           
+    }   
+    //===================================================
+
+    $res = $dbhandler0->query($sqlcheck);
+    return ($res);  
+}
 function getresfoodmenu() 
 {
 
@@ -213,7 +242,7 @@ function getresfoodmenu()
 
     //=============================================== 
     //define variable for query
-    $res_id1 = !empty($_POST['res_id1']) ? $_POST['res_id1'] : '';
+    $res_id = !empty($_POST['res_id']) ? $_POST['res_id'] : '';
     //===============================================
 
     //===============================================
@@ -224,9 +253,9 @@ function getresfoodmenu()
     WHERE b.i_menu_id = a.i_menu_id";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
-         if (!empty($res_id1) or $res_id1 != 0)
+         if (!empty($res_id) or $res_id != 0)
         {
-            $sqlcheck .= " and a.i_res_id = $res_id1";    
+            $sqlcheck .= " and a.i_res_id = $res_id";    
         }           
     }   
     //===================================================
@@ -241,7 +270,7 @@ function getresbeveragemenu()
 
     //=============================================== 
     //define variable for query
-    $res_id2 = !empty($_POST['res_id2']) ? $_POST['res_id2'] : '';
+    $res_id = !empty($_POST['res_id']) ? $_POST['res_id'] : '';
     //===============================================
 
     //===============================================
@@ -252,9 +281,9 @@ function getresbeveragemenu()
     WHERE b.i_menu_id = a.i_menu_id";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
-         if (!empty($res_id2) or $res_id2 != 0)
+         if (!empty($res_id) or $res_id != 0)
         {
-            $sqlcheck .= " and a.i_res_id = $res_id2";    
+            $sqlcheck .= " and a.i_res_id = $res_id";    
         }           
     }   
     //===================================================

@@ -136,29 +136,19 @@ global $dbhandler0;
   <td colspan=2><input type="submit" name="func" value="getresbylocation"></td>
   </table>
 <br><br> 
+
 <form action="index.php" method="post" target="_blank">
-  <table>
-  <tr>
-    <td><h2>getresfoodmenu</h2></td>
-  </tr>   
-    <td>Restaurant</td><td><select id="res_id1" name="res_id1"></select></td>
-  </tr>    
+  <table>  
+    <td>Restaurant</td><td><select id="res_id" name="res_id"></select></td>
+  </tr> 
+   </tr>   
+    <td>Func</td><td><select name="func"><option>getresfoodtype</option><option>getresfoodmenu</option><option>getresbeveragemenu</option></select></td>
+  </tr>        
   <tr>    
-  <td colspan=2><input type="submit" name="func" value="getresfoodmenu"></td>
+  <td colspan=2><input type="submit"></td>
   </table>  
 </form>
 <br><br> 
-<form action="index.php" method="post" target="_blank">
-  <table>
-  <tr>
-    <td><h2>getresbeveragemenu</h2></td>
-  </tr>   
-    <td>Restaurant</td><td><select id="res_id2" name="res_id2"></select></td>
-  </tr>    
-  <tr>    
-  <td colspan=2><input type="submit" name="func" value="getresbeveragemenu"></td>
-  </table>  
-</form>
 </body>
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -182,22 +172,16 @@ $(document).ready(function()
       }              
     });  
 
-var res_id1 = $('#res_id1');
-var res_id2 = $('#res_id2');
+var res_id = $('#res_id');
 var res_code = $('#res_code');
-res_id1.empty();
-res_id1.append("<option></option>");  
-res_id2.empty();
-res_id2.append("<option></option>"); 
+res_id.empty();
+res_id.append("<option></option>"); 
 
 $.getJSON('data/res.php',function(data)
   {
   $.each(data.data, function(i, restaurant)
     {
-      res_id1.append($("<option></option>")
-      .attr("value",restaurant.i_res_id)
-      .text(restaurant.va_res_name+' - '+restaurant.va_res_code));
-      res_id2.append($("<option></option>")
+      res_id.append($("<option></option>")
       .attr("value",restaurant.i_res_id)
       .text(restaurant.va_res_name+' - '+restaurant.va_res_code));
     });

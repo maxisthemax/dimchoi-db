@@ -1,1 +1,0 @@
-{"status":"1","message":"success","data":[{"i_state_id":"2","va_state_name":"Kuala Lumpur"},{"i_state_id":"1","va_state_name":"Selangor"}]}
