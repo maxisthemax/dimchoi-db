@@ -70,7 +70,20 @@
         resultarray($res,'data/resfeature99.php');
     }
 //==============================================================================================     
+    global $dbhandler0;
+    //===============================================
+    //start query
+    $sqlcheck = "SELECT a.*
+    FROM state a 
+    order by a.va_state_name";
+    //===============================================
+    $res = $dbhandler0->query($sqlcheck);
 
+    if($res)
+    {
+        resultarray($res,'data/allstates.php');
+    }
+//==============================================================================================     
     function resultarray($res,$filenameurl)
     {
         if (!empty($res))
