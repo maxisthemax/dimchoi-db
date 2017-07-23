@@ -70,7 +70,7 @@ function getres()
     	}
         if (!empty($ressearch) or $ressearch != 0)
         {
-            $sqlcheck .= " and (a.va_res_name like '%".$ressearch."%' OR c.i_city_name like '%".$ressearch."%')";  
+            $sqlcheck .= " and (a.va_res_name like '%".$ressearch."%' OR c.va_city_name like '%".$ressearch."%')";  
         }     
         if (!empty($feature) or $feature != 0)
         {
@@ -127,7 +127,7 @@ function getresbyfeature()
         }
         if (!empty($ressearch) or $ressearch != 0)
         {
-            $sqlcheck .= " and (a.va_res_name like '%".$ressearch."%' OR c.i_city_name like '%".$ressearch."%')";  
+            $sqlcheck .= " and (a.va_res_name like '%".$ressearch."%' OR c.va_city_name like '%".$ressearch."%')";  
         }     
         if (!empty($feature) or $feature != 0)
         {
@@ -184,7 +184,7 @@ function getresbylocation()
         }
         if (!empty($ressearch) or $ressearch != 0)
         {
-            $sqlcheck .= " and (a.va_res_name like '%".$ressearch."%' OR c.i_city_name like '%".$ressearch."%')";  
+            $sqlcheck .= " and (a.va_res_name like '%".$ressearch."%' OR c.va_city_name like '%".$ressearch."%')";  
         }     
         if (!empty($feature) or $feature != 0)
         {
