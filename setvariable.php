@@ -16,7 +16,7 @@
     $out2 = [];
 
     foreach($data as $element) {
-            $out1[$element['va_state_name']] = ['i_state_id' => $element['i_state_id']];
+            $out1[$element['va_state_name']] = $element['i_state_id'];
             $out2[$element['va_state_name']][] = ['va_city_name' => $element['va_city_name'], 'i_city_id' => $element['i_city_id']];  
     }
 
