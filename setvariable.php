@@ -12,17 +12,23 @@
     $in = json_encode($res);
 
     $data = json_decode($in, true);
-    $out = [];
+    $out1 = [];
+    $out2 = [];
 
     foreach($data as $element) {
-            $out[$element['va_state_name']][] = ['va_city_name' => $element['va_city_name'], 'i_city_id' => $element['i_city_id']];
+            $out1[$element['va_state_name']] = ['i_state_id' => $element['i_state_id']];
+            $out2[$element['va_state_name']][] = ['va_city_name' => $element['va_city_name'], 'i_city_id' => $element['i_city_id']];  
     }
 
-    if($out)
+    $finalresult = array (
+                'StateID' => $out1,
+                'TotalState' => $out2
+            );
+     
+    if($finalresult)
     {
-        resultarray($out,'data/place.php');
-    }
-    
+        resultarray($finalresult,'data/place.php');
+    }         
 //==============================================================================================
     global $dbhandler0;
     $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name  
