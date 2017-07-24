@@ -250,6 +250,7 @@ function getresfoodmenu()
     $sqlcheck = "SELECT *
     FROM menu a 
     LEFT JOIN food b ON b.i_menu_id = a.i_menu_id
+    LEFT JOIN food_type c on b.i_food_type_id = b.i_food_type_id
     WHERE b.i_menu_id = a.i_menu_id";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
@@ -261,7 +262,24 @@ function getresfoodmenu()
     //===================================================
 
     $res = $dbhandler0->query($sqlcheck);
-    return ($res);  
+
+    $in = json_encode($res);
+
+    $data = json_decode($in, true);
+    $out1 = [];
+    $out2 = [];
+
+    foreach($data as $element) {
+            $out1[$element['va_food_type_name']] = $element['i_food_type_id'];
+            $out2[$element['va_food_type_name']][] = $element;
+    }
+
+    $finalresult = array (
+                'TotalType' => $out1,
+                'TotalFood' => $out2
+            );
+
+    return ($finalresult);  
 }
 function getresbeveragemenu() 
 {
