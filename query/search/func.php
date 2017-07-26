@@ -266,17 +266,21 @@ function getresfoodmenu()
     $in = json_encode($res);
 
     $data = json_decode($in, true);
-    $out1 = [];
-    $out2 = [];
+    $food_menu_type_id = [];
+    $food_menu = [];
 
     foreach($data as $element) {
-            $out1[$element['va_food_type_name']] = $element['i_food_type_id'];
-            $out2[$element['va_food_type_name']][] = $element;
+            $food_menu_type_id[$element['va_food_type_name']] = $element['i_food_type_id'];
+            $food_menu[$element['va_food_type_name']][] = ['i_food_id' => $element['i_food_id'],'va_food_name' => $element['va_food_name']
+            ,'va_food_size' => $element['va_food_size'],'d_food_price' => $element['d_food_price']];
     }
 
     $finalresult = array (
-                'TotalType' => $out1,
-                'TotalFood' => $out2
+                'i_menu_id' => $element['i_menu_id'], 
+                'i_res_id' => $element['i_res_id'],
+                'va_menu_code' => $element['va_menu_code'], 
+                'food_menu_type_id' => $food_menu_type_id, 
+                'food_menu' => $food_menu
             );
 
     return ($finalresult);  
