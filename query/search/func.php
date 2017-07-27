@@ -250,7 +250,7 @@ function getresfoodmenu()
     $sqlcheck = "SELECT *
     FROM menu a 
     LEFT JOIN food b ON b.i_menu_id = a.i_menu_id
-    LEFT JOIN food_type c on b.i_food_type_id = b.i_food_type_id
+    LEFT JOIN food_type c on b.i_food_type_id = c.i_food_type_id
     WHERE b.i_menu_id = a.i_menu_id";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
@@ -262,18 +262,52 @@ function getresfoodmenu()
     //===================================================
 
     $res = $dbhandler0->query($sqlcheck);
-
     $in = json_encode($res);
-
     $data = json_decode($in, true);
-    $food_menu_type_id = [];
-    $food_menu = [];
 
+    //===============================================
+    //start query
+    $sqlcheck1 = "SELECT c.i_food_id AS i_food_id,c.va_food_size AS va_food_size, c.d_food_price AS d_food_price
+    FROM menu a 
+    LEFT JOIN food b ON b.i_menu_id = a.i_menu_id
+    LEFT JOIN food_price c ON c.i_food_id = b.i_food_id
+
+    WHERE b.i_menu_id = a.i_menu_id";
+    if (!empty($_POST)) //if all string url variable is 0 or null
+    {
+         if (!empty($res_id) or $res_id != 0)
+        {
+            $sqlcheck1 .= " and a.i_res_id = $res_id";    
+        }           
+    }   
+    //===================================================
+
+    $res1 = $dbhandler0->query($sqlcheck1);
+    $in1 = json_encode($res1);
+    $data1 = json_decode($in1, true);
+
+
+    $food_menu_type_id = array();
+    $food_menu = array();
+    $food_price = array();
     foreach($data as $element) {
             $food_menu_type_id[$element['va_food_type_name']] = $element['i_food_type_id'];
-            $food_menu[$element['va_food_type_name']][] = ['i_food_id' => $element['i_food_id'],'va_food_name' => $element['va_food_name']
-            ,'va_food_size' => $element['va_food_size'],'d_food_price' => $element['d_food_price']];
+            $food_menu[$element['va_food_type_name']][$element['i_food_id']] = ['i_food_id' => $element['i_food_id'],'va_food_name' => $element['va_food_name']];
+
+       foreach($data1 as $price) {
+            if ($element['i_food_id']==$price['i_food_id'])
+            {   
+            $food_price[$price['i_food_id']]= ['va_food_size' => $price['va_food_size'],'d_food_price' => $price['d_food_price']];    
+            array_push($food_menu[$element['va_food_type_name']][$element['i_food_id']],$food_price[$price['i_food_id']]);
+            }  
+
+       }  
+
     }
+
+  //print_r(array_values($element1));  
+
+
 
     $finalresult = array (
                 'i_menu_id' => $element['i_menu_id'], 
@@ -283,7 +317,7 @@ function getresfoodmenu()
                 'food_menu' => $food_menu
             );
 
-    return ($finalresult);  
+   return ($finalresult);  
 }
 function getresbeveragemenu() 
 {
