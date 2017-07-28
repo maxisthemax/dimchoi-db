@@ -300,7 +300,7 @@ function getresfoodmenu()
             }  
 
         $food_menu_type_id[$element['va_food_type_name']] = $element['i_food_type_id'];
-        $food_menu[$element['va_food_type_name']][$element['i_food_id']] = 
+        $food_menu[$element['va_food_type_name']][] = 
         [
         'i_food_id' => $element['i_food_id'],
         'va_food_name' => $element['va_food_name'],
