@@ -291,23 +291,24 @@ function getresfoodmenu()
     $food_menu = array();
     $food_price = array();
     foreach($data as $element) {
-            $food_menu_type_id[$element['va_food_type_name']] = $element['i_food_type_id'];
-            $food_menu[$element['va_food_type_name']][$element['i_food_id']] = ['i_food_id' => $element['i_food_id'],'va_food_name' => $element['va_food_name']];
-
-       foreach($data1 as $price) {
-            if ($element['i_food_id']==$price['i_food_id'])
-            {   
-            $food_price[$price['i_food_id']]= ['va_food_size' => $price['va_food_size'],'d_food_price' => $price['d_food_price']];    
-            array_push($food_menu[$element['va_food_type_name']][$element['i_food_id']],$food_price[$price['i_food_id']]);
+        foreach($data1 as $price) 
+            {
+                if ($element['i_food_id']==$price['i_food_id'])
+                {   
+                    $food_price[] = ['va_food_size' => $price['va_food_size'],'d_food_price' => $price['d_food_price']];            
+                }
             }  
 
-       }  
-
+        $food_menu_type_id[$element['va_food_type_name']] = $element['i_food_type_id'];
+        $food_menu[$element['va_food_type_name']][$element['i_food_id']] = 
+        [
+        'i_food_id' => $element['i_food_id'],
+        'va_food_name' => $element['va_food_name'],
+        'food_price' => $food_price
+        ];
+        unset($food_price); 
+        $food_price = array();
     }
-
-  //print_r(array_values($element1));  
-
-
 
     $finalresult = array (
                 'i_menu_id' => $element['i_menu_id'], 
