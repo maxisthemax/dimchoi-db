@@ -1,9 +1,5 @@
 <!DOCTYPE html>
 <?php
-include "system/function.php";
-include "lib/db.php";
-include "config.php";
-include "getpath.php";
 global $dbhandler0;
     $dev = isset($_POST['dev']) ? $_POST['dev'] : '';
     if (!empty($dev) or $dev != 0)
