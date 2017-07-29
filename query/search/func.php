@@ -304,6 +304,7 @@ function getresfoodmenu()
         [
         'i_food_id' => $element['i_food_id'],
         'va_food_name' => $element['va_food_name'],
+        'va_food_pic_url' => $element['va_food_pic_url'],
         'food_price' => $food_price
         ];
         unset($food_price); 
