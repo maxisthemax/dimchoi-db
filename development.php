@@ -44,7 +44,7 @@ if($_SESSION['password']=="123qweasdzxc")
  <form method="post" action="" id="logout_form">
   <input type="submit" name="page_logout" value="LOGOUT">
  </form>
- <form action="" method="post" id='test_form'>
+ <form action="development.php" method="post" id='test_form'>
     <h1>DIMCHOI TEST PAGE</h1>
     <input type="submit" name="page" value="Main Test" />
     <input type="submit" name="page" value="Restaurant" />
@@ -72,7 +72,22 @@ else
 <?php
 if (!empty($_POST['page']))
 {
-    switch($_POST["page"]){
+  if ($_POST['page'] == 'Food')
+    {
+      $_SESSION['page'] = 'Food';
+    }
+  else if ($_POST['page'] == 'Main Test')
+    {
+      $_SESSION['page'] = 'Main Test';
+    }
+  else if ($_POST['page'] == 'Restaurant')
+    {
+      $_SESSION['page'] = 'Restaurant';
+    }
+}
+if (!empty($_SESSION['page']))
+{
+    switch($_SESSION['page']){
         case "Main Test":
             include "development/test.php";
             break;

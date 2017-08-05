@@ -33,4 +33,41 @@ function updateres()
     return;
 //=======================================================
 }
+
+function updatefood() 
+{
+    global $dbhandler0;
+    $foodid=$_POST['food_id'];
+    $priceid=$_POST['price_id'];
+
+    $foodname=$_POST['food_name'][$foodid][$priceid];
+    $foodsize=$_POST['food_size'][$priceid];   
+    $foodprize=$_POST['food_price'][$priceid];        
+
+//=============================================== 
+//define variable for query
+ 
+
+//===============================================  
+
+ $sqlcheck = 
+    "UPDATE food 
+    SET va_food_name = '$foodname'
+    where i_food_id = $foodid";
+    $res = $dbhandler0->update($sqlcheck);
+ $sqlcheck1 = 
+    "UPDATE food_price 
+    SET va_food_size = '$foodsize',d_food_price = $foodprize
+    where i_price_id = $priceid";
+    $res1 = $dbhandler0->update($sqlcheck1);
+
+    if ($res && $res1){
+        header('Location:'.$_POST['uri']);
+    }
+
+
+
+
+//=======================================================
+}
 ?>

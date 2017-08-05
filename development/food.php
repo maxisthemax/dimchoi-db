@@ -1,117 +1,46 @@
-
-<div id="escDivTable" class="subText">RESTAURANT NAME</div>
 <br><br>
+<?php
+global $dbhandler0;
+    $sqlcheck = "SELECT *
+    FROM food a LEFT JOIN menu b on a.i_menu_id = b.i_menu_id
+    LEFT JOIN restaurant c on c.i_res_id = b.i_res_id
+    LEFT JOIN food_price e on a.i_food_id = e.i_food_id";
+    $res = $dbhandler0->query($sqlcheck);
 
-<form action="index.php" method="post" target="_blank">
+echo'<form action="index.php" method="post" target="_blank"><table id="tab" border=1 style="font-size:100%;">';
+echo "<tr><td>Restaurant Name</td><td><input value='".$res[count($res)-1]['va_res_name']."'></td></tr>";
+echo "<tr><td>Menu Code/Res Code</td><td><input value='".$res[count($res)-1]['va_menu_code']."'></td></tr>";
 
-    <select id="func" name="func">
-        <option></option>
-        <option value=updateres>updateres</option>
-        <option value=insertnewres>insertnewres</option>
-    </select>
-    <input type="submit" name="submitfunc">
-
-    <br><br>
-
-    <div id="updateres" class="toggleable" style="display:none;">
-        <select id="Options">
-            <option></option>
-        </select>
-        <table id="tab" style="font-size:150%;">
-        </table>       
-    </div>
-
-    <div id="insertnewres" class="toggleable" style="display:none;">
-       <table id="tabinsertnewres" style="font-size:150%;">
-            <tr><td>Name :</td><td><input name = "resname_new" value=""></td></tr> 
-            <tr><td>Res Code :</td><td><input name = "rescode_new" value=""></td></tr>
-            <tr><td>Logo Url :</td><td><input name = "reslogo_new" value=""></td></tr>
-            <tr><td>City :</td><td><select id = "city_new" name = "city_new"></select></td></tr>
-        </table>
-    </div>
-
-</form>
+echo "<tr><td>Food ID</td><td>Food Name</td><td>Size</td><td>Price</td></tr>";
+foreach($res as $res) {
+    $food_id=$res["i_food_id"];
+    $price_id=$res["i_price_id"];
+    $uri = $_SERVER['REQUEST_URI']; // holds url for last page visited.
+    echo "<tr>";
+    echo "<td>".$res["i_food_id"]."</td>";    
+    echo "<td><input name='food_name[$food_id][$price_id]' size=50 value='".$res["va_food_name"]."'></td>";
+    echo "<td><input name='food_size[$price_id]' value='".$res["va_food_size"]."'></td>";    
+    echo "<td><input name='food_price[$price_id]' value='".$res["d_food_price"]."'></td>";
+    echo "<td><button onclick='setformvalue($food_id,$price_id);''>Update Current Row</button></td>";  
+    echo "</tr>";
+}
+echo '</table>';
+    echo "<input type=hidden name='func' value='updatefood'>";
+    echo "<input type=hidden name='food_id' id='food_id'>";  
+    echo "<input type=hidden name='price_id' id='price_id'>";      
+    echo "<input type=hidden name='uri' id='uri' value=".$uri.">"; 
+    if (!empty($_POST["page"])){
+    echo "<input type=hidden name='page' id='page' value=".$_POST["page"].">";  
+}
+echo '</form>';
+?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-$(document).ready(function() 
+function setformvalue(food_id,price_id)
 {
-    $.getJSON('data/res.php',function(data)
-    {
-      var combo = $("#Options");
-      $.each(data.data,function(i,value)
-      {
-        combo.append("<option>" + value.va_res_name + "</option>");
-      });
+$("#food_id").val(food_id);
+$("#price_id").val(price_id);
+}
 
-      $("#SELECTOR").append(combo);
-    });
-
-    $("#func").on('change', function()
-    {                  
-        var inhalt = $('#func option:selected').val();
-        if (inhalt=='updateres')
-        {
-            $('#updateres').show();
-            $('#insertnewres').hide();             
-        }
-        else if (inhalt=='insertnewres')
-        {
-            $('#insertnewres').show();
-            $('#updateres').hide();                       
-            var city_new = $('#city_new');
-            city_new.empty();
-            city_new.append("<option></option>");     
-            $.getJSON('data/place.php',function(data)
-            {
-                $.each(data.data,function(i,location)
-                {  
-                        city_new.append($("<option></option>")
-                        .attr("value",location.va_city_name)
-                        .text(location.va_city_name));                          
-                });                         
-            }); 
-        }      
-    });    
-
-    $("#Options").change(function()
-    {  
-        var name = this.value;
-        var tb = $('#tab');
-        tb.empty();
-        $.getJSON('data/res.php',function(data)
-            {
-            $.each(data.data, function(i, value)
-                {
-                    if (value.va_res_name == name)
-                    {
-                        tb.append("<tr><td>ID:</td><td>" + value.i_res_id + "</td></tr>");
-                        tb.append("<tr><td>Name:</td><td>"+"<input name = 'resname' value='"+value.va_res_name+"'>" + "</td></tr>");
-                        tb.append("<tr><td>Res Code:</td><td>"+"<input name = 'rescode' value='"+value.va_res_code+"'>" + "</td></tr>");
-                        tb.append("<tr><td>Logo Url:</td><td>"+"<input name = 'reslogo' value='"+value.va_res_logo+"'>" + "</td></tr>");
-                        tb.append("<tr><td>Logo Url:</td><td>"+"<img src="+value.va_res_logo+" height='400'>" + "</td></tr>");
-                        tb.append("<tr><td>Feature Ad:</td><td>"+"<input name = 'featuread' value='"+value.va_feature_ad+"'>" + "</td></tr>");
-                        tb.append("<tr><td>Feature Ad:</td><td>"+"<img src="+value.va_feature_ad+" height='400'>" + "</td></tr>");
-                        tb.append("<tr><td>Feature:</td><td>"+"<input name = 'resfeature' value='"+value.i_feature+"'>" + "</td></tr>");
-                        tb.append("<tr><td>City:</td><td><select id='city' name='city'><option></option></select></td></tr>");
-                        tb.append("<tr><td>State:</td><td id = 'state' name='state'></div></td></tr>");
-                        tb.append("<input hidden name = 'resid' value='"+value.i_res_id+"'>");
-                        var city = $('#city');
-                        $.getJSON('data/place.php',function(data)
-                        {
-                            $.each(data.data,function(i,location)
-                            {
-                                    city.append($("<option></option>")
-                                    .attr("value",location.va_city_name)
-                                    .text(location.va_city_name));
-                            });
-                            $("#city").val(value.va_city_name);
-                            $("#state").html(value.va_state_name);
-                        });
-                    }
-                });
-        })            
-    });
-});
 </script>
-
