@@ -21,6 +21,7 @@ function getresmenufood($resid)
 {
     $uri = $_SERVER['REQUEST_URI']; // holds url for last page visited.s
 global $dbhandler0;
+    
     $sqlcheck = "SELECT *,a.i_food_id AS foodid
     FROM food a LEFT JOIN menu b on a.i_menu_id = b.i_menu_id
     LEFT JOIN restaurant c on c.i_res_id = b.i_res_id
@@ -28,12 +29,18 @@ global $dbhandler0;
     LEFT JOIN food_type f on f.i_food_type_id = a.i_food_type_id
     WHERE c.i_res_id = $resid";
     $res = $dbhandler0->query($sqlcheck);
-if ($res != ''){
+
+    $sqlcheck1 = "SELECT *
+    FROM menu b
+    LEFT JOIN restaurant c on c.i_res_id = b.i_res_id
+    WHERE c.i_res_id = $resid";
+    $res1 = $dbhandler0->query($sqlcheck1);
 echo'<form action="index.php" method="post"><table id="tab" border=1 style="font-size:100%;">';
-echo "<tr><td>Restaurant Name</td><td id=resname>".$res[count($res)-1]['va_res_name']."</td></tr>";
-echo "<tr><td>Res Code</td><td>".$res[count($res)-1]['va_res_code']."</td></tr>";
-echo "<tr><td>Menu Code</td><td id=menucode>".$res[count($res)-1]['va_menu_code']."</td></tr>";
+echo "<tr><td>Restaurant Name</td><td id=resname>".$res1[count($res1)-1]['va_res_name']."</td></tr>";
+echo "<tr><td>Res Code</td><td>".$res1[count($res1)-1]['va_res_code']."</td></tr>";
+echo "<tr><td>Menu Code</td><td id=menucode>".$res1[count($res1)-1]['va_menu_code']."</td></tr>";
 echo "<tr><td>Food ID</td><td>Food Name</td><td>Food Type</td><td>Size</td><td>Price</td></tr>";
+if ($res != ''){
     foreach($res as $res) {
         $food_id=$res["foodid"];
         $price_id=$res["i_price_id"];

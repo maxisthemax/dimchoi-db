@@ -86,6 +86,17 @@
         resultarray($res,'data/resfeature99.php');
     }
 //==============================================================================================
+    global $dbhandler0;
+    $sqlcheck = "SELECT a.*  
+    FROM food_type a";
+
+    $res = $dbhandler0->query($sqlcheck);
+
+    if($res)
+    {
+        resultarray($res,'data/foodtype.php');
+    }
+//==============================================================================================
 function resultarray($res,$filenameurl)
     {
         if (!empty($res))
