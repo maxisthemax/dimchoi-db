@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php
+<?php 
 include "lib/db.php";
 include "config.php";
 include "getpath.php";
@@ -85,7 +85,7 @@ if (!empty($_POST['page']))
       $_SESSION['page'] = 'Restaurant';
     }
 }
-if (!empty($_SESSION['page']))
+if (!empty($_SESSION['page']) && $_SESSION['password']=="123qweasdzxc")
 {
     switch($_SESSION['page']){
         case "Main Test":

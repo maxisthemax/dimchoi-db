@@ -43,7 +43,7 @@ function updatefood()
     $foodname=$_POST['food_name'][$foodid][$priceid];
     $foodsize=$_POST['food_size'][$priceid];   
     $foodprize=$_POST['food_price'][$priceid];        
-
+    $foodtype=$_POST['food_type'][$priceid]; 
 //=============================================== 
 //define variable for query
  
@@ -52,7 +52,7 @@ function updatefood()
 
  $sqlcheck = 
     "UPDATE food 
-    SET va_food_name = '$foodname'
+    SET va_food_name = '$foodname', i_food_type_id = '$foodtype'
     where i_food_id = $foodid";
     $res = $dbhandler0->update($sqlcheck);
  $sqlcheck1 = 

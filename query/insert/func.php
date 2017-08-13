@@ -13,7 +13,7 @@ usage       = to get restaurant with speicific query string
 */
 include "system/function.php";
 //===================================================
-//get restaurant from query string variable
+//insert new restaurant
 function insertnewres() {
     global $dbhandler0;
     $resname_new = !empty($_POST['resname_new']) ? $_POST['resname_new'] : '';
@@ -56,4 +56,59 @@ function insertnewres() {
             //=================================================== 
         }
 }
+//====================================================================================================== 
+function insertnewfood() {
+    global $dbhandler0;
+    $food_name_new = !empty($_POST['food_name_new']) ? $_POST['food_name_new'] : '';
+    $resid_insert = !empty($_POST['resid_insert']) ? $_POST['resid_insert'] : '';
+    $resname_insert = !empty($_POST['resname_insert']) ? $_POST['resname_insert'] : '';
+    $menucode_insert = !empty($_POST['menucode_insert']) ? $_POST['menucode_insert'] : '';
+    $food_type_new = !empty($_POST['food_type_new']) ? $_POST['food_type_new'] : '';
+    $food_size_new = !empty($_POST['food_size_new']) ? $_POST['food_size_new'] : '';
+    $food_price_new = !empty($_POST['food_price_new']) ? $_POST['food_price_new'] : '';        
+    $sqlcheck = 
+        "SELECT a.*
+        FROM menu a
+        LEFT JOIN food c on a.i_menu_id = c.i_menu_id
+        LEFT JOIN restaurant b on b.va_res_code = a.va_menu_code
+        WHERE b.va_res_name = '$resname_insert' AND b.i_res_id='$resid_insert' AND a.va_menu_code = '$menucode_insert' AND c.va_food_name = '$food_name_new'";
+
+        $res = $dbhandler0->query($sqlcheck);
+    if (empty($res))
+        {
+            //start insert  
+                $sqlcheck = 
+                "INSERT INTO food (
+                i_menu_id,    
+                va_food_name,
+                i_food_type_id, 
+                va_food_pic_url)
+                VALUES (
+                (SELECT a.i_menu_id FROM menu a where a.va_menu_code = '$menucode_insert' LIMIT 1),
+                '$food_name_new',
+                '$food_type_new','')";
+
+                $res = $dbhandler0->insert($sqlcheck);
+                $last_id = $res;
+
+                $sqlcheck2 = 
+                "INSERT INTO food_price (
+                i_food_id,    
+                i_menu_id,
+                va_food_size, 
+                d_food_price)
+                VALUES (
+                '$last_id',
+                (SELECT a.i_menu_id FROM menu a where a.va_menu_code = '$menucode_insert' LIMIT 1),
+                '$food_size_new',
+                '$food_price_new')";
+
+                 $res1 = $dbhandler0->insert($sqlcheck2);
+            //=================================================== 
+        }
+    if ($res && $res1){
+        header('Location:'.$_POST['uri']);
+    }        
+}
+//======================================================================================================
 ?>

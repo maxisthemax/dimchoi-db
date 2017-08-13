@@ -19,7 +19,7 @@ global $dbhandler0;
 <html>
 <body>
   <h1>DATASOURCE SWITCHING</h1>
-  <form action="test.php" method='post'>
+  <form action="development.php" method='post'>
   <input type="radio" name="dev" id="dev_1" value='{"dev":"1"}'> PROD test  
   <input type="radio" name="dev" id="dev_2" value='{"dev":"2"}'> PROD index (LIVE VERSION)  
   <input type="radio" name="dev" id="dev_3" value='{"dev":"3"}'> LOCAL test

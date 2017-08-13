@@ -46,8 +46,9 @@ class database
     function insert($sql) 
     {   mysqli_autocommit($this->connection, FALSE);
             if (mysqli_query($this->connection,$sql) === TRUE) {
-                mysqli_commit($this->connection);  
-                return true;
+                $last_id = mysqli_insert_id($this->connection);
+                mysqli_commit($this->connection); 
+                return $last_id;
             } else {
                 echo mysqli_error($this->connection);
             }

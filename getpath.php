@@ -13,6 +13,7 @@ function get_path($func)
 	    	return array("path" => "query/search/func.php","querytype"=>"search");
 	        break;
 		case "insertnewres":
+		case "insertnewfood":
 	    	return array("path" => "query/insert/func.php","querytype"=>"insert");
 	        break;	
 		case "updateres":

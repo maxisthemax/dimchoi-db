@@ -2,7 +2,7 @@
 <div id="escDivTable" class="subText">RESTAURANT NAME</div>
 <br><br>
 
-<form action="index.php" method="post" target="_blank">
+<form action="index.php" method="post">
 
     <select id="func" name="func">
         <option></option>
@@ -96,15 +96,18 @@ $(document).ready(function()
                         tb.append("<tr><td>City:</td><td><select id='city' name='city'><option></option></select></td></tr>");
                         tb.append("<tr><td>State:</td><td id = 'state' name='state'></div></td></tr>");
                         tb.append("<input hidden name = 'resid' value='"+value.i_res_id+"'>");
-                        var city = $('#city');
+                        var citysel = $('#city');
                         $.getJSON('data/place.php',function(data)
-                        {
-                            $.each(data.data,function(i,location)
-                            {
-                                    city.append($("<option></option>")
-                                    .attr("value",location.va_city_name)
-                                    .text(location.va_city_name));
-                            });
+                        {  
+                                $.each(data.data.TotalState,function(i,city)
+                                {   
+                                    $.each(city,function(j,city)
+                                    { 
+                                        citysel.append($("<option></option>")
+                                        .attr("value",city.va_city_name)
+                                        .text(city.va_city_name));   
+                                    });
+                                });    
                             $("#city").val(value.va_city_name);
                             $("#state").html(value.va_state_name);
                         });
