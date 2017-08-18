@@ -218,7 +218,7 @@ function getresfoodtype()
 
     //===============================================
     //start query
-    $sqlcheck = "SELECT DISTINCT c.va_food_type_name
+    $sqlcheck = "SELECT DISTINCT c.va_food_type_name AS main
     FROM menu a 
     LEFT JOIN food b ON b.i_menu_id = a.i_menu_id
     LEFT JOIN food_type c on b.i_food_type_id = c.i_food_type_id
@@ -239,13 +239,120 @@ function getresfoodmenu()
 {
 
     global $dbhandler0;
-
+    $foodtypearray = array();  
+    $foodarray = array();
+    $food_menu_type_id = array();
+    $food_price = array();
     //=============================================== 
     //define variable for query
     $res_id = !empty($_POST['res_id']) ? $_POST['res_id'] : '';
     //===============================================
 
     //===============================================
+    //start query
+    $sqlfoodtype = "SELECT DISTINCT c.va_food_type_name,c.i_food_type_id as food_type_id
+    FROM menu a 
+    LEFT JOIN food b ON b.i_menu_id = a.i_menu_id
+    LEFT JOIN food_type c on b.i_food_type_id = c.i_food_type_id
+    WHERE b.i_menu_id = a.i_menu_id";
+    if (!empty($_POST)) //if all string url variable is 0 or null
+    {
+         if (!empty($res_id) or $res_id != 0)
+        {
+            $sqlfoodtype .= " and a.i_res_id = $res_id";    
+        }           
+    }   
+    $foodtype = $dbhandler0->query($sqlfoodtype);   
+    //===================================================
+
+    //===============================================
+    //start query
+    $sqlfood = "SELECT a.*, b.*,c.va_food_type_name
+    FROM menu a 
+    LEFT JOIN food b ON b.i_menu_id = a.i_menu_id
+    LEFT JOIN food_type c on b.i_food_type_id = c.i_food_type_id
+    WHERE b.i_menu_id = a.i_menu_id";
+    if (!empty($_POST)) //if all string url variable is 0 or null
+    {
+         if (!empty($res_id) or $res_id != 0)
+        {
+            $sqlfood .= " and a.i_res_id = $res_id";    
+        }           
+    }   
+    $food = $dbhandler0->query($sqlfood);
+    //===================================================    
+    //===============================================
+    //start query
+    $sqlcheck1 = "SELECT c.i_food_id AS i_food_id,c.va_food_size AS va_food_size, c.d_food_price AS d_food_price
+    FROM menu a 
+    LEFT JOIN food b ON b.i_menu_id = a.i_menu_id
+    LEFT JOIN food_price c ON c.i_food_id = b.i_food_id
+
+    WHERE b.i_menu_id = a.i_menu_id";
+    if (!empty($_POST)) //if all string url variable is 0 or null
+    {
+         if (!empty($res_id) or $res_id != 0)
+        {
+            $sqlcheck1 .= " and a.i_res_id = $res_id";    
+        }           
+    }   
+    $foodprice = $dbhandler0->query($sqlcheck1);
+    //===================================================
+    foreach ($foodtype as $key1)
+    {
+        if ($key1['va_food_type_name']=='main')   
+        {
+           foreach ($food as $key2)
+           { 
+                foreach($foodprice as $price) 
+                    {
+                        if ($key2['i_food_id']==$price['i_food_id'])
+                        {   
+                            $food_price[] = ['va_food_size' => $price['va_food_size'],'d_food_price' => $price['d_food_price']];            
+                        }
+                    }              
+                if ($key1['va_food_type_name']==$key2['va_food_type_name'])
+                {   
+                $foodarray[]=[
+                            'i_food_id' => $key2['i_food_id'],
+                            'va_food_name' => $key2['va_food_name'],
+                            'va_food_pic_url' => $key2['va_food_pic_url'],
+                            'food_price' => $food_price
+                            ];
+                }
+           }
+           $foodtypearray[]=array('menu_type'=>$key1['va_food_type_name'],'menu_data'=>$foodarray);   
+        }   
+        else if ($key1['va_food_type_name']=='side dish')  
+        {
+           foreach ($food as $key2)
+           {
+                foreach($foodprice as $price) 
+                    {
+                        if ($key2['i_food_id']==$price['i_food_id'])
+                        {   
+                            $food_price[] = ['va_food_size' => $price['va_food_size'],'d_food_price' => $price['d_food_price']];            
+                        }
+                    }               
+                if ($key1['va_food_type_name']==$key2['va_food_type_name'])
+                {   
+                $foodarray[]=[
+                            'i_food_id' => $key2['i_food_id'],
+                            'va_food_name' => $key2['va_food_name'],
+                            'va_food_pic_url' => $key2['va_food_pic_url'],
+                            'food_price' => $food_price
+                            ];
+                }
+           }
+           $foodtypearray[]=array('menu_type'=>$key1['va_food_type_name'],'menu_data'=>$foodarray);        
+        }   
+    $food_menu_type_id[$key1['va_food_type_name']] = $key1['food_type_id'];  
+    }
+
+    $in = json_encode($foodtypearray);
+    $result = json_decode($in, true);
+    //===============================================
+   /* 
     //start query
     $sqlcheck = "SELECT *
     FROM menu a 
@@ -287,7 +394,7 @@ function getresfoodmenu()
     $data1 = json_decode($in1, true);
 
 
-    $food_menu_type_id = array();
+   /* $food_menu_type_id = array();
     $food_menu = array();
     $food_price = array();
     foreach($data as $element) {
@@ -309,14 +416,14 @@ function getresfoodmenu()
         ];
         unset($food_price); 
         $food_price = array();
-    }
+    }*/
 
     $finalresult = array (
-                'i_menu_id' => $element['i_menu_id'], 
-                'i_res_id' => $element['i_res_id'],
-                'va_menu_code' => $element['va_menu_code'], 
-                'food_menu_type_id' => $food_menu_type_id, 
-                'food_menu' => $food_menu
+                'i_menu_id' => $key2['i_menu_id'], 
+                'i_res_id' => $key2['i_res_id'],
+                'va_menu_code' => $key2['va_menu_code'], 
+                'food_menu_type_id' => $food_menu_type_id,                 
+                'food_menu' => $result
             );
 
    return ($finalresult);  
