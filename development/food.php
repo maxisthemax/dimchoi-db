@@ -27,7 +27,8 @@ global $dbhandler0;
     LEFT JOIN restaurant c on c.i_res_id = b.i_res_id
     LEFT JOIN food_price e on a.i_food_id = e.i_food_id
     LEFT JOIN food_type f on f.i_food_type_id = a.i_food_type_id
-    WHERE c.i_res_id = $resid";
+    WHERE c.i_res_id = $resid
+    ORDER BY a.i_food_id ASC";
     $res = $dbhandler0->query($sqlcheck);
 
     $sqlcheck1 = "SELECT *

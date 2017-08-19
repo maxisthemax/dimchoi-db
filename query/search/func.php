@@ -283,7 +283,7 @@ function getresfoodmenu()
     //===================================================    
     //===============================================
     //start query
-    $sqlcheck1 = "SELECT c.i_food_id AS i_food_id,c.va_food_size AS va_food_size, c.d_food_price AS d_food_price
+    $sqlfoodprice = "SELECT c.i_food_id AS i_food_id,c.va_food_size AS va_food_size, c.d_food_price AS d_food_price
     FROM menu a 
     LEFT JOIN food b ON b.i_menu_id = a.i_menu_id
     LEFT JOIN food_price c ON c.i_food_id = b.i_food_id
@@ -293,26 +293,24 @@ function getresfoodmenu()
     {
          if (!empty($res_id) or $res_id != 0)
         {
-            $sqlcheck1 .= " and a.i_res_id = $res_id";    
+            $sqlfoodprice .= " and a.i_res_id = $res_id";    
         }           
     }   
-    $foodprice = $dbhandler0->query($sqlcheck1);
+    $foodprice = $dbhandler0->query($sqlfoodprice);
     //===================================================
     foreach ($foodtype as $key1)
     {
-        if ($key1['va_food_type_name']=='main')   
-        {
            foreach ($food as $key2)
-           { 
+            {             
+                if ($key1['va_food_type_name']==$key2['va_food_type_name'])
+                {   
                 foreach($foodprice as $price) 
                     {
                         if ($key2['i_food_id']==$price['i_food_id'])
                         {   
                             $food_price[] = ['va_food_size' => $price['va_food_size'],'d_food_price' => $price['d_food_price']];            
                         }
-                    }              
-                if ($key1['va_food_type_name']==$key2['va_food_type_name'])
-                {   
+                    }                      
                 $foodarray[]=[
                             'i_food_id' => $key2['i_food_id'],
                             'va_food_name' => $key2['va_food_name'],
@@ -320,103 +318,18 @@ function getresfoodmenu()
                             'food_price' => $food_price
                             ];
                 }
-           }
-           $foodtypearray[]=array('menu_type'=>$key1['va_food_type_name'],'menu_data'=>$foodarray);   
-        }   
-        else if ($key1['va_food_type_name']=='side dish')  
-        {
-           foreach ($food as $key2)
-           {
-                foreach($foodprice as $price) 
-                    {
-                        if ($key2['i_food_id']==$price['i_food_id'])
-                        {   
-                            $food_price[] = ['va_food_size' => $price['va_food_size'],'d_food_price' => $price['d_food_price']];            
-                        }
-                    }               
-                if ($key1['va_food_type_name']==$key2['va_food_type_name'])
-                {   
-                $foodarray[]=[
-                            'i_food_id' => $key2['i_food_id'],
-                            'va_food_name' => $key2['va_food_name'],
-                            'va_food_pic_url' => $key2['va_food_pic_url'],
-                            'food_price' => $food_price
-                            ];
-                }
-           }
-           $foodtypearray[]=array('menu_type'=>$key1['va_food_type_name'],'menu_data'=>$foodarray);        
-        }   
+                unset($food_price); 
+                $food_price = array();                
+            }
+            $foodtypearray[]=array('menu_type'=>$key1['va_food_type_name'],'menu_data'=>$foodarray); 
+            unset($foodarray); 
+            $foodarray = array();            
+      
     $food_menu_type_id[$key1['va_food_type_name']] = $key1['food_type_id'];  
     }
 
     $in = json_encode($foodtypearray);
     $result = json_decode($in, true);
-    //===============================================
-   /* 
-    //start query
-    $sqlcheck = "SELECT *
-    FROM menu a 
-    LEFT JOIN food b ON b.i_menu_id = a.i_menu_id
-    LEFT JOIN food_type c on b.i_food_type_id = c.i_food_type_id
-    WHERE b.i_menu_id = a.i_menu_id";
-    if (!empty($_POST)) //if all string url variable is 0 or null
-    {
-         if (!empty($res_id) or $res_id != 0)
-        {
-            $sqlcheck .= " and a.i_res_id = $res_id";    
-        }           
-    }   
-    //===================================================
-
-    $res = $dbhandler0->query($sqlcheck);
-    $in = json_encode($res);
-    $data = json_decode($in, true);
-
-    //===============================================
-    //start query
-    $sqlcheck1 = "SELECT c.i_food_id AS i_food_id,c.va_food_size AS va_food_size, c.d_food_price AS d_food_price
-    FROM menu a 
-    LEFT JOIN food b ON b.i_menu_id = a.i_menu_id
-    LEFT JOIN food_price c ON c.i_food_id = b.i_food_id
-
-    WHERE b.i_menu_id = a.i_menu_id";
-    if (!empty($_POST)) //if all string url variable is 0 or null
-    {
-         if (!empty($res_id) or $res_id != 0)
-        {
-            $sqlcheck1 .= " and a.i_res_id = $res_id";    
-        }           
-    }   
-    //===================================================
-
-    $res1 = $dbhandler0->query($sqlcheck1);
-    $in1 = json_encode($res1);
-    $data1 = json_decode($in1, true);
-
-
-   /* $food_menu_type_id = array();
-    $food_menu = array();
-    $food_price = array();
-    foreach($data as $element) {
-        foreach($data1 as $price) 
-            {
-                if ($element['i_food_id']==$price['i_food_id'])
-                {   
-                    $food_price[] = ['va_food_size' => $price['va_food_size'],'d_food_price' => $price['d_food_price']];            
-                }
-            }  
-
-        $food_menu_type_id[$element['va_food_type_name']] = $element['i_food_type_id'];
-        $food_menu[$element['va_food_type_name']][] = 
-        [
-        'i_food_id' => $element['i_food_id'],
-        'va_food_name' => $element['va_food_name'],
-        'va_food_pic_url' => $element['va_food_pic_url'],
-        'food_price' => $food_price
-        ];
-        unset($food_price); 
-        $food_price = array();
-    }*/
 
     $finalresult = array (
                 'i_menu_id' => $key2['i_menu_id'], 
