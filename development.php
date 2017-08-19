@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<head>
+<link rel="stylesheet" type="text/css" href="style/table_style.css">
+</head>
 <?php 
 include "lib/db.php";
 include "config.php";

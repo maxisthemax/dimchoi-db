@@ -73,7 +73,7 @@ if ($res != ''){
     }
         echo '<br><br>';
         echo'<form action="index.php" method="post"><table id="addfood" border=1 style="font-size:100%;">';
-        echo "<td><button onclick='setforminsert();''>Insert New Row</button></td>";  
+        echo "<button onclick='setforminsert();''>Insert New Row</button>";  
         echo "<tr><td>Food Name</td><td>Food Type</td></tr>";
         echo "<tr>";
         echo "<td><input name='food_name_new' size=50 value='"."' required></td>";
@@ -81,8 +81,8 @@ if ($res != ''){
         echo "</tr>"; 
         echo "<tr><td>VARIANT</td></tr>";          
         echo "<tr><td>Size</td><td>Price</td></tr>";
-        echo "<td><input name='food_size_new' size=10 value='"."'></td>";
-        echo "<td><input name='food_price_new' size=10 value='"."'></td>";
+        echo "<tr><td><input name='food_size_new[1]' id='food_size_new[]' size=10 value='"."'></td>";
+        echo "<td><input name='food_price_new[1]' id='food_price_new[]' size=10 value='"."'></td></tr>";
         echo "<input type=hidden name='func' value='insertnewfood'>";    
         echo "<input type=hidden id='resid_insert' name='resid_insert'>";
         echo "<input type=hidden id='resname_insert' name='resname_insert'>";
@@ -90,12 +90,16 @@ if ($res != ''){
         echo '</table>';    
         echo "<input type=hidden name='uri' id='uri' value=".$uri.">"; 
         echo '</form>';
+        echo '<button onclick=addnewvariant();>Add New Variant</button>';
 }
 ?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-
+function addnewvariant()
+{
+$('#addfood tr:last').after('<tr><td><input name=food_size_new[] id=food_size_new[] size=10 value=></td><td><input name=food_price_new[] id=food_price_new[] size=10></td></tr>');
+}
 function setformupdate(food_id,price_id)
 {   
 $("#food_id").val(food_id);
@@ -139,6 +143,16 @@ $(document).ready(function()
 
        $('#Options').change(function(){
              $("#getfoodform").submit();
-    })   
+    }) 
+
+    $("#food_price_new").keypress(function (e) {
+     //if the letter is not digit then display error and don't type anything
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        if (e.which != 46)
+        { 
+               return false;
+        }
+    }
+   });  
 });   
 </script>

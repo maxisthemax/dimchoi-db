@@ -63,9 +63,11 @@ function insertnewfood() {
     $resid_insert = !empty($_POST['resid_insert']) ? $_POST['resid_insert'] : '';
     $resname_insert = !empty($_POST['resname_insert']) ? $_POST['resname_insert'] : '';
     $menucode_insert = !empty($_POST['menucode_insert']) ? $_POST['menucode_insert'] : '';
-    $food_type_new = !empty($_POST['food_type_new']) ? $_POST['food_type_new'] : '';
-    $food_size_new = !empty($_POST['food_size_new']) ? $_POST['food_size_new'] : '';
-    $food_price_new = !empty($_POST['food_price_new']) ? $_POST['food_price_new'] : '';        
+    $food_type_new = !empty($_POST['food_type_new']) ? $_POST['food_type_new'] : ''; 
+    $food_size_new = !empty($_POST['food_size_new']) ? $_POST['food_size_new'] : ''; 
+    $food_price_new = !empty($_POST['food_price_new']) ? $_POST['food_price_new'] : ''; 
+    $total_rows = count($_POST['food_size_new']); 
+ 
     $sqlcheck = 
         "SELECT a.*
         FROM menu a
@@ -91,6 +93,11 @@ function insertnewfood() {
                 $res = $dbhandler0->insert($sqlcheck);
                 $last_id = $res;
 
+        for ($i=1; $i<=$total_rows; $i++)
+                {
+                $a=$food_size_new[$i];
+                $b=$food_price_new[$i];   
+
                 $sqlcheck2 = 
                 "INSERT INTO food_price (
                 i_food_id,    
@@ -100,11 +107,12 @@ function insertnewfood() {
                 VALUES (
                 '$last_id',
                 (SELECT a.i_menu_id FROM menu a where a.va_menu_code = '$menucode_insert' LIMIT 1),
-                '$food_size_new',
-                '$food_price_new')";
+                '$a',
+                '$b')";
 
                  $res1 = $dbhandler0->insert($sqlcheck2);
-            //=================================================== 
+            //===================================================
+                }
         }
     if ($res && $res1){
         header('Location:'.$_POST['uri']);
