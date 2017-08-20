@@ -53,6 +53,18 @@ class database
                 echo mysqli_error($this->connection);
             }
     }
+    function delete($sql) 
+    {
+        if (mysqli_query($this->connection,$sql) === TRUE) 
+        {
+            mysqli_commit($this->connection);  
+            return true;
+        } 
+        else 
+        {
+            echo mysqli_error($this->connection);
+        }
+    }   
     function close() 
     {
         mysqli_close($this->connection);

@@ -19,7 +19,10 @@ function get_path($func)
 		case "updateres":
 		case "updatefood":
 	    	return array("path" => "query/update/func.php","querytype"=>"update");
-	        break;		        
+	        break;	
+		case "deletefood":
+	    	return array("path" => "query/delete/func.php","querytype"=>"delete");
+	        break;		        	        
 	}
 }
 ?>

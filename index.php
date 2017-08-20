@@ -42,7 +42,14 @@ else if ($output == true and $querytype == 'update')
 		'status' => '0',
 		'message' => 'success',
 	);
-}		
+}
+else if ($output == true and $querytype == 'delete')
+{
+	$result = array (
+		'status' => '0',
+		'message' => 'success',
+	);
+}			
 else
 {
 	$result = array (

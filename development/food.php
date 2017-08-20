@@ -36,7 +36,7 @@ global $dbhandler0;
     LEFT JOIN restaurant c on c.i_res_id = b.i_res_id
     WHERE c.i_res_id = $resid";
     $res1 = $dbhandler0->query($sqlcheck1);
-echo'<form action="index.php" method="post"><table id="tab" border=1 style="font-size:100%;">';
+echo'<form action="index.php" method="post"><table id="tab" width=100%  border=1 style="font-size:100%;">';
 echo "<tr><td>Restaurant Name</td><td id=resname>".$res1[count($res1)-1]['va_res_name']."</td></tr>";
 echo "<tr><td>Res Code</td><td>".$res1[count($res1)-1]['va_res_code']."</td></tr>";
 echo "<tr><td>Menu Code</td><td id=menucode>".$res1[count($res1)-1]['va_menu_code']."</td></tr>";
@@ -58,11 +58,12 @@ if ($res != ''){
         echo "</select></td>";         
         echo "<td><input name='food_size[$price_id]' value='".$res["va_food_size"]."'></td>";    
         echo "<td><input name='food_price[$price_id]' value='".$res["d_food_price"]."'></td>";
-        echo "<td><button onclick='setformupdate($food_id,$price_id);''>Update Current Row</button></td>";  
+        echo "<td width=20%><button onclick='setformupdate($food_id,$price_id);'>Update Current Row</button></td>";  
+        echo "<td width=20%><button onclick='setformdelete($food_id);'>Delete Current Row</button></td>";  
         echo "</tr>";
     }
     echo '</table>';
-        echo "<input type=hidden name='func' value='updatefood'>";
+        echo "<input type=hidden name='func' id='func' value=''>";
         echo "<input type=hidden name='food_id' id='food_id'>";  
         echo "<input type=hidden name='price_id' id='price_id'>";      
         echo "<input type=hidden name='uri' id='uri' value=".$uri.">"; 
@@ -105,6 +106,12 @@ function setformupdate(food_id,price_id)
 {   
 $("#food_id").val(food_id);
 $("#price_id").val(price_id);
+$("#func").val('updatefood');
+}
+function setformdelete(food_id)
+{   
+$("#food_id").val(food_id);
+$("#func").val('deletefood');
 }
 function setforminsert()
 {
