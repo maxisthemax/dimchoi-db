@@ -239,6 +239,7 @@ function getresfoodmenu()
 {
 
     global $dbhandler0;
+//=============================================================FOOD===================================================================================    
     $foodtypearray = array();  
     $foodarray = array();
     $food_menu_type_id = array();
@@ -329,14 +330,109 @@ function getresfoodmenu()
     }
 
     $in = json_encode($foodtypearray);
-    $result = json_decode($in, true);
+    $foodresult = json_decode($in, true);
+//=============================================================FOOD===================================================================================
 
+//=============================================================BEVERAGE===============================================================================
+    $bevtypearray = array();  
+    $bevarray = array();
+    $bev_menu_type_id = array();
+    $bev_price = array();
+    //=============================================== 
+    //define variable for query
+    $res_id = !empty($_POST['res_id']) ? $_POST['res_id'] : '';
+    //===============================================
+
+    //===============================================
+    //start query
+    $sqlbevtype = "SELECT DISTINCT c.va_bev_type_name,c.i_bev_type_id as bev_type_id
+    FROM menu a 
+    LEFT JOIN bev b ON b.i_menu_id = a.i_menu_id
+    LEFT JOIN bev_type c on b.i_bev_type_id = c.i_bev_type_id
+    WHERE b.i_menu_id = a.i_menu_id";
+    if (!empty($_POST)) //if all string url variable is 0 or null
+    {
+         if (!empty($res_id) or $res_id != 0)
+        {
+            $sqlbevtype .= " and a.i_res_id = $res_id";    
+        }           
+    }   
+    $bevtype = $dbhandler0->query($sqlbevtype);   
+    //===================================================
+
+    //===============================================
+    //start query
+    $sqlbev = "SELECT a.*, b.*,c.va_bev_type_name
+    FROM menu a 
+    LEFT JOIN bev b ON b.i_menu_id = a.i_menu_id
+    LEFT JOIN bev_type c on b.i_bev_type_id = c.i_bev_type_id
+    WHERE b.i_menu_id = a.i_menu_id";
+    if (!empty($_POST)) //if all string url variable is 0 or null
+    {
+         if (!empty($res_id) or $res_id != 0)
+        {
+            $sqlbev .= " and a.i_res_id = $res_id";    
+        }           
+    }   
+    $bev = $dbhandler0->query($sqlbev);
+    //===================================================    
+    //===============================================
+    //start query
+    $sqlbevprice = "SELECT c.i_bev_id AS i_bev_id,c.va_bev_size AS va_bev_size, c.d_bev_price AS d_bev_price
+    FROM menu a 
+    LEFT JOIN bev b ON b.i_menu_id = a.i_menu_id
+    LEFT JOIN bev_price c ON c.i_bev_id = b.i_bev_id
+
+    WHERE b.i_menu_id = a.i_menu_id";
+    if (!empty($_POST)) //if all string url variable is 0 or null
+    {
+         if (!empty($res_id) or $res_id != 0)
+        {
+            $sqlbevprice .= " and a.i_res_id = $res_id";    
+        }           
+    }   
+    $bevprice = $dbhandler0->query($sqlbevprice);
+    //===================================================
+    foreach ($bevtype as $key1)
+    {
+           foreach ($bev as $key2)
+            {             
+                if ($key1['va_bev_type_name']==$key2['va_bev_type_name'])
+                {   
+                foreach($bevprice as $price) 
+                    {
+                        if ($key2['i_bev_id']==$price['i_bev_id'])
+                        {   
+                            $bev_price[] = ['va_bev_size' => $price['va_bev_size'],'d_bev_price' => $price['d_bev_price']];            
+                        }
+                    }                      
+                $bevarray[]=[
+                            'i_bev_id' => $key2['i_bev_id'],
+                            'va_bev_name' => $key2['va_bev_name'],
+                            'va_bev_pic_url' => $key2['va_bev_pic_url'],
+                            'bev_price' => $bev_price
+                            ];
+                }
+                unset($bev_price); 
+                $bev_price = array();                
+            }
+            $bevtypearray[]=array('menu_type'=>$key1['va_bev_type_name'],'menu_data'=>$bevarray); 
+            unset($bevarray); 
+            $bevarray = array();            
+      
+    $bev_menu_type_id[$key1['va_bev_type_name']] = $key1['bev_type_id'];  
+    }
+
+    $in = json_encode($bevtypearray);
+    $bevresult = json_decode($in, true);
+//=============================================================BEVERAGE===================================================================================
     $finalresult = array (
                 'i_menu_id' => $key2['i_menu_id'], 
                 'i_res_id' => $key2['i_res_id'],
                 'va_menu_code' => $key2['va_menu_code'], 
                 'food_menu_type_id' => $food_menu_type_id,                 
-                'food_menu' => $result
+                'food_menu' => $foodresult,
+                'beverage_menu' => $bevresult
             );
 
    return ($finalresult);  
