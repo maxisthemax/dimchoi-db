@@ -1,0 +1,1 @@
+{"status":"1","message":"success","data":[{"i_bev_type_id":"1","va_bev_type_name":"Drink"},{"i_bev_type_id":"2","va_bev_type_name":"Others"}]}

@@ -1,1 +1,1 @@
-{"status":"1","message":"success","data":[{"i_food_type_id":"1","va_food_type_name":"main"},{"i_food_type_id":"2","va_food_type_name":"side dish"}]}
+{"status":"1","message":"success","data":[{"i_food_type_id":"1","va_food_type_name":"Main"},{"i_food_type_id":"2","va_food_type_name":"Side Dish"}]}

@@ -59,7 +59,9 @@ function insertnewres() {
 //====================================================================================================== 
 function insertnewfood() {
     global $dbhandler0;
+    $inserttypefood = !empty($_POST['inserttypefood']) ? $_POST['inserttypefood'] : '';
     $food_name_new = !empty($_POST['food_name_new']) ? $_POST['food_name_new'] : '';
+    $food_name_update = !empty($_POST['food_name_update']) ? $_POST['food_name_update'] : '';
     $resid_insert = !empty($_POST['resid_insert']) ? $_POST['resid_insert'] : '';
     $resname_insert = !empty($_POST['resname_insert']) ? $_POST['resname_insert'] : '';
     $menucode_insert = !empty($_POST['menucode_insert']) ? $_POST['menucode_insert'] : '';
@@ -67,16 +69,24 @@ function insertnewfood() {
     $food_size_new = !empty($_POST['food_size_new']) ? $_POST['food_size_new'] : ''; 
     $food_price_new = !empty($_POST['food_price_new']) ? $_POST['food_price_new'] : ''; 
     $total_rows = count($_POST['food_size_new']); 
- 
+
     $sqlcheck = 
         "SELECT a.*
         FROM menu a
         LEFT JOIN food c on a.i_menu_id = c.i_menu_id
         LEFT JOIN restaurant b on b.va_res_code = a.va_menu_code
-        WHERE b.va_res_name = '$resname_insert' AND b.i_res_id='$resid_insert' AND a.va_menu_code = '$menucode_insert' AND c.va_food_name = '$food_name_new'";
+        WHERE b.va_res_name = '$resname_insert' AND b.i_res_id='$resid_insert' AND a.va_menu_code = '$menucode_insert'"; 
 
+        if ($inserttypefood == 1)
+        {
+        $sqlcheck .= "AND c.va_food_name = '$food_name_new'";
+        }
+        else if ($inserttypefood == 2)
+        {
+        $sqlcheck .= "AND c.i_food_id = '$food_name_update'";    
+        }
         $res = $dbhandler0->query($sqlcheck);
-    if (empty($res))
+    if (empty($res) AND $inserttypefood == 1)
         {
             //start insert  
                 $sqlcheck = 
@@ -114,9 +124,128 @@ function insertnewfood() {
             //===================================================
                 }
         }
-    if ($res && $res1){
+    else
+    {
+        for ($i=1; $i<=$total_rows; $i++)
+                {
+                $a=$food_size_new[$i];
+                $b=$food_price_new[$i];   
+
+                $sqlcheck2 = 
+                "INSERT INTO food_price (
+                i_food_id,    
+                i_menu_id,
+                va_food_size, 
+                d_food_price)
+                VALUES (
+                '$food_name_update',
+                (SELECT a.i_menu_id FROM menu a where a.va_menu_code = '$menucode_insert' LIMIT 1),
+                '$a',
+                '$b')"; 
+                 $res1 = $dbhandler0->insert($sqlcheck2);
+            //===================================================
+                }        
+    }  
+
+
         header('Location:'.$_POST['uri']);
-    }        
+       
+}
+//====================================================================================================== 
+function insertnewbev() {
+    global $dbhandler0;
+    $inserttypebev = !empty($_POST['inserttypebev']) ? $_POST['inserttypebev'] : '';
+    $bev_name_new = !empty($_POST['bev_name_new']) ? $_POST['bev_name_new'] : '';
+    $bev_name_update = !empty($_POST['bev_name_update']) ? $_POST['bev_name_update'] : '';
+    $resid_insertbev = !empty($_POST['resid_insertbev']) ? $_POST['resid_insertbev'] : '';
+    $resname_insertbev = !empty($_POST['resname_insertbev']) ? $_POST['resname_insertbev'] : '';
+    $menucode_insertbev = !empty($_POST['menucode_insertbev']) ? $_POST['menucode_insertbev'] : '';
+    $bev_type_new = !empty($_POST['bev_type_new']) ? $_POST['bev_type_new'] : ''; 
+    $bev_size_new = !empty($_POST['bev_size_new']) ? $_POST['bev_size_new'] : ''; 
+    $bev_price_new = !empty($_POST['bev_price_new']) ? $_POST['bev_price_new'] : ''; 
+    $total_rows = count($_POST['bev_size_new']); 
+
+    $sqlcheck = 
+        "SELECT a.*
+        FROM menu a
+        LEFT JOIN bev c on a.i_menu_id = c.i_menu_id
+        LEFT JOIN restaurant b on b.va_res_code = a.va_menu_code
+        WHERE b.va_res_name = '$resname_insert1' AND b.i_res_id='$resid_insertbev' AND a.va_menu_code = '$menucode_insertbev'"; 
+
+        if ($inserttypebev == 1)
+        {
+        $sqlcheck .= "AND c.va_bev_name = '$bev_name_new'";
+        }
+        else if ($inserttypebev == 2)
+        {
+        $sqlcheck .= "AND c.i_bev_id = '$bev_name_update'";    
+        }
+        $res = $dbhandler0->query($sqlcheck);
+    if (empty($res) AND $inserttypebev == 1)
+        {
+            //start insert  
+                $sqlcheck = 
+                "INSERT INTO bev (
+                i_menu_id,    
+                va_bev_name,
+                i_bev_type_id, 
+                va_bev_pic_url)
+                VALUES (
+                (SELECT a.i_menu_id FROM menu a where a.va_menu_code = '$menucode_insertbev' LIMIT 1),
+                '$bev_name_new',
+                '$bev_type_new','')";
+
+                $res = $dbhandler0->insert($sqlcheck);
+                $last_id = $res;
+
+        for ($i=1; $i<=$total_rows; $i++)
+                {
+                $a=$bev_size_new[$i];
+                $b=$bev_price_new[$i];   
+
+                $sqlcheck2 = 
+                "INSERT INTO bev_price (
+                i_bev_id,    
+                i_menu_id,
+                va_bev_size, 
+                d_bev_price)
+                VALUES (
+                '$last_id',
+                (SELECT a.i_menu_id FROM menu a where a.va_menu_code = '$menucode_insertbev' LIMIT 1),
+                '$a',
+                '$b')";
+
+
+                 $res1 = $dbhandler0->insert($sqlcheck2);
+            //===================================================
+                }
+        }
+    else
+    {
+        for ($i=1; $i<=$total_rows; $i++)
+                {
+                $a=$bev_size_new[$i];
+                $b=$bev_price_new[$i];   
+
+                $sqlcheck2 = 
+                "INSERT INTO bev_price (
+                i_bev_id,    
+                i_menu_id,
+                va_bev_size, 
+                d_bev_price)
+                VALUES (
+                '$bev_name_update',
+                (SELECT a.i_menu_id FROM menu a where a.va_menu_code = '$menucode_insertbev' LIMIT 1),
+                '$a',
+                '$b')"; 
+                 $res1 = $dbhandler0->insert($sqlcheck2);
+            //===================================================
+                }        
+    }  
+
+
+        header('Location:'.$_POST['uri']);
+       
 }
 //======================================================================================================
 ?>

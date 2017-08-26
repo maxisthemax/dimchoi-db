@@ -38,12 +38,13 @@ function updatefood()
 {
     global $dbhandler0;
     $foodid=$_POST['food_id'];
-    $priceid=$_POST['price_id'];
+    $priceid=$_POST['food_price_id'];
 
     $foodname=$_POST['food_name'][$foodid][$priceid];
     $foodsize=$_POST['food_size'][$priceid];   
     $foodprize=$_POST['food_price'][$priceid];        
     $foodtype=$_POST['food_type'][$priceid]; 
+
 //=============================================== 
 //define variable for query
  
@@ -58,6 +59,43 @@ function updatefood()
  $sqlcheck1 = 
     "UPDATE food_price 
     SET va_food_size = '$foodsize',d_food_price = $foodprize
+    where i_price_id = $priceid";
+    $res1 = $dbhandler0->update($sqlcheck1);
+
+    if ($res && $res1){
+        header('Location:'.$_POST['uri']);
+    }
+
+
+
+
+//=======================================================
+}
+
+function updatebev() 
+{
+    global $dbhandler0;
+    $bevid=$_POST['bev_id'];
+    $priceid=$_POST['bev_price_id'];
+
+    $bevname=$_POST['bev_name'][$bevid][$priceid];
+    $bevsize=$_POST['bev_size'][$priceid];   
+    $bevprize=$_POST['bev_price'][$priceid];        
+    $bevtype=$_POST['bev_type'][$priceid]; 
+//=============================================== 
+//define variable for query
+ 
+
+//===============================================  
+
+ $sqlcheck = 
+    "UPDATE bev 
+    SET va_bev_name = '$bevname', i_bev_type_id = '$bevtype'
+    where i_bev_id = $bevid";
+    $res = $dbhandler0->update($sqlcheck);
+ $sqlcheck1 = 
+    "UPDATE bev_price 
+    SET va_bev_size = '$bevsize',d_bev_price = $bevprize
     where i_price_id = $priceid";
     $res1 = $dbhandler0->update($sqlcheck1);
 
