@@ -62,15 +62,19 @@ $(document).ready(function()
             var city_new = $('#city_new');
             city_new.empty();
             city_new.append("<option></option>");     
+
             $.getJSON('data/place.php',function(data)
-            {
-                $.each(data.data,function(i,location)
-                {  
-                        city_new.append($("<option></option>")
-                        .attr("value",location.va_city_name)
-                        .text(location.va_city_name));                          
-                });                         
-            }); 
+            {  
+                    $.each(data.data.TotalState,function(i,city)
+                    {   
+                        $.each(city,function(j,city)
+                        { 
+                            city_new.append($("<option></option>")
+                            .attr("value",city.va_city_name)
+                            .text(city.va_city_name));   
+                        });
+                    });    
+            });            
         }      
     });    
 
