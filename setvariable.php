@@ -31,10 +31,11 @@
     }         
 //==============================================================================================
     global $dbhandler0;
-    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name  
+    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name,d.va_menu_code  
     FROM restaurant a 
     LEFT JOIN state b ON a.i_state_id = b.i_state_id 
     LEFT JOIN city c ON c.i_city_id = a.i_city_id 
+    LEFT JOIN menu d on d.i_res_id = a.i_res_id
     WHERE a.i_res_stat = 1";
 
     $res = $dbhandler0->query($sqlcheck);

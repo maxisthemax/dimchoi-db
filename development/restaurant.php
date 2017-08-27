@@ -25,6 +25,7 @@
        <table id="tabinsertnewres" style="font-size:150%;">
             <tr><td>Name :</td><td><input name = "resname_new" value=""></td></tr> 
             <tr><td>Res Code :</td><td><input name = "rescode_new" value=""></td></tr>
+            <tr><td>Menu Code :</td><td><input name = "menucode_new" value=""></td></tr>
             <tr><td>Logo Url :</td><td><input name = "reslogo_new" value=""></td></tr>
             <tr><td>City :</td><td><select id = "city_new" name = "city_new"></select></td></tr>
         </table>
@@ -92,6 +93,7 @@ $(document).ready(function()
                         tb.append("<tr><td>ID:</td><td>" + value.i_res_id + "</td></tr>");
                         tb.append("<tr><td>Name:</td><td>"+"<input name = 'resname' value='"+value.va_res_name+"'>" + "</td></tr>");
                         tb.append("<tr><td>Res Code:</td><td>"+"<input name = 'rescode' value='"+value.va_res_code+"'>" + "</td></tr>");
+                        tb.append("<tr><td>Menu Code:</td><td>"+"<input name = 'menucode' value='"+value.va_menu_code+"'>" + "</td></tr>");
                         tb.append("<tr><td>Logo Url:</td><td>"+"<input name = 'reslogo' value='"+value.va_res_logo+"'>" + "</td></tr>");
                         tb.append("<tr><td>Logo Url:</td><td>"+"<img src="+value.va_res_logo+" height='400'>" + "</td></tr>");
                         tb.append("<tr><td>Feature Ad:</td><td>"+"<input name = 'featuread' value='"+value.va_feature_ad+"'>" + "</td></tr>");

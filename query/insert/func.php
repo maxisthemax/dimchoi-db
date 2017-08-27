@@ -20,6 +20,7 @@ function insertnewres() {
     $rescode_new = !empty($_POST['rescode_new']) ? $_POST['rescode_new'] : '';
     $reslogo_new = !empty($_POST['reslogo_new']) ? $_POST['reslogo_new'] : '';
     $city_new = !empty($_POST['city_new']) ? $_POST['city_new'] : '';
+    $menucode_new = !empty($_POST['menucode_new']) ? $_POST['menucode_new'] : '';
     $todaydate = date("Y-m-d H:i:s");
 
     if (empty($resname_new))
@@ -52,7 +53,20 @@ function insertnewres() {
                 (SELECT i_state_id FROM state_city WHERE i_city_id=(SELECT i_city_id FROM city WHERE va_city_name='$city_new' LIMIT 1) LIMIT 1),
                 (SELECT i_city_id FROM city WHERE va_city_name='$city_new' LIMIT 1))";
                 $res = $dbhandler0->insert($sqlcheck);
+
+                $last_id = $res;
+                if (!empty($last_id)) 
+                {
+                $sqlcheck = 
+                "INSERT INTO menu (
+                i_res_id,
+                va_menu_code)
+                VALUES (
+                '$last_id',
+                '$menucode_new')";
+                $res = $dbhandler0->insert($sqlcheck);
                 return ($res);
+                }
             //=================================================== 
         }
 }

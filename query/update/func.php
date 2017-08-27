@@ -15,7 +15,7 @@ function updateres()
     $featuread = !empty($_POST['featuread']) ? $_POST['featuread'] : '';     
     $city = !empty($_POST['city']) ? $_POST['city'] : '';
     $state = !empty($_POST['state']) ? $_POST['state'] : '';
-   
+    $menucode = !empty($_POST['menucode']) ? $_POST['menucode'] : '';
 //===============================================  
 
     $sqlcheck = 
@@ -30,6 +30,10 @@ function updateres()
     where i_res_id = $resid";
     $res = $dbhandler0->update($sqlcheck);
 
+    "UPDATE menu 
+    SET va_menu_code = '$menucode'
+    where i_res_id = $resid";
+    $res = $dbhandler0->update($sqlcheck);
     return;
 //=======================================================
 }
