@@ -66,7 +66,7 @@ echo'<form action="index.php" method="post"><table id="tab" width=100%  border=1
 echo "<tr><td>Restaurant Name</td><td id=resname>".$res1[count($res1)-1]['va_res_name']."</td></tr>";
 echo "<tr><td>Res Code</td><td>".$res1[count($res1)-1]['va_res_code']."</td></tr>";
 echo "<tr><td>Menu Code</td><td id=menucode>".$res1[count($res1)-1]['va_menu_code']."</td></tr>";
-echo "<tr><td>Food ID</td><td>Food Name</td><td>Food Type</td><td>Size</td><td>Price</td></tr>";
+echo "<tr><td>Food ID</td><td>Food Name</td><td>Food Type</td><td>Size</td><td>Price</td><td>Pic Url</td></tr>";
 echo "<tr><TD colspan = 5 align=center>FOOD</td></tr>";
     foreach($res as $resvalue) {
         $food_id=$resvalue["foodid"];
@@ -84,6 +84,8 @@ echo "<tr><TD colspan = 5 align=center>FOOD</td></tr>";
         echo "</select></td>";         
         echo "<td><input name='food_size[$food_price_id]' value='".$resvalue["va_food_size"]."'></td>";    
         echo "<td><input name='food_price[$food_price_id]' value='".$resvalue["d_food_price"]."'></td>";
+        echo "<td><input name='food_pic_url[$food_price_id]' value='".$resvalue["va_food_pic_url"]."'></td>";
+        echo "<td><img src='".$resvalue["va_food_pic_url"]."' height='150' width='180'></td>";
         echo "<td width=20%><button onclick='setformupdate($food_id,$food_price_id,1);'>Update Current Row</button></td>";  
         echo "<td width=20%><button onclick='setformdelete($food_id,1);'>Delete This Food</button></td>";  
         echo "<td width=30%><button onclick='setformdeleteprice($food_price_id,1);'>Delete This Price Only</button></td>";  
@@ -107,6 +109,9 @@ echo "<tr><TD colspan = 5 align=center>BEVERAGE</td></tr>";
         echo "</select></td>";         
         echo "<td><input name='bev_size[$bev_price_id]' value='".$res2value["va_bev_size"]."'></td>";    
         echo "<td><input name='bev_price[$bev_price_id]' value='".$res2value["d_bev_price"]."'></td>";
+
+        echo "<td><input name='bev_pic_url[$bev_price_id]' value='".$res2value["va_bev_pic_url"]."'></td>";
+        echo "<td><img src='".$res2value["va_bev_pic_url"]."' height='150' width='180'></td>";
         echo "<td width=20%><button onclick='setformupdate($bev_id,$bev_price_id,2);'>Update Current Row</button></td>";  
         echo "<td width=20%><button onclick='setformdelete($bev_id,2);'>Delete This Beverage</button></td>";
         echo "<td width=30%><button onclick='setformdeleteprice($bev_price_id,2);'>Delete This Price Only</button></td>";    
