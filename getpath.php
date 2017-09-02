@@ -15,6 +15,7 @@ function get_path($func)
 		case "insertnewres":
 		case "insertnewfood":
 		case "insertnewbev":
+		case "insertnewqrcoderow":
 	    	return array("path" => "query/insert/func.php","querytype"=>"insert");
 	        break;	
 		case "updateres":

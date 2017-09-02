@@ -261,5 +261,26 @@ function insertnewbev() {
         header('Location:'.$_POST['uri']);
        
 }
+//====================================================================================================== 
+function insertnewqrcoderow() {
+    global $dbhandler0;
+
+    $qrdatanew = !empty($_POST['qrdatanew']) ? $_POST['qrdatanew'] : '';
+    $qrtypenew = !empty($_POST['qrtypenew']) ? $_POST['qrtypenew'] : '';
+    $resid_insert = !empty($_POST['resid_insert']) ? $_POST['resid_insert'] : '';
+    
+    $sqlcheck = 
+    "INSERT INTO qrcode (
+    i_res_id,
+    i_qr_type_id,    
+    va_qr_data)
+    VALUES (
+    '$resid_insert',
+    '$qrtypenew',
+    '$qrdatanew')";
+
+    $res = $dbhandler0->insert($sqlcheck);
+    header('Location:'.$_POST['uri']); 
+}
 //======================================================================================================
 ?>
