@@ -20,14 +20,21 @@ unset($_POST['func']);
 $output = ($func()); //execute func and get result
 if (!empty($output) and $querytype == 'search')
 {
-	$result = array (
-		'status' => '1',
-		'message' => 'success',
-		'data' => $output,
-	);
-$fp = fopen('result.php', 'w');
-fwrite($fp, json_encode ($result, JSON_UNESCAPED_SLASHES));
-echo(json_encode ($result, JSON_UNESCAPED_SLASHES));	
+	if ($func == 'getorderqrcode')
+		{
+		print_r($output[0]['va_qr_data']);
+		}
+	else
+		{
+			$result = array (
+				'status' => '1',
+				'message' => 'success',
+				'data' => $output,
+			);
+		$fp = fopen('result.php', 'w');
+		fwrite($fp, json_encode ($result, JSON_UNESCAPED_SLASHES));
+		echo(json_encode ($result, JSON_UNESCAPED_SLASHES));
+		}	
 }
 else if ($output == true and $querytype == 'insert')
 {

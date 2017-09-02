@@ -135,13 +135,20 @@ global $dbhandler0;
 
 <form action="index.php" method="post" target="_blank">
   <table>  
-    <td>Restaurant</td><td><select id="res_id" name="res_id"></select></td>
-  </tr> 
-   </tr>   
-    <td>Func</td><td><select name="func"><option>getresfoodtype</option><option>getresfoodmenu</option><option>getresbeveragemenu</option></select></td>
-  </tr>        
-  <tr>    
-  <td colspan=2><input type="submit"></td>
+    <tr>
+      <td>Restaurant</td><td><select id="res_id" name="res_id"></select></td>
+    </tr> 
+    <tr>
+      <td>Qr Code</td><td><input id="qr_id" name="qr_id"></td>
+    </tr>     
+    <tr>   
+      <td>Func</td><td><select name="func"><option>getresfoodtype</option><option>getresfoodmenu</option><option>getresbeveragemenu</option>
+      <option>getorderqrcode</option></select></td>
+    </tr>        
+  
+    <tr>    
+      <td colspan=2><input type="submit"></td>
+    </tr>
   </table>  
 </form>
 <br><br> 

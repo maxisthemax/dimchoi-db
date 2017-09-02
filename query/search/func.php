@@ -425,7 +425,7 @@ function getresfoodmenu()
 
     $in = json_encode($bevtypearray);
     $bevresult = json_decode($in, true);
-//=============================================================BEVERAGE===================================================================================
+
     $finalresult = array (
                 'i_menu_id' => $key2['i_menu_id'], 
                 'i_res_id' => $key2['i_res_id'],
@@ -464,6 +464,39 @@ function getresbeveragemenu()
     $res = $dbhandler0->query($sqlcheck);
     return ($res);  
 }
-//=======================================================
+//=============================================================BEVERAGE===================================================================================
+//=============================================================QR CODE===================================================================================
+function getorderqrcode() 
+{
 
+    global $dbhandler0;
+
+    //=============================================== 
+    //define variable for query
+    $res_id = !empty($_POST['res_id']) ? $_POST['res_id'] : '';
+    $qr_id = !empty($_POST['qr_id']) ? $_POST['qr_id'] : '';
+    //===============================================
+
+    //===============================================
+    //start query
+    $sqlcheck = "SELECT a.va_qr_data
+    FROM qrcode a 
+    WHERE a.i_qr_type_id = 1";
+    if (!empty($_POST)) //if all string url variable is 0 or null
+    {
+         if (!empty($res_id) or $res_id != 0)
+        {
+            $sqlcheck .= " and a.i_res_id = $res_id";    
+        }    
+         if (!empty($qr_id) or $qr_id != 0)
+        {
+            $sqlcheck .= " and a.i_qr_id = $qr_id";    
+        }               
+    } 
+         $sqlcheck .=" LIMIT 1";
+    //===================================================
+    $res = $dbhandler0->query($sqlcheck);
+    return ($res);
+//=============================================================QR CODE===================================================================================      
+}
 ?>
