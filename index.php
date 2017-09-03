@@ -22,7 +22,7 @@ if (!empty($output) and $querytype == 'search')
 {
 	if ($func == 'getorderqrcode')
 		{
-		print_r($output[0]['va_qr_data']);
+		print_r($output[0]['va_qr_data_1'].','.$output[0]['va_qr_data_2']);	
 		}
 	else
 		{

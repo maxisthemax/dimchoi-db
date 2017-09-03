@@ -479,7 +479,7 @@ function getorderqrcode()
 
     //===============================================
     //start query
-    $sqlcheck = "SELECT a.va_qr_data
+    $sqlcheck = "SELECT a.va_qr_data_1,a.va_qr_data_2
     FROM qrcode a 
     WHERE a.i_qr_type_id = 1";
     if (!empty($_POST)) //if all string url variable is 0 or null

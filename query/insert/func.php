@@ -265,7 +265,8 @@ function insertnewbev() {
 function insertnewqrcoderow() {
     global $dbhandler0;
 
-    $qrdatanew = !empty($_POST['qrdatanew']) ? $_POST['qrdatanew'] : '';
+    $qrdatanew1 = !empty($_POST['qrdatanew1']) ? $_POST['qrdatanew1'] : '';
+    $qrdatanew2 = !empty($_POST['qrdatanew2']) ? $_POST['qrdatanew2'] : '';
     $qrtypenew = !empty($_POST['qrtypenew']) ? $_POST['qrtypenew'] : '';
     $resid_insert = !empty($_POST['resid_insert']) ? $_POST['resid_insert'] : '';
     
@@ -273,11 +274,13 @@ function insertnewqrcoderow() {
     "INSERT INTO qrcode (
     i_res_id,
     i_qr_type_id,    
-    va_qr_data)
+    va_qr_data_1,
+    va_qr_data_2)
     VALUES (
     '$resid_insert',
     '$qrtypenew',
-    '$qrdatanew')";
+    '$qrdatanew1',
+    '$qrdatanew2')";
 
     $res = $dbhandler0->insert($sqlcheck);
     $last_id = $res;
