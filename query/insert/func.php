@@ -281,7 +281,15 @@ function insertnewqrcoderow() {
 
     $res = $dbhandler0->insert($sqlcheck);
     $last_id = $res;
-    return $last_id;
+
+    $sqlqrcode = "SELECT * FROM qrcode WHERE i_qr_id = '$last_id' LIMIT 1";    
+    $resqrcode = $dbhandler0->query($sqlqrcode);
+    
+    $finalresult = array (
+        'i_res_id' => $resqrcode[0]['i_res_id'],
+        'i_qr_id' => $last_id
+            );
+    return $finalresult;
 }
 //======================================================================================================
 ?>
