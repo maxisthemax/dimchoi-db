@@ -280,7 +280,8 @@ function insertnewqrcoderow() {
     '$qrdatanew')";
 
     $res = $dbhandler0->insert($sqlcheck);
-    header('Location:'.$_POST['uri']); 
+    $last_id = $res;
+    return $last_id;
 }
 //======================================================================================================
 ?>

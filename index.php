@@ -41,7 +41,9 @@ else if ($output == true and $querytype == 'insert')
 	$result = array (
 		'status' => '0',
 		'message' => 'success',
+		'data' => $output,
 	);
+	echo(json_encode ($result, JSON_UNESCAPED_SLASHES));
 }	
 else if ($output == true and $querytype == 'update')
 {
