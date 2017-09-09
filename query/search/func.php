@@ -251,7 +251,7 @@ function getresfoodmenu()
 
     //===============================================
     //start query
-    $sqlfoodtype = "SELECT DISTINCT c.va_food_type_name,c.i_food_type_id as food_type_id
+    $sqlfoodtype = "SELECT DISTINCT c.va_food_type_name,c.i_food_type_id as food_type_id,c.va_food_type_pic_url
     FROM menu a 
     LEFT JOIN food b ON b.i_menu_id = a.i_menu_id
     LEFT JOIN food_type c on b.i_food_type_id = c.i_food_type_id
@@ -322,7 +322,7 @@ function getresfoodmenu()
                 unset($food_price); 
                 $food_price = array();                
             }
-            $foodtypearray[]=array('menu_type'=>$key1['va_food_type_name'],'menu_data'=>$foodarray); 
+            $foodtypearray[]=array('menu_type'=>$key1['va_food_type_name'],'va_food_type_pic_url'=>$key1['va_food_type_pic_url'],'menu_data'=>$foodarray); 
             unset($foodarray); 
             $foodarray = array();            
       
@@ -345,7 +345,7 @@ function getresfoodmenu()
 
     //===============================================
     //start query
-    $sqlbevtype = "SELECT DISTINCT c.va_bev_type_name,c.i_bev_type_id as bev_type_id
+    $sqlbevtype = "SELECT DISTINCT c.va_bev_type_name,c.i_bev_type_id as bev_type_id,c.va_bev_type_pic_url
     FROM menu a 
     LEFT JOIN bev b ON b.i_menu_id = a.i_menu_id
     LEFT JOIN bev_type c on b.i_bev_type_id = c.i_bev_type_id
@@ -416,7 +416,7 @@ function getresfoodmenu()
                 unset($bev_price); 
                 $bev_price = array();                
             }
-            $bevtypearray[]=array('menu_type'=>$key1['va_bev_type_name'],'menu_data'=>$bevarray); 
+            $bevtypearray[]=array('menu_type'=>$key1['va_bev_type_name'],'va_bev_type_pic_url'=>$key1['va_bev_type_pic_url'],'menu_data'=>$bevarray); 
             unset($bevarray); 
             $bevarray = array();            
       
@@ -451,7 +451,7 @@ function getresbeveragemenu()
     //start query
     $sqlcheck = "SELECT *
     FROM menu a 
-    LEFT JOIN beverage b ON b.i_menu_id = a.i_menu_id
+    LEFT JOIN bev b ON b.i_menu_id = a.i_menu_id
     WHERE b.i_menu_id = a.i_menu_id";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
