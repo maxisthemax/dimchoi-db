@@ -66,7 +66,7 @@ echo'<form action="index.php" method="post"><table id="tab" width=100%  border=1
 echo "<tr><td>Restaurant Name</td><td id=resname>".$res1[count($res1)-1]['va_res_name']."</td></tr>";
 echo "<tr><td>Res Code</td><td>".$res1[count($res1)-1]['va_res_code']."</td></tr>";
 echo "<tr><td>Menu Code</td><td id=menucode>".$res1[count($res1)-1]['va_menu_code']."</td></tr>";
-echo "<tr><td>Food ID</td><td>Food Name</td><td>Food Type</td><td>Size</td><td>Price</td><td>Pic Url</td></tr>";
+echo "<tr><td>Food ID</td><td>Food Name</td><td>Food Desc</td><td>Food Type</td><td>Size</td><td>Price</td><td>Pic Url</td></tr>";
 echo "<tr><TD colspan = 5 align=center>FOOD</td></tr>";
     foreach($res as $resvalue) {
         $food_id=$resvalue["foodid"];
@@ -74,6 +74,7 @@ echo "<tr><TD colspan = 5 align=center>FOOD</td></tr>";
         echo "<tr>";
         echo "<td>".$resvalue["foodid"]."</td>";    
         echo "<td><input name='food_name[$food_id][$food_price_id]' size=50 value='".$resvalue["va_food_name"]."'></td>";
+        echo "<td><textarea name='food_desc[$food_id][$food_price_id]' rows=5 cols=50>".$resvalue["va_food_desc"]."</textarea></td>";        
         echo "<td><select name='food_type[$food_price_id]'>";
         echo "<option value=1 ";
         if ($resvalue["i_food_type_id"]==1){echo "selected";}
@@ -99,6 +100,7 @@ echo "<tr><TD colspan = 5 align=center>BEVERAGE</td></tr>";
         echo "<tr>";
         echo "<td>".$res2value["bevid"]."</td>";    
         echo "<td><input name='bev_name[$bev_id][$bev_price_id]' size=50 value='".$res2value["va_bev_name"]."'></td>";
+        echo "<td><textarea name='bev_desc[$bev_id][$bev_price_id]' rows=5 cols=50>".$res2value["va_bev_desc"]."</textarea></td>"; 
         echo "<td><select name='bev_type[$bev_price_id]'>";
         echo "<option value=1 ";
         if ($res2value["i_bev_type_id"]==1){echo "selected";}

@@ -45,6 +45,7 @@ function updatefood()
     $priceid=$_POST['food_price_id'];
 
     $foodname=$_POST['food_name'][$foodid][$priceid];
+    $fooddesc=$_POST['food_desc'][$foodid][$priceid];
     $foodsize=$_POST['food_size'][$priceid];   
     $foodprize=$_POST['food_price'][$priceid];        
     $foodtype=$_POST['food_type'][$priceid]; 
@@ -57,7 +58,7 @@ function updatefood()
 
  $sqlcheck = 
     "UPDATE food 
-    SET va_food_name = '$foodname', i_food_type_id = '$foodtype',va_food_pic_url = '$foodurl'
+    SET va_food_name = '$foodname', i_food_type_id = '$foodtype',va_food_pic_url = '$foodurl',va_food_desc = '$fooddesc'
     where i_food_id = $foodid";
     $res = $dbhandler0->update($sqlcheck);
  $sqlcheck1 = 
@@ -83,6 +84,7 @@ function updatebev()
     $priceid=$_POST['bev_price_id'];
 
     $bevname=$_POST['bev_name'][$bevid][$priceid];
+    $bevdesc=$_POST['bev_desc'][$bevid][$priceid];
     $bevsize=$_POST['bev_size'][$priceid];   
     $bevprize=$_POST['bev_price'][$priceid];        
     $bevtype=$_POST['bev_type'][$priceid]; 
@@ -95,7 +97,7 @@ function updatebev()
 
  $sqlcheck = 
     "UPDATE bev 
-    SET va_bev_name = '$bevname', i_bev_type_id = '$bevtype',va_bev_pic_url = '$bevurl'
+    SET va_bev_name = '$bevname', i_bev_type_id = '$bevtype',va_bev_pic_url = '$bevurl' , va_bev_desc='$bevdesc'
     where i_bev_id = $bevid";
     $res = $dbhandler0->update($sqlcheck);
  $sqlcheck1 = 
