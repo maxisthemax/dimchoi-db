@@ -316,6 +316,7 @@ function getresfoodmenu()
                             'i_food_id' => $key2['i_food_id'],
                             'va_food_name' => $key2['va_food_name'],
                             'va_food_pic_url' => $key2['va_food_pic_url'],
+                            'va_food_desc' => $key2['va_food_desc'],
                             'food_price' => $food_price
                             ];
                 }
@@ -410,6 +411,7 @@ function getresfoodmenu()
                             'i_bev_id' => $key2['i_bev_id'],
                             'va_bev_name' => $key2['va_bev_name'],
                             'va_bev_pic_url' => $key2['va_bev_pic_url'],
+                            'va_bev_desc' => $key2['va_bev_desc'],
                             'bev_price' => $bev_price
                             ];
                 }

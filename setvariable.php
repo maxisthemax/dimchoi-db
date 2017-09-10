@@ -31,7 +31,7 @@
     }         
 //==============================================================================================
     global $dbhandler0;
-    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name,d.va_menu_code  
+    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name,d.va_menu_code,a.va_res_desc  
     FROM restaurant a 
     LEFT JOIN state b ON a.i_state_id = b.i_state_id 
     LEFT JOIN city c ON c.i_city_id = a.i_city_id 
@@ -46,7 +46,7 @@
     }
 //==============================================================================================
     global $dbhandler0;
-    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name  
+    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name,a.va_res_desc    
     FROM restaurant a 
     LEFT JOIN state b ON a.i_state_id = b.i_state_id 
     LEFT JOIN city c ON c.i_city_id = a.i_city_id 
@@ -60,7 +60,7 @@
     }
 //==============================================================================================
     global $dbhandler0;
-    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name  
+    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name,a.va_res_desc    
     FROM restaurant a 
     LEFT JOIN state b ON a.i_state_id = b.i_state_id 
     LEFT JOIN city c ON c.i_city_id = a.i_city_id 
@@ -74,7 +74,7 @@
     }
 //==============================================================================================
     global $dbhandler0;
-    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name  
+    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name,a.va_res_desc    
     FROM restaurant a 
     LEFT JOIN state b ON a.i_state_id = b.i_state_id 
     LEFT JOIN city c ON c.i_city_id = a.i_city_id 
