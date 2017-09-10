@@ -257,7 +257,8 @@ function getresfoodmenu()
     FROM menu a 
     LEFT JOIN food b ON b.i_menu_id = a.i_menu_id
     LEFT JOIN food_type c on b.i_food_type_id = c.i_food_type_id
-    WHERE b.i_menu_id = a.i_menu_id";
+    WHERE b.i_menu_id = a.i_menu_id
+    AND c.i_res_id = $res_id";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
          if (!empty($res_id) or $res_id != 0)
