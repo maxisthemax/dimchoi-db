@@ -222,7 +222,8 @@ function getresfoodtype()
     FROM menu a 
     LEFT JOIN food b ON b.i_menu_id = a.i_menu_id
     LEFT JOIN food_type c on b.i_food_type_id = c.i_food_type_id
-    WHERE b.i_menu_id = a.i_menu_id";
+    WHERE b.i_menu_id = a.i_menu_id
+    AND c.i_res_id = $res_id";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
          if (!empty($res_id) or $res_id != 0)
@@ -251,7 +252,8 @@ function getresfoodmenu()
 
     //===============================================
     //start query
-    $sqlfoodtype = "SELECT DISTINCT c.va_food_type_name,c.i_food_type_id as food_type_id,c.va_food_type_pic_url
+    $sqlfoodtype = "SELECT DISTINCT c.va_food_type_name,c.i_food_type_id as food_type_id,
+    CASE WHEN c.va_food_type_pic_url = '' THEN 'https://maxcdn.icons8.com/Share/icon/Dusk_Wired/Travel//service_bell1600.png' ELSE c.va_food_type_pic_url
     FROM menu a 
     LEFT JOIN food b ON b.i_menu_id = a.i_menu_id
     LEFT JOIN food_type c on b.i_food_type_id = c.i_food_type_id
@@ -346,11 +348,13 @@ function getresfoodmenu()
 
     //===============================================
     //start query
-    $sqlbevtype = "SELECT DISTINCT c.va_bev_type_name,c.i_bev_type_id as bev_type_id,c.va_bev_type_pic_url
+    $sqlbevtype = "SELECT DISTINCT c.va_bev_type_name,c.i_bev_type_id as bev_type_id,c.va_bev_type_pic_url,
+    CASE WHEN c.va_bev_type_pic_url = '' THEN 'https://maxcdn.icons8.com/Share/icon/Dusk_Wired/Travel//service_bell1600.png' ELSE c.va_bev_type_pic_url
     FROM menu a 
     LEFT JOIN bev b ON b.i_menu_id = a.i_menu_id
     LEFT JOIN bev_type c on b.i_bev_type_id = c.i_bev_type_id
-    WHERE b.i_menu_id = a.i_menu_id";
+    WHERE b.i_menu_id = a.i_menu_id
+    AND c.i_res_id = $res_id";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
          if (!empty($res_id) or $res_id != 0)
