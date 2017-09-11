@@ -222,8 +222,7 @@ function getresfoodtype()
     FROM menu a 
     LEFT JOIN food b ON b.i_menu_id = a.i_menu_id
     LEFT JOIN food_type c on b.i_food_type_id = c.i_food_type_id
-    WHERE b.i_menu_id = a.i_menu_id
-    AND c.i_res_id = $res_id";
+    WHERE b.i_menu_id = a.i_menu_id";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
          if (!empty($res_id) or $res_id != 0)
@@ -252,19 +251,17 @@ function getresfoodmenu()
 
     //===============================================
     //start query
-    $sqlfoodtype = "SELECT DISTINCT c.va_food_type_name,
-    CASE WHEN c.va_food_type_pic_url = '' THEN 'https://maxcdn.icons8.com/Share/icon/Dusk_Wired/Travel//service_bell1600.png' ELSE c.va_food_type_pic_url END as va_food_type_pic_url ,
-    c.i_food_type_id as food_type_id
+    $sqlfoodtype = "SELECT DISTINCT c.va_food_type_name,c.i_food_type_id as food_type_id,c.va_food_type_pic_url,res.va_res_code
     FROM menu a 
     LEFT JOIN food b ON b.i_menu_id = a.i_menu_id
     LEFT JOIN food_type c on b.i_food_type_id = c.i_food_type_id
+    LEFT JOIN restaurant res on res.i_res_id = a.i_res_id
     WHERE b.i_menu_id = a.i_menu_id";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
          if (!empty($res_id) or $res_id != 0)
         {
             $sqlfoodtype .= " and a.i_res_id = $res_id";    
-            $sqlfoodtype .= " and c.i_res_id = $res_id";  
         }           
     }   
     $foodtype = $dbhandler0->query($sqlfoodtype);   
@@ -288,7 +285,7 @@ function getresfoodmenu()
     //===================================================    
     //===============================================
     //start query
-    $sqlfoodprice = "SELECT c.i_food_id AS i_food_id,c.va_food_size AS va_food_size, c.d_food_price AS d_food_price
+    $sqlfoodprice = "SELECT c.i_food_id AS i_food_id,c.va_food_size AS va_food_size, FORMAT(c.d_food_price,2) AS d_food_price
     FROM menu a 
     LEFT JOIN food b ON b.i_menu_id = a.i_menu_id
     LEFT JOIN food_price c ON c.i_food_id = b.i_food_id
@@ -327,7 +324,7 @@ function getresfoodmenu()
                 unset($food_price); 
                 $food_price = array();                
             }
-            $foodtypearray[]=array('menu_type'=>$key1['va_food_type_name'],'va_food_type_pic_url'=>$key1['va_food_type_pic_url'],'menu_data'=>$foodarray); 
+            $foodtypearray[]=array('menu_type'=>$key1['va_food_type_name'],'va_food_type_pic_url'=>'http://103.233.1.196/dimchoi/file/res/'.$key1['va_res_code'].'/'.$key1['va_food_type_pic_url'],'menu_data'=>$foodarray); 
             unset($foodarray); 
             $foodarray = array();            
       
@@ -350,20 +347,17 @@ function getresfoodmenu()
 
     //===============================================
     //start query
-    $sqlbevtype = "SELECT DISTINCT c.va_bev_type_name,
-    CASE WHEN c.va_bev_type_pic_url = '' THEN 'https://maxcdn.icons8.com/Share/icon/Dusk_Wired/Travel//service_bell1600.png' ELSE c.va_bev_type_pic_url END as va_bev_type_pic_url,
-    c.i_bev_type_id as bev_type_id
+    $sqlbevtype = "SELECT DISTINCT c.va_bev_type_name,c.i_bev_type_id as bev_type_id,c.va_bev_type_pic_url,res.va_res_code
     FROM menu a 
     LEFT JOIN bev b ON b.i_menu_id = a.i_menu_id
     LEFT JOIN bev_type c on b.i_bev_type_id = c.i_bev_type_id
-    WHERE b.i_menu_id = a.i_menu_id
-    AND c.i_res_id = $res_id";
+    LEFT JOIN restaurant res on res.i_res_id = a.i_res_id
+    WHERE b.i_menu_id = a.i_menu_id";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
          if (!empty($res_id) or $res_id != 0)
         {
             $sqlbevtype .= " and a.i_res_id = $res_id";    
-            $sqlbevtype .= " and c.i_res_id = $res_id";    
         }           
     }   
     $bevtype = $dbhandler0->query($sqlbevtype);   
@@ -387,7 +381,7 @@ function getresfoodmenu()
     //===================================================    
     //===============================================
     //start query
-    $sqlbevprice = "SELECT c.i_bev_id AS i_bev_id,c.va_bev_size AS va_bev_size, c.d_bev_price AS d_bev_price
+    $sqlbevprice = "SELECT c.i_bev_id AS i_bev_id,c.va_bev_size AS va_bev_size, FORMAT(c.d_bev_price,2) AS d_bev_price
     FROM menu a 
     LEFT JOIN bev b ON b.i_menu_id = a.i_menu_id
     LEFT JOIN bev_price c ON c.i_bev_id = b.i_bev_id
@@ -426,7 +420,7 @@ function getresfoodmenu()
                 unset($bev_price); 
                 $bev_price = array();                
             }
-            $bevtypearray[]=array('menu_type'=>$key1['va_bev_type_name'],'va_bev_type_pic_url'=>$key1['va_bev_type_pic_url'],'menu_data'=>$bevarray); 
+            $bevtypearray[]=array('menu_type'=>$key1['va_bev_type_name'],'va_bev_type_pic_url'=>'http://103.233.1.196/dimchoi/file/res/'.$key1['va_res_code'].'/'.$key1['va_bev_type_pic_url'],'menu_data'=>$bevarray); 
             unset($bevarray); 
             $bevarray = array();            
       
