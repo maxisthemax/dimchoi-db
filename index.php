@@ -12,7 +12,7 @@ $getfunc = (get_path($func)); //get path with func
 
 $path = $getfunc['path']; //set path for include
 $querytype = $getfunc['querytype']; //set query type search or insert/update
-
+$_SESSION['file']='http://103.233.1.196/dimchoi/file/res/';
 include $path;
 
 unset($_POST['func']);

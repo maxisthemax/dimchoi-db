@@ -316,7 +316,7 @@ function getresfoodmenu()
                 $foodarray[]=[
                             'i_food_id' => $key2['i_food_id'],
                             'va_food_name' => $key2['va_food_name'],
-                            'va_food_pic_url' => $key2['va_food_pic_url'],
+                            'va_food_pic_url' => $_SESSION['file'].$key1['va_res_code'].'/'.$key2['va_food_pic_url'],
                             'va_food_desc' => $key2['va_food_desc'],
                             'food_price' => $food_price
                             ];
@@ -324,7 +324,7 @@ function getresfoodmenu()
                 unset($food_price); 
                 $food_price = array();                
             }
-            $foodtypearray[]=array('menu_type'=>$key1['va_food_type_name'],'va_food_type_pic_url'=>'http://103.233.1.196/dimchoi/file/res/'.$key1['va_res_code'].'/'.$key1['va_food_type_pic_url'],'menu_data'=>$foodarray); 
+            $foodtypearray[]=array('menu_type'=>$key1['va_food_type_name'],'va_food_type_pic_url'=>$_SESSION['file'].$key1['va_res_code'].'/'.$key1['va_food_type_pic_url'],'menu_data'=>$foodarray); 
             unset($foodarray); 
             $foodarray = array();            
       
@@ -412,7 +412,7 @@ function getresfoodmenu()
                 $bevarray[]=[
                             'i_bev_id' => $key2['i_bev_id'],
                             'va_bev_name' => $key2['va_bev_name'],
-                            'va_bev_pic_url' => $key2['va_bev_pic_url'],
+                            'va_bev_pic_url' => $_SESSION['file'].$key1['va_res_code'].'/'.$key2['va_bev_pic_url'],
                             'va_bev_desc' => $key2['va_bev_desc'],
                             'bev_price' => $bev_price
                             ];
@@ -420,7 +420,7 @@ function getresfoodmenu()
                 unset($bev_price); 
                 $bev_price = array();                
             }
-            $bevtypearray[]=array('menu_type'=>$key1['va_bev_type_name'],'va_bev_type_pic_url'=>'http://103.233.1.196/dimchoi/file/res/'.$key1['va_res_code'].'/'.$key1['va_bev_type_pic_url'],'menu_data'=>$bevarray); 
+            $bevtypearray[]=array('menu_type'=>$key1['va_bev_type_name'],'va_bev_type_pic_url'=>$_SESSION['file'].$key1['va_res_code'].'/'.$key1['va_bev_type_pic_url'],'menu_data'=>$bevarray); 
             unset($bevarray); 
             $bevarray = array();            
       
