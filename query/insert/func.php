@@ -107,11 +107,13 @@ function insertnewfood() {
                 "INSERT INTO food (
                 i_menu_id,    
                 va_food_name,
+                va_food_desc,
                 i_food_type_id, 
                 va_food_pic_url)
                 VALUES (
                 (SELECT a.i_menu_id FROM menu a where a.va_menu_code = '$menucode_insert' LIMIT 1),
                 '$food_name_new',
+                '',
                 '$food_type_new','')";
 
                 $res = $dbhandler0->insert($sqlcheck);
@@ -202,11 +204,13 @@ function insertnewbev() {
                 "INSERT INTO bev (
                 i_menu_id,    
                 va_bev_name,
+                va_bev_desc,
                 i_bev_type_id, 
                 va_bev_pic_url)
                 VALUES (
                 (SELECT a.i_menu_id FROM menu a where a.va_menu_code = '$menucode_insertbev' LIMIT 1),
                 '$bev_name_new',
+                '',
                 '$bev_type_new','')";
 
                 $res = $dbhandler0->insert($sqlcheck);
