@@ -10,7 +10,7 @@ include "setvariable.php";
 ?>
 <?php
 session_start();
-
+$_SESSION['file']='http://103.233.1.196/dimchoi/file/res/';
 if(isset($_POST['submit_pass']) && $_POST['pass'])
 {
  $pass=$_POST['pass'];
