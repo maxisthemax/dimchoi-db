@@ -43,17 +43,21 @@ function insertnewres() {
                 "INSERT INTO restaurant (
                 va_res_name,
                 va_res_code,
-                va_res_logo, 
+                va_res_add1,
+                va_res_add2,
+                d_lat,
+                d_long,
+                i_city_id,
                 i_state_id, 
-                i_city_id)
+                va_res_logo,va_res_desc
+                )
                 VALUES (
                 '$resname_new',
-                '$rescode_new',
-                '$reslogo_new',
+                '$rescode_new','','',0,0,
+                (SELECT i_city_id FROM city WHERE va_city_name='$city_new' LIMIT 1),                
                 (SELECT i_state_id FROM state_city WHERE i_city_id=(SELECT i_city_id FROM city WHERE va_city_name='$city_new' LIMIT 1) LIMIT 1),
-                (SELECT i_city_id FROM city WHERE va_city_name='$city_new' LIMIT 1))";
+                '$reslogo_new','')";
                 $res = $dbhandler0->insert($sqlcheck);
-
                 $last_id = $res;
                 if (!empty($last_id)) 
                 {
@@ -65,6 +69,8 @@ function insertnewres() {
                 '$last_id',
                 '$menucode_new')";
                 $res = $dbhandler0->insert($sqlcheck);
+                $createfolder = getcwd().'/file/res/'.$rescode_new;
+                mkdir($createfolder, 0777, true);
                 return ($res);
                 }
             //=================================================== 
