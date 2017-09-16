@@ -1,22 +1,11 @@
 <br><br>
 <?php
 $uri = $_SERVER['REQUEST_URI']; // holds url for last page visited.s
-if (isset($_POST['Options']))
-{
-$_SESSION['Options']=$_POST['Options'];
-}
-if (isset($_SESSION['Options'])) {
-    if ($_SESSION['Options'] != '')
-    {
-    insertnewuserid($_SESSION['Options']);
-    }
-}
-else
-{
-    $_SESSION['Options'] = '';
-}
 
-function insertnewuserid($resid) {
+insertnewuserid();
+
+
+function insertnewuserid() {
     $uri = $_SERVER['REQUEST_URI']; // holds url for last page visited.s
     global $dbhandler0;
     
