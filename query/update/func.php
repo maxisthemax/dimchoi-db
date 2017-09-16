@@ -37,7 +37,37 @@ function updateres()
     return;
 //=======================================================
 }
+function updateuser() {
+    global $dbhandler0;
 
+    $firstname = !empty($_POST['firstname']) ? $_POST['firstname'] : '';
+    $lastname = !empty($_POST['lastname']) ? $_POST['lastname'] : '';
+    $gender = !empty($_POST['gender']) ? $_POST['gender'] : '';
+    $phone = !empty($_POST['phone']) ? $_POST['phone'] : '';
+    $dob = !empty($_POST['dob']) ? $_POST['dob'] : '';
+    $email = !empty($_POST['email']) ? $_POST['email'] : '';
+    $pass = !empty($_POST['pass']) ? $_POST['pass'] : '';
+    $facebook = !empty($_POST['facebook']) ? $_POST['facebook'] : '';
+    $google = !empty($_POST['google']) ? $_POST['google'] : '';    
+    $userid = !empty($_POST['btnupdateuser']) ? $_POST['btnupdateuser'] : ''; 
+
+    $sqlcheck = 
+    "UPDATE user
+    set va_first_name = '$firstname',
+    va_last_name ='$lastname',    
+    va_gender ='$gender',
+    va_phone ='$phone',
+    dt_dob ='$dob',
+    va_email ='$email',
+    va_pass ='$pass',
+    va_facebook ='$facebook',
+    va_google ='$google'
+    where i_user_id = '$userid'";
+
+    $res = $dbhandler0->update($sqlcheck);
+
+    header('Location:'.$_POST['uri']);
+}
 function updatefood() 
 {
     global $dbhandler0;

@@ -53,6 +53,7 @@ if($_SESSION['password']=="123qweasdzxc")
     <input type="submit" name="page" value="Restaurant" />
     <input type="submit" name="page" value="Food" />
     <input type="submit" name="page" value="Qr Code" />
+    <input type="submit" name="page" value="User" />    
 </form>
  <?php
 }
@@ -92,6 +93,10 @@ if (!empty($_POST['page']))
     {
       $_SESSION['page'] = 'Qr Code';
     }    
+  else if ($_POST['page'] == 'User')
+    {
+      $_SESSION['page'] = 'User';
+    }     
 }
 if (!empty($_SESSION['page']) && $_SESSION['password']=="123qweasdzxc")
 {
@@ -107,7 +112,10 @@ if (!empty($_SESSION['page']) && $_SESSION['password']=="123qweasdzxc")
             break;
         case "Qr Code":
             include "development/qrcode.php";
-            break;            
+            break;   
+        case "User":
+            include "development/user.php";
+            break;                       
         }
 }
 ?>

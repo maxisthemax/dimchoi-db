@@ -17,11 +17,13 @@ function get_path($func)
 		case "insertnewfood":
 		case "insertnewbev":
 		case "insertnewqrcoderow":
+		case "insertnewuser":
 	    	return array("path" => "query/insert/func.php","querytype"=>"insert");
 	        break;	
 		case "updateres":
 		case "updatefood":
 		case "updatebev":
+		case "updateuser":
 	    	return array("path" => "query/update/func.php","querytype"=>"update");
 	        break;	
 		case "deletefood":

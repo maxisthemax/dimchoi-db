@@ -304,5 +304,47 @@ function insertnewqrcoderow() {
             );
     return $finalresult;
 }
+//====================================================================================================== 
+function insertnewuser() {
+    global $dbhandler0;
+
+    $firstnamenew = !empty($_POST['firstnamenew']) ? $_POST['firstnamenew'] : '';
+    $lastnamenew = !empty($_POST['lastnamenew']) ? $_POST['lastnamenew'] : '';
+    $gendernew = !empty($_POST['gendernew']) ? $_POST['gendernew'] : '';
+    $phonenew = !empty($_POST['phonenew']) ? $_POST['phonenew'] : '';
+    $dobnew = !empty($_POST['dobnew']) ? $_POST['dobnew'] : '';
+    $emailnew = !empty($_POST['emailnew']) ? $_POST['emailnew'] : '';
+    $passnew = !empty($_POST['passnew']) ? $_POST['passnew'] : '';
+    $facebooknew = !empty($_POST['facebooknew']) ? $_POST['facebooknew'] : '';
+    $googlenew = !empty($_POST['googlenew']) ? $_POST['googlenew'] : '';    
+
+    $sqlcheck = 
+    "INSERT INTO user (
+    va_first_name,
+    va_last_name,    
+    va_gender,
+    va_phone,
+    dt_dob,
+    va_email,
+    va_pass,
+    va_facebook,
+    va_google)
+    VALUES (
+    '$firstnamenew',
+    '$lastnamenew',
+    '$gendernew',
+    '$phonenew',
+    '$dobnew',
+    '$emailnew',
+    '$passnew',
+    '$facebooknew',
+    '$googlenew'        
+    )";
+
+    $res = $dbhandler0->insert($sqlcheck);
+    $last_id = $res;
+
+    header('Location:'.$_POST['uri']);
+}
 //======================================================================================================
 ?>
