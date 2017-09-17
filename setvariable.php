@@ -2,6 +2,14 @@
 
 //==============================================================================================
     global $dbhandler0;
+
+    $sqlstate = "SELECT * FROM state a";
+    $resstate = $dbhandler0->query($sqlstate);
+
+    $in = json_encode($resstate);
+
+    $datastate = json_decode($in, true);
+
     $sqlcheck = "SELECT b.va_state_name,c.va_city_name,a.i_state_id,a.i_city_id 
     FROM state_city a 
     left join state b on a.i_state_id = b.i_state_id 
@@ -15,15 +23,31 @@
     $out1 = [];
     $out2 = [];
 
-    foreach($data as $element) {
-            $out1[$element['va_state_name']] = $element['i_state_id'];
-            $out2[$element['va_state_name']][] = ['va_city_name' => $element['va_city_name'], 'i_city_id' => $element['i_city_id']];  
+    foreach($datastate as $elementstate) {
+
+            foreach($data as $elementcity) {
+            if($elementstate['i_state_id']==$elementcity['i_state_id'])  
+            {  
+                $cityresult[]=
+                [
+                    'city_id' => $elementcity['i_city_id'],
+                    'city_name' => $elementcity['va_city_name']
+                ];
+            }        
+            }
+
+            $finalresult[]=
+            [
+                'state_id' => $elementstate['i_state_id'],
+                'state_name' => $elementstate['va_state_name'],
+                'cities' => $cityresult
+            ];
+
+            unset($cityresult);
+
     }
 
-    $finalresult = array (
-                'StateID' => $out1,
-                'TotalState' => $out2
-            );
+
      
     if($finalresult)
     {
