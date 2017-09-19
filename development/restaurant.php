@@ -63,16 +63,16 @@ $(document).ready(function()
             var city_new = $('#city_new');
             city_new.empty();
             city_new.append("<option></option>");     
-
+            var ii=0;
             $.getJSON('data/place.php',function(data)
-            {  
-                    $.each(data.data.TotalState,function(i,city)
-                    {   
-                        $.each(city,function(j,city)
+            {   
+                    $.each(data.data,function(i,data1)
+                    {
+                        $.each(data1.cities,function(j,city)
                         { 
                             city_new.append($("<option></option>")
-                            .attr("value",city.va_city_name)
-                            .text(city.va_city_name));   
+                            .attr("value",city.city_name)
+                            .text(city.city_name));   
                         });
                     });    
             });            
