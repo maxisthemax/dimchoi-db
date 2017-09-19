@@ -105,15 +105,15 @@ $(document).ready(function()
                         var citysel = $('#city');
                         $.getJSON('data/place.php',function(data)
                         {  
-                                $.each(data.data.TotalState,function(i,city)
-                                {   
-                                    $.each(city,function(j,city)
-                                    { 
-                                        citysel.append($("<option></option>")
-                                        .attr("value",city.va_city_name)
-                                        .text(city.va_city_name));   
-                                    });
-                                });    
+                            $.each(data.data,function(i,data1)
+                            {
+                                $.each(data1.cities,function(j,city)
+                                { 
+                                    citysel.append($("<option></option>")
+                                    .attr("value",city.city_name)
+                                    .text(city.city_name));   
+                                });
+                            });  
                             $("#city").val(value.va_city_name);
                             $("#state").html(value.va_state_name);
                         });
