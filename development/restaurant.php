@@ -42,7 +42,7 @@ $(document).ready(function()
       var combo = $("#Options");
       $.each(data.data,function(i,value)
       {
-        combo.append("<option>" + value.va_res_name + "</option>");
+        combo.append("<option value=" + value.va_res_code + ">" + value.va_res_name + ' - '+ value.va_area + "</option>");
       });
 
       $("#SELECTOR").append(combo);
@@ -88,7 +88,7 @@ $(document).ready(function()
             {
             $.each(data.data, function(i, value)
                 {
-                    if (value.va_res_name == name)
+                    if (value.va_res_code == name)
                     {
                         tb.append("<tr><td>ID:</td><td>" + value.i_res_id + "</td></tr>");
                         tb.append("<tr><td>Name:</td><td>"+"<input name = 'resname' value='"+value.va_res_name+"'>" + "</td></tr>");
