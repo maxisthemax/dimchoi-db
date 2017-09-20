@@ -1,0 +1,1 @@
+ALTER TABLE `restaurant` ADD `va_area` VARCHAR(500) NOT NULL AFTER `va_res_add1`;
