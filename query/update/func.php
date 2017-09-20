@@ -11,6 +11,13 @@ function updateres()
     $resname = !empty($_POST['resname']) ? $_POST['resname'] : '';
     $reslogo = !empty($_POST['reslogo']) ? $_POST['reslogo'] : '';
     $rescode = !empty($_POST['rescode']) ? $_POST['rescode'] : '';   
+    $add1 = !empty($_POST['add1']) ? $_POST['add1'] : '';
+    $add2 = !empty($_POST['add2']) ? $_POST['add2'] : '';   
+    $area = !empty($_POST['area']) ? $_POST['area'] : ''; 
+    $lat = !empty($_POST['lat']) ? $_POST['lat'] : '';
+    $long = !empty($_POST['long']) ? $_POST['long'] : '';   
+    $desc = !empty($_POST['desc']) ? $_POST['desc'] : '';   
+
     $resfeature = !empty($_POST['resfeature']) ? $_POST['resfeature'] : ''; 
     $featuread = !empty($_POST['featuread']) ? $_POST['featuread'] : '';     
     $city = !empty($_POST['city']) ? $_POST['city'] : '';
@@ -23,6 +30,12 @@ function updateres()
     SET va_res_name = '$resname',
     va_res_logo = '$reslogo', 
     va_res_code = '$rescode',
+    va_res_add1 = '$add1',
+    va_res_add2 = '$add2',
+    va_area = '$area',
+    d_lat = '$lat',
+    d_long ='$long',
+    va_res_desc = '$desc',
     i_feature = '$resfeature',
     va_feature_ad = '$featuread',
     i_city_id = (SELECT i_city_id FROM city WHERE va_city_name='$city' LIMIT 1),

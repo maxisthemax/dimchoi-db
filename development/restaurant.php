@@ -94,13 +94,24 @@ $(document).ready(function()
                         tb.append("<tr><td>Name:</td><td>"+"<input name = 'resname' value='"+value.va_res_name+"'>" + "</td></tr>");
                         tb.append("<tr><td>Res Code:</td><td>"+"<input name = 'rescode' value='"+value.va_res_code+"'>" + "</td></tr>");
                         tb.append("<tr><td>Menu Code:</td><td>"+"<input name = 'menucode' value='"+value.va_menu_code+"'>" + "</td></tr>");
+                        tb.append("<tr><td>Add 1:</td><td>"+"<input name = 'add1' value='"+value.va_res_add1+"'>" + "</td></tr>");
+                        tb.append("<tr><td>Add 2:</td><td>"+"<input name = 'add2' value='"+value.va_res_add2+"'>" + "</td></tr>");
+                        tb.append("<tr><td>Area</td><td>"+"<input name = 'area' value='"+value.va_area+"'>" + "</td></tr>");
+
+                        tb.append("<tr><td>Lat:</td><td>"+"<input name = 'lat' value='"+value.d_lat+"'>" + "</td></tr>");    
+                        tb.append("<tr><td>Long:</td><td>"+"<input name = 'long' value='"+value.d_long+"'>" + "</td></tr>");  
+                        tb.append("<tr><td>Desc:</td><td>"+"<textarea name = 'desc' rows=6 cols=100>"+value.va_res_desc+"</textarea>" + "</td></tr>");      
+
+                        tb.append("<tr><td>City:</td><td><select id='city' name='city'><option></option></select></td></tr>");
+                        tb.append("<tr><td>State:</td><td id = 'state' name='state'></div></td></tr>");    
+
                         tb.append("<tr><td>Logo Url:</td><td>"+"<input name = 'reslogo' value='"+value.va_res_logo+"'>" + "</td></tr>");
-                        tb.append("<tr><td>Logo Url:</td><td>"+"<img src="+value.va_res_logo+" height='400'>" + "</td></tr>");
+                        tb.append("<tr><td>Logo Url:</td><td>"+"<img src="+value.va_res_logo+" height='150' width='250'>" + "</td></tr>");
+
                         tb.append("<tr><td>Feature Ad:</td><td>"+"<input name = 'featuread' value='"+value.va_feature_ad+"'>" + "</td></tr>");
                         tb.append("<tr><td>Feature Ad:</td><td>"+"<img src="+value.va_feature_ad+" height='400'>" + "</td></tr>");
                         tb.append("<tr><td>Feature:</td><td>"+"<input name = 'resfeature' value='"+value.i_feature+"'>" + "</td></tr>");
-                        tb.append("<tr><td>City:</td><td><select id='city' name='city'><option></option></select></td></tr>");
-                        tb.append("<tr><td>State:</td><td id = 'state' name='state'></div></td></tr>");
+
                         tb.append("<input hidden name = 'resid' value='"+value.i_res_id+"'>");
                         var citysel = $('#city');
                         $.getJSON('data/place.php',function(data)
