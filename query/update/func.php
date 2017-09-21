@@ -14,8 +14,8 @@ function updateres()
     $add1 = !empty($_POST['add1']) ? $_POST['add1'] : '';
     $add2 = !empty($_POST['add2']) ? $_POST['add2'] : '';   
     $area = !empty($_POST['area']) ? $_POST['area'] : ''; 
-    $lat = !empty($_POST['lat']) ? $_POST['lat'] : '';
-    $long = !empty($_POST['long']) ? $_POST['long'] : '';   
+    $lat = !empty($_POST['lat']) ? $_POST['lat'] : '0.0';
+    $long = !empty($_POST['long']) ? $_POST['long'] : '0.0';   
     $desc = !empty($_POST['desc']) ? $_POST['desc'] : '';   
 
     $resfeature = !empty($_POST['resfeature']) ? $_POST['resfeature'] : ''; 
@@ -24,6 +24,14 @@ function updateres()
     $state = !empty($_POST['state']) ? $_POST['state'] : '';
     $menucode = !empty($_POST['menucode']) ? $_POST['menucode'] : '';
 
+if($lat == 0)
+{
+    $lat = 0.0;
+}
+if($long == 0)
+{
+    $long = 0.0;
+}
 //===============================================  
 
     $sqlcheck = 
