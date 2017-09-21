@@ -10,11 +10,10 @@
 
     $datastate = json_decode($in, true);
 
-    $sqlcheck = "SELECT b.va_state_name,c.va_city_name,a.i_state_id,a.i_city_id 
-    FROM state_city a 
+    $sqlcheck = "SELECT b.va_state_name,a.va_city_name,a.i_state_id,a.i_city_id 
+    FROM city a 
     left join state b on a.i_state_id = b.i_state_id 
-    left join city c on c.i_city_id = a.i_city_id 
-    order by c.i_city_id";
+    order by a.va_city_name";
     $res = $dbhandler0->query($sqlcheck);
 
     $in = json_encode($res);
@@ -75,7 +74,7 @@
     LEFT JOIN state b ON a.i_state_id = b.i_state_id 
     LEFT JOIN city c ON c.i_city_id = a.i_city_id 
     WHERE a.i_res_stat = 1 AND a.i_feature =1";
-
+    
     $res = $dbhandler0->query($sqlcheck);
 
     if($res)

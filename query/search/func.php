@@ -21,11 +21,10 @@ function getAllStateAndCity()
 
     //===============================================
     //start query
-    $sqlcheck = "SELECT b.va_state_name,c.va_city_name,a.i_state_id,a.i_city_id 
-    FROM state_city a 
+    $sqlcheck = "SELECT b.va_state_name,a.va_city_name,a.i_state_id,a.i_city_id 
+    FROM city a 
     left join state b on a.i_state_id = b.i_state_id 
-    left join city c on c.i_city_id = a.i_city_id 
-    order by c.va_city_name";
+    order by a.va_city_name";
     //===============================================
 
     $res = $dbhandler0->query($sqlcheck);

@@ -40,7 +40,7 @@ function updateres()
     i_feature = '$resfeature',
     va_feature_ad = '$featuread',
     i_city_id = (SELECT i_city_id FROM city WHERE va_city_name='$city' LIMIT 1),
-    i_state_id = (SELECT i_state_id FROM state_city WHERE i_city_id=(SELECT i_city_id FROM city WHERE va_city_name='$city' LIMIT 1) LIMIT 1)
+    i_state_id = (SELECT i_state_id FROM city WHERE va_city_name='$city' LIMIT 1)
     where i_res_id = $resid";
     $res = $dbhandler0->update($sqlcheck);
 
