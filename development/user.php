@@ -2,13 +2,19 @@
 <?php
 $uri = $_SERVER['REQUEST_URI']; // holds url for last page visited.s
 
-insertnewuserid();
 
-
-function insertnewuserid() {
     $uri = $_SERVER['REQUEST_URI']; // holds url for last page visited.s
     global $dbhandler0;
-    
+        
+echo "<form action='index.php' id=searchuser method='post'><table>";
+echo "<tr><td>Email</td><td><input id=email name=email></td></tr>";
+echo "<tr><td>Pass</td><td><input id=pass name=pass></td></tr>";
+echo "<input type=hidden id='func' name='func' value='getuser'>";
+echo "<input type=hidden name='uri' id='uri' value=".$uri.">"; 
+echo "</table></form>";
+echo "<button id='btnlogin' name='btnlogin'>LOGIN</button>";
+echo "<br>";
+
     $sqlqr = "SELECT * FROM user";
     $resqr = $dbhandler0->query($sqlqr);
     echo "<form action='index.php' id=updateuser method='post'><table>";
@@ -78,8 +84,8 @@ function insertnewuserid() {
     echo "</table>";
     echo "</form>";   
 
-    echo "<button id='btn' name='btn'>Insert New User</button>";
-    } 
+    echo "<button id='btninsert' name='btninsert'>Insert New User</button>";
+
 ?>
 
 <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
@@ -88,12 +94,15 @@ function insertnewuserid() {
 
 $(document).ready(function() 
 {    
-  $('#btn').click(function() {
+  $('#btninsert').click(function() {
     $('#insertnewuser').submit()
 }); 
 
   $('#btnupdateuser').click(function() {
     $('#updateuser').submit()
-});   
+}); 
+  $('#btnlogin').click(function() {
+    $('#searchuser').submit()
+});    
 });   
 </script>
