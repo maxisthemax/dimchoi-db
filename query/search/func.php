@@ -505,7 +505,6 @@ function getorderqrcode()
 //=============================================================LOGIN===================================================================================
 function getuser() 
 {
-
     global $dbhandler0;
     //=============================================== 
     //define variable for query
@@ -514,44 +513,70 @@ function getuser()
     $facebook = !empty($_POST['facebook']) ? $_POST['facebook'] : '';
     $google = !empty($_POST['google']) ? $_POST['google'] : '';    
     $type = !empty($_POST['type']) ? $_POST['type'] : '';
+
     //===============================================
     //===============================================
     //start query
     $sqlcheck = "SELECT *
     FROM user a 
-    WHERE a.i_status = 1";
+    WHERE";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
         if ($type == 'email')
         {
-            if (!empty($email) or $email != 0)
+            if (!empty($pass) AND !empty($email))
             {
-                $sqlcheck .= " and a.va_email = '$email'";    
-            }  
-            if (!empty($pass) or $pass != 0)
-            {
+                $sqlcheck .= " a.va_email = '$email'";    
                 $sqlcheck .= " and a.va_pass = '$pass'";    
-            }             
+            }            
         }    
         else if ($type == 'fb')
         {  
             if (!empty($email) or $email != 0)
             {
-                $sqlcheck .= " and a.va_email = '$email'";    
+                $sqlcheck .= " a.va_email = '$email'";    
             }           
         }    
         else if ($type == 'google')
         {
             if (!empty($email) or $email != 0)
             {
-                $sqlcheck .= " and a.va_email = '$email'";    
+                $sqlcheck .= " a.va_email = '$email'";    
             }             
         }                   
     } 
          $sqlcheck .=" LIMIT 1";
     //===================================================
     $res = $dbhandler0->query($sqlcheck);
+
+    if ($type == 'fb')
+    {
+        if (!empty($res))
+        {
+            $update_i_user_id = $res[0]['i_user_id'];
+            if ($res[0]['va_facebook'] == '')
+            {
+            $sqlcheckupdate = "UPDATE user set va_facebook = '$facebook' WHERE i_user_id = '$update_i_user_id'";
+            $res1 = $dbhandler0->update($sqlcheckupdate);
+            }
+        }
+    }
+    else if ($type == 'google')
+    {
+        if (!empty($res))
+        {
+            $update_i_user_id = $res[0]['i_user_id'];
+            if ($res[0]['va_google'] == '')
+            {
+            $sqlcheckupdate = "UPDATE user set va_google = '$google' WHERE i_user_id = '$update_i_user_id'";
+            $res1 = $dbhandler0->update($sqlcheckupdate);
+            }
+        }
+    }        
     return ($res);
+
+
+
 }    
 //=============================================================LOGIN===================================================================================   
 ?>
