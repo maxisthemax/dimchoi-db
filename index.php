@@ -51,6 +51,7 @@ else if ($output == true and $querytype == 'update')
 		'status' => '0',
 		'message' => 'success',
 	);
+	echo(json_encode ($result, JSON_UNESCAPED_SLASHES));	
 }
 else if ($output == true and $querytype == 'delete')
 {
@@ -58,6 +59,7 @@ else if ($output == true and $querytype == 'delete')
 		'status' => '0',
 		'message' => 'success',
 	);
+	echo(json_encode ($result, JSON_UNESCAPED_SLASHES));
 }			
 else
 {
@@ -65,6 +67,7 @@ else
 		'status' => '0',
 		'message' => 'fail',
 	);
+	echo(json_encode ($result, JSON_UNESCAPED_SLASHES));	
 }
 $dbhandler0->close();
 //======================================================================
