@@ -310,7 +310,7 @@ function insertnewqrcoderow() {
 //====================================================================================================== 
 function insertnewuser() {
     global $dbhandler0;
-
+    
     $firstnamenew = !empty($_POST['firstnamenew']) ? $_POST['firstnamenew'] : '';
     $lastnamenew = !empty($_POST['lastnamenew']) ? $_POST['lastnamenew'] : '';
     $gendernew = !empty($_POST['gendernew']) ? $_POST['gendernew'] : '';
@@ -321,6 +321,11 @@ function insertnewuser() {
     $facebooknew = !empty($_POST['facebooknew']) ? $_POST['facebooknew'] : '';
     $googlenew = !empty($_POST['googlenew']) ? $_POST['googlenew'] : '';    
 
+    $sqlcheckuser = "SELECT * FROM user where va_email = '$emailnew'";
+    $resuser = $dbhandler0->query($sqlcheckuser);
+
+if (empty($resuser))
+{
     $sqlcheck = 
     "INSERT INTO user (
     va_first_name,
@@ -346,8 +351,18 @@ function insertnewuser() {
 
     $res = $dbhandler0->insert($sqlcheck);
     $last_id = $res;
-
-    header('Location:'.$_POST['uri']);
+    return $res;
+}
+else
+{
+    $res_i_user_id=$resuser[0]['i_user_id'];
+    $sqlcheckupdate = "UPDATE user SET
+    va_facebook = '$facebooknew',
+    va_google = '$googlenew'
+    WHERE i_user_id = '$res_i_user_id'"; 
+    $resupdate = $dbhandler0->update($sqlcheckupdate);
+    return $resupdate;
+}
 }
 //======================================================================================================
 ?>
