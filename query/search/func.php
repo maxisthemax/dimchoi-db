@@ -512,6 +512,9 @@ function getuser()
     //define variable for query
     $email = !empty($_POST['email']) ? $_POST['email'] : '';
     $pass = !empty($_POST['pass']) ? $_POST['pass'] : '';
+    $facebook = !empty($_POST['facebook']) ? $_POST['facebook'] : '';
+    $google = !empty($_POST['google']) ? $_POST['google'] : '';    
+    $type = !empty($_POST['type']) ? $_POST['type'] : '';
     //===============================================
 
     //===============================================
@@ -521,14 +524,39 @@ function getuser()
     WHERE a.i_status = 1";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
-         if (!empty($email) or $email != 0)
+        if ($type == 'email')
         {
-            $sqlcheck .= " and a.va_email = '$email'";    
+            if (!empty($email) or $email != 0)
+            {
+                $sqlcheck .= " and a.va_email = '$email'";    
+            }  
+            if (!empty($pass) or $pass != 0)
+            {
+                $sqlcheck .= " and a.va_pass = '$pass'";    
+            }             
         }    
-         if (!empty($pass) or $pass != 0)
+        else if ($type == 'fb')
+        {  
+            if (!empty($email) or $email != 0)
+            {
+                $sqlcheck .= " and a.va_email = '$email'";    
+            }           
+            if (!empty($facebook) or $facebook != 0)
+            {
+                $sqlcheck .= " and a.va_facebook = '$facebook'";    
+            } 
+        }    
+        else if ($type == 'google')
         {
-            $sqlcheck .= " and a.va_pass = '$pass'";    
-        }               
+            if (!empty($email) or $email != 0)
+            {
+                $sqlcheck .= " and a.va_email = '$email'";    
+            }             
+            if (!empty($google) or $google != 0)
+            {
+                $sqlcheck .= " and a.va_google = '$google'";    
+            }
+        }                   
     } 
          $sqlcheck .=" LIMIT 1";
     //===================================================
