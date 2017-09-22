@@ -42,7 +42,7 @@ $(document).ready(function()
       var combo = $("#Options");
       $.each(data.data,function(i,value)
       {
-        combo.append("<option value=" + value.va_res_code + ">" + value.va_res_name + ' - '+ value.va_area + "</option>");
+        combo.append("<option value=" + value.va_res_code + ">" + value.va_res_name + ' - '+ value.va_area_name + "</option>");
       });
 
       $("#SELECTOR").append(combo);
@@ -96,8 +96,7 @@ $(document).ready(function()
                         tb.append("<tr><td>Menu Code:</td><td>"+"<input name = 'menucode' value='"+value.va_menu_code+"'>" + "</td></tr>");
                         tb.append("<tr><td>Add 1:</td><td>"+"<input name = 'add1' value='"+value.va_res_add1+"'>" + "</td></tr>");
                         tb.append("<tr><td>Add 2:</td><td>"+"<input name = 'add2' value='"+value.va_res_add2+"'>" + "</td></tr>");
-                        tb.append("<tr><td>Area</td><td>"+"<input name = 'area' value='"+value.va_area+"'>" + "</td></tr>");
-
+                        tb.append("<tr><td>Area:</td><td><select id='area' name='area'><option></option></select></td></tr>");
                         tb.append("<tr><td>Lat:</td><td>"+"<input name = 'lat' value='"+value.d_lat+"'>" + "</td></tr>");    
                         tb.append("<tr><td>Long:</td><td>"+"<input name = 'long' value='"+value.d_long+"'>" + "</td></tr>");  
                         tb.append("<tr><td>Desc:</td><td>"+"<textarea name = 'desc' rows=6 cols=100>"+value.va_res_desc+"</textarea>" + "</td></tr>");      
@@ -128,6 +127,18 @@ $(document).ready(function()
                             $("#city").val(value.va_city_name);
                             $("#state").html(value.va_state_name);
                         });
+                        var areasel = $('#area');
+                        $.getJSON('data/area.php',function(dataarea)
+                        { 
+                            console.log(dataarea);
+                            $.each(dataarea.data,function(i,dataarea)
+                            {                         
+                                areasel.append($("<option></option>")
+                                .attr("value",dataarea.va_area_name)
+                                .text(dataarea.va_area_name));
+                            }); 
+                            $("#area").val(value.va_area_name);                                        
+                        });                       
                     }
                 });
         })            

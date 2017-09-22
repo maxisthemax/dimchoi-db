@@ -54,11 +54,12 @@
     }         
 //==============================================================================================
     global $dbhandler0;
-    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name,d.va_menu_code,a.va_res_desc,a.va_res_add1,a.va_res_add2,a.d_lat,a.d_long  
+    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name,d.va_menu_code,a.va_res_desc,a.va_res_add1,a.va_res_add2,a.d_lat,a.d_long,e.va_area_name      
     FROM restaurant a 
     LEFT JOIN state b ON a.i_state_id = b.i_state_id 
     LEFT JOIN city c ON c.i_city_id = a.i_city_id 
     LEFT JOIN menu d on d.i_res_id = a.i_res_id
+    LEFT JOIN area e on a.i_area_id = e.i_area_id
     WHERE a.i_res_stat = 1";
 
     $res = $dbhandler0->query($sqlcheck);
@@ -69,10 +70,11 @@
     }
 //==============================================================================================
     global $dbhandler0;
-    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name,a.va_res_desc,a.va_res_add1,a.va_res_add2,a.d_lat,a.d_long    
+    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name,a.va_res_desc,a.va_res_add1,a.va_res_add2,a.d_lat,a.d_long,e.va_area_name    
     FROM restaurant a 
     LEFT JOIN state b ON a.i_state_id = b.i_state_id 
     LEFT JOIN city c ON c.i_city_id = a.i_city_id 
+    LEFT JOIN area e on a.i_area_id = e.i_area_id    
     WHERE a.i_res_stat = 1 AND a.i_feature =1";
     
     $res = $dbhandler0->query($sqlcheck);
@@ -83,10 +85,11 @@
     }
 //==============================================================================================
     global $dbhandler0;
-    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name,a.va_res_desc,a.va_res_add1,a.va_res_add2,a.d_lat,a.d_long    
+    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name,a.va_res_desc,a.va_res_add1,a.va_res_add2,a.d_lat,a.d_long,e.va_area_name        
     FROM restaurant a 
     LEFT JOIN state b ON a.i_state_id = b.i_state_id 
     LEFT JOIN city c ON c.i_city_id = a.i_city_id 
+    LEFT JOIN area e on a.i_area_id = e.i_area_id    
     WHERE a.i_res_stat = 1 AND a.i_feature =2";
 
     $res = $dbhandler0->query($sqlcheck);
@@ -97,10 +100,11 @@
     }
 //==============================================================================================
     global $dbhandler0;
-    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name,a.va_res_desc,a.va_res_add1,a.va_res_add2,a.d_lat,a.d_long    
+    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name,a.va_res_desc,a.va_res_add1,a.va_res_add2,a.d_lat,a.d_long,e.va_area_name        
     FROM restaurant a 
     LEFT JOIN state b ON a.i_state_id = b.i_state_id 
     LEFT JOIN city c ON c.i_city_id = a.i_city_id 
+    LEFT JOIN area e on a.i_area_id = e.i_area_id    
     WHERE a.i_res_stat = 1 AND a.i_feature =99";
 
     $res = $dbhandler0->query($sqlcheck);
@@ -108,6 +112,16 @@
     if($res)
     {
         resultarray($res,'data/resfeature99.php');
+    }
+//==============================================================================================
+    global $dbhandler0;
+    $sqlcheck = "SELECT e.* FROM area e";
+
+    $res = $dbhandler0->query($sqlcheck);
+
+    if($res)
+    {
+        resultarray($res,'data/area.php');
     }
 //==============================================================================================
     global $dbhandler0;

@@ -41,12 +41,12 @@ if($long == 0)
     va_res_code = '$rescode',
     va_res_add1 = '$add1',
     va_res_add2 = '$add2',
-    va_area = '$area',
     d_lat = '$lat',
     d_long ='$long',
     va_res_desc = '$desc',
     i_feature = '$resfeature',
     va_feature_ad = '$featuread',
+    i_area_id = ifnull((SELECT i_area_id FROM area WHERE va_area_name='$area' LIMIT 1),NULL),
     i_city_id = (SELECT i_city_id FROM city WHERE va_city_name='$city' LIMIT 1),
     i_state_id = (SELECT i_state_id FROM city WHERE va_city_name='$city' LIMIT 1)
     where i_res_id = $resid";

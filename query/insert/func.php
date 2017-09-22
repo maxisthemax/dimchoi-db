@@ -20,6 +20,7 @@ function insertnewres() {
     $rescode_new = !empty($_POST['rescode_new']) ? $_POST['rescode_new'] : '';
     $reslogo_new = !empty($_POST['reslogo_new']) ? $_POST['reslogo_new'] : '';
     $city_new = !empty($_POST['city_new']) ? $_POST['city_new'] : '';
+    $area_new = !empty($_POST['area_new']) ? $_POST['area_new'] : '';
     $menucode_new = !empty($_POST['menucode_new']) ? $_POST['menucode_new'] : '';
     $todaydate = date("Y-m-d H:i:s");
 
@@ -45,9 +46,9 @@ function insertnewres() {
                 va_res_code,
                 va_res_add1,
                 va_res_add2,
-                va_area,
                 d_lat,
                 d_long,
+                i_area_id,
                 i_city_id,
                 i_state_id, 
                 va_res_logo,va_res_desc
@@ -55,6 +56,7 @@ function insertnewres() {
                 VALUES (
                 '$resname_new',
                 '$rescode_new','','','',0,0,
+                '',  
                 (SELECT i_city_id FROM city WHERE va_city_name='$city_new' LIMIT 1),                
                 (SELECT i_state_id FROM city WHERE va_city_name='$city_new' LIMIT 1),
                 '$reslogo_new','')";
