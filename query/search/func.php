@@ -507,7 +507,6 @@ function getuser()
 {
 
     global $dbhandler0;
-
     //=============================================== 
     //define variable for query
     $email = !empty($_POST['email']) ? $_POST['email'] : '';
@@ -516,7 +515,6 @@ function getuser()
     $google = !empty($_POST['google']) ? $_POST['google'] : '';    
     $type = !empty($_POST['type']) ? $_POST['type'] : '';
     //===============================================
-
     //===============================================
     //start query
     $sqlcheck = "SELECT *
@@ -541,10 +539,6 @@ function getuser()
             {
                 $sqlcheck .= " and a.va_email = '$email'";    
             }           
-            if (!empty($facebook) or $facebook != 0)
-            {
-                $sqlcheck .= " and a.va_facebook = '$facebook'";    
-            } 
         }    
         else if ($type == 'google')
         {
@@ -552,10 +546,6 @@ function getuser()
             {
                 $sqlcheck .= " and a.va_email = '$email'";    
             }             
-            if (!empty($google) or $google != 0)
-            {
-                $sqlcheck .= " and a.va_google = '$google'";    
-            }
         }                   
     } 
          $sqlcheck .=" LIMIT 1";
