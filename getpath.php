@@ -11,6 +11,7 @@ function get_path($func)
 	    case "getresbeveragemenu":
 	    case "getresfoodtype":
 	    case "getorderqrcode":
+	    case "getuser":
 	    	return array("path" => "query/search/func.php","querytype"=>"search");
 	        break;
 		case "insertnewres":
