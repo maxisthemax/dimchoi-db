@@ -63,8 +63,8 @@ function updateuser() {
 
     global $dbhandler0;
     $userid = !empty($_POST['userid']) ? $_POST['userid'] : ''; 
-    $firstname = !empty($_POST['firstname'][$userid]) ? $_POST['firstname'][$userid][$userid] : '';
-    $lastname = !empty($_POST['lastname'][$userid]) ? $_POST['lastname'][$userid][$userid] : '';
+    $firstname = !empty($_POST['firstname'][$userid]) ? $_POST['firstname'][$userid] : '';
+    $lastname = !empty($_POST['lastname'][$userid]) ? $_POST['lastname'][$userid] : '';
     $gender = !empty($_POST['gender'][$userid]) ? $_POST['gender'][$userid] : '';
     $phone = !empty($_POST['phone'][$userid]) ? $_POST['phone'][$userid] : '';
     $dob = !empty($_POST['dob'][$userid]) ? $_POST['dob'][$userid] : '';
