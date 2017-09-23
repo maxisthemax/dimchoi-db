@@ -9,6 +9,14 @@ $uri = $_SERVER['REQUEST_URI']; // holds url for last page visited.s
 echo "<form action='index.php' id=searchuser method='post'><table>";
 echo "<tr><td>Email</td><td><input id=email name=email></td></tr>";
 echo "<tr><td>Pass</td><td><input id=pass name=pass></td></tr>";
+echo "<tr><td>Facebook</td><td><input id=facebook name=facebook></td></tr>";
+echo "<tr><td>Google</td><td><input id=google name=google></td></tr>";
+echo "<tr><td><select name='type' id = 'type'>
+<option value = 'email'>Email</option>
+<option value = 'fb'>Facebook</option>
+<option value = 'google'>Google</option>
+</select></td></tr>";
+
 echo "<input type=hidden id='func' name='func' value='getuser'>";
 echo "<input type=hidden name='uri' id='uri' value=".$uri.">"; 
 echo "</table></form>";
@@ -33,22 +41,23 @@ echo "<br>";
     </tr>";
 
     foreach($resqr as $resvalue) 
-    {
+    {   $userid=$resvalue["i_user_id"];
         echo "<tr><td>".$resvalue['i_user_id']
-        ."</td><td><input name='firstname' value=".$resvalue['va_first_name'].">"
-        ."</td><td><input name='lastname' value=".$resvalue['va_last_name'].">"
-        ."</td><td><input name='gender' value=".$resvalue['va_gender'].">"
-        ."</td><td><input name='phone' value=".$resvalue['va_phone'].">"
-        ."</td><td><input name='dob' value=".$resvalue['dt_dob'].">"
-        ."</td><td><input name='email' value=".$resvalue['va_email'].">"
-        ."</td><td><input name='pass' value=".$resvalue['va_pass'].">"
-        ."</td><td><input name='facebook' value=".$resvalue['va_facebook'].">"
-        ."</td><td><input name='google' value=".$resvalue['va_google'].">"
-        ."</td><td><button id='btnupdateuser' name='btnupdateuser' value=".$resvalue['i_user_id'].">Update This User</button>"
+        ."</td><td><input name='firstname[$userid]' value=".$resvalue['va_first_name'].">"
+        ."</td><td><input name='lastname[$userid]' value=".$resvalue['va_last_name'].">"
+        ."</td><td><input name='gender[$userid]' value=".$resvalue['va_gender'].">"
+        ."</td><td><input name='phone[$userid]' value=".$resvalue['va_phone'].">"
+        ."</td><td><input name='dob[$userid]' value=".$resvalue['dt_dob'].">"
+        ."</td><td><input name='email[$userid]' value=".$resvalue['va_email'].">"
+        ."</td><td><input name='pass[$userid]' value=".$resvalue['va_pass'].">"
+        ."</td><td><input name='facebook[$userid]' value=".$resvalue['va_facebook'].">"
+        ."</td><td><input name='google[$userid]' value=".$resvalue['va_google'].">"
+        ."<td width=20%><button onclick='setformupdate($userid);'>Update Current Row</button></td>" 
         ."</td></tr>";
     }   
     echo "<input type=hidden id='func' name='func' value='updateuser'>";
-    echo "<input type=hidden name='uri' id='uri' value=".$uri.">";     
+    echo "<input type=hidden name='uri' id='uri' value=".$uri.">";    
+    echo "<input type=hidden name='userid' id='userid'>";   
     echo "</table></form>"; 
 
     echo'<form action="index.php" id=insertnewuser method="post"><table id="tab" width=100%  border=1 style="font-size:100%;">';
@@ -90,17 +99,16 @@ echo "<br>";
 
 <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 <script>
-
-
+function setformupdate(userid)
+{
+    $("#userid").val(userid);
+}
 $(document).ready(function() 
 {    
   $('#btninsert').click(function() {
     $('#insertnewuser').submit()
 }); 
-
-  $('#btnupdateuser').click(function() {
-    $('#updateuser').submit()
-}); 
+ 
   $('#btnlogin').click(function() {
     $('#searchuser').submit()
 });    

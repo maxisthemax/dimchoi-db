@@ -357,6 +357,7 @@ else
 {
     $res_i_user_id=$resuser[0]['i_user_id'];
     $sqlcheckupdate = "UPDATE user SET
+
     va_facebook = '$facebooknew',
     va_google = '$googlenew'
     WHERE i_user_id = '$res_i_user_id'"; 

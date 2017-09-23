@@ -60,18 +60,18 @@ if($long == 0)
 //=======================================================
 }
 function updateuser() {
-    global $dbhandler0;
 
-    $firstname = !empty($_POST['firstname']) ? $_POST['firstname'] : '';
-    $lastname = !empty($_POST['lastname']) ? $_POST['lastname'] : '';
-    $gender = !empty($_POST['gender']) ? $_POST['gender'] : '';
-    $phone = !empty($_POST['phone']) ? $_POST['phone'] : '';
-    $dob = !empty($_POST['dob']) ? $_POST['dob'] : '';
-    $email = !empty($_POST['email']) ? $_POST['email'] : '';
-    $pass = !empty($_POST['pass']) ? $_POST['pass'] : '';
-    $facebook = !empty($_POST['facebook']) ? $_POST['facebook'] : '';
-    $google = !empty($_POST['google']) ? $_POST['google'] : '';    
-    $userid = !empty($_POST['btnupdateuser']) ? $_POST['btnupdateuser'] : ''; 
+    global $dbhandler0;
+    $userid = !empty($_POST['userid']) ? $_POST['userid'] : ''; 
+    $firstname = !empty($_POST['firstname'][$userid]) ? $_POST['firstname'][$userid][$userid] : '';
+    $lastname = !empty($_POST['lastname'][$userid]) ? $_POST['lastname'][$userid][$userid] : '';
+    $gender = !empty($_POST['gender'][$userid]) ? $_POST['gender'][$userid] : '';
+    $phone = !empty($_POST['phone'][$userid]) ? $_POST['phone'][$userid] : '';
+    $dob = !empty($_POST['dob'][$userid]) ? $_POST['dob'][$userid] : '';
+    $email = !empty($_POST['email'][$userid]) ? $_POST['email'][$userid] : '';
+    $pass = !empty($_POST['pass'][$userid]) ? $_POST['pass'][$userid] : '';
+    $facebook = !empty($_POST['facebook'][$userid]) ? $_POST['facebook'][$userid] : '';
+    $google = !empty($_POST['google'][$userid]) ? $_POST['google'][$userid] : '';  
 
     $sqlcheck = 
     "UPDATE user
