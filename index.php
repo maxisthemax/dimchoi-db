@@ -32,17 +32,9 @@ if (!empty($output) and $querytype == 'search')
 				'data' => $output
 			);
 		$fp = fopen('result.php', 'w');
-    if (count($output) == 1)
-    {
 
-		fwrite($fp, json_encode ($result, JSON_UNESCAPED_SLASHES|JSON_FORCE_OBJECT));
-		print_r(json_encode ($result, JSON_UNESCAPED_SLASHES|JSON_FORCE_OBJECT));
-	}
-	else	
-	{
 		fwrite($fp, json_encode ($result, JSON_UNESCAPED_SLASHES));
 		print_r(json_encode ($result, JSON_UNESCAPED_SLASHES));		
-	}	
 		}	
 }
 else if ($output == true and $querytype == 'insert')

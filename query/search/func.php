@@ -573,7 +573,8 @@ function getuser()
             }
         }
     }        
-    return ($res);
+
+    return ($res[0]);
 
 
 
