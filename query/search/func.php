@@ -247,7 +247,10 @@ function getresfoodmenu()
     //define variable for query
     $res_id = !empty($_POST['res_id']) ? $_POST['res_id'] : '';
     //===============================================
-
+    $sqlHQ = "SELECT i_hq_id from restaurant where i_res_id = '$res_id' LIMIT 1";
+    $resHQ = $dbhandler0->query($sqlHQ);
+    $hqid = $resHQ[0]['i_hq_id'];
+    $res_id = $hqid;
     //===============================================
     //start query
     $sqlfoodtype = "SELECT DISTINCT c.va_food_type_name,c.i_food_type_id as food_type_id,c.va_food_type_pic_url,res.va_res_code
@@ -343,7 +346,10 @@ function getresfoodmenu()
     //define variable for query
     $res_id = !empty($_POST['res_id']) ? $_POST['res_id'] : '';
     //===============================================
-
+    $sqlHQ = "SELECT i_hq_id from restaurant where i_res_id = '$res_id' LIMIT 1";
+    $resHQ = $dbhandler0->query($sqlHQ);
+    $hqid = $resHQ[0]['i_hq_id'];
+    $res_id = $hqid;
     //===============================================
     //start query
     $sqlbevtype = "SELECT DISTINCT c.va_bev_type_name,c.i_bev_type_id as bev_type_id,c.va_bev_type_pic_url,res.va_res_code
