@@ -23,7 +23,7 @@ function updateres()
     $city = !empty($_POST['city']) ? $_POST['city'] : '';
     $state = !empty($_POST['state']) ? $_POST['state'] : '';
     $menucode = !empty($_POST['menucode']) ? $_POST['menucode'] : '';
-
+    $hqid = !empty($_POST['hqid']) ? $_POST['hqid'] : '';
 if($lat == 0)
 {
     $lat = 0.0;
@@ -36,7 +36,9 @@ if($long == 0)
 
     $sqlcheck = 
     "UPDATE restaurant 
-    SET va_res_name = '$resname',
+    SET 
+    i_hq_id = '$hqid',
+    va_res_name = '$resname',
     va_res_logo = '$reslogo', 
     va_res_code = '$rescode',
     va_res_add1 = '$add1',

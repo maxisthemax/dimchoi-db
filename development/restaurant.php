@@ -91,13 +91,14 @@ $(document).ready(function()
                     if (value.va_res_code == name)
                     {
                         tb.append("<tr><td>ID:</td><td>" + value.i_res_id + "</td></tr>");
+                        tb.append("<tr><td>HQ ID:</td><td>" +"<input name = 'hqid' value='"+value.i_hq_id+"'>" + "</td></tr>");
                         tb.append("<tr><td>Name:</td><td>"+"<input name = 'resname' value='"+value.va_res_name+"'>" + "</td></tr>");
                         tb.append("<tr><td>Res Code:</td><td>"+"<input name = 'rescode' value='"+value.va_res_code+"'>" + "</td></tr>");
                         tb.append("<tr><td>Menu Code:</td><td>"+"<input name = 'menucode' value='"+value.va_menu_code+"'>" + "</td></tr>");
                         tb.append("<tr><td>Add 1:</td><td>"+"<input name = 'add1' value='"+value.va_res_add1+"'>" + "</td></tr>");
                         tb.append("<tr><td>Add 2:</td><td>"+"<input name = 'add2' value='"+value.va_res_add2+"'>" + "</td></tr>");
                         tb.append("<tr><td>Area:</td><td><select id='area' name='area'><option></option></select></td></tr>");
-                        tb.append("<tr><td>Lat:</td><td>"+"<input name = 'lat' value='"+value.d_lat+"'>" + "</td></tr>");    
+                        tb.append("<tr><td>Lat:</td><td>"+"<input name = 'lat' value='"+value   .d_lat+"'>" + "</td></tr>");    
                         tb.append("<tr><td>Long:</td><td>"+"<input name = 'long' value='"+value.d_long+"'>" + "</td></tr>");  
                         tb.append("<tr><td>Desc:</td><td>"+"<textarea name = 'desc' rows=6 cols=100>"+value.va_res_desc+"</textarea>" + "</td></tr>");      
 
