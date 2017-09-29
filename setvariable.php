@@ -184,16 +184,6 @@
     }
 //==============================================================================================
     global $dbhandler0;
-    $sqlcheck = "SELECT e.* FROM area e";
-
-    $res = $dbhandler0->query($sqlcheck);
-
-    if($res)
-    {
-        resultarray($res,'data/area.php');
-    }
-//==============================================================================================
-    global $dbhandler0;
     $sqlcheck = "SELECT a.*  
     FROM food_type a";
 
