@@ -119,7 +119,7 @@
 
     if($finalresult1)
     {
-        resultarray($finalresult1,'data/place.php');
+        resultarray($finalresult1,'data/area.php');
     }         
 //==============================================================================================
     global $dbhandler0;
