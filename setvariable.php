@@ -66,10 +66,12 @@
     $datastate = json_decode($instate, true);
     $datacity = json_decode($incity, true);
 
-    $sqlcheck = "SELECT b.va_state_name,a.va_city_name,a.i_state_id,a.i_city_id,c.i_area_id,c.va_area_name 
+    $sqlcheck = "SELECT b.va_state_name,a.va_city_name,a.i_state_id,a.i_city_id,c.i_area_id,c.va_area_name,COUNT(res.i_res_id) as 'total_res'
     FROM city a 
     left join state b on a.i_state_id = b.i_state_id 
     left join area c on c.i_city_id = a.i_city_id
+    left join restaurant res on res.i_area_id = c.i_area_id
+    GROUP by c.i_area_id
     order by b.i_state_id,a.i_city_id,c.i_area_id";
     $res = $dbhandler0->query($sqlcheck);
 
@@ -90,7 +92,8 @@
                             $cityresult[]=
                             [
                                 'area_id' => $value['i_area_id'],
-                                'area_name' => $value['va_area_name']
+                                'area_name' => $value['va_area_name'],
+                                'total_res' => $value['total_res']
                             ];
                         }  
                     } 
