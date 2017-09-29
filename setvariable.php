@@ -117,9 +117,9 @@
 
     }
 
-    if($finalresult1)
+    if($finalresult2)
     {
-        resultarray($finalresult1,'data/area.php');
+        resultarray($finalresult2,'data/area.php');
     }         
 //==============================================================================================
     global $dbhandler0;
