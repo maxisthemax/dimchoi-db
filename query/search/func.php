@@ -47,6 +47,7 @@ function getres()
     $total = !empty($_POST['total']) ? $_POST['total'] : '';
     $startfrom = !empty($_POST['startfrom']) ? $_POST['startfrom'] : '';
     $feature = !empty($_POST['feature']) ? $_POST['feature'] : '';
+    $area = !empty($_POST['area']) ? $_POST['area'] : '';
     //===============================================
 
     //===============================================
@@ -75,7 +76,11 @@ function getres()
         if (!empty($feature) or $feature != 0)
         {
             $sqlcheck .= " and a.i_feature = $feature";  
-        }             	
+        }     
+        if (!empty($area) or $area != 0)
+        {
+            $sqlcheck .= " and d.i_area_id = $area";  
+        }                 	
     }
 
     if (!empty($total) or $total != 0)
