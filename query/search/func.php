@@ -52,7 +52,7 @@ function getres()
 
     //===============================================
     //start query
-    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name,d.va_area_name    
+    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name,d.va_area_name   
     FROM restaurant a 
     LEFT JOIN state b ON a.i_state_id = b.i_state_id 
     LEFT JOIN city c ON c.i_city_id = a.i_city_id 
@@ -71,7 +71,42 @@ function getres()
     	}
         if (!empty($ressearch) or $ressearch != 0)
         {
-            $sqlcheck .= " and (a.va_res_name like '%".$ressearch."%' OR c.va_city_name like '%".$ressearch."%')";  
+            if (strlen($ressearch) == 1)
+            {
+            $sqlcheck .= " and ((SELECT
+  CONCAT_WS('',LEFT(va_res_name,1),
+    CASE WHEN LENGTH(va_res_name)-LENGTH(REPLACE(va_res_name,' ',''))>7 THEN
+      CONCAT(LEFT(SUBSTRING_INDEX(va_res_name, ' ', -8), 1))
+    END,             
+    CASE WHEN LENGTH(va_res_name)-LENGTH(REPLACE(va_res_name,' ',''))>6 THEN
+      CONCAT(LEFT(SUBSTRING_INDEX(va_res_name, ' ', -7), 1))
+    END,            
+    CASE WHEN LENGTH(va_res_name)-LENGTH(REPLACE(va_res_name,' ',''))>5 THEN
+      CONCAT(LEFT(SUBSTRING_INDEX(va_res_name, ' ', -6), 1))
+    END,            
+    CASE WHEN LENGTH(va_res_name)-LENGTH(REPLACE(va_res_name,' ',''))>4 THEN
+      CONCAT(LEFT(SUBSTRING_INDEX(va_res_name, ' ', -5), 1))
+    END,
+    CASE WHEN LENGTH(va_res_name)-LENGTH(REPLACE(va_res_name,' ',''))>3 THEN
+      CONCAT(LEFT(SUBSTRING_INDEX(va_res_name, ' ', -4), 1))
+    END,            
+    CASE WHEN LENGTH(va_res_name)-LENGTH(REPLACE(va_res_name,' ',''))>2 THEN
+      CONCAT(LEFT(SUBSTRING_INDEX(va_res_name, ' ', -3), 1))
+    END,
+    CASE WHEN LENGTH(va_res_name)-LENGTH(REPLACE(va_res_name,' ',''))>1 THEN
+      CONCAT(LEFT(SUBSTRING_INDEX(va_res_name, ' ', -2), 1))
+    END,
+    CASE WHEN LENGTH(va_res_name)-LENGTH(REPLACE(va_res_name,' ',''))>0 THEN
+      CONCAT(LEFT(SUBSTRING_INDEX(va_res_name, ' ', -1), 1))      
+    END
+    ) va_res_name
+FROM
+  restaurant where restaurant.i_res_id = a.i_res_id) like '%".$ressearch."%')";  
+            }
+            else
+            {
+            $sqlcheck .= " and va_res_name like '%".$ressearch."%'";    
+            }    
         }     
         if (!empty($feature) or $feature != 0)
         {
