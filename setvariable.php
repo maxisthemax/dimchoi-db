@@ -15,13 +15,13 @@
     left join state b on a.i_state_id = b.i_state_id 
     order by a.va_city_name";
     $res = $dbhandler0->query($sqlcheck);
-
+    
     $in = json_encode($res);
 
     $data = json_decode($in, true);
     $out1 = [];
     $out2 = [];
-
+    
     foreach($datastate as $elementstate) {
 
             foreach($data as $elementcity) {
@@ -66,13 +66,13 @@
     $datastate = json_decode($instate, true);
     $datacity = json_decode($incity, true);
 
-    $sqlcheck = "SELECT b.va_state_name,a.va_city_name,a.i_state_id,a.i_city_id,c.i_area_id,c.va_area_name,COUNT(res.i_res_id) as 'total_res'
+    $sqlcheck = "SELECT * FROM (SELECT b.va_state_name,a.va_city_name,a.i_state_id,a.i_city_id,c.i_area_id,c.va_area_name,COUNT(res.i_res_id) as 'total_res'
     FROM city a 
     left join state b on a.i_state_id = b.i_state_id 
     left join area c on c.i_city_id = a.i_city_id
     left join restaurant res on res.i_area_id = c.i_area_id
     GROUP by c.i_area_id
-    order by total_res DESC,b.i_state_id,a.i_city_id,c.i_area_id";
+    order by total_res DESC,b.i_state_id,a.i_city_id,c.i_area_id) AS result where result.total_res > 0";
     $res = $dbhandler0->query($sqlcheck);
 
     $in = json_encode($res);
