@@ -131,12 +131,17 @@ $(document).ready(function()
                         var areasel = $('#area');
                         $.getJSON('data/area.php',function(dataarea)
                         { 
-                            console.log(dataarea);
                             $.each(dataarea.data,function(i,dataarea)
-                            {                         
-                                areasel.append($("<option></option>")
-                                .attr("value",dataarea.va_area_name)
-                                .text(dataarea.va_area_name));
+                            {    console.log(dataarea); 
+                                $.each(dataarea.cities,function(i,dataarea)
+                                {  console.log(dataarea);   
+                                    $.each(dataarea.areas,function(i,dataarea)
+                                    {                                                                                                     
+                                    areasel.append($("<option></option>")
+                                    .attr("value",dataarea.area_name)
+                                    .text(dataarea.area_name));
+                                    }); 
+                                }); 
                             }); 
                             $("#area").val(value.va_area_name);                                        
                         });                       
