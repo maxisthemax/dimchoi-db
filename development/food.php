@@ -215,13 +215,13 @@ if (type == 1)
 {
     $("#food_id").val(id);
     $("#food_price_id").val(price_id);    
-    $("#func").val('updatefood');
+    $("#func").val('updatefood_dev');
 }
 else if (type == 2)
 {
     $("#bev_id").val(id); 
     $("#bev_price_id").val(price_id);   
-    $("#func").val('updatebev');
+    $("#func").val('updatebev_dev');
 }
 }
 function setformdelete(id,type)

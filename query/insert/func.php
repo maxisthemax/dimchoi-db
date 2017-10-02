@@ -314,6 +314,7 @@ function insertnewuser() {
     $firstnamenew = !empty($_POST['firstnamenew']) ? $_POST['firstnamenew'] : '';
     $lastnamenew = !empty($_POST['lastnamenew']) ? $_POST['lastnamenew'] : '';
     $gendernew = !empty($_POST['gendernew']) ? $_POST['gendernew'] : '';
+    $countrycodenew = !empty($_POST['countrycodenew']) ? $_POST['countrycodenew'] : '';
     $phonecodenew = !empty($_POST['phonecodenew']) ? $_POST['phonecodenew'] : '';
     $phonenew = !empty($_POST['phonenew']) ? $_POST['phonenew'] : '';
     $dobnew = !empty($_POST['dobnew']) ? $_POST['dobnew'] : '0000-00-00';
@@ -332,6 +333,7 @@ if (empty($resuser))
     va_first_name,
     va_last_name,    
     va_gender,
+    va_country_code,
     va_phone_code,
     va_phone,
     dt_dob,
@@ -343,6 +345,7 @@ if (empty($resuser))
     '$firstnamenew',
     '$lastnamenew',
     '$gendernew',
+    '$countrycodenew',
     '$phonecodenew',
     '$phonenew',
     '$dobnew',

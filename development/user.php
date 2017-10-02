@@ -32,6 +32,7 @@ echo "<br>";
     <td width=10%>First Name</td>
     <td>Last Name</td>
     <td>Gender</td>
+    <td>Country Code</td>
     <td>Phone Code</td>
     <td>Phone</td>
     <td>D.O.B</td>
@@ -47,6 +48,7 @@ echo "<br>";
         ."</td><td><input name='firstname[$userid]' value=".$resvalue['va_first_name'].">"
         ."</td><td><input name='lastname[$userid]' value=".$resvalue['va_last_name'].">"
         ."</td><td><input name='gender[$userid]' value=".$resvalue['va_gender'].">"
+        ."</td><td><input name='countrycode[$userid]' value=".$resvalue['va_country_code'].">"
         ."</td><td><input name='phonecode[$userid]' value=".$resvalue['va_phone_code'].">"
         ."</td><td><input name='phone[$userid]' value=".$resvalue['va_phone'].">"
         ."</td><td><input name='dob[$userid]' value=".$resvalue['dt_dob'].">"
@@ -57,7 +59,7 @@ echo "<br>";
         ."<td width=20%><button onclick='setformupdate($userid);'>Update Current Row</button></td>" 
         ."</td></tr>";
     }   
-    echo "<input type=hidden id='func' name='func' value='updateuser'>";
+    echo "<input type=hidden id='func' name='func' value='updateuser_dev'>";
     echo "<input type=hidden name='uri' id='uri' value=".$uri.">";    
     echo "<input type=hidden name='userid' id='userid'>";   
     echo "</table></form>"; 
@@ -69,6 +71,7 @@ echo "<br>";
     <td width=10%>First Name</td>
     <td>Last Name</td>
     <td>Gender</td>
+    <td>Country Code</td>
     <td>Phone Code</td> 
     <td>Phone</td>
     <td>D.O.B</td>
@@ -84,6 +87,7 @@ echo "<br>";
     <td><input name=firstnamenew id=firstnamenew value=''></td>
     <td><input name=lastnamenew id=lastnamenew value=''></td>
     <td><select name=gendernew id=gendernew><option value=''></option><option value='Male'>Male</option><option value='Female'>Female</option></select></td>
+    <td><input name=countrycodenew id=countrycodenew value=''></td> 
     <td><input name=phonecodenew id=phonecodenew value=''></td>   
     <td><input name=phonenew id=phonenew value=''></td>   
     <td><input type=date name=dobnew id=dobnew></td> 
