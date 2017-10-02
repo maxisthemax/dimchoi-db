@@ -72,7 +72,7 @@
     left join area c on c.i_city_id = a.i_city_id
     left join restaurant res on res.i_area_id = c.i_area_id
     GROUP by c.i_area_id
-    order by b.i_state_id,a.i_city_id,c.i_area_id";
+    order by total_res DESC,b.i_state_id,a.i_city_id,c.i_area_id";
     $res = $dbhandler0->query($sqlcheck);
 
     $in = json_encode($res);
