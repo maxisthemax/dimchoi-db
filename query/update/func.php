@@ -68,8 +68,9 @@ function updateuser() {
     $firstname = !empty($_POST['firstname'][$userid]) ? $_POST['firstname'][$userid] : '';
     $lastname = !empty($_POST['lastname'][$userid]) ? $_POST['lastname'][$userid] : '';
     $gender = !empty($_POST['gender'][$userid]) ? $_POST['gender'][$userid] : '';
+    $phonecode = !empty($_POST['phonecode'][$userid]) ? $_POST['phonecode'][$userid] : '';
     $phone = !empty($_POST['phone'][$userid]) ? $_POST['phone'][$userid] : '';
-    $dob = !empty($_POST['dob'][$userid]) ? $_POST['dob'][$userid] : '';
+    $dob = !empty($_POST['dob'][$userid]) ? $_POST['dob'][$userid] : '0000-00-00';
     $email = !empty($_POST['email'][$userid]) ? $_POST['email'][$userid] : '';
     $pass = !empty($_POST['pass'][$userid]) ? $_POST['pass'][$userid] : '';
     $facebook = !empty($_POST['facebook'][$userid]) ? $_POST['facebook'][$userid] : '';
@@ -80,6 +81,7 @@ function updateuser() {
     set va_first_name = '$firstname',
     va_last_name ='$lastname',    
     va_gender ='$gender',
+    va_phone_code = '$phonecode',
     va_phone ='$phone',
     dt_dob ='$dob',
     va_email ='$email',

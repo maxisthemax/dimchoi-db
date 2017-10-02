@@ -32,6 +32,7 @@ echo "<br>";
     <td width=10%>First Name</td>
     <td>Last Name</td>
     <td>Gender</td>
+    <td>Phone Code</td>
     <td>Phone</td>
     <td>D.O.B</td>
     <td>Email</td>
@@ -46,6 +47,7 @@ echo "<br>";
         ."</td><td><input name='firstname[$userid]' value=".$resvalue['va_first_name'].">"
         ."</td><td><input name='lastname[$userid]' value=".$resvalue['va_last_name'].">"
         ."</td><td><input name='gender[$userid]' value=".$resvalue['va_gender'].">"
+        ."</td><td><input name='phonecode[$userid]' value=".$resvalue['va_phone_code'].">"
         ."</td><td><input name='phone[$userid]' value=".$resvalue['va_phone'].">"
         ."</td><td><input name='dob[$userid]' value=".$resvalue['dt_dob'].">"
         ."</td><td><input name='email[$userid]' value=".$resvalue['va_email'].">"
@@ -67,6 +69,7 @@ echo "<br>";
     <td width=10%>First Name</td>
     <td>Last Name</td>
     <td>Gender</td>
+    <td>Phone Code</td> 
     <td>Phone</td>
     <td>D.O.B</td>
     <td>Email</td>
@@ -81,6 +84,7 @@ echo "<br>";
     <td><input name=firstnamenew id=firstnamenew value=''></td>
     <td><input name=lastnamenew id=lastnamenew value=''></td>
     <td><select name=gendernew id=gendernew><option value=''></option><option value='Male'>Male</option><option value='Female'>Female</option></select></td>
+    <td><input name=phonecodenew id=phonecodenew value=''></td>   
     <td><input name=phonenew id=phonenew value=''></td>   
     <td><input type=date name=dobnew id=dobnew></td> 
     <td><input name=emailnew id=emailnew value=''></td> 

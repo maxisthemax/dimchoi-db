@@ -62,7 +62,10 @@ global $dbhandler0;
     <td><input type="radio" name="feature" value=2></td>
     <td>Feature 2</td>
   </tr> 
+  <tr>
   <tr>    
+    <td>area</td><td><input type="text" name="area"></td>
+  </tr>      
   <td colspan=2><input type="submit" name="func" value="getres"></td>
   </table>
 </form>
