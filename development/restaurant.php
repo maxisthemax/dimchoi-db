@@ -92,7 +92,7 @@ $(document).ready(function()
                     {
                         tb.append("<tr><td>ID:</td><td>" + value.i_res_id + "</td></tr>");
                         tb.append("<tr><td>HQ ID:</td><td>" +"<input name = 'hqid' value='"+value.i_hq_id+"'>" + "</td></tr>");
-                        tb.append("<tr><td>Name:</td><td>"+"<input name = 'resname' value='"+value.va_res_name+"'>" + "</td></tr>");
+                        tb.append("<tr><td>Name:</td><td>"+"<input id='resname' name = 'resname' value='"+"'>" + "</td></tr>");
                         tb.append("<tr><td>Res Code:</td><td>"+"<input name = 'rescode' value='"+value.va_res_code+"'>" + "</td></tr>");
                         tb.append("<tr><td>Menu Code:</td><td>"+"<input name = 'menucode' value='"+value.va_menu_code+"'>" + "</td></tr>");
                         tb.append("<tr><td>Add 1:</td><td>"+"<input name = 'add1' value='"+value.va_res_add1+"'>" + "</td></tr>");
@@ -113,6 +113,8 @@ $(document).ready(function()
                         tb.append("<tr><td>Feature:</td><td>"+"<input name = 'resfeature' value='"+value.i_feature+"'>" + "</td></tr>");
 
                         tb.append("<input hidden name = 'resid' value='"+value.i_res_id+"'>");
+                        var resname = $('#resname');
+                        resname.val(value.va_res_name);
                         var citysel = $('#city');
                         $.getJSON('data/place.php',function(data)
                         {  

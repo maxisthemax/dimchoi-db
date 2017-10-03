@@ -8,7 +8,7 @@ function updateres()
 //define variable for query
 
     $resid = !empty($_POST['resid']) ? $_POST['resid'] : '';
-    $resname = !empty($_POST['resname']) ? $_POST['resname'] : '';
+    $resname = !empty($_POST['resname']) ? addslashes($_POST['resname']) : '';
     $reslogo = !empty($_POST['reslogo']) ? $_POST['reslogo'] : '';
     $rescode = !empty($_POST['rescode']) ? $_POST['rescode'] : '';   
     $add1 = !empty($_POST['add1']) ? $_POST['add1'] : '';
@@ -32,6 +32,7 @@ function updateres()
     {
         $long = 0.0;
     }
+
 //===============================================  
 
     $sqlcheck = 
