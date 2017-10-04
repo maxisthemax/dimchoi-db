@@ -85,6 +85,15 @@
         foreach($datacity as $elementcity) {
 
                 foreach($data as $value) {
+                    $areaid = $value['i_area_id'];
+                    $sqlresdata = "SELECT b.va_state_name,a.va_city_name,a.i_state_id,a.i_city_id,c.i_area_id,c.va_area_name,res.*
+                    FROM city a 
+                    left join state b on a.i_state_id = b.i_state_id 
+                    left join area c on c.i_city_id = a.i_city_id
+                    left join restaurant res on res.i_area_id = c.i_area_id
+                    where res.i_area_id = $areaid
+                    order by b.i_state_id,a.i_city_id,c.i_area_id";
+                    $resdata = $dbhandler0->query($sqlresdata);                    
                     if($elementstate['i_state_id']==$value['i_state_id']) 
                     { 
                         if($elementcity['i_city_id']==$value['i_city_id'])  
@@ -93,10 +102,12 @@
                             [
                                 'area_id' => $value['i_area_id'],
                                 'area_name' => $value['va_area_name'],
-                                'total_res' => $value['total_res']
+                                'total_res' => $value['total_res'],
+                                'res_data' => $resdata
                             ];
                         }  
                     } 
+                    unset($resdata);
                 }
                 if (!empty($cityresult))
                 {
