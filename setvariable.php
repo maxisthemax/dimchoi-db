@@ -51,7 +51,8 @@
     if($finalresult)
     {
         resultarray($finalresult,'data/place.php');
-    }         
+    }       
+    unset($finalresult);       
 //==============================================================================================
     global $dbhandler0;
 
@@ -134,7 +135,79 @@
     if($finalresult2)
     {
         resultarray($finalresult2,'data/area.php');
-    }         
+    }     
+    unset($resdata);
+    unset($cityresult);
+    unset($finalresult1);
+    unset($elementstate);
+    unset($elementcity);  
+    unset($value);  
+    unset($finalresult2);         
+//==============================================================================================
+    global $dbhandler0;
+
+    $sqlstate = "SELECT * FROM state a";
+    $resstate = $dbhandler0->query($sqlstate);
+
+    $in = json_encode($resstate);
+
+    $datastate = json_decode($in, true);
+
+    $sqlcheck = "SELECT * FROM (SELECT b.va_state_name,a.va_city_name,a.i_state_id,a.i_city_id,COUNT(res.i_res_id) as 'total_res'
+    FROM city a 
+    left join state b on a.i_state_id = b.i_state_id
+    left join restaurant res on res.i_city_id = a.i_city_id
+    GROUP by a.i_city_id
+    order by total_res DESC,b.i_state_id,a.i_city_id) AS result where result.i_city_id > 0";
+    $res = $dbhandler0->query($sqlcheck);
+
+    $in = json_encode($res);
+
+    $data = json_decode($in, true);
+    $out1 = [];
+    $out2 = [];
+
+    foreach($datastate as $elementstate) {
+
+            foreach($data as $elementcity) {
+            $cityid = $elementcity['i_city_id'];    
+            $sqlresdata = "SELECT b.va_state_name,a.va_city_name,a.i_state_id,a.i_city_id,c.i_area_id,c.va_area_name,res.*
+                    FROM city a 
+                    left join state b on a.i_state_id = b.i_state_id 
+                    left join area c on c.i_city_id = a.i_city_id
+                    left join restaurant res on res.i_area_id = c.i_area_id
+                    where res.i_city_id = $cityid
+                    order by b.i_state_id,a.i_city_id,c.i_area_id";
+                    $resdata = $dbhandler0->query($sqlresdata);                             
+            if($elementstate['i_state_id']==$elementcity['i_state_id'])  
+            {  
+                $cityresult[]=
+                [
+                    'city_id' => $elementcity['i_city_id'],
+                    'city_name' => $elementcity['va_city_name'],
+                    'total_res' => $elementcity['total_res'],
+                    'res_data' => $resdata
+                ];
+            }        
+            }
+
+            $finalresult[]=
+            [
+                'state_id' => $elementstate['i_state_id'],
+                'state_name' => $elementstate['va_state_name'],
+                'cities' => $cityresult
+            ];
+
+            unset($cityresult);
+
+    }
+
+
+     
+    if($finalresult)
+    {
+        resultarray($finalresult,'data/city.php');
+    }     
 //==============================================================================================
     global $dbhandler0;
     $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name,d.va_menu_code,a.va_res_desc,a.va_res_add1,a.va_res_add2,a.d_lat,a.d_long,e.va_area_name      
