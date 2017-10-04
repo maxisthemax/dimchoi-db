@@ -148,6 +148,22 @@
     LEFT JOIN state b ON a.i_state_id = b.i_state_id 
     LEFT JOIN city c ON c.i_city_id = a.i_city_id 
     LEFT JOIN area e on a.i_area_id = e.i_area_id    
+    WHERE a.i_res_stat = 1 AND a.i_res_ad =1
+    ORDER BY a.va_res_name ASC";
+
+    $res = $dbhandler0->query($sqlcheck);
+
+    if($res)
+    {
+        resultarray($res,'data/resads.php');
+    }
+//==============================================================================================
+    global $dbhandler0;
+    $sqlcheck = "SELECT a.*,b.va_state_name,c.va_city_name,a.va_res_desc,a.va_res_add1,a.va_res_add2,a.d_lat,a.d_long,e.va_area_name    
+    FROM restaurant a 
+    LEFT JOIN state b ON a.i_state_id = b.i_state_id 
+    LEFT JOIN city c ON c.i_city_id = a.i_city_id 
+    LEFT JOIN area e on a.i_area_id = e.i_area_id    
     WHERE a.i_res_stat = 1 AND a.i_feature =1
     ORDER BY a.va_res_name ASC";
 
