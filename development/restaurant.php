@@ -26,8 +26,7 @@
             <tr><td>Name :</td><td><input name = "resname_new" value=""></td></tr> 
             <tr><td>Res Code :</td><td><input name = "rescode_new" value=""></td></tr>
             <tr><td>Menu Code :</td><td><input name = "menucode_new" value=""></td></tr>
-            <tr><td>Logo Url :</td><td><input name = "reslogo_new" value=""></td></tr>
-            <tr><td>City :</td><td><select id = "city_new" name = "city_new"></select></td></tr>
+            <tr><td>Area :</td><td><select id = "area_new" name = "area_new"></select></td></tr>
         </table>
     </div>
 
@@ -60,19 +59,22 @@ $(document).ready(function()
         {
             $('#insertnewres').show();
             $('#updateres').hide();                       
-            var city_new = $('#city_new');
-            city_new.empty();
-            city_new.append("<option></option>");     
-            var ii=0;
-            $.getJSON('data/place.php',function(data)
+            var area_new = $('#area_new');
+            area_new.empty();
+            area_new.append("<option></option>");     
+
+            $.getJSON('data/area.php',function(data)
             {   
                     $.each(data.data,function(i,data1)
                     {
                         $.each(data1.cities,function(j,city)
-                        { 
-                            city_new.append($("<option></option>")
-                            .attr("value",city.city_name)
-                            .text(city.city_name));   
+                        { console.log(city);
+                            $.each(city.areas,function(k,area)
+                            {                            
+                            area_new.append($("<option></option>")
+                            .attr("value",area.area_id)
+                            .text(area.area_name));
+                            });   
                         });
                     });    
             });            

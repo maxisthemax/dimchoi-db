@@ -19,8 +19,7 @@ function insertnewres() {
     $resname_new = !empty($_POST['resname_new']) ? $_POST['resname_new'] : '';
     $rescode_new = !empty($_POST['rescode_new']) ? $_POST['rescode_new'] : '';
     $reslogo_new = !empty($_POST['reslogo_new']) ? $_POST['reslogo_new'] : '';
-    $city_new = !empty($_POST['city_new']) ? $_POST['city_new'] : '';
-    $area_new = !empty($_POST['area_new']) ? $_POST['area_new'] : '';
+    $area_new = !empty($_POST['area_new']) ? $_POST['area_new'] : '1';
     $menucode_new = !empty($_POST['menucode_new']) ? $_POST['menucode_new'] : '';
     $todaydate = date("Y-m-d H:i:s");
 
@@ -28,7 +27,7 @@ function insertnewres() {
     {
         return false;
     }
-
+    $reslogo_new = 'http://103.233.1.196/dimchoi/file/res/'.$rescode_new.'/logo.jpg';
     //start query for same name  
     $sqlcheck = 
         "SELECT a.i_res_id,a.va_res_name
@@ -42,6 +41,7 @@ function insertnewres() {
             //start insert  
                 $sqlcheck = 
                 "INSERT INTO restaurant (
+                i_hq_id,    
                 va_res_name,
                 va_res_code,
                 va_res_add1,
@@ -50,15 +50,17 @@ function insertnewres() {
                 d_long,
                 i_area_id,
                 i_city_id,
-                i_state_id, 
+                i_state_id,
+                i_res_stat, 
                 va_res_logo,va_res_desc
                 )
                 VALUES (
+                '',
                 '$resname_new',
-                '$rescode_new','','','',0,0,
-                '',  
-                (SELECT i_city_id FROM city WHERE va_city_name='$city_new' LIMIT 1),                
-                (SELECT i_state_id FROM city WHERE va_city_name='$city_new' LIMIT 1),
+                '$rescode_new','','',0,0,
+                (SELECT i_area_id FROM area WHERE i_area_id='$area_new' LIMIT 1), 
+                (SELECT i_city_id FROM city WHERE i_city_id=(SELECT i_city_id FROM area WHERE i_area_id='$area_new' LIMIT 1) LIMIT 1),                
+                (SELECT i_state_id FROM state WHERE i_state_id =(SELECT i_state_id FROM city WHERE i_city_id=(SELECT i_city_id FROM area WHERE i_area_id='$area_new' LIMIT 1) LIMIT 1) LIMIT 1),1,
                 '$reslogo_new','')";
                 $res = $dbhandler0->insert($sqlcheck);
                 $last_id = $res;
