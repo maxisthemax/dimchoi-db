@@ -41,7 +41,15 @@ $(document).ready(function()
       var combo = $("#Options");
       $.each(data.data,function(i,value)
       {
-        combo.append("<option value=" + value.va_res_code + ">" + value.va_res_name + ' - '+ value.va_area_name + "</option>");
+        if (value.i_res_id == value.i_hq_id)
+        {
+            var ishq = ' (HQ)';
+        }    
+        else
+        {
+            var ishq = '';
+        }    
+        combo.append("<option value=" + value.va_res_code + ">" + value.va_res_name + ' - '+ value.va_area_name + ishq + "</option>");
       });
 
       $("#SELECTOR").append(combo);
