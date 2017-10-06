@@ -24,6 +24,7 @@ function updateres()
     $state = !empty($_POST['state']) ? $_POST['state'] : '';
     $menucode = !empty($_POST['menucode']) ? $_POST['menucode'] : '';
     $hqid = !empty($_POST['hqid']) ? $_POST['hqid'] : '';
+    $ad = !empty($_POST['ad']) ? $_POST['ad'] : '';
     if($lat == 0)
     {
         $lat = 0.0;
@@ -48,6 +49,7 @@ function updateres()
     d_long ='$long',
     va_res_desc = '$desc',
     i_feature = '$resfeature',
+    i_res_ad = '$ad',
     va_feature_ad = '$featuread',
     i_area_id = ifnull((SELECT i_area_id FROM area WHERE va_area_name='$area' LIMIT 1),NULL),
     i_city_id = (SELECT i_city_id FROM city WHERE va_city_name='$city' LIMIT 1),

@@ -115,13 +115,16 @@ $(document).ready(function()
                         tb.append("<tr><td>State:</td><td id = 'state' name='state'></div></td></tr>");    
 
                         tb.append("<tr><td>Logo Url:</td><td>"+"<input name = 'reslogo' value='"+value.va_res_logo+"'>" + "</td></tr>");
-                        tb.append("<tr><td>Logo Url:</td><td>"+"<img src="+value.va_res_logo+" height='150' width='250'>" + "</td></tr>");
-                        
+                        tb.append("<tr><td>Logo Url:</td><td>"+"<img src="+value.va_res_logo+" height='200'>" + "</td></tr>");
+                        tb.append("<tr><td>Ad:</td><td><select id='ad' name='ad'><option value = 1>Yes</option><option value = 0>No</option></select></td></tr>");                        
+     
                         tb.append("<tr><td>Feature Ad:</td><td>"+"<input name = 'featuread' value='"+value.va_feature_ad+"'>" + "</td></tr>");
-                        tb.append("<tr><td>Feature Ad:</td><td>"+"<img src="+value.va_feature_ad+" height='400'>" + "</td></tr>");
+                        tb.append("<tr><td>Feature Ad:</td><td>"+"<img src="+value.va_feature_ad+" height='200'>" + "</td></tr>");
                         tb.append("<tr><td>Feature:</td><td>"+"<input name = 'resfeature' value='"+value.i_feature+"'>" + "</td></tr>");
 
                         tb.append("<input hidden name = 'resid' value='"+value.i_res_id+"'>");
+                        var ad = $('#ad');
+                        ad.val(value.i_res_ad);
                         var resname = $('#resname');
                         resname.val(value.va_res_name);
                         var citysel = $('#city');
