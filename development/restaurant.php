@@ -57,15 +57,6 @@ $(document).ready(function()
     $("#func").on('change', function()
     {                  
         var inhalt = $('#func option:selected').val();
-        var updateorinsert = localStorage['updateorinsert'];
-        if (!updateorinsert) {
-            // open popup
-            localStorage['updateorinsert'] = inhalt;
-        }
-        else
-        {
-            inhalt = localStorage['updateorinsert'];
-        }
         if (inhalt=='updateres')
         {
             $('#updateres').show();
@@ -125,7 +116,7 @@ $(document).ready(function()
 
                         tb.append("<tr><td>Logo Url:</td><td>"+"<input name = 'reslogo' value='"+value.va_res_logo+"'>" + "</td></tr>");
                         tb.append("<tr><td>Logo Url:</td><td>"+"<img src="+value.va_res_logo+" height='150' width='250'>" + "</td></tr>");
-
+                        
                         tb.append("<tr><td>Feature Ad:</td><td>"+"<input name = 'featuread' value='"+value.va_feature_ad+"'>" + "</td></tr>");
                         tb.append("<tr><td>Feature Ad:</td><td>"+"<img src="+value.va_feature_ad+" height='400'>" + "</td></tr>");
                         tb.append("<tr><td>Feature:</td><td>"+"<input name = 'resfeature' value='"+value.i_feature+"'>" + "</td></tr>");
