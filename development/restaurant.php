@@ -9,7 +9,7 @@
         <option value=updateres>updateres</option>
         <option value=insertnewres>insertnewres</option>
     </select>
-    <input type="submit" name="submitfunc">
+    <input type="submit" name="submitfunc" id="submitfunc">
 
     <br><br>
 
@@ -23,10 +23,10 @@
 
     <div id="insertnewres" class="toggleable" style="display:none;">
        <table id="tabinsertnewres" style="font-size:150%;">
-            <tr><td>Name :</td><td><input name = "resname_new" value=""></td></tr> 
-            <tr><td>Res Code :</td><td><input name = "rescode_new" value=""></td></tr>
-            <tr><td>Menu Code :</td><td><input name = "menucode_new" value=""></td></tr>
-            <tr><td>Area :</td><td><select id = "area_new" name = "area_new"></select></td></tr>
+            <tr><td>Name :</td><td><input id = "resname_new" name = "resname_new" value="" required></td></tr> 
+            <tr><td>Res Code :</td><td><input id = "rescode_new" name = "rescode_new" value="" required></td></tr>
+            <tr><td>Menu Code :</td><td><input id = "menucode_new" name = "menucode_new" value="" required></td></tr>
+            <tr><td>Area :</td><td><select id = "area_new" name = "area_new" required></select></td></tr>
         </table>
     </div>
 
@@ -47,9 +47,25 @@ $(document).ready(function()
       $("#SELECTOR").append(combo);
     });
 
+    $( "#submitfunc" ).click(function() {
+     $('#resname_new').removeAttr('required'); 
+     $('#rescode_new').removeAttr('required');    
+     $('#menucode_new').removeAttr('required');   
+     $('#area_new').removeAttr('required');  
+    });
+
     $("#func").on('change', function()
     {                  
         var inhalt = $('#func option:selected').val();
+        var updateorinsert = localStorage['updateorinsert'];
+        if (!updateorinsert) {
+            // open popup
+            localStorage['updateorinsert'] = inhalt;
+        }
+        else
+        {
+            inhalt = localStorage['updateorinsert'];
+        }
         if (inhalt=='updateres')
         {
             $('#updateres').show();
