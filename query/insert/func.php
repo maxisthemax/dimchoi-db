@@ -55,7 +55,7 @@ function insertnewres() {
                 va_res_logo,va_res_desc
                 )
                 VALUES (
-                '',
+                '0',
                 '$resname_new',
                 '$rescode_new','','',0,0,
                 (SELECT i_area_id FROM area WHERE i_area_id='$area_new' LIMIT 1), 
