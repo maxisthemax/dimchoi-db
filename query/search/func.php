@@ -573,8 +573,7 @@ function getuser()
         {
             if (!empty($pass) AND !empty($email))
             {
-                $sqlcheck .= " a.va_email = '$email'";    
-                $sqlcheck .= " and a.va_pass = '$pass'";    
+                $sqlcheck .= " a.va_email = '$email'";      
             }            
         }    
         else if ($type == 'fb')
@@ -619,7 +618,19 @@ function getuser()
             $res1 = $dbhandler0->update($sqlcheckupdate);
             }
         }
-    }        
+    }
+    else if ($type == 'email')
+        if (!empty($res))
+        {
+            if ($pass != $res[0]['va_pass'])
+            {
+                return 'Incorrect Password'; 
+            }
+        }
+        else
+        {
+            return 'Username Not Found';
+        }           
 
     return ($res[0]);
 
