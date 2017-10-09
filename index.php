@@ -90,7 +90,7 @@ else
 $dbhandler0->close();
 //======================================================================
 
-$mail = new PHPMailer;
+/*$mail = new PHPMailer;
 
 $mail->isSMTP();                                   // Set mailer to use SMTP
 $mail->Host = 'mail.maxisthemax.com';                    // Specify main and backup SMTP servers
@@ -120,5 +120,5 @@ if(!$mail->send()) {
     echo 'Message has been sent';
 	// visit our site www.studyofcs.com for more learning
 }
-
+*/
 ?>

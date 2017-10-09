@@ -93,7 +93,7 @@
                     left join area c on c.i_city_id = a.i_city_id
                     left join restaurant res on res.i_area_id = c.i_area_id
                     where res.i_area_id = $areaid
-                    order by b.i_state_id,a.i_city_id,c.i_area_id";
+                    order by res.va_res_name";
                     $resdata = $dbhandler0->query($sqlresdata);                    
                     if($elementstate['i_state_id']==$value['i_state_id']) 
                     { 
@@ -177,7 +177,7 @@
                     left join area c on c.i_city_id = a.i_city_id
                     left join restaurant res on res.i_area_id = c.i_area_id
                     where res.i_city_id = $cityid
-                    order by b.i_state_id,a.i_city_id,c.i_area_id";
+                    order by c.i_area_id,res.va_res_name";
                     $resdata = $dbhandler0->query($sqlresdata);                             
             if($elementstate['i_state_id']==$elementcity['i_state_id'])  
             {  
