@@ -624,12 +624,12 @@ function getuser()
         {
             if ($pass != $res[0]['va_pass'])
             {
-                return 'Incorrect Password'; 
+                return -1; 
             }
         }
         else
         {
-            return 'Username Not Found';
+            return -2;
         }           
 
     return ($res[0]);
