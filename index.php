@@ -18,7 +18,7 @@ include $path;
 unset($_POST['func']);
 
 $output = ($func()); //execute func and get result
-if (!empty($output) and $querytype == 'search')
+if (!empty($output) and $querytype == 'search' and $output > 0 )
 {
 	if ($func == 'getorderqrcode')
 		{
@@ -64,9 +64,21 @@ else if ($output == true and $querytype == 'delete')
 }			
 else
 {
+	if ($output == -1)
+	{
+		$message = 'Incorrect Password';
+	}	
+	else if ($output == -2)
+	{
+		$message = 'Username Not Found';
+	}
+	else
+	{
+		$message = 'Fail';
+	}	
 	$result = array (
 		'status' => '0',
-		'message' => 'fail'
+		'message' => $message
 	);
 	echo(json_encode ($result, JSON_UNESCAPED_SLASHES));	
 }
