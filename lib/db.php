@@ -5,6 +5,7 @@ class database
     function database($dbhost, $dbuser, $dbpass, $db) 
     {
         $this->connection = mysqli_connect($dbhost, $dbuser, $dbpass, $db);
+        mysqli_set_charset($this->connection,"utf8");
         if (!$this->connection || !mysqli_select_db($this->connection,$db)) 
         {
             echo mysqli_error($this->connection);

@@ -37,10 +37,10 @@ if (!empty($output) and $querytype == 'search' and $output > 0 )
 		print_r(json_encode ($result, JSON_UNESCAPED_SLASHES));		
 		}	
 }
-else if ($output == true and $querytype == 'insert')
+else if ($output == true and $querytype == 'insert' and $output > 0)
 {
 	$result = array (
-		'status' => '0',
+		'status' => '1',
 		'message' => 'success',
 		'data' => $output
 	);
@@ -49,7 +49,7 @@ else if ($output == true and $querytype == 'insert')
 else if ($output == true and $querytype == 'update')
 {
 	$result = array (
-		'status' => '0',
+		'status' => '1',
 		'message' => 'success'
 	);
 	echo(json_encode ($result, JSON_UNESCAPED_SLASHES));	
@@ -57,7 +57,7 @@ else if ($output == true and $querytype == 'update')
 else if ($output == true and $querytype == 'delete')
 {
 	$result = array (
-		'status' => '0',
+		'status' => '1',
 		'message' => 'success'
 	);
 	echo(json_encode ($result, JSON_UNESCAPED_SLASHES));
@@ -72,6 +72,10 @@ else
 	{
 		$message = 'Username Not Found';
 	}
+	else if ($output == -3)
+	{
+		$message = 'Username Already Exist, Please Login';
+	}	
 	else
 	{
 		$message = 'Fail';

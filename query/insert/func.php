@@ -363,6 +363,8 @@ if (empty($resuser))
 }
 else
 {
+    if ($facebooknew != '' or $googlenew != '')
+    {
     $res_i_user_id=$resuser[0]['i_user_id'];
     $sqlcheckupdate = "UPDATE user SET
 
@@ -371,6 +373,11 @@ else
     WHERE i_user_id = '$res_i_user_id'"; 
     $resupdate = $dbhandler0->update($sqlcheckupdate);
     return $resupdate;
+    }
+    else
+    {
+    return -3;
+    }
 }
 }
 //======================================================================================================
