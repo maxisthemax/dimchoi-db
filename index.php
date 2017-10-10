@@ -71,12 +71,12 @@ else
 	}	
 	else if ($output == -2)
 	{
-		$message = 'Username Not Found';
+		$message = 'Email Not Found';
 	}
 	else if ($output == -3)
 	{
-		$message = 'Username Already Exist, Please Login';
-	}	
+		$message = 'Email Already Exist, Please Login';
+	}			
 	else
 	{
 		$message = 'Fail';

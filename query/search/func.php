@@ -580,14 +580,14 @@ function getuser()
         {  
             if (!empty($email) or $email != 0)
             {
-                $sqlcheck .= " a.va_email = '$email'";    
+                $sqlcheck .= " a.va_email = '$email' AND a.va_facebook = '$facebook'";    
             }           
         }    
         else if ($type == 'google')
         {
             if (!empty($email) or $email != 0)
             {
-                $sqlcheck .= " a.va_email = '$email'";    
+                $sqlcheck .= " a.va_email = '$email' AND a.va_google = '$google'";    
             }             
         }                   
     } 
@@ -620,9 +620,14 @@ function getuser()
         }
     }
     else if ($type == 'email')
+    {    
         if (!empty($res))
         {
-            if ($pass != $res[0]['va_pass'])
+            if ($res[0]['va_pass'] == '')
+            {
+                return -2;
+            }    
+            else if ($pass != $res[0]['va_pass'])
             {
                 return -1; 
             }
@@ -631,7 +636,7 @@ function getuser()
         {
             return -2;
         }           
-
+    }
     return ($res[0]);
 
 
