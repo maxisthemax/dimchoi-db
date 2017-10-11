@@ -525,12 +525,14 @@ function getorderqrcode()
     //define variable for query
     $res_id = !empty($_POST['res_id']) ? $_POST['res_id'] : '';
     $qr_id = !empty($_POST['qr_id']) ? $_POST['qr_id'] : '';
+    $user_id = !empty($_POST['user_id']) ? $_POST['user_id'] : '';
     //===============================================
 
     //===============================================
     //start query
-    $sqlcheck = "SELECT a.va_qr_data_1,a.va_qr_data_2
+    $sqlcheck = "SELECT a.*,b.va_qr_type_name
     FROM qrcode a 
+    LEFT JOIN qrcode_type b on a.i_qr_type_id = b.i_qr_type_id
     WHERE a.i_qr_type_id = 1";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
@@ -541,12 +543,29 @@ function getorderqrcode()
          if (!empty($qr_id) or $qr_id != 0)
         {
             $sqlcheck .= " and a.i_qr_id = $qr_id";    
-        }               
+        }
+         if (!empty($user_id) or $user_id != 0)
+        {
+            $sqlcheck .= " and a.user_id = $user_id";    
+        }                          
     } 
-         $sqlcheck .=" LIMIT 1";
     //===================================================
-    $res = $dbhandler0->query($sqlcheck);
-    return ($res);
+    $resqr = $dbhandler0->query($sqlcheck);
+
+    foreach ($resqr as $qrkey)
+    {
+    $qrcode1 = json_decode($qrkey['va_qr_data_1'], true);
+    $qrcode2 = json_decode($qrkey['va_qr_data_2'], true);
+    $qrcode[]=[
+                'i_qr_id' => $qrkey['i_qr_id'],
+                'i_user_id' => $qrkey['i_user_id'],
+                'va_qr_type_name' => $qrkey['va_qr_type_name'],
+                'va_qr_data_1' => $qrcode1,
+                'va_qr_data_2' => $qrcode2
+                ];
+    } 
+
+    return ($qrcode);
 }    
 //=============================================================QR CODE===================================================================================
 //=============================================================LOGIN===================================================================================

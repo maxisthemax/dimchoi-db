@@ -11,7 +11,7 @@ $_SESSION['Options']=$_POST['Options'];
 if (isset($_SESSION['Options'])) {
     if ($_SESSION['Options'] != '')
     {
-    getresmenufood($_SESSION['Options']);
+    getqrcode($_SESSION['Options']);
     }
 }
 else
@@ -19,7 +19,7 @@ else
     $_SESSION['Options'] = '';
 }
 
-function getresmenufood($resid) {
+function getqrcode($resid) {
     $uri = $_SERVER['REQUEST_URI']; // holds url for last page visited.s
     global $dbhandler0;
     
@@ -30,19 +30,21 @@ function getresmenufood($resid) {
 
     echo'<form action="index.php" method="post"><table id="tab" width=100%  border=1 style="font-size:100%;">';
     echo "<tr><TD colspan = 3 align=center>QR CODE</td></tr>";    
-    echo "<tr><td width=10%>Qr ID</td><td width=10%>Qr Type</td><td>Qr Data 1</td><td>Qr Data 2</td></tr>";
+    echo "<tr><td width=10%>Qr ID</td><td width=10%>Qr Type</td><td width=10%>User ID</td><td>Qr Data 1</td><td>Qr Data 2</td></tr>";
 
     foreach($resqr as $resvalue) 
     {
-        echo "<tr><td>".$resvalue['i_qr_id']."</td><td>".$resvalue['va_qr_type_name']."</td><td>".$resvalue['va_qr_data_1']."</td><td>".$resvalue['va_qr_data_2']."</td></tr>";
+        echo "<tr><td>".$resvalue['i_qr_id']."</td><td>".$resvalue['va_qr_type_name']."</td><td>".$resvalue['i_user_id']."</td><td>".$resvalue['va_qr_data_1']."</td><td>".$resvalue['va_qr_data_2']."</td></tr>";
     }   
     echo '</form>';    
  
 
     echo'<form action="index.php" method="post"><table id="tab" width=100%  border=1 style="font-size:100%;">';
     echo "<tr><TD colspan = 3 align=center>QR CODE</td></tr>";    
-    echo "<tr><td width=10%>Qr Type</td><td>Qr Data 1</td><td>Qr Data 2</td></tr>";
-    echo "<tr><td width=10%><select name=qrtypenew id=qrtypenew><option value=1>food</option></select></td><td><textarea name=qrdatanew1 id=qrdatanew1 rows=8 cols=50></textarea></td><td><textarea name=qrdatanew2 id=qrdatanew2 rows=8 cols=50></textarea></td></tr>";
+    echo "<tr><td width=10%>Qr Type</td><td width=10%>User ID</td><td>Qr Data 1</td><td>Qr Data 2</td></tr>";
+    echo "<tr><td width=10%><select name=qrtypenew id=qrtypenew><option value=1>food</option></select></td>
+    <td><input id=userid_insert name=userid_insert></td>
+    <td><textarea name=qrdatanew1 id=qrdatanew1 rows=8 cols=50></textarea></td><td><textarea name=qrdatanew2 id=qrdatanew2 rows=8 cols=50></textarea></td></tr>";
     echo "<tr><TD colspan = 3 align=center><button onclick='setforminsert(".$resid.");'>Insert New Qr Code</button></td></tr>";   
     echo "<input type=hidden id='func' name='func' value='insertnewqrcoderow'>";
     echo "<input type=hidden id='resid_insert' name='resid_insert'>";
