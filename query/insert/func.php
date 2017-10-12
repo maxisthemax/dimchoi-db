@@ -284,7 +284,7 @@ function insertnewqrcoderow() {
     $qrdatanew2 = !empty($_POST['qrdatanew2']) ? $_POST['qrdatanew2'] : '';
     $qrtypenew = !empty($_POST['qrtypenew']) ? $_POST['qrtypenew'] : '';
     $resid_insert = !empty($_POST['resid_insert']) ? $_POST['resid_insert'] : '';
-    $userid_insert = !empty($_POST['userid_insert']) ? $_POST['userid_insert'] : '';
+    $userid_insert = !empty($_POST['userid_insert']) ? $_POST['userid_insert'] : 0;
 
     $sqlcheck = 
     "INSERT INTO qrcode (
