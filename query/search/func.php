@@ -585,32 +585,32 @@ function getuser()
     //start query
     $sqlcheck = "SELECT *
     FROM user a 
-    WHERE";
+    WHERE i_status = 1";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
         if ($type == 'email')
         {
             if (!empty($pass) AND !empty($email))
             {
-                $sqlcheck .= " a.va_email = '$email'";      
+                $sqlcheck .= " AND a.va_email = '$email'";      
             }            
         }    
         else if ($type == 'fb')
         {  
             if (!empty($email) or $email != 0)
             {
-                $sqlcheck .= " a.va_email = '$email' AND a.va_facebook = '$facebook'";    
+                $sqlcheck .= " AND a.va_email = '$email' AND a.va_facebook = '$facebook'";    
             }           
         }    
         else if ($type == 'google')
         {
             if (!empty($email) or $email != 0)
             {
-                $sqlcheck .= " a.va_email = '$email' AND a.va_google = '$google'";    
+                $sqlcheck .= " AND a.va_email = '$email' AND a.va_google = '$google'";    
             }             
-        }                   
+        }    
+        $sqlcheck .= " LIMIT 1";        
     } 
-         $sqlcheck .=" LIMIT 1";
     //===================================================
     $res = $dbhandler0->query($sqlcheck);
 
