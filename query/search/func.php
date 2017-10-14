@@ -584,32 +584,30 @@ function getuser()
     //===============================================
     //start query
     $sqlcheck = "SELECT *
-    FROM user a 
-    WHERE i_status = 1";
+    FROM user a";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
         if ($type == 'email')
         {
-            if (!empty($pass) AND !empty($email))
+            if (!empty($email) or $email != 0)
             {
-                $sqlcheck .= " AND a.va_email = '$email'";      
+                $sqlcheck .= " WHERE a.va_email = '$email' LIMIT 1";      
             }            
         }    
         else if ($type == 'fb')
         {  
             if (!empty($email) or $email != 0)
             {
-                $sqlcheck .= " AND a.va_email = '$email' AND a.va_facebook = '$facebook'";    
+                $sqlcheck .= " WHERE a.va_email = '$email' AND a.va_facebook = '$facebook' LIMIT 1";    
             }           
         }    
         else if ($type == 'google')
         {
             if (!empty($email) or $email != 0)
             {
-                $sqlcheck .= " AND a.va_email = '$email' AND a.va_google = '$google'";    
+                $sqlcheck .= " WHERE a.va_email = '$email' AND a.va_google = '$google' LIMIT 1";    
             }             
-        }    
-        $sqlcheck .= " LIMIT 1";        
+        }                   
     } 
     //===================================================
     $res = $dbhandler0->query($sqlcheck);
