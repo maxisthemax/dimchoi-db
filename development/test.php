@@ -38,7 +38,10 @@ global $dbhandler0;
   <table>
   <tr>
     <td><h2>getres</h2></td>
-  </tr>   
+  </tr> 
+  <tr>
+    <td>resid</td><td><input type="text" name="resid"></td>
+  </tr>    
   <tr>
     <td>state</td><td><input type="text" name="state"></td>
   </tr>
