@@ -551,6 +551,8 @@ function getorderqrcode()
             $sqlcheck .= " and a.i_user_id = $user_id";    
         }                          
     } 
+
+    $sqlcheck .= " ORDER BY a.dt_create DESC";
     //===================================================
     $resqr = $dbhandler0->query($sqlcheck);
 
@@ -564,6 +566,7 @@ function getorderqrcode()
                 'i_res_id' => $qrkey['i_res_id'],
                 'va_res_name' => $qrkey['va_res_name'],
                 'va_area_name' => $qrkey['va_area_name'],
+                'dt_create' => $qrkey['dt_create'],
                 'va_qr_type_name' => $qrkey['va_qr_type_name'],
                 'va_qr_data_1' => $qrcode1,
                 'va_qr_data_2' => $qrcode2
