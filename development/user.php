@@ -45,8 +45,8 @@ echo "<br>";
     foreach($resqr as $resvalue) 
     {   $userid=$resvalue["i_user_id"];
         echo "<tr><td>".$resvalue['i_user_id']
-        ."</td><td><input name='firstname[$userid]' value=".$resvalue['va_first_name'].">"
-        ."</td><td><input name='lastname[$userid]' value=".$resvalue['va_last_name'].">"
+        ."</td><td><input name='firstname[$userid]' value='".$resvalue['va_first_name']."''>"
+        ."</td><td><input name='lastname[$userid]' value='".$resvalue['va_last_name']."''>"
         ."</td><td><input name='gender[$userid]' value=".$resvalue['va_gender'].">"
         ."</td><td><input name='countrycode[$userid]' value=".$resvalue['va_country_code'].">"
         ."</td><td><input name='phonecode[$userid]' value=".$resvalue['va_phone_code'].">"
