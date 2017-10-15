@@ -143,7 +143,10 @@ global $dbhandler0;
     </tr> 
     <tr>
       <td>Qr Code</td><td><input id="qr_id" name="qr_id"></td>
-    </tr>     
+    </tr>  
+    <tr>
+      <td>User Id</td><td><input id="user_id" name="user_id"></td>
+    </tr>        
     <tr>   
       <td>Func</td><td><select name="func"><option>getresfoodtype</option><option>getresfoodmenu</option><option>getresbeveragemenu</option>
       <option>getorderqrcode</option></select></td>

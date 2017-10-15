@@ -530,9 +530,11 @@ function getorderqrcode()
 
     //===============================================
     //start query
-    $sqlcheck = "SELECT a.*,b.va_qr_type_name
+    $sqlcheck = "SELECT a.*,b.va_qr_type_name,c.va_res_name,d.va_area_name
     FROM qrcode a 
     LEFT JOIN qrcode_type b on a.i_qr_type_id = b.i_qr_type_id
+    LEFT JOIN restaurant c on c.i_res_id = a.i_res_id
+    LEFT JOIN area d on d.i_area_id = c.i_area_id
     WHERE a.i_qr_type_id = 1";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
@@ -546,7 +548,7 @@ function getorderqrcode()
         }
          if (!empty($user_id) or $user_id != 0)
         {
-            $sqlcheck .= " and a.user_id = $user_id";    
+            $sqlcheck .= " and a.i_user_id = $user_id";    
         }                          
     } 
     //===================================================
@@ -559,6 +561,9 @@ function getorderqrcode()
     $qrcode[]=[
                 'i_qr_id' => $qrkey['i_qr_id'],
                 'i_user_id' => $qrkey['i_user_id'],
+                'i_res_id' => $qrkey['i_res_id'],
+                'va_res_name' => $qrkey['va_res_name'],
+                'va_area_name' => $qrkey['va_area_name'],
                 'va_qr_type_name' => $qrkey['va_qr_type_name'],
                 'va_qr_data_1' => $qrcode1,
                 'va_qr_data_2' => $qrcode2
