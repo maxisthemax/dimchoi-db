@@ -48,6 +48,7 @@ function getres()
     $startfrom = !empty($_POST['startfrom']) ? $_POST['startfrom'] : '';
     $feature = !empty($_POST['feature']) ? $_POST['feature'] : '';
     $area = !empty($_POST['area']) ? $_POST['area'] : '';
+    $res_id = !empty($_POST['res_id']) ? $_POST['res_id'] : '';
     //===============================================
 
     //===============================================
@@ -61,6 +62,10 @@ function getres()
 
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
+        if (!empty($res_id) or $res_id != 0)
+        {
+            $sqlcheck .= " and a.i_res_id = $res_id";    
+        }        
         if (!empty($city) or $city != 0)
     	{
     		$sqlcheck .= " and a.i_city_id = $city";	
