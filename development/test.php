@@ -1,29 +1,20 @@
 <!DOCTYPE html>
 <?php
 global $dbhandler0;
-    $dev = isset($_POST['dev']) ? $_POST['dev'] : '';
-    if (!empty($dev) or $dev != 0)
-    {   
-        $sqlcheck = "UPDATE settings SET va_value = '$dev' WHERE va_name = 'dev'";
-        $res = $dbhandler0->update($sqlcheck);
-    }
-    //===============================================
-    $sqlcheck = "SELECT va_value
-    FROM settings 
-    where va_name = 'dev'";
-    //===============================================
+    $dbname = isset($_POST['dbname']) ? $_POST['dbname'] : '';
+    if ($dbname != '')
+    {
     $res = $dbhandler0->query($sqlcheck);
     $fp = fopen('settings.php', 'w');
-    fwrite($fp, $res[0]['va_value']);
+    fwrite($fp, $dbname);
+    }
 ?>
 <html>
 <body>
   <h1>DATASOURCE SWITCHING</h1>
   <form action="development.php" method='post'>
-  <input type="radio" name="dev" id="dev_1" value='{"dev":"1"}'> PROD test  
-  <input type="radio" name="dev" id="dev_2" value='{"dev":"2"}'> PROD index (LIVE VERSION)  
-  <input type="radio" name="dev" id="dev_3" value='{"dev":"3"}'> LOCAL test
-  <br><br>
+  <input type="radio" name="dbname" id="dbname_1" value='{"dbname":"dimchoi"}'> dimchoi
+  <input type="radio" name="dbname" id="dbname_2" value='{"dbname":"dimchoi_prod"}'> dimchoi_prod
   <input type='submit' value='SWITCH DB'>
   </form>
  
@@ -165,24 +156,21 @@ global $dbhandler0;
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-$(document).ready(function()
-{
   $.getJSON('settings.php',function(data)
     {
-      var settings = data.dev;
-      if (settings == 1)
+      var dbname = data.dbname;
+      if (dbname == 'dimchoi')
       {
-        $("#dev_1").attr('checked', 'checked');
+        $("#dbname_1").attr('checked', 'checked');
       }
-      else if (settings == 2)
+      else if (dbname == 'dimchoi_prod')
       {
-        $("#dev_2").attr('checked', 'checked');
-      }
-      else if (settings == 3)
-      {
-        $("#dev_3").attr('checked', 'checked');
-      }              
-    });  
+        $("#dbname_2").attr('checked', 'checked');
+      }             
+    }); 
+
+$(document).ready(function()
+{ 
 
 var res_id = $('#res_id');
 var res_code = $('#res_code');
