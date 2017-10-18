@@ -16,10 +16,8 @@ $dbhost = "localhost";
 $dbuser = "root";
 $dbpass = "";
 
-$string = file_get_contents("settings.php");
-$dbname =json_decode($string,true); 
-
-$dbname = isset($dbname['dbname']) ? $dbname['dbname'] : 'dimchoi';
+//db
+$dbname = 'dimchoi';
 
 $dbhandler0 = new database($dbhost, $dbuser, $dbpass, $dbname);
 
