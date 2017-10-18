@@ -4,7 +4,6 @@
 include "lib/db.php";
 include "config.php";
 include "getpath.php";
-include "setvariable.php";
 require 'PHPMailer/PHPMailerAutoload.php';
 header('Access-Control-Allow-Origin: *');
 //======================================================================
