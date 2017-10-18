@@ -304,7 +304,15 @@ $(document).ready(function()
         var combo = $("#Options");
         $.each(data.data,function(i,value)
         {
-        combo.append("<option value="+value.i_res_id+">" + value.va_res_name + "</option>");
+        if (value.i_res_id == value.i_hq_id)
+        {
+        var hq = '- HQ';   
+        }    
+        else
+        {
+        var hq = '';
+        }    
+        combo.append("<option value="+value.i_res_id+">" + value.va_res_name + hq + "</option>");
         });
 
         $("#SELECTOR").append(combo);
