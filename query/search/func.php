@@ -379,7 +379,7 @@ function getresfoodmenu()
     $food_menu_type_id[$key1['va_food_type_name']] = $key1['food_type_id'];  
     }
 
-    $in = json_encode($foodtypearray);
+    $in = json_encode($foodtypearray,JSON_UNESCAPED_SLASHES);
     $foodresult = json_decode($in, true);
 //=============================================================FOOD===================================================================================
 
@@ -478,7 +478,7 @@ function getresfoodmenu()
     $bev_menu_type_id[$key1['va_bev_type_name']] = $key1['bev_type_id'];  
     }
 
-    $in = json_encode($bevtypearray);
+    $in = json_encode($bevtypearray,JSON_UNESCAPED_SLASHES);
     $bevresult = json_decode($in, true);
 
     $finalresult = array (
