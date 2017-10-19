@@ -24,7 +24,7 @@ function updateres()
     $state = !empty($_POST['state']) ? $_POST['state'] : '';
     $menucode = !empty($_POST['menucode']) ? $_POST['menucode'] : '';
     $hqid = !empty($_POST['hqid']) ? $_POST['hqid'] : '';
-    $ad = !empty($_POST['ad']) ? $_POST['ad'] : '';
+    $ad = $_POST['ad'];
     if($lat == 0)
     {
         $lat = 0.0;
