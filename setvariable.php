@@ -93,7 +93,7 @@
                     left join area c on c.i_city_id = a.i_city_id
                     left join restaurant res on res.i_area_id = c.i_area_id
                     where res.i_area_id = $areaid
-                    order by res.va_res_name";
+                    order by res.va_res_name asc,res.i_res_id asc";
                     $resdata = $dbhandler0->query($sqlresdata);                    
                     if($elementstate['i_state_id']==$value['i_state_id']) 
                     { 
@@ -217,7 +217,7 @@
     LEFT JOIN menu d on d.i_res_id = a.i_res_id
     LEFT JOIN area e on a.i_area_id = e.i_area_id
     WHERE a.i_res_stat = 1    
-    ORDER BY a.va_res_name ASC";
+    ORDER BY a.va_res_name ASC,a.i_res_id ASC";
 
     $res = $dbhandler0->query($sqlcheck);
 
@@ -233,7 +233,7 @@
     LEFT JOIN city c ON c.i_city_id = a.i_city_id 
     LEFT JOIN area e on a.i_area_id = e.i_area_id    
     WHERE a.i_res_stat = 1 AND a.i_res_ad =1
-    ORDER BY a.va_res_name ASC";
+    ORDER BY a.va_res_name ASC,a.i_res_id ASC";
 
     $res = $dbhandler0->query($sqlcheck);
 
@@ -249,7 +249,7 @@
     LEFT JOIN city c ON c.i_city_id = a.i_city_id 
     LEFT JOIN area e on a.i_area_id = e.i_area_id    
     WHERE a.i_res_stat = 1 AND a.i_feature =1
-    ORDER BY a.va_res_name ASC";
+    ORDER BY a.va_res_name ASC,a.i_res_id ASC";
 
     $res = $dbhandler0->query($sqlcheck);
 
@@ -264,7 +264,8 @@
     LEFT JOIN state b ON a.i_state_id = b.i_state_id 
     LEFT JOIN city c ON c.i_city_id = a.i_city_id 
     LEFT JOIN area e on a.i_area_id = e.i_area_id    
-    WHERE a.i_res_stat = 1 AND a.i_feature =2";
+    WHERE a.i_res_stat = 1 AND a.i_feature =2
+    ORDER BY a.va_res_name ASC,a.i_res_id ASC";
 
     $res = $dbhandler0->query($sqlcheck);
 
@@ -279,7 +280,8 @@
     LEFT JOIN state b ON a.i_state_id = b.i_state_id 
     LEFT JOIN city c ON c.i_city_id = a.i_city_id 
     LEFT JOIN area e on a.i_area_id = e.i_area_id    
-    WHERE a.i_res_stat = 1 AND a.i_feature =99";
+    WHERE a.i_res_stat = 1 AND a.i_feature =99
+    ORDER BY a.va_res_name ASC,a.i_res_id ASC";
 
     $res = $dbhandler0->query($sqlcheck);
 
