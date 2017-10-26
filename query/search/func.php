@@ -683,7 +683,7 @@ function getresuser()
     //===============================================
     //===============================================
     //start query
-    $sqlcheck = "SELECT *
+    $sqlcheck = "SELECT a.i_res_id
     FROM resuser a WHERE i_status = 1";
     $sqlcheck .= " and a.va_username = '$res_user'"; 
      
