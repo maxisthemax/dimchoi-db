@@ -683,7 +683,7 @@ function getresuser()
     //===============================================
     //===============================================
     //start query
-    $sqlcheck = "SELECT a.i_res_id
+    $sqlcheck = "SELECT *
     FROM resuser a WHERE i_status = 1";
     $sqlcheck .= " and a.va_username = '$res_user'"; 
      
@@ -693,7 +693,7 @@ function getresuser()
     { 
         if ($res[0]['va_password'] == $res_password)
         {
-        return ($res[0]);
+        return ($res[0]['i_res_id']);
         }
         else
         {
