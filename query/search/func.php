@@ -693,7 +693,8 @@ function getresuser()
     { 
         if ($res[0]['va_password'] == $res_password)
         {
-        return ($res[0]['i_res_id']);
+        unset($res[0]['va_password']);    
+        return ($res[0]);
         }
         else
         {
