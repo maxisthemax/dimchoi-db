@@ -75,7 +75,11 @@ else
 	else if ($output == -3)
 	{
 		$message = 'Email Already Exist, Please Login';
-	}			
+	}
+	else if ($output == -4)
+	{
+		$message = 'Restaurant Username Not Found, Please Contact DimChoi Admin';
+	}				
 	else
 	{
 		$message = 'Fail';
