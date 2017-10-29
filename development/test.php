@@ -152,7 +152,7 @@ global $dbhandler0;
     </tr>               
     <tr>   
       <td>Func</td><td><select name="func"><option>getresfoodtype</option><option>getresfoodmenu</option><option>getresbeveragemenu</option>
-      <option>getorderqrcode</option><option>getresuser</option><option>insertorderfromqr</option><option>getuserorderf</option><option>getresorder</option>
+      <option>getorderqrcode</option><option>getresuser</option><option>insertorderfromqr</option><option>getuserorder</option><option>getresorder</option>
     </select><input type="submit"></td>
     </tr>        
   
