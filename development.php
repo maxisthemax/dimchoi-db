@@ -54,6 +54,7 @@ if($_SESSION['password']=="123qweasdzxc")
     <input type="submit" name="page" value="Food" />
     <input type="submit" name="page" value="Qr Code" />
     <input type="submit" name="page" value="User Order" />
+    <input type="submit" name="page" value="Res Order" />
     <input type="submit" name="page" value="User" />    
 </form>
  <?php
@@ -101,7 +102,11 @@ if (!empty($_POST['page']))
   else if ($_POST['page'] == 'User')
     {
       $_SESSION['page'] = 'User';
-    }     
+    }  
+  else if ($_POST['page'] == 'Res Order')
+    {
+      $_SESSION['page'] = 'Res Order';
+    }         
 }
 if (!empty($_SESSION['page']) && $_SESSION['password']=="123qweasdzxc")
 {
@@ -120,7 +125,10 @@ if (!empty($_SESSION['page']) && $_SESSION['password']=="123qweasdzxc")
             break;
         case "User Order":
             include "development/userorder.php";
-            break;                
+            break; 
+        case "Res Order":
+            include "development/resorder.php";
+            break;                            
         case "User":
             include "development/user.php";
             break;                       
