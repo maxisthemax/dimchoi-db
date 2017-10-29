@@ -383,5 +383,46 @@ else
     }
 }
 }
+//====================================================================================================== 
+function insertorderfromqr() {
+    global $dbhandler0;
+
+    $qr_id = !empty($_POST['qr_id']) ? $_POST['qr_id'] : '';
+    $sqlqr = "SELECT * FROM qrcode where i_qr_id = '$qr_id' and i_qr_type_id = 1 LIMIT 1";
+
+    $resqr = $dbhandler0->query($sqlqr);
+
+     if ($resqr)
+     {
+        $res_id = $resqr[0]['i_res_id'];
+        $user_id = $resqr[0]['i_user_id'];
+        $qr_type_id = $resqr[0]['i_qr_type_id'];
+        $qr_data_1 = $resqr[0]['va_qr_data_1'];
+        $qr_data_2 = $resqr[0]['va_qr_data_2'];
+        $create_date = $resqr[0]['dt_create'];
+
+        $sqlinstouserorder = 
+        "INSERT INTO 
+        userorder (i_userorder_id,i_res_id,i_user_id,i_userorder_type_id,va_userorder_data_1,va_userorder_data_2,dt_create,i_status) 
+        values ('$qr_id','$res_id','$user_id','$qr_type_id','$qr_data_1','$qr_data_2','$create_date',1)";
+
+        $resinsuseroder = $dbhandler0->insert($sqlinstouserorder);
+
+        $sqlinstoresorder = 
+        "INSERT INTO 
+        resorder (i_resorder_id,i_res_id,i_user_id,i_resorder_type_id,va_resorder_data_1,va_resorder_data_2,dt_create,i_status) 
+        values ('$qr_id','$res_id','$user_id','$qr_type_id','$qr_data_1','$qr_data_2','$create_date',1)";
+
+        $resinsresorder = $dbhandler0->insert($sqlinstoresorder);    
+
+        if ($resinsuseroder == $qr_id && $resinsresorder == $qr_id)
+        {
+            $sqldeleteoqr = "DELETE FROM qrcode where i_qr_id = '$qr_id' and i_qr_type_id = 1";
+            $resdeleteqr = $dbhandler0->delete($sqldeleteoqr);
+        }
+     }
+
+    return $resdeleteqr;
+}
 //======================================================================================================
 ?>

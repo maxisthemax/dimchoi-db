@@ -706,5 +706,117 @@ function getresuser()
     return -4;    
     }        
 }    
-//=============================================================LOGIN===================================================================================     
+//=============================================================LOGIN===================================================================================  
+//=============================================================USER ORDER===================================================================================
+function getuserorder() 
+{
+
+    global $dbhandler0;
+
+    //=============================================== 
+    //define variable for query
+    $user_order_id = !empty($_POST['user_order_id']) ? $_POST['user_order_id'] : '';
+    $user_id = !empty($_POST['user_id']) ? $_POST['user_id'] : '';
+    //===============================================
+
+    //===============================================
+    //start query
+    $sqlcheck = "SELECT a.*,b.va_qr_type_name,c.va_res_name,d.va_area_name
+    FROM userorder a 
+    LEFT JOIN qrcode_type b on a.i_userorder_type_id = b.i_qr_type_id
+    LEFT JOIN restaurant c on c.i_res_id = a.i_res_id
+    LEFT JOIN area d on d.i_area_id = c.i_area_id
+    WHERE a.i_userorder_type_id = 1";
+    if (!empty($_POST)) //if all string url variable is 0 or null
+    {   
+         if (!empty($user_order_id) or $user_order_id != 0)
+        {
+            $sqlcheck .= " and a.i_userorder_id = $user_order_id";    
+        }
+         if (!empty($user_id) or $user_id != 0)
+        {
+            $sqlcheck .= " and a.i_user_id = $user_id";    
+        }                          
+    } 
+
+    $sqlcheck .= " ORDER BY a.dt_create DESC";
+    //===================================================
+    $resuserorder = $dbhandler0->query($sqlcheck);
+
+    foreach ($resuserorder as $userorderkey)
+    {
+    $userorder1 = json_decode($userorderkey['va_userorder_data_1'], true);
+    $userorder2 = json_decode($userorderkey['va_userorder_data_2'], true);
+    $userorder[]=[
+                'i_userorder_id' => $userorderkey['i_userorder_id'],
+                'i_user_id' => $userorderkey['i_user_id'],
+                'i_res_id' => $userorderkey['i_res_id'],
+                'va_res_name' => $userorderkey['va_res_name'],
+                'va_area_name' => $userorderkey['va_area_name'],
+                'dt_create' => $userorderkey['dt_create'],
+                'va_qr_type_name' => $userorderkey['va_qr_type_name'],
+                'va_userorder_data_1' => $userorder1,
+                'va_userorder_data_2' => $userorder1
+                ];
+    } 
+
+    return ($userorder);
+}    
+//=============================================================USER ORDER=================================================================================== 
+//=============================================================RES ORDER===================================================================================
+function getresorder() 
+{
+
+    global $dbhandler0;
+
+    //=============================================== 
+    //define variable for query
+    $res_order = !empty($_POST['res_order']) ? $_POST['res_order'] : '';
+    $res_id = !empty($_POST['res_id']) ? $_POST['res_id'] : '';
+    //===============================================
+
+    //===============================================
+    //start query
+    $sqlcheck = "SELECT a.*,b.va_qr_type_name,c.va_res_name,d.va_area_name
+    FROM resorder a 
+    LEFT JOIN qrcode_type b on a.i_resorder_type_id = b.i_qr_type_id
+    LEFT JOIN restaurant c on c.i_res_id = a.i_res_id
+    LEFT JOIN area d on d.i_area_id = c.i_area_id
+    WHERE a.i_resorder_type_id = 1";
+    if (!empty($_POST)) //if all string url variable is 0 or null
+    {   
+         if (!empty($res_order) or $res_order != 0)
+        {
+            $sqlcheck .= " and a.i_resorder_id = $res_order";    
+        }
+         if (!empty($res_id) or $res_id != 0)
+        {
+            $sqlcheck .= " and a.i_res_id = $res_id";    
+        }                          
+    } 
+
+    $sqlcheck .= " ORDER BY a.dt_create DESC";
+    //===================================================
+    $resresorder = $dbhandler0->query($sqlcheck);
+
+    foreach ($resresorder as $resorderkey)
+    {
+    $resorder1 = json_decode($resorderkey['va_resorder_data_1'], true);
+    $resorder2 = json_decode($resorderkey['va_resorder_data_2'], true);
+    $resorder[]=[
+                'i_resorder_id' => $resorderkey['i_resorder_id'],
+                'i_user_id' => $resorderkey['i_user_id'],
+                'i_res_id' => $resorderkey['i_res_id'],
+                'va_res_name' => $resorderkey['va_res_name'],
+                'va_area_name' => $resorderkey['va_area_name'],
+                'dt_create' => $resorderkey['dt_create'],
+                'va_qr_type_name' => $resorderkey['va_qr_type_name'],
+                'va_resorder_data_1' => $resorder1,
+                'va_resorder_data_2' => $resorder1
+                ];
+    } 
+
+    return ($resorder);
+}    
+//=============================================================RES ORDER===================================================================================  
 ?>

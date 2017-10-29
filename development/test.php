@@ -134,9 +134,6 @@ global $dbhandler0;
   <table>  
     <tr>
       <td>Restaurant</td><td><select id="res_id" name="res_id"></select></td>
-    </tr>
-    <tr>
-      <td colspan=2>getorderqrcode</td>
     </tr>      
     <tr>
       <td>Qr Code</td><td><input id="qr_id" name="qr_id"></td>
@@ -155,7 +152,8 @@ global $dbhandler0;
     </tr>               
     <tr>   
       <td>Func</td><td><select name="func"><option>getresfoodtype</option><option>getresfoodmenu</option><option>getresbeveragemenu</option>
-      <option>getorderqrcode</option><option>getresuser</option></select><input type="submit"></td>
+      <option>getorderqrcode</option><option>getresuser</option><option>insertorderfromqr</option><option>getuserorderf</option><option>getresorder</option>
+    </select><input type="submit"></td>
     </tr>        
   
   </table>  

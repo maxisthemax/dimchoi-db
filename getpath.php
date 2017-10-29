@@ -13,6 +13,8 @@ function get_path($func)
 	    case "getorderqrcode":
 	    case "getuser":
 	    case "getresuser":
+	    case "getuserorder":
+	    case "getresorder":
 	    	return array("path" => "query/search/func.php","querytype"=>"search");
 	        break;
 		case "insertnewres":
@@ -20,6 +22,7 @@ function get_path($func)
 		case "insertnewbev":
 		case "insertnewqrcoderow":
 		case "insertnewuser":
+		case "insertorderfromqr":
 	    	return array("path" => "query/insert/func.php","querytype"=>"insert");
 	        break;	
 		case "updateres":
