@@ -56,6 +56,7 @@ if($_SESSION['password']=="123qweasdzxc")
     <input type="submit" name="page" value="User Order" />
     <input type="submit" name="page" value="Res Order" />
     <input type="submit" name="page" value="User" />   
+    <input type="button" onclick="window.location='https://drive.google.com/open?id=1OnPQu9JX-wyyBAeSzz8YLejGFIPcAheQMnHSQwQ2yp0'" value="API GUIDE"/>
 </form>
  <?php
 }
@@ -71,7 +72,7 @@ else
 }
 ?>
 <br><br>
-<input type="button" onclick="window.location='https://drive.google.com/open?id=1OnPQu9JX-wyyBAeSzz8YLejGFIPcAheQMnHSQwQ2yp0'" value="API GUIDE"/>
+
 </div>
 </body>
 </html>
