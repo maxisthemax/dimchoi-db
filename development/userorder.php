@@ -30,11 +30,11 @@ function getuserorder($resid) {
 
     echo'<form action="index.php" method="post"><table id="tab" width=100%  border=1 style="font-size:100%;">';
     echo "<tr><TD colspan = 3 align=center>USER ORDER CODE</td></tr>";    
-    echo "<tr><td width=10%>USER ORDER ID</td><td width=10%>USER ORDER Type</td><td width=10%>USER ORDER ID</td><td>USER ORDER Data 1</td><td>USER ORDER Data 2</td></tr>";
+    echo "<tr><td width=10%>USER ORDER ID</td><td width=10%>USER ORDER Type</td><td width=10%>USER ORDER ID</td><td>USER ORDER Data 1</td><td>USER ORDER Data 2</td><td>Order Create Date</td></tr>";
 
     foreach($resuserorder as $resvalue) 
     {
-        echo "<tr><td>".$resvalue['i_userorder_id']."</td><td>".$resvalue['va_qr_type_name']."</td><td>".$resvalue['i_user_id']."</td><td>".$resvalue['va_userorder_data_1']."</td><td>".$resvalue['va_userorder_data_2']."</td></tr>";
+        echo "<tr><td>".$resvalue['i_userorder_id']."</td><td>".$resvalue['va_qr_type_name']."</td><td>".$resvalue['i_user_id']."</td><td>".$resvalue['va_userorder_data_1']."</td><td>".$resvalue['va_userorder_data_2']."</td><td>".$resvalue['dt_userordercreate']."</td></tr>";
     }   
     echo '</form>';       
     } 
