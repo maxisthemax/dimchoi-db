@@ -327,7 +327,7 @@ function insertnewuser() {
     $passnew = !empty($_POST['passnew']) ? $_POST['passnew'] : '';
     $facebooknew = !empty($_POST['facebooknew']) ? $_POST['facebooknew'] : '';
     $googlenew = !empty($_POST['googlenew']) ? $_POST['googlenew'] : '';    
-
+    $tokennew = !empty($_POST['tokennew']) ? $_POST['tokennew'] : ''; 
     $sqlcheckuser = "SELECT * FROM user where va_email = '$emailnew'";
     $resuser = $dbhandler0->query($sqlcheckuser);
 
@@ -345,7 +345,8 @@ if (empty($resuser))
     va_email,
     va_pass,
     va_facebook,
-    va_google)
+    va_google,
+    va_token)
     VALUES (
     '$firstnamenew',
     '$lastnamenew',
@@ -357,7 +358,8 @@ if (empty($resuser))
     '$emailnew',
     '$passnew',
     '$facebooknew',
-    '$googlenew'        
+    '$googlenew',
+    '$tokennew'        
     )";
 
     $res = $dbhandler0->insert($sqlcheck);
