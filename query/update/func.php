@@ -79,6 +79,7 @@ function updateuser() {
     $pass = !empty($_POST['pass']) ? $_POST['pass'] : '';
     $facebook = !empty($_POST['facebook']) ? $_POST['facebook'] : '';
     $google = !empty($_POST['google']) ? $_POST['google'] : '';  
+    $token = !empty($_POST['token']) ? $_POST['token'] : '';  
 
     $sqlcheck = 
     "UPDATE user
@@ -92,12 +93,13 @@ function updateuser() {
     va_email ='$email',
     va_pass ='$pass',
     va_facebook ='$facebook',
-    va_google ='$google'
+    va_google ='$google',
+    va_token = '$token'
     where i_user_id = '$userid'";
 
     $res = $dbhandler0->update($sqlcheck);
 
-    header('Location:'.$_POST['uri']);
+    return $res;
 }
 //=======================================================
 function updatefood() 
