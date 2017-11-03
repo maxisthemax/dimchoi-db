@@ -106,7 +106,7 @@ function getres()
     END
     ) va_res_name
 FROM
-  restaurant where restaurant.i_res_id = a.i_res_id) like '%".$ressearch."%')";  
+  restaurant where restaurant.i_res_id = a.i_res_id and restaurant.i_res_stat = 1) like '%".$ressearch."%')";  
             }
             else
             {
@@ -293,7 +293,7 @@ function getresfoodmenu()
     //define variable for query
     $res_id = !empty($_POST['res_id']) ? $_POST['res_id'] : '';
     //===============================================
-    $sqlHQ = "SELECT i_hq_id from restaurant where i_res_id = '$res_id' LIMIT 1";
+    $sqlHQ = "SELECT i_hq_id from restaurant where i_res_stat = 1 AND i_res_id = '$res_id' LIMIT 1";
     $resHQ = $dbhandler0->query($sqlHQ);
     $hqid = $resHQ[0]['i_hq_id'];
     $res_id = $hqid;
@@ -303,7 +303,7 @@ function getresfoodmenu()
     FROM menu a 
     LEFT JOIN food b ON b.i_menu_id = a.i_menu_id
     LEFT JOIN food_type c on b.i_food_type_id = c.i_food_type_id
-    LEFT JOIN restaurant res on res.i_res_id = a.i_res_id
+    LEFT JOIN restaurant res on res.i_res_id = a.i_res_id and res.i_res_stat = 1
     WHERE b.i_menu_id = a.i_menu_id";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
@@ -392,7 +392,7 @@ function getresfoodmenu()
     //define variable for query
     $res_id = !empty($_POST['res_id']) ? $_POST['res_id'] : '';
     //===============================================
-    $sqlHQ = "SELECT i_hq_id from restaurant where i_res_id = '$res_id' LIMIT 1";
+    $sqlHQ = "SELECT i_hq_id from restaurant where i_res_stat = 1 AND i_res_id = '$res_id' LIMIT 1";
     $resHQ = $dbhandler0->query($sqlHQ);
     $hqid = $resHQ[0]['i_hq_id'];
     $res_id = $hqid;
@@ -402,7 +402,7 @@ function getresfoodmenu()
     FROM menu a 
     LEFT JOIN bev b ON b.i_menu_id = a.i_menu_id
     LEFT JOIN bev_type c on b.i_bev_type_id = c.i_bev_type_id
-    LEFT JOIN restaurant res on res.i_res_id = a.i_res_id
+    LEFT JOIN restaurant res on res.i_res_id = a.i_res_id and res.i_res_stat = 1
     WHERE b.i_menu_id = a.i_menu_id";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
@@ -538,7 +538,7 @@ function getorderqrcode()
     $sqlcheck = "SELECT a.*,b.va_qr_type_name,c.va_res_name,d.va_area_name
     FROM qrcode a 
     LEFT JOIN qrcode_type b on a.i_qr_type_id = b.i_qr_type_id
-    LEFT JOIN restaurant c on c.i_res_id = a.i_res_id
+    LEFT JOIN restaurant c on c.i_res_id = a.i_res_id and res.i_res_stat = 1
     LEFT JOIN area d on d.i_area_id = c.i_area_id
     WHERE a.i_qr_type_id = 1";
     if (!empty($_POST)) //if all string url variable is 0 or null
@@ -724,7 +724,7 @@ function getuserorder()
     $sqlcheck = "SELECT a.*,b.va_qr_type_name,c.va_res_name,d.va_area_name
     FROM userorder a 
     LEFT JOIN qrcode_type b on a.i_userorder_type_id = b.i_qr_type_id
-    LEFT JOIN restaurant c on c.i_res_id = a.i_res_id
+    LEFT JOIN restaurant c on c.i_res_id = a.i_res_id and res.i_res_stat = 1
     LEFT JOIN area d on d.i_area_id = c.i_area_id
     WHERE a.i_userorder_type_id = 1";
     if (!empty($_POST)) //if all string url variable is 0 or null
@@ -780,7 +780,7 @@ function getresorder()
     $sqlcheck = "SELECT a.*,b.va_qr_type_name,c.va_res_name,d.va_area_name
     FROM resorder a 
     LEFT JOIN qrcode_type b on a.i_resorder_type_id = b.i_qr_type_id
-    LEFT JOIN restaurant c on c.i_res_id = a.i_res_id
+    LEFT JOIN restaurant c on c.i_res_id = a.i_res_id and res.i_res_stat = 1
     LEFT JOIN area d on d.i_area_id = c.i_area_id
     WHERE a.i_resorder_type_id = 1";
     if (!empty($_POST)) //if all string url variable is 0 or null

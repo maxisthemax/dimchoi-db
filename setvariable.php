@@ -71,7 +71,7 @@
     FROM city a 
     left join state b on a.i_state_id = b.i_state_id 
     left join area c on c.i_city_id = a.i_city_id
-    left join restaurant res on res.i_area_id = c.i_area_id
+    left join restaurant res on res.i_area_id = c.i_area_id and res.i_res_stat = 1
     GROUP by c.i_area_id
     order by total_res DESC,b.i_state_id,a.i_city_id,c.i_area_id) AS result where result.i_area_id > 0";
     $res = $dbhandler0->query($sqlcheck);
@@ -91,7 +91,7 @@
                     FROM city a 
                     left join state b on a.i_state_id = b.i_state_id 
                     left join area c on c.i_city_id = a.i_city_id
-                    left join restaurant res on res.i_area_id = c.i_area_id
+                    left join restaurant res on res.i_area_id = c.i_area_id and res.i_res_stat = 1
                     where res.i_area_id = $areaid
                     order by res.va_res_name asc,res.i_res_id asc";
                     $resdata = $dbhandler0->query($sqlresdata);                    
@@ -156,7 +156,7 @@
     $sqlcheck = "SELECT * FROM (SELECT b.va_state_name,a.va_city_name,a.i_state_id,a.i_city_id,COUNT(res.i_res_id) as 'total_res'
     FROM city a 
     left join state b on a.i_state_id = b.i_state_id
-    left join restaurant res on res.i_city_id = a.i_city_id
+    left join restaurant res on res.i_city_id = a.i_city_id and res.i_res_stat = 1
     GROUP by a.i_city_id
     order by total_res DESC,b.i_state_id,a.i_city_id) AS result where result.i_city_id > 0";
     $res = $dbhandler0->query($sqlcheck);
@@ -175,7 +175,7 @@
                     FROM city a 
                     left join state b on a.i_state_id = b.i_state_id 
                     left join area c on c.i_city_id = a.i_city_id
-                    left join restaurant res on res.i_area_id = c.i_area_id
+                    left join restaurant res on res.i_area_id = c.i_area_id and res.i_res_stat = 1
                     where res.i_city_id = $cityid
                     order by c.i_area_id,res.va_res_name";
                     $resdata = $dbhandler0->query($sqlresdata);                             

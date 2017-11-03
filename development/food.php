@@ -23,13 +23,13 @@ function getresmenufood($resid) {
     $uri = $_SERVER['REQUEST_URI']; // holds url for last page visited.s
     global $dbhandler0;
     
-    $sqlHQ = "SELECT i_hq_id from restaurant where i_res_id = '$resid' LIMIT 1";
+    $sqlHQ = "SELECT i_hq_id from restaurant where i_res_stat = 1 AND i_res_id = '$resid' LIMIT 1";
     $resHQ = $dbhandler0->query($sqlHQ);
     $hqid = $resHQ[0]['i_hq_id'];
 
     $sqlfood = "SELECT *,a.i_food_id AS foodid
     FROM food a LEFT JOIN menu b on a.i_menu_id = b.i_menu_id
-    LEFT JOIN restaurant c on c.i_res_id = b.i_res_id
+    LEFT JOIN restaurant c on c.i_res_id = b.i_res_id and c.i_res_stat = 1
     LEFT JOIN food_price e on a.i_food_id = e.i_food_id
     LEFT JOIN food_type f on f.i_food_type_id = a.i_food_type_id
     WHERE c.i_res_id = $hqid
@@ -38,7 +38,7 @@ function getresmenufood($resid) {
 
     $sqlfoodlist = "SELECT *,a.i_food_id AS foodid
     FROM food a LEFT JOIN menu b on a.i_menu_id = b.i_menu_id
-    LEFT JOIN restaurant c on c.i_res_id = b.i_res_id
+    LEFT JOIN restaurant c on c.i_res_id = b.i_res_id and c.i_res_stat = 1
     WHERE c.i_res_id = $hqid
     ORDER BY a.i_food_id ASC";
     $resfood = $dbhandler0->query($sqlfoodlist);
@@ -46,13 +46,13 @@ function getresmenufood($resid) {
 
     $sqlcheck1 = "SELECT *
     FROM menu b
-    LEFT JOIN restaurant c on c.i_res_id = b.i_res_id
+    LEFT JOIN restaurant c on c.i_res_id = b.i_res_id and c.i_res_stat = 1
     WHERE c.i_res_id = $hqid";
     $res1 = $dbhandler0->query($sqlcheck1);
 
     $sqlbev = "SELECT *,a.i_bev_id AS bevid
     FROM bev a LEFT JOIN menu b on a.i_menu_id = b.i_menu_id
-    LEFT JOIN restaurant c on c.i_res_id = b.i_res_id
+    LEFT JOIN restaurant c on c.i_res_id = b.i_res_id and c.i_res_stat = 1
     LEFT JOIN bev_price e on a.i_bev_id = e.i_bev_id
     LEFT JOIN bev_type f on f.i_bev_type_id = a.i_bev_type_id
     WHERE c.i_res_id = $hqid
@@ -61,7 +61,7 @@ function getresmenufood($resid) {
 
     $sqlbevlist = "SELECT *,a.i_bev_id AS bevid
     FROM bev a LEFT JOIN menu b on a.i_menu_id = b.i_menu_id
-    LEFT JOIN restaurant c on c.i_res_id = b.i_res_id
+    LEFT JOIN restaurant c on c.i_res_id = b.i_res_id and c.i_res_stat = 1
     WHERE c.i_res_id = $resid
     ORDER BY a.i_bev_id ASC";
     $resbev = $dbhandler0->query($sqlbevlist);
