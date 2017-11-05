@@ -26,7 +26,7 @@ function getresmenufood($resid) {
     $sqlHQ = "SELECT i_hq_id from restaurant where i_res_stat = 1 AND i_res_id = '$resid' LIMIT 1";
     $resHQ = $dbhandler0->query($sqlHQ);
     $hqid = $resHQ[0]['i_hq_id'];
-
+    $_SESSION['reshqid'] = $hqid;
     $sqlfood = "SELECT *,a.i_food_id AS foodid
     FROM food a LEFT JOIN menu b on a.i_menu_id = b.i_menu_id
     LEFT JOIN restaurant c on c.i_res_id = b.i_res_id and c.i_res_stat = 1
@@ -67,11 +67,11 @@ function getresmenufood($resid) {
     $resbev = $dbhandler0->query($sqlbevlist);
 
     $sqlfoodtype = "SELECT * FROM food_type
-    WHERE i_res_id = $resid or i_res_id = 0";
+    WHERE i_res_id = $hqid or i_res_id = 1";
     $resfoodtype = $dbhandler0->query($sqlfoodtype);
 
     $sqlbevtype = "SELECT * FROM bev_type
-    WHERE i_res_id = $resid or i_res_id = 0";
+    WHERE i_res_id = $hqid or i_res_id = 1";
     $resbevtype = $dbhandler0->query($sqlbevtype);
 
 echo'<form action="index.php" method="post"><table id="tab" width=100%  border=1 style="font-size:100%;">';
@@ -335,17 +335,26 @@ $(document).ready(function()
     $.getJSON('data/foodtype.php',function(data)
     {
         var combo = $("#food_type_new");
+        var reshqid = "<?php echo $_SESSION['reshqid'] ?>" ;
+        
         $.each(data.data,function(i,value)
         {
-        combo.append("<option value="+value.i_food_type_id+">" + value.va_food_type_name + "</option>");
+        if (value.i_res_id == 1 || value.i_res_id == reshqid)  
+        {
+            combo.append("<option value="+value.i_food_type_id+">" + value.va_food_type_name + "</option>");
+        }      
         });  
     });
     $.getJSON('data/bevtype.php',function(data)
     {
         var combo = $("#bev_type_new");
+        var reshqid = "<?php echo $_SESSION['reshqid'] ?>" ;
         $.each(data.data,function(i,value)
         {
-        combo.append("<option value="+value.i_bev_type_id+">" + value.va_bev_type_name + "</option>");
+        if (value.i_res_id == 1 || value.i_res_id == reshqid)  
+        {
+            combo.append("<option value="+value.i_bev_type_id+">" + value.va_bev_type_name + "</option>");
+        }
         });  
     });    
        $('#Options').change(function(){
