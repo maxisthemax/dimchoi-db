@@ -66,6 +66,14 @@ function getresmenufood($resid) {
     ORDER BY a.i_bev_id ASC";
     $resbev = $dbhandler0->query($sqlbevlist);
 
+    $sqlfoodtype = "SELECT * FROM food_type
+    WHERE i_res_id = $resid or i_res_id = 0";
+    $resfoodtype = $dbhandler0->query($sqlfoodtype);
+
+    $sqlbevtype = "SELECT * FROM bev_type
+    WHERE i_res_id = $resid or i_res_id = 0";
+    $resbevtype = $dbhandler0->query($sqlbevtype);
+
 echo'<form action="index.php" method="post"><table id="tab" width=100%  border=1 style="font-size:100%;">';
 echo "<tr><td>Restaurant Name</td><td id=resname>".$res1[count($res1)-1]['va_res_name']."</td></tr>";
 echo "<tr><td>Res Code</td><td>".$res1[count($res1)-1]['va_res_code']."</td></tr>";
@@ -78,15 +86,16 @@ echo "<tr><TD colspan = 5 align=center>FOOD</td></tr>";
         echo "<tr>";
         echo "<td>".$resvalue["foodid"]."</td>";    
         echo "<td><input name='food_name[$food_id][$food_price_id]' size=50 value='".$resvalue["va_food_name"]."'></td>";
-        echo "<td><textarea name='food_desc[$food_id][$food_price_id]' rows=5 cols=50>".$resvalue["va_food_desc"]."</textarea></td>";        
-        echo "<td><select name='food_type[$food_price_id]'>";
-        echo "<option value=1 ";
-        if ($resvalue["i_food_type_id"]==1){echo "selected";}
-        echo ">Main</option>";
-        echo "<option value=2 ";
-        if ($resvalue["i_food_type_id"]==2){echo "selected";}
-        echo ">Side Dish</option>";        
-        echo "</select></td>";         
+        echo "<td><textarea name='food_desc[$food_id][$food_price_id]' rows=5 cols=50>".$resvalue["va_food_desc"]."</textarea></td>";          
+
+        echo "<td><select name='food_type[$food_price_id]'>";    
+        foreach($resfoodtype as $resvaluefoodtype) {
+            echo "<option value =".$resvaluefoodtype["i_food_type_id"];
+            if ($resvalue["i_food_type_id"]==$resvaluefoodtype["i_food_type_id"]){echo " selected";}
+            echo ">".$resvaluefoodtype["va_food_type_name"]."</option>";  
+        }
+        echo "</select></td>"; 
+
         echo "<td><input name='food_size[$food_price_id]' value='".$resvalue["va_food_size"]."'></td>";    
         echo "<td><input name='food_price[$food_price_id]' value='".$resvalue["d_food_price"]."'></td>";
         echo "<td><input name='food_pic_url[$food_price_id]' value='".$resvalue["va_food_pic_url"]."'></td>";
@@ -105,14 +114,15 @@ echo "<tr><TD colspan = 5 align=center>BEVERAGE</td></tr>";
         echo "<td>".$res2value["bevid"]."</td>";    
         echo "<td><input name='bev_name[$bev_id][$bev_price_id]' size=50 value='".$res2value["va_bev_name"]."'></td>";
         echo "<td><textarea name='bev_desc[$bev_id][$bev_price_id]' rows=5 cols=50>".$res2value["va_bev_desc"]."</textarea></td>"; 
-        echo "<td><select name='bev_type[$bev_price_id]'>";
-        echo "<option value=1 ";
-        if ($res2value["i_bev_type_id"]==1){echo "selected";}
-        echo ">Drink</option>";
-        echo "<option value=2 ";
-        if ($res2value["i_bev_type_id"]==2){echo "selected";}
-        echo ">Others</option>";        
-        echo "</select></td>";         
+
+        echo "<td><select name='bev_type[$bev_price_id]'>";    
+        foreach($resbevtype as $resvaluebevtype) {
+            echo "<option value =".$resvaluebevtype["i_bev_type_id"];
+            if ($res2value["i_bev_type_id"]==$resvaluebevtype["i_bev_type_id"]){echo " selected";}
+            echo ">".$resvaluebevtype["va_bev_type_name"]."</option>";  
+        }
+        echo "</select></td>"; 
+       
         echo "<td><input name='bev_size[$bev_price_id]' value='".$res2value["va_bev_size"]."'></td>";    
         echo "<td><input name='bev_price[$bev_price_id]' value='".$res2value["d_bev_price"]."'></td>";
 
