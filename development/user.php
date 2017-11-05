@@ -11,6 +11,7 @@ echo "<tr><td>Email</td><td><input id=email name=email></td></tr>";
 echo "<tr><td>Pass</td><td><input id=pass name=pass></td></tr>";
 echo "<tr><td>Facebook</td><td><input id=facebook name=facebook></td></tr>";
 echo "<tr><td>Google</td><td><input id=google name=google></td></tr>";
+echo "<tr><td>Token</td><td><input id=token name=token></td></tr>";
 echo "<tr><td><select name='type' id = 'type'>
 <option value = 'email'>Email</option>
 <option value = 'fb'>Facebook</option>
@@ -40,6 +41,7 @@ echo "<br>";
     <td>Pass</td>
     <td>Facebook</td>
     <td>Google</td>
+    <td>Token</td>
     </tr>";
 
     foreach($resqr as $resvalue) 
@@ -56,6 +58,7 @@ echo "<br>";
         ."</td><td><input name='pass[$userid]' value=".$resvalue['va_pass'].">"
         ."</td><td><input name='facebook[$userid]' value=".$resvalue['va_facebook'].">"
         ."</td><td><input name='google[$userid]' value=".$resvalue['va_google'].">"
+        ."</td><td><input name='token[$userid]' value=".$resvalue['va_token'].">"
         ."<td width=20%><button onclick='setformupdate($userid);'>Update Current Row</button></td>" 
         ."</td></tr>";
     }   
