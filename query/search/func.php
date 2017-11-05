@@ -372,7 +372,19 @@ function getresfoodmenu()
                 unset($food_price); 
                 $food_price = array();                
             }
-            $foodtypearray[]=array('menu_type'=>$key1['va_food_type_name'],'va_food_type_pic_url'=>$_SESSION['file'].$key1['va_res_code'].'/'.$key1['va_food_type_pic_url'],'menu_data'=>$foodarray); 
+            $foodtypepicurl = $_SESSION['file'].$key1['va_res_code'].'/'.$key1['va_food_type_pic_url'];
+
+            if (@getimagesize($_SESSION['file'].$key1['va_res_code'].'/'.$key1['va_food_type_pic_url']))
+            {
+                $foodtypepicurl = $foodtypepicurl;
+            } 
+            else
+            {
+                $foodtypepicurl = $_SESSION['file'].'DIMCHOI/'.$key1['va_food_type_pic_url'];
+            }
+
+            $foodtypearray[]=array('menu_type'=>$key1['va_food_type_name'],'va_food_type_pic_url'=>$foodtypepicurl,'menu_data'=>$foodarray); 
+
             unset($foodarray); 
             $foodarray = array();            
       
@@ -592,7 +604,7 @@ function getuser()
     $facebook = !empty($_POST['facebook']) ? $_POST['facebook'] : '';
     $google = !empty($_POST['google']) ? $_POST['google'] : '';    
     $type = !empty($_POST['type']) ? $_POST['type'] : '';
-
+    $token = !empty($_POST['token']) ? $_POST['token'] : '';
     //===============================================
     //===============================================
     //start query
@@ -632,7 +644,7 @@ function getuser()
             $update_i_user_id = $res[0]['i_user_id'];
             if ($res[0]['va_facebook'] == '')
             {
-            $sqlcheckupdate = "UPDATE user set va_facebook = '$facebook' WHERE i_user_id = '$update_i_user_id'";
+            $sqlcheckupdate = "UPDATE user set va_facebook = '$facebook', va_token = '$token' WHERE i_user_id = '$update_i_user_id'";
             $res1 = $dbhandler0->update($sqlcheckupdate);
             }
         }
@@ -644,7 +656,7 @@ function getuser()
             $update_i_user_id = $res[0]['i_user_id'];
             if ($res[0]['va_google'] == '')
             {
-            $sqlcheckupdate = "UPDATE user set va_google = '$google' WHERE i_user_id = '$update_i_user_id'";
+            $sqlcheckupdate = "UPDATE user set va_google = '$google', va_token = '$token' WHERE i_user_id = '$update_i_user_id'";
             $res1 = $dbhandler0->update($sqlcheckupdate);
             }
         }
