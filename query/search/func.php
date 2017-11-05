@@ -642,9 +642,13 @@ function getuser()
         if (!empty($res))
         {
             $update_i_user_id = $res[0]['i_user_id'];
+
+            $sqlchecktoken = "UPDATE user set va_token = '$token' WHERE i_user_id = '$update_i_user_id'";
+            $restoken = $dbhandler0->update($sqlchecktoken);
+
             if ($res[0]['va_facebook'] == '')
             {
-            $sqlcheckupdate = "UPDATE user set va_facebook = '$facebook', va_token = '$token' WHERE i_user_id = '$update_i_user_id'";
+            $sqlcheckupdate = "UPDATE user set va_facebook = '$facebook' WHERE i_user_id = '$update_i_user_id'";
             $res1 = $dbhandler0->update($sqlcheckupdate);
             }
         }
@@ -654,9 +658,13 @@ function getuser()
         if (!empty($res))
         {
             $update_i_user_id = $res[0]['i_user_id'];
+                        
+            $sqlchecktoken = "UPDATE user set va_token = '$token' WHERE i_user_id = '$update_i_user_id'";
+            $restoken = $dbhandler0->update($sqlchecktoken);
+
             if ($res[0]['va_google'] == '')
             {
-            $sqlcheckupdate = "UPDATE user set va_google = '$google', va_token = '$token' WHERE i_user_id = '$update_i_user_id'";
+            $sqlcheckupdate = "UPDATE user set va_google = '$google' WHERE i_user_id = '$update_i_user_id'";
             $res1 = $dbhandler0->update($sqlcheckupdate);
             }
         }
