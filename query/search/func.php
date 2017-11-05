@@ -483,7 +483,19 @@ function getresfoodmenu()
                 unset($bev_price); 
                 $bev_price = array();                
             }
-            $bevtypearray[]=array('menu_type'=>$key1['va_bev_type_name'],'va_bev_type_pic_url'=>$_SESSION['file'].$key1['va_res_code'].'/'.$key1['va_bev_type_pic_url'],'menu_data'=>$bevarray); 
+
+            $foodtypepicurl = $_SESSION['file'].$key1['va_res_code'].'/'.$key1['va_bev_type_pic_url'];
+
+            if (@getimagesize($_SESSION['file'].$key1['va_res_code'].'/'.$key1['va_bev_type_pic_url']))
+            {
+                $foodtypepicurl = $foodtypepicurl;
+            } 
+            else
+            {
+                $foodtypepicurl = $_SESSION['file'].'DIMCHOI/'.$key1['va_bev_type_pic_url'];
+            }
+
+            $bevtypearray[]=array('menu_type'=>$key1['va_bev_type_name'],'va_bev_type_pic_url'=> $foodtypepicurl,'menu_data'=>$bevarray); 
             unset($bevarray); 
             $bevarray = array();            
       
@@ -658,7 +670,7 @@ function getuser()
         if (!empty($res))
         {
             $update_i_user_id = $res[0]['i_user_id'];
-                        
+
             $sqlchecktoken = "UPDATE user set va_token = '$token' WHERE i_user_id = '$update_i_user_id'";
             $restoken = $dbhandler0->update($sqlchecktoken);
 
