@@ -55,7 +55,8 @@ if($_SESSION['password']=="123qweasdzxc")
     <input type="submit" name="page" value="Qr Code" />
     <input type="submit" name="page" value="User Order" />
     <input type="submit" name="page" value="Res Order" />
-    <input type="submit" name="page" value="User" />   
+    <input type="submit" name="page" value="User" />  
+    <input type="submit" name="page" value="Food/Bev Type" />   
     <input type="button" onclick="window.location='https://drive.google.com/open?id=1OnPQu9JX-wyyBAeSzz8YLejGFIPcAheQMnHSQwQ2yp0'" value="API GUIDE"/>
 </form>
  <?php
@@ -108,7 +109,11 @@ if (!empty($_POST['page']))
   else if ($_POST['page'] == 'Res Order')
     {
       $_SESSION['page'] = 'Res Order';
-    }           
+    } 
+  else if ($_POST['page'] == 'Food/Bev Type')
+    {
+      $_SESSION['page'] = 'Food/Bev Type';
+    }                        
 }
 if (!empty($_SESSION['page']) && $_SESSION['password']=="123qweasdzxc")
 {
@@ -133,7 +138,10 @@ if (!empty($_SESSION['page']) && $_SESSION['password']=="123qweasdzxc")
             break;                            
         case "User":
             include "development/user.php";
-            break;                       
+            break;      
+        case "Food/Bev Type":
+            include "development/foodbevtype.php";
+            break;                              
         }
 }
 ?>

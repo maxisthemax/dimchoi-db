@@ -426,5 +426,50 @@ function insertorderfromqr() {
 
     return $resdeleteqr;
 }
+//====================================================================================================== 
+function insertnewfoodtype() {
+    global $dbhandler0;
+    $foodtypepicurlnew = !empty($_POST['foodtypepicurlnew']) ? $_POST['foodtypepicurlnew'] : '';
+    $foodtypenew = !empty($_POST['foodtypenew']) ? $_POST['foodtypenew'] : '';
+    $resid_insertfood = !empty($_POST['resid_insertfood']) ? $_POST['resid_insertfood'] : '';
+
+    $sqlcheck = 
+    "INSERT INTO food_type (
+    va_food_type_name,
+    va_food_type_pic_url,
+    i_res_id)
+    VALUES (
+    '$foodtypenew',
+    '$foodtypepicurlnew',
+    '$resid_insertfood')";
+
+    
+    $res = $dbhandler0->insert($sqlcheck);
+    $last_id = $res;
+
+    header('Location:'.$_POST['uri']);
+}
+//====================================================================================================== 
+function insertnewbevtype() {
+    global $dbhandler0;
+    $bevtypepicurlnew = !empty($_POST['bevtypepicurlnew']) ? $_POST['bevtypepicurlnew'] : '';
+    $bevtypenew = !empty($_POST['bevtypenew']) ? $_POST['bevtypenew'] : '';
+    $resid_insertbev = !empty($_POST['resid_insertbev']) ? $_POST['resid_insertbev'] : '';
+
+    $sqlcheck = 
+    "INSERT INTO bev_type (
+    va_bev_type_name,
+    va_bev_type_pic_url,
+    i_res_id)
+    VALUES (
+    '$bevtypenew',
+    '$bevtypepicurlnew',
+    '$resid_insertbev')";
+
+    $res = $dbhandler0->insert($sqlcheck);
+    $last_id = $res;
+
+    header('Location:'.$_POST['uri']);
+}
 //======================================================================================================
 ?>

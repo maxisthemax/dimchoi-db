@@ -23,6 +23,8 @@ function get_path($func)
 		case "insertnewqrcoderow":
 		case "insertnewuser":
 		case "insertorderfromqr":
+		case "insertnewfoodtype":
+		case "insertnewbevtype":
 	    	return array("path" => "query/insert/func.php","querytype"=>"insert");
 	        break;	
 		case "updateres":
@@ -32,6 +34,8 @@ function get_path($func)
 		case "updatefood_dev":
 		case "updatebev_dev":
 		case "updateuser_dev":
+		case "updatefoodtype_dev":
+		case "updatebevtype_dev":
 	    	return array("path" => "query/update/func.php","querytype"=>"update");
 	        break;	
 		case "deletefood":
