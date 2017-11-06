@@ -437,11 +437,13 @@ function insertnewfoodtype() {
     "INSERT INTO food_type (
     va_food_type_name,
     va_food_type_pic_url,
-    i_res_id)
+    i_res_id,
+    i_food_type_order)
     VALUES (
     '$foodtypenew',
     '$foodtypepicurlnew',
-    '$resid_insertfood')";
+    '$resid_insertfood',
+    '0')";
 
     
     $res = $dbhandler0->insert($sqlcheck);
@@ -460,11 +462,13 @@ function insertnewbevtype() {
     "INSERT INTO bev_type (
     va_bev_type_name,
     va_bev_type_pic_url,
-    i_res_id)
+    i_res_id,
+    i_bev_type_order)
     VALUES (
     '$bevtypenew',
     '$bevtypepicurlnew',
-    '$resid_insertbev')";
+    '$resid_insertbev',
+    '0')";
 
     $res = $dbhandler0->insert($sqlcheck);
     $last_id = $res;

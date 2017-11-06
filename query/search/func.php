@@ -312,6 +312,7 @@ function getresfoodmenu()
             $sqlfoodtype .= " and a.i_res_id = $res_id";    
         }           
     }   
+    $sqlfoodtype .= " ORDER BY c.i_food_type_order ASC";
     $foodtype = $dbhandler0->query($sqlfoodtype);   
     //===================================================
 
@@ -329,6 +330,7 @@ function getresfoodmenu()
             $sqlfood .= " and a.i_res_id = $res_id";    
         }           
     }   
+    $sqlfood .= " ORDER BY c.i_food_type_order ASC";
     $food = $dbhandler0->query($sqlfood);
     //===================================================    
     //===============================================
