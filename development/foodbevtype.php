@@ -46,7 +46,7 @@ function getfoodtype($resid) {
             {echo " (DEFAULT)";}
         echo "</td><td><input name = foodtypename[$foodtypeid] id = foodtypename[$foodtypeid] value ='".$resfoodtypevalue['va_food_type_name']
         ."'></td><td><input name = foodpictypeurl[$foodtypeid] id = foodpictypeurl[$foodtypeid] value ='".$resfoodtypevalue['va_food_type_pic_url']."'></td>";
-        echo "<td>"."<button onclick='setformupdate(".$resfoodtypevalue['i_food_type_id'].");'>Update Food Type</button>"."</td></tr>";    
+        echo "<td>"."<button onclick='setformupdatefood(".$resfoodtypevalue['i_food_type_id'].");'>Update Food Type</button>"."</td></tr>";    
     }   
     echo "<input type=hidden id='foodtype_update' name='foodtype_update'>";
     echo "<input type=hidden id='func' name='func' value='updatefoodtype_dev'>";
@@ -94,7 +94,7 @@ function getbevtype($resid) {
             {echo " (DEFAULT)";}
         echo "</td><td><input name = bevtypename[$bevtypeid] id = bevtypename[$bevtypeid] value ='".$resbevtypevalue['va_bev_type_name']
         ."'></td><td><input name = bevpictypeurl[$bevtypeid] id = bevpictypeurl[$bevtypeid] value ='".$resbevtypevalue['va_bev_type_pic_url']."'></td>";
-        echo "<td>"."<button onclick='setformupdate(".$resbevtypevalue['i_bev_type_id'].");'>Update bev Type</button>"."</td></tr>";    
+        echo "<td>"."<button onclick='setformupdatebev(".$resbevtypevalue['i_bev_type_id'].");'>Update bev Type</button>"."</td></tr>";    
     }   
     echo "<input type=hidden id='bevtype_update' name='bevtype_update'>";
     echo "<input type=hidden id='func' name='func' value='updatebevtype_dev'>";
@@ -124,7 +124,7 @@ function setforminsertfood(resid)
 {   
 $("#resid_insertfood").val(resid);
 }
-function setformupdate(foodtypeid)
+function setformupdatefood(foodtypeid)
 {   
 $("#foodtype_update").val(foodtypeid);
 }
@@ -133,7 +133,7 @@ function setforminsertbev(resid)
 {   
 $("#resid_insertbev").val(resid);
 }
-function setformupdate(bevtypeid)
+function setformupdatebev(bevtypeid)
 {   
 $("#bevtype_update").val(bevtypeid);
 }
