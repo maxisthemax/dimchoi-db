@@ -17,6 +17,7 @@ include "system/function.php";
 function insertnewres() {
     global $dbhandler0;
     $resname_new = !empty($_POST['resname_new']) ? $_POST['resname_new'] : '';
+    $resname_new=str_replace("'","\'", $resname_new);
     $rescode_new = !empty($_POST['rescode_new']) ? $_POST['rescode_new'] : '';
     $reslogo_new = !empty($_POST['reslogo_new']) ? $_POST['reslogo_new'] : '';
     $area_new = !empty($_POST['area_new']) ? $_POST['area_new'] : '1';
@@ -86,6 +87,7 @@ function insertnewfood() {
     global $dbhandler0;
     $inserttypefood = !empty($_POST['inserttypefood']) ? $_POST['inserttypefood'] : '';
     $food_name_new = !empty($_POST['food_name_new']) ? $_POST['food_name_new'] : '';
+    $food_name_new=str_replace("'","\'", $food_name_new);
     $food_name_update = !empty($_POST['food_name_update']) ? $_POST['food_name_update'] : '';
     $resid_insert = !empty($_POST['resid_insert']) ? $_POST['resid_insert'] : '';
     $resname_insert = !empty($_POST['resname_insert']) ? $_POST['resname_insert'] : '';
@@ -183,6 +185,7 @@ function insertnewbev() {
     global $dbhandler0;
     $inserttypebev = !empty($_POST['inserttypebev']) ? $_POST['inserttypebev'] : '';
     $bev_name_new = !empty($_POST['bev_name_new']) ? $_POST['bev_name_new'] : '';
+    $bev_name_new=str_replace("'","\'", $bev_name_new);
     $bev_name_update = !empty($_POST['bev_name_update']) ? $_POST['bev_name_update'] : '';
     $resid_insertbev = !empty($_POST['resid_insertbev']) ? $_POST['resid_insertbev'] : '';
     $resname_insertbev = !empty($_POST['resname_insertbev']) ? $_POST['resname_insertbev'] : '';

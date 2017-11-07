@@ -9,6 +9,7 @@ function updateres()
 
     $resid = !empty($_POST['resid']) ? $_POST['resid'] : '';
     $resname = !empty($_POST['resname']) ? addslashes($_POST['resname']) : '';
+    $resname=str_replace("'","\'", $resname);
     $reslogo = !empty($_POST['reslogo']) ? $_POST['reslogo'] : '';
     $rescode = !empty($_POST['rescode']) ? $_POST['rescode'] : '';   
     $add1 = !empty($_POST['add1']) ? $_POST['add1'] : '';
@@ -109,6 +110,7 @@ function updatefood()
     $priceid=$_POST['food_price_id'];
 
     $foodname=$_POST['food_name'][$foodid][$priceid];
+    $foodname=str_replace("'","\'", $foodname);
     $fooddesc=str_replace("'","\'", $_POST['food_desc'][$foodid][$priceid]);
     $foodsize=$_POST['food_size'][$priceid];   
     $foodprize=$_POST['food_price'][$priceid];        
@@ -140,6 +142,7 @@ function updatebev()
     $priceid=$_POST['bev_price_id'];
 
     $bevname=$_POST['bev_name'][$bevid][$priceid];
+    $bevname=str_replace("'","\'", $bevname);
     $bevdesc=str_replace("'","\'", $_POST['bev_desc'][$bevid][$priceid]);
     $bevsize=$_POST['bev_size'][$priceid];   
     $bevprize=$_POST['bev_price'][$priceid];        
@@ -207,6 +210,7 @@ function updatefood_dev()
     $priceid=$_POST['food_price_id'];
 
     $foodname=$_POST['food_name'][$foodid][$priceid];
+    $foodname=str_replace("'","\'", $foodname);
     $fooddesc=str_replace("'","\'", $_POST['food_desc'][$foodid][$priceid]);
     $foodsize=$_POST['food_size'][$priceid];   
     $foodprize=$_POST['food_price'][$priceid];        
