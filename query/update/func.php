@@ -268,13 +268,13 @@ function updatefoodtype_dev()
     $foodtype_update = !empty($_POST['foodtype_update']) ? $_POST['foodtype_update'] : ''; 
     $foodtypename = !empty($_POST['foodtypename'][$foodtype_update]) ? $_POST['foodtypename'][$foodtype_update] : ''; 
     $foodpictypeurl = !empty($_POST['foodpictypeurl'][$foodtype_update]) ? $_POST['foodpictypeurl'][$foodtype_update] : ''; 
-
+    $foodtypeorder = !empty($_POST['foodtypeorder'][$foodtype_update]) ? $_POST['foodtypeorder'][$foodtype_update] : ''; 
 //=============================================== 
 //define variable for query
 //===============================================  
      $sqlcheck = 
         "UPDATE food_type 
-        SET va_food_type_name = '$foodtypename', va_food_type_pic_url = '$foodpictypeurl'
+        SET va_food_type_name = '$foodtypename', va_food_type_pic_url = '$foodpictypeurl',i_food_type_order = '$foodtypeorder'
         where i_food_type_id = $foodtype_update";
 
         $res = $dbhandler0->update($sqlcheck);
@@ -290,13 +290,13 @@ function updatebevtype_dev()
     $bevtype_update = !empty($_POST['bevtype_update']) ? $_POST['bevtype_update'] : ''; 
     $bevtypename = !empty($_POST['bevtypename'][$bevtype_update]) ? $_POST['bevtypename'][$bevtype_update] : ''; 
     $bevpictypeurl = !empty($_POST['bevpictypeurl'][$bevtype_update]) ? $_POST['bevpictypeurl'][$bevtype_update] : ''; 
-
+    $bevtypeorder = !empty($_POST['bevtypeorder'][$bevtype_update]) ? $_POST['bevtypeorder'][$bevtype_update] : '';    
 //=============================================== 
 //define variable for query
 //===============================================  
      $sqlcheck = 
         "UPDATE bev_type 
-        SET va_bev_type_name = '$bevtypename', va_bev_type_pic_url = '$bevpictypeurl'
+        SET va_bev_type_name = '$bevtypename', va_bev_type_pic_url = '$bevpictypeurl',i_bev_type_order = '$bevtypeorder'
         where i_bev_type_id = $bevtype_update";
 
         $res = $dbhandler0->update($sqlcheck);

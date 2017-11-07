@@ -36,7 +36,7 @@ function getfoodtype($resid) {
 
     echo'<form action="index.php" method="post"><table id="tab" width=100%  border=1 style="font-size:100%;">';
     echo "<tr><TD colspan = 3 align=center>FOOD TYPE</td></tr>";    
-    echo "<tr><td width=10%>Food Type ID</td><td width=10%>Food Type Name</td><td width=10%>Food Pic URL</td><td width=10%></td>";
+    echo "<tr><td width=10%>Food Type ID</td><td width=10%>Food Type Name</td><td width=10%>Food Pic URL</td><td width=10%>Food Type Ordering No</td><td width=10%></td>";
 
     foreach($resfoodtype as $resfoodtypevalue) 
     {
@@ -46,6 +46,9 @@ function getfoodtype($resid) {
             {echo " (DEFAULT)";}
         echo "</td><td><input name = foodtypename[$foodtypeid] id = foodtypename[$foodtypeid] value ='".$resfoodtypevalue['va_food_type_name']
         ."'></td><td><input name = foodpictypeurl[$foodtypeid] id = foodpictypeurl[$foodtypeid] value ='".$resfoodtypevalue['va_food_type_pic_url']."'></td>";
+
+        echo "</td><td><input name = foodtypeorder[$foodtypeid] id = foodtypeorder[$foodtypeid] value ='".$resfoodtypevalue['i_food_type_order']."'></td>";
+
         echo "<td>"."<button onclick='setformupdatefood(".$resfoodtypevalue['i_food_type_id'].");'>Update Food Type</button>"."</td></tr>";    
     }   
     echo "<input type=hidden id='foodtype_update' name='foodtype_update'>";
@@ -94,6 +97,9 @@ function getbevtype($resid) {
             {echo " (DEFAULT)";}
         echo "</td><td><input name = bevtypename[$bevtypeid] id = bevtypename[$bevtypeid] value ='".$resbevtypevalue['va_bev_type_name']
         ."'></td><td><input name = bevpictypeurl[$bevtypeid] id = bevpictypeurl[$bevtypeid] value ='".$resbevtypevalue['va_bev_type_pic_url']."'></td>";
+
+        echo "</td><td><input name = bevtypeorder[$bevtypeid] id = bevtypeorder[$bevtypeid] value ='".$resbevtypevalue['i_bev_type_order']."'></td>";
+
         echo "<td>"."<button onclick='setformupdatebev(".$resbevtypevalue['i_bev_type_id'].");'>Update bev Type</button>"."</td></tr>";    
     }   
     echo "<input type=hidden id='bevtype_update' name='bevtype_update'>";
