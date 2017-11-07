@@ -77,7 +77,7 @@ function getbevtype($resid) {
     $sqlbevtype = "SELECT DISTINCT a.*
     FROM bev_type a 
     LEFT JOIN restaurant b on b.i_hq_id = a.i_res_id
-    WHERE b.i_res_id = $resid";
+    WHERE b.i_res_id = $resid ORDER BY i_bev_type_order ASC";
 
     $resbevtype = $dbhandler0->query($sqlbevtype);
     

@@ -67,11 +67,11 @@ function getresmenufood($resid) {
     $resbev = $dbhandler0->query($sqlbevlist);
 
     $sqlfoodtype = "SELECT * FROM food_type
-    WHERE i_res_id = $hqid";
+    WHERE i_res_id = $hqid order by i_food_type_order ASC";
     $resfoodtype = $dbhandler0->query($sqlfoodtype);
 
     $sqlbevtype = "SELECT * FROM bev_type
-    WHERE i_res_id = $hqid";
+    WHERE i_res_id = $hqid order by i_bev_type_order ASC";
     $resbevtype = $dbhandler0->query($sqlbevtype);
 
 echo'<form action="index.php" method="post"><table id="tab" width=100%  border=1 style="font-size:100%;">';
