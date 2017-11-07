@@ -162,7 +162,14 @@ echo "<tr><TD colspan = 5 align=center>BEVERAGE</td></tr>";
         echo "</option>";  
         }
         echo "</select></td>";
-        echo "<td><select name='food_type_new' id='food_type_new' required></select></td>";     
+
+        echo "<td><select name='food_type_new' id='food_type_new' required>";
+        foreach($resfoodtype as $resvaluefoodtype) {
+            echo "<option value =".$resvaluefoodtype["i_food_type_id"];
+            echo ">".$resvaluefoodtype["va_food_type_name"]."</option>";  
+        }
+        echo "</select></td>";   
+
         echo "</tr>"; 
         echo "<tr><td>VARIANT</td></tr>";          
         echo "<tr><td>Size</td><td>Price</td></tr>";
@@ -192,7 +199,12 @@ echo "<tr><TD colspan = 5 align=center>BEVERAGE</td></tr>";
         echo "</option>";  
         }
         echo "</select></td>";
-        echo "<td><select name='bev_type_new' id='bev_type_new' required></select></td>";     
+        echo "<td><select name='bev_type_new' id='bev_type_new' required>";
+        foreach($resbevtype as $resvaluebevtype) {
+            echo "<option value =".$resvaluebevtype["i_bev_type_id"];
+            echo ">".$resvaluebevtype["va_bev_type_name"]."</option>";  
+        }
+        echo "</select></td>";     
         echo "</tr>"; 
         echo "<tr><td>VARIANT</td></tr>";          
         echo "<tr><td>Size</td><td>Price</td></tr>";
@@ -332,31 +344,7 @@ $(document).ready(function()
         }    
     }); 
 
-    $.getJSON('data/foodtype.php',function(data)
-    {
-        var combo = $("#food_type_new");
-        var reshqid = "<?php echo $_SESSION['reshqid'] ?>" ;
-        
-        $.each(data.data,function(i,value)
-        {
-        if (value.i_res_id == reshqid)  
-        {
-            combo.append("<option value="+value.i_food_type_id+">" + value.va_food_type_name + "</option>");
-        }      
-        });  
-    });
-    $.getJSON('data/bevtype.php',function(data)
-    {
-        var combo = $("#bev_type_new");
-        var reshqid = "<?php echo $_SESSION['reshqid'] ?>" ;
-        $.each(data.data,function(i,value)
-        {
-        if (value.i_res_id == reshqid)  
-        {
-            combo.append("<option value="+value.i_bev_type_id+">" + value.va_bev_type_name + "</option>");
-        }
-        });  
-    });    
+
        $('#Options').change(function(){
              $("#getfoodform").submit();
     }) 
