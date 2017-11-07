@@ -268,7 +268,7 @@ function updatefoodtype_dev()
     $foodtype_update = !empty($_POST['foodtype_update']) ? $_POST['foodtype_update'] : ''; 
     $foodtypename = !empty($_POST['foodtypename'][$foodtype_update]) ? $_POST['foodtypename'][$foodtype_update] : ''; 
     $foodpictypeurl = !empty($_POST['foodpictypeurl'][$foodtype_update]) ? $_POST['foodpictypeurl'][$foodtype_update] : ''; 
-    $foodtypeorder = !empty($_POST['foodtypeorder'][$foodtype_update]) ? $_POST['foodtypeorder'][$foodtype_update] : ''; 
+    $foodtypeorder = !empty($_POST['foodtypeorder'][$foodtype_update]) ? $_POST['foodtypeorder'][$foodtype_update] : 0; 
 //=============================================== 
 //define variable for query
 //===============================================  
@@ -290,7 +290,7 @@ function updatebevtype_dev()
     $bevtype_update = !empty($_POST['bevtype_update']) ? $_POST['bevtype_update'] : ''; 
     $bevtypename = !empty($_POST['bevtypename'][$bevtype_update]) ? $_POST['bevtypename'][$bevtype_update] : ''; 
     $bevpictypeurl = !empty($_POST['bevpictypeurl'][$bevtype_update]) ? $_POST['bevpictypeurl'][$bevtype_update] : ''; 
-    $bevtypeorder = !empty($_POST['bevtypeorder'][$bevtype_update]) ? $_POST['bevtypeorder'][$bevtype_update] : '';    
+    $bevtypeorder = !empty($_POST['bevtypeorder'][$bevtype_update]) ? $_POST['bevtypeorder'][$bevtype_update] : 0;    
 //=============================================== 
 //define variable for query
 //===============================================  
