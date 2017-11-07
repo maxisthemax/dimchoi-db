@@ -17,7 +17,7 @@ function updateres()
     $lat = !empty($_POST['lat']) ? $_POST['lat'] : '0.0';
     $long = !empty($_POST['long']) ? $_POST['long'] : '0.0';   
     $desc = !empty($_POST['desc']) ? $_POST['desc'] : '';   
-
+    $desc=str_replace("'","\'", $desc);
     $resfeature = !empty($_POST['resfeature']) ? $_POST['resfeature'] : ''; 
     $featuread = !empty($_POST['featuread']) ? $_POST['featuread'] : '';     
     $city = !empty($_POST['city']) ? $_POST['city'] : '';
