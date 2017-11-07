@@ -28,7 +28,7 @@ function getfoodtype($resid) {
     $sqlfoodtype = "SELECT DISTINCT a.*
     FROM food_type a 
     LEFT JOIN restaurant b on b.i_hq_id = a.i_res_id
-    WHERE b.i_res_id = $resid or b.i_res_id = 1";
+    WHERE b.i_res_id = $resid";
 
     $resfoodtype = $dbhandler0->query($sqlfoodtype);
     
@@ -42,8 +42,6 @@ function getfoodtype($resid) {
     {
         $foodtypeid = $resfoodtypevalue['i_food_type_id'];    
         echo "<tr><td>".$resfoodtypevalue['i_food_type_id'];
-        if ($resfoodtypevalue['i_res_id'] == 1)
-            {echo " (DEFAULT)";}
         echo "</td><td><input name = foodtypename[$foodtypeid] id = foodtypename[$foodtypeid] value ='".$resfoodtypevalue['va_food_type_name']
         ."'></td><td><input name = foodpictypeurl[$foodtypeid] id = foodpictypeurl[$foodtypeid] value ='".$resfoodtypevalue['va_food_type_pic_url']."'></td>";
 
@@ -79,7 +77,7 @@ function getbevtype($resid) {
     $sqlbevtype = "SELECT DISTINCT a.*
     FROM bev_type a 
     LEFT JOIN restaurant b on b.i_hq_id = a.i_res_id
-    WHERE b.i_res_id = $resid or b.i_res_id = 1";
+    WHERE b.i_res_id = $resid";
 
     $resbevtype = $dbhandler0->query($sqlbevtype);
     
@@ -93,8 +91,6 @@ function getbevtype($resid) {
     {
         $bevtypeid = $resbevtypevalue['i_bev_type_id'];    
         echo "<tr><td>".$resbevtypevalue['i_bev_type_id'];
-        if ($resbevtypevalue['i_res_id'] == 1)
-            {echo " (DEFAULT)";}
         echo "</td><td><input name = bevtypename[$bevtypeid] id = bevtypename[$bevtypeid] value ='".$resbevtypevalue['va_bev_type_name']
         ."'></td><td><input name = bevpictypeurl[$bevtypeid] id = bevpictypeurl[$bevtypeid] value ='".$resbevtypevalue['va_bev_type_pic_url']."'></td>";
 

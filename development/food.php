@@ -40,7 +40,7 @@ function getresmenufood($resid) {
     FROM food a LEFT JOIN menu b on a.i_menu_id = b.i_menu_id
     LEFT JOIN restaurant c on c.i_res_id = b.i_res_id and c.i_res_stat = 1
     WHERE c.i_res_id = $hqid
-    ORDER BY f.i_food_type_order ASC,a.i_food_id ASC";
+    ORDER BY a.i_food_id ASC";
     $resfood = $dbhandler0->query($sqlfoodlist);
 
 
@@ -63,15 +63,15 @@ function getresmenufood($resid) {
     FROM bev a LEFT JOIN menu b on a.i_menu_id = b.i_menu_id
     LEFT JOIN restaurant c on c.i_res_id = b.i_res_id and c.i_res_stat = 1
     WHERE c.i_res_id = $resid
-    ORDER BY f.i_bev_type_order ASC,a.i_bev_id ASC";
+    ORDER BY a.i_bev_id ASC";
     $resbev = $dbhandler0->query($sqlbevlist);
 
     $sqlfoodtype = "SELECT * FROM food_type
-    WHERE i_res_id = $hqid or i_res_id = 1";
+    WHERE i_res_id = $hqid";
     $resfoodtype = $dbhandler0->query($sqlfoodtype);
 
     $sqlbevtype = "SELECT * FROM bev_type
-    WHERE i_res_id = $hqid or i_res_id = 1";
+    WHERE i_res_id = $hqid";
     $resbevtype = $dbhandler0->query($sqlbevtype);
 
 echo'<form action="index.php" method="post"><table id="tab" width=100%  border=1 style="font-size:100%;">';
