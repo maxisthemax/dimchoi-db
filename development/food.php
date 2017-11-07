@@ -339,7 +339,7 @@ $(document).ready(function()
         
         $.each(data.data,function(i,value)
         {
-        if (value.i_res_id == 1 || value.i_res_id == reshqid)  
+        if (value.i_res_id == reshqid)  
         {
             combo.append("<option value="+value.i_food_type_id+">" + value.va_food_type_name + "</option>");
         }      
@@ -351,7 +351,7 @@ $(document).ready(function()
         var reshqid = "<?php echo $_SESSION['reshqid'] ?>" ;
         $.each(data.data,function(i,value)
         {
-        if (value.i_res_id == 1 || value.i_res_id == reshqid)  
+        if (value.i_res_id == reshqid)  
         {
             combo.append("<option value="+value.i_bev_type_id+">" + value.va_bev_type_name + "</option>");
         }
