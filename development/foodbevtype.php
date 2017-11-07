@@ -28,7 +28,7 @@ function getfoodtype($resid) {
     $sqlfoodtype = "SELECT DISTINCT a.*
     FROM food_type a 
     LEFT JOIN restaurant b on b.i_hq_id = a.i_res_id
-    WHERE b.i_res_id = $resid";
+    WHERE b.i_res_id = $resid ORDER BY a.i_food_type_order ASC";
 
     $resfoodtype = $dbhandler0->query($sqlfoodtype);
     
