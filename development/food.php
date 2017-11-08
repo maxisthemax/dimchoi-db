@@ -101,6 +101,9 @@ echo "<tr><TD colspan = 5 align=center>FOOD</td></tr>";
         echo "<td><input name='food_price[$food_price_id]' value='".$resvalue["d_food_price"]."'></td>";
         echo "<td><input name='food_pic_url[$food_price_id]' value='".$resvalue["va_food_pic_url"]."'></td>";
         echo "<td><img src='".$_SESSION["file"].$res1[count($res1)-1]['va_res_code']."/".$resvalue["va_food_pic_url"]."' height='150' width='180'></td>";
+        echo "<td><input type='checkbox' name='food_status[$food_price_id]' id=food_status[$food_price_id]";
+        if ($resvalue["i_food_status"] == 1){echo " checked";}
+        echo "></td>";
         echo "<td width=20%><button onclick='setformupdate($food_id,$food_price_id,1);'>Update Current Row</button></td>";  
         echo "<td width=20%><button onclick='setformdelete($food_id,1);'>Delete This Food</button></td>";  
         echo "<td width=30%><button onclick='setformdeleteprice($food_price_id,1);'>Delete This Price Only</button></td>";  
@@ -130,6 +133,9 @@ echo "<tr><TD colspan = 5 align=center>BEVERAGE</td></tr>";
 
         echo "<td><input name='bev_pic_url[$bev_price_id]' value='".$res2value["va_bev_pic_url"]."'></td>";
         echo "<td><img src='".$_SESSION["file"].$res1[count($res1)-1]['va_res_code']."/".$res2value["va_bev_pic_url"]."' height='150' width='180'></td>";
+        echo "<td><input type='checkbox' name='bev_status[$bev_price_id]' id=bev_status[$bev_price_id]";
+        if ($res2value["i_bev_status"] == 1){echo " checked";}
+        echo "></td>";        
         echo "<td width=20%><button onclick='setformupdate($bev_id,$bev_price_id,2);'>Update Current Row</button></td>";  
         echo "<td width=20%><button onclick='setformdelete($bev_id,2);'>Delete This Beverage</button></td>";
         echo "<td width=30%><button onclick='setformdeleteprice($bev_price_id,2);'>Delete This Price Only</button></td>";    

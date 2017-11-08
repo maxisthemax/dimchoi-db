@@ -87,7 +87,7 @@ function updateuser() {
     set va_first_name = '$firstname',
     va_last_name ='$lastname',    
     va_gender ='$gender',
-    va_country_code = '$countrycode'
+    va_country_code = '$countrycode',
     va_phone_code = '$phonecode',
     va_phone ='$phone',
     dt_dob ='$dob',
@@ -116,12 +116,13 @@ function updatefood()
     $foodprize=$_POST['food_price'][$priceid];        
     $foodtype=$_POST['food_type'][$priceid]; 
     $foodurl=$_POST['food_pic_url'][$priceid]; 
+    $foodstatus=!empty($_POST['food_status'][$priceid]) ? 1 : 0; 
 //=============================================== 
 //define variable for query
 //===============================================  
      $sqlcheck = 
         "UPDATE food 
-        SET va_food_name = '$foodname', i_food_type_id = '$foodtype',va_food_pic_url = '$foodurl',va_food_desc = '$fooddesc'
+        SET va_food_name = '$foodname', i_food_type_id = '$foodtype',va_food_pic_url = '$foodurl',va_food_desc = '$fooddesc',i_food_status='$foodstatus'
         where i_food_id = $foodid";
         $res = $dbhandler0->update($sqlcheck);
      $sqlcheck1 = 
@@ -148,12 +149,13 @@ function updatebev()
     $bevprize=$_POST['bev_price'][$priceid];        
     $bevtype=$_POST['bev_type'][$priceid]; 
     $bevurl=$_POST['bev_pic_url'][$priceid];
+    $bevstatus=!empty($_POST['bev_status'][$priceid]) ? 1 : 0; 
 //=============================================== 
 //define variable for query
 //===============================================  
      $sqlcheck = 
         "UPDATE bev 
-        SET va_bev_name = '$bevname', i_bev_type_id = '$bevtype',va_bev_pic_url = '$bevurl' , va_bev_desc='$bevdesc'
+        SET va_bev_name = '$bevname', i_bev_type_id = '$bevtype',va_bev_pic_url = '$bevurl' , va_bev_desc='$bevdesc',i_bev_status='$bevstatus'
         where i_bev_id = $bevid";
         $res = $dbhandler0->update($sqlcheck);
      $sqlcheck1 = 
@@ -182,6 +184,7 @@ function updateuser_dev() {
     $pass = !empty($_POST['pass'][$userid]) ? $_POST['pass'][$userid] : '';
     $facebook = !empty($_POST['facebook'][$userid]) ? $_POST['facebook'][$userid] : '';
     $google = !empty($_POST['google'][$userid]) ? $_POST['google'][$userid] : '';  
+    $token = !empty($_POST['token'][$userid]) ? $_POST['token'][$userid] : '';  
 
     $sqlcheck = 
     "UPDATE user
@@ -195,7 +198,8 @@ function updateuser_dev() {
     va_email ='$email',
     va_pass ='$pass',
     va_facebook ='$facebook',
-    va_google ='$google'
+    va_google ='$google',
+    va_token = '$token'
     where i_user_id = '$userid'";
 
     $res = $dbhandler0->update($sqlcheck);
@@ -215,13 +219,15 @@ function updatefood_dev()
     $foodsize=$_POST['food_size'][$priceid];   
     $foodprize=$_POST['food_price'][$priceid];        
     $foodtype=$_POST['food_type'][$priceid]; 
-    $foodurl=$_POST['food_pic_url'][$priceid]; 
+    $foodurl=$_POST['food_pic_url'][$priceid];
+    $foodstatus=!empty($_POST['food_status'][$priceid]) ? 1 : 0; 
+
 //=============================================== 
 //define variable for query
 //===============================================  
      $sqlcheck = 
         "UPDATE food 
-        SET va_food_name = '$foodname', i_food_type_id = '$foodtype',va_food_pic_url = '$foodurl',va_food_desc = '$fooddesc'
+        SET va_food_name = '$foodname', i_food_type_id = '$foodtype',va_food_pic_url = '$foodurl',va_food_desc = '$fooddesc',i_food_status='$foodstatus'
         where i_food_id = $foodid";
         $res = $dbhandler0->update($sqlcheck);
      $sqlcheck1 = 
@@ -247,12 +253,13 @@ function updatebev_dev()
     $bevprize=$_POST['bev_price'][$priceid];        
     $bevtype=$_POST['bev_type'][$priceid]; 
     $bevurl=$_POST['bev_pic_url'][$priceid];
+    $bevstatus=!empty($_POST['bev_status'][$priceid]) ? 1 : 0; 
 //=============================================== 
 //define variable for query
 //===============================================  
      $sqlcheck = 
         "UPDATE bev 
-        SET va_bev_name = '$bevname', i_bev_type_id = '$bevtype',va_bev_pic_url = '$bevurl' , va_bev_desc='$bevdesc'
+        SET va_bev_name = '$bevname', i_bev_type_id = '$bevtype',va_bev_pic_url = '$bevurl' , va_bev_desc='$bevdesc',i_bev_status='$bevstatus'
         where i_bev_id = $bevid";
         $res = $dbhandler0->update($sqlcheck);
      $sqlcheck1 = 
