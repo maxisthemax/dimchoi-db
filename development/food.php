@@ -113,7 +113,7 @@ echo "<tr><TD colspan = 5 align=center>BEVERAGE</td></tr>";
         $bev_price_id=$res2value["i_price_id"];
         echo "<tr>";
         echo "<td>".$res2value["bevid"]."</td>";    
-        $bevname=str_replace("'","&#39;", $resvalue["va_bev_name"]);
+        $bevname=str_replace("'","&#39;", $res2value["va_bev_name"]);
         echo "<td><input name='bev_name[$bev_id][$bev_price_id]' size=50 value='".$bevname."'></td>";
         echo "<td><textarea name='bev_desc[$bev_id][$bev_price_id]' rows=5 cols=50>".$res2value["va_bev_desc"]."</textarea></td>"; 
 
