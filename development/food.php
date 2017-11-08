@@ -85,7 +85,8 @@ echo "<tr><TD colspan = 5 align=center>FOOD</td></tr>";
         $food_price_id=$resvalue["i_price_id"];
         echo "<tr>";
         echo "<td>".$resvalue["foodid"]."</td>";    
-        echo "<td><input name='food_name[$food_id][$food_price_id]' size=50 value='".$resvalue["va_food_name"]."'></td>";
+        $foodname=str_replace("'","&#39;", $resvalue["va_food_name"]);
+        echo "<td><input name='food_name[$food_id][$food_price_id]' size=50 value='".$foodname."'></td>";
         echo "<td><textarea name='food_desc[$food_id][$food_price_id]' rows=5 cols=50>".$resvalue["va_food_desc"]."</textarea></td>";          
 
         echo "<td><select name='food_type[$food_price_id]'>";    
@@ -112,7 +113,8 @@ echo "<tr><TD colspan = 5 align=center>BEVERAGE</td></tr>";
         $bev_price_id=$res2value["i_price_id"];
         echo "<tr>";
         echo "<td>".$res2value["bevid"]."</td>";    
-        echo "<td><input name='bev_name[$bev_id][$bev_price_id]' size=50 value='".$res2value["va_bev_name"]."'></td>";
+        $bevname=str_replace("'","&#39;", $resvalue["va_bev_name"]);
+        echo "<td><input name='bev_name[$bev_id][$bev_price_id]' size=50 value='".$bevname."'></td>";
         echo "<td><textarea name='bev_desc[$bev_id][$bev_price_id]' rows=5 cols=50>".$res2value["va_bev_desc"]."</textarea></td>"; 
 
         echo "<td><select name='bev_type[$bev_price_id]'>";    
