@@ -312,7 +312,7 @@ function getresfoodmenu()
             $sqlfoodtype .= " and a.i_res_id = $res_id";    
         }           
     }   
-    $sqlfoodtype .= " ORDER BY c.i_food_type_order ASC";
+    $sqlfoodtype .= " ORDER BY c.i_food_type_order ASC, b.i_food_order ASC";
     $foodtype = $dbhandler0->query($sqlfoodtype);   
     //===================================================
 
@@ -330,7 +330,7 @@ function getresfoodmenu()
             $sqlfood .= " and a.i_res_id = $res_id";    
         }           
     }   
-    $sqlfood .= " ORDER BY c.i_food_type_order ASC";
+    $sqlfood .= " ORDER BY c.i_food_type_order ASC, b.i_food_order ASC";
     $food = $dbhandler0->query($sqlfood);
     //===================================================    
     //===============================================
@@ -348,6 +348,7 @@ function getresfoodmenu()
             $sqlfoodprice .= " and a.i_res_id = $res_id";    
         }           
     }   
+    $sqlfoodprice .= " ORDER BY b.i_food_id ASC,c.i_food_price_order ASC";
     $foodprice = $dbhandler0->query($sqlfoodprice);
     //===================================================
     foreach ($foodtype as $key1)
@@ -425,6 +426,7 @@ function getresfoodmenu()
             $sqlbevtype .= " and a.i_res_id = $res_id";    
         }           
     }   
+    $sqlbevtype .= " ORDER BY c.i_bev_type_order ASC, b.i_bev_order ASC";
     $bevtype = $dbhandler0->query($sqlbevtype);   
     //===================================================
 
@@ -442,6 +444,7 @@ function getresfoodmenu()
             $sqlbev .= " and a.i_res_id = $res_id";    
         }           
     }   
+    $sqlbev .= " ORDER BY c.i_bev_type_order ASC, b.i_bev_order ASC";
     $bev = $dbhandler0->query($sqlbev);
     //===================================================    
     //===============================================
@@ -459,6 +462,7 @@ function getresfoodmenu()
             $sqlbevprice .= " and a.i_res_id = $res_id";    
         }           
     }   
+    $sqlbevprice .= " ORDER BY b.i_bev_id ASC,c.i_bev_price_order ASC";
     $bevprice = $dbhandler0->query($sqlbevprice);
     //===================================================
     foreach ($bevtype as $key1)
