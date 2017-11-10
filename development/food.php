@@ -78,13 +78,18 @@ echo'<form action="index.php" method="post"><table id="tab" width=100%  border=1
 echo "<tr><td>Restaurant Name</td><td id=resname>".$res1[count($res1)-1]['va_res_name']."</td></tr>";
 echo "<tr><td>Res Code</td><td>".$res1[count($res1)-1]['va_res_code']."</td></tr>";
 echo "<tr><td>Menu Code</td><td id=menucode>".$res1[count($res1)-1]['va_menu_code']."</td></tr>";
-echo "<tr><td>Food ID</td><td>Food Name</td><td>Food Desc</td><td>Food Type</td><td>Size</td><td>Price</td><td>Pic Url</td><td>Pic Display</td><td>Hide This Food</td></tr>";
+echo "<tr><td>Food ID</td><td>Food Name</td><td>Food Desc</td><td>Food Type</td><td>Size</td><td>Price</td><td>Pic Url</td><td>Pic Display</td><td>Hide This Food</td><td>Hide This Price</td></tr>";
 echo "<tr><TD colspan = 5 align=center>FOOD</td></tr>";
     foreach($res as $resvalue) {
         $food_id=$resvalue["foodid"];
         $food_price_id=$resvalue["i_price_id"];
         echo "<tr>";
-        echo "<td>".$resvalue["foodid"]."</td>";    
+        echo "<td ";
+        if ($resvalue["i_food_price_status"] != 1)
+        echo "style='background-color:#000000;color:white;'";
+        if ($resvalue["i_food_status"] != 1)
+        echo "style='background-color:#000000;color:white;'"; 
+        echo " >".$resvalue["foodid"]."</td>";    
         $foodname=str_replace("'","&#39;", $resvalue["va_food_name"]);
         echo "<td><input name='food_name[$food_price_id]' size=50 value='".$foodname."'></td>";
         echo "<td><textarea name='food_desc[$food_price_id]' rows=5 cols=50>".$resvalue["va_food_desc"]."</textarea></td>";          
@@ -119,12 +124,17 @@ echo "<tr><td colspan = 5>&nbsp;</td></tr>";
 echo "<tr><td colspan = 5>&nbsp;</td></tr>";
 echo "<tr><td colspan = 5>&nbsp;</td></tr>";
 echo "<tr><TD colspan = 5 align=center>BEVERAGE</td></tr>";
-echo "<tr><td>Food ID</td><td>Bev Name</td><td>Bev Desc</td><td>Bev Type</td><td>Size</td><td>Price</td><td>Pic Url</td><td>Pic Display</td><td>Hide This Bev</td></tr>";
+echo "<tr><td>Food ID</td><td>Bev Name</td><td>Bev Desc</td><td>Bev Type</td><td>Size</td><td>Price</td><td>Pic Url</td><td>Pic Display</td><td>Hide This Bev</td><td>Hide This Price</td></tr>";
     foreach($res2 as $res2value) {
         $bev_id=$res2value["bevid"];
         $bev_price_id=$res2value["i_price_id"];
         echo "<tr>";
-        echo "<td>".$res2value["bevid"]."</td>";    
+        echo "<td ";
+        if ($res2value["i_bev_price_status"] != 1)
+        echo "style='background-color:#000000;color:white;'";
+        if ($res2value["i_bev_status"] != 1)
+        echo "style='background-color:#000000;color:white;'"; 
+        echo " >".$res2value["bevid"]."</td>";       
         $bevname=str_replace("'","&#39;", $res2value["va_bev_name"]);
         echo "<td><input name='bev_name[$bev_price_id]' size=50 value='".$bevname."'></td>";
         echo "<td><textarea name='bev_desc[$bev_price_id]' rows=5 cols=50>".$res2value["va_bev_desc"]."</textarea></td>"; 
