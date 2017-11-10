@@ -129,6 +129,7 @@ function updatefood()
     $foodtype=$_POST['food_type'][$priceid]; 
     $foodurl=$_POST['food_pic_url'][$priceid]; 
     $foodstatus=!empty($_POST['food_status'][$priceid]) ? 1 : 0; 
+    $foodpricestatus=!empty($_POST['food_price_status'][$priceid]) ? 1 : 0; 
 //=============================================== 
 //define variable for query
 //===============================================  
@@ -139,7 +140,7 @@ function updatefood()
         $res = $dbhandler0->update($sqlcheck);
      $sqlcheck1 = 
         "UPDATE food_price 
-        SET va_food_size = '$foodsize',d_food_price = $foodprize
+        SET va_food_size = '$foodsize',d_food_price = $foodprize,i_food_price_status = '$foodpricestatus'
         where i_price_id = $priceid";
         $res1 = $dbhandler0->update($sqlcheck1);
 
@@ -162,6 +163,7 @@ function updatebev()
     $bevtype=$_POST['bev_type'][$priceid]; 
     $bevurl=$_POST['bev_pic_url'][$priceid];
     $bevstatus=!empty($_POST['bev_status'][$priceid]) ? 1 : 0; 
+    $bevpricestatus=!empty($_POST['bev_price_status'][$priceid]) ? 1 : 0; 
 //=============================================== 
 //define variable for query
 //===============================================  
@@ -172,7 +174,7 @@ function updatebev()
         $res = $dbhandler0->update($sqlcheck);
      $sqlcheck1 = 
         "UPDATE bev_price 
-        SET va_bev_size = '$bevsize',d_bev_price = $bevprize
+        SET va_bev_size = '$bevsize',d_bev_price = $bevprize,i_bev_price_status = '$bevpricestatus'
         where i_price_id = $priceid";
         $res1 = $dbhandler0->update($sqlcheck1);
 
@@ -239,7 +241,7 @@ function updatefood_dev()
             $foodtype=$_POST['food_type'][$loopfoodpriceid]; 
             $foodurl=$_POST['food_pic_url'][$loopfoodpriceid];
             $foodstatus=!empty($_POST['food_status'][$loopfoodpriceid]) ? 1 : 0; 
-
+            $foodpricestatus=!empty($_POST['food_price_status'][$loopfoodpriceid]) ? 1 : 0; 
             if ($foodid<>$foodidlog1)
             {
             $sqlcheck = 
@@ -251,7 +253,7 @@ function updatefood_dev()
             }
             $sqlcheck1 = 
             "UPDATE food_price 
-            SET va_food_size = '$foodsize',d_food_price = $foodprize
+            SET va_food_size = '$foodsize',d_food_price = $foodprize,i_food_price_status = '$foodpricestatus'
             where i_price_id = $loopfoodpriceid";
             $res1 = $dbhandler0->update($sqlcheck1);
         }
@@ -281,7 +283,7 @@ function updatebev_dev()
             $bevtype=$_POST['bev_type'][$loopbevpriceid]; 
             $bevurl=$_POST['bev_pic_url'][$loopbevpriceid];
             $bevstatus=!empty($_POST['bev_status'][$loopbevpriceid]) ? 1 : 0; 
-
+            $bevpricestatus=!empty($_POST['bev_price_status'][$loopbevpriceid]) ? 1 : 0; 
             if ($bevid<>$bevidlog1)
             {
             $sqlcheck = 
@@ -293,7 +295,7 @@ function updatebev_dev()
             }
             $sqlcheck1 = 
             "UPDATE bev_price 
-            SET va_bev_size = '$bevsize',d_bev_price = $bevprize
+            SET va_bev_size = '$bevsize',d_bev_price = $bevprize,i_bev_price_status='$bevpricestatus'
             where i_price_id = $loopbevpriceid";
             $res1 = $dbhandler0->update($sqlcheck1);
         }

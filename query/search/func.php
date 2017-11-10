@@ -340,7 +340,7 @@ function getresfoodmenu()
     LEFT JOIN food b ON b.i_menu_id = a.i_menu_id
     LEFT JOIN food_price c ON c.i_food_id = b.i_food_id
 
-    WHERE b.i_menu_id = a.i_menu_id and b.i_food_status = 1";
+    WHERE b.i_menu_id = a.i_menu_id and b.i_food_status = 1 AND c.i_food_price_status = 1";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
          if (!empty($res_id) or $res_id != 0)
@@ -451,7 +451,7 @@ function getresfoodmenu()
     LEFT JOIN bev b ON b.i_menu_id = a.i_menu_id
     LEFT JOIN bev_price c ON c.i_bev_id = b.i_bev_id
 
-    WHERE b.i_menu_id = a.i_menu_id and b.i_bev_status = 1";
+    WHERE b.i_menu_id = a.i_menu_id and b.i_bev_status = 1 AND c.i_bev_price_status = 1";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {
          if (!empty($res_id) or $res_id != 0)
