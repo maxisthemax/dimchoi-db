@@ -78,7 +78,7 @@ echo'<form action="index.php" method="post"><table id="tab" width=100%  border=1
 echo "<tr><td>Restaurant Name</td><td id=resname>".$res1[count($res1)-1]['va_res_name']."</td></tr>";
 echo "<tr><td>Res Code</td><td>".$res1[count($res1)-1]['va_res_code']."</td></tr>";
 echo "<tr><td>Menu Code</td><td id=menucode>".$res1[count($res1)-1]['va_menu_code']."</td></tr>";
-echo "<tr><td>Food ID</td><td>Food Name</td><td>Food Desc</td><td>Food Type</td><td>Size</td><td>Price</td><td>Pic Url</td></tr>";
+echo "<tr><td>Food ID</td><td>Food Name</td><td>Food Desc</td><td>Food Type</td><td>Size</td><td>Price</td><td>Pic Url</td><td>Pic Display</td><td>Hide This Food</td></tr>";
 echo "<tr><TD colspan = 5 align=center>FOOD</td></tr>";
     foreach($res as $resvalue) {
         $food_id=$resvalue["foodid"];
@@ -86,8 +86,8 @@ echo "<tr><TD colspan = 5 align=center>FOOD</td></tr>";
         echo "<tr>";
         echo "<td>".$resvalue["foodid"]."</td>";    
         $foodname=str_replace("'","&#39;", $resvalue["va_food_name"]);
-        echo "<td><input name='food_name[$food_id][$food_price_id]' size=50 value='".$foodname."'></td>";
-        echo "<td><textarea name='food_desc[$food_id][$food_price_id]' rows=5 cols=50>".$resvalue["va_food_desc"]."</textarea></td>";          
+        echo "<td><input name='food_name[$food_price_id]' size=50 value='".$foodname."'></td>";
+        echo "<td><textarea name='food_desc[$food_price_id]' rows=5 cols=50>".$resvalue["va_food_desc"]."</textarea></td>";          
 
         echo "<td><select name='food_type[$food_price_id]'>";    
         foreach($resfoodtype as $resvaluefoodtype) {
@@ -107,18 +107,24 @@ echo "<tr><TD colspan = 5 align=center>FOOD</td></tr>";
         echo "<td width=20%><button onclick='setformupdate($food_id,$food_price_id,1);'>Update Current Row</button></td>";  
         echo "<td width=20%><button onclick='setformdelete($food_id,1);'>Delete This Food</button></td>";  
         echo "<td width=30%><button onclick='setformdeleteprice($food_price_id,1);'>Delete This Price Only</button></td>";  
+
+        echo "<input type=hidden name='foodidloop[$food_price_id]' id='foodidloop[$food_price_id]' value=".$food_id.">";  
+        echo "<input type=hidden name='foodpriceidloop[$food_price_id]' id='foodpriceidloop[$food_price_id]' value=".$food_price_id.">";  
         echo "</tr>";
     }
-
+echo "<tr><td colspan = 5>&nbsp;</td></tr>";
+echo "<tr><td colspan = 5>&nbsp;</td></tr>";
+echo "<tr><td colspan = 5>&nbsp;</td></tr>";
 echo "<tr><TD colspan = 5 align=center>BEVERAGE</td></tr>";
+echo "<tr><td>Food ID</td><td>Bev Name</td><td>Bev Desc</td><td>Bev Type</td><td>Size</td><td>Price</td><td>Pic Url</td><td>Pic Display</td><td>Hide This Bev</td></tr>";
     foreach($res2 as $res2value) {
         $bev_id=$res2value["bevid"];
         $bev_price_id=$res2value["i_price_id"];
         echo "<tr>";
         echo "<td>".$res2value["bevid"]."</td>";    
         $bevname=str_replace("'","&#39;", $res2value["va_bev_name"]);
-        echo "<td><input name='bev_name[$bev_id][$bev_price_id]' size=50 value='".$bevname."'></td>";
-        echo "<td><textarea name='bev_desc[$bev_id][$bev_price_id]' rows=5 cols=50>".$res2value["va_bev_desc"]."</textarea></td>"; 
+        echo "<td><input name='bev_name[$bev_price_id]' size=50 value='".$bevname."'></td>";
+        echo "<td><textarea name='bev_desc[$bev_price_id]' rows=5 cols=50>".$res2value["va_bev_desc"]."</textarea></td>"; 
 
         echo "<td><select name='bev_type[$bev_price_id]'>";    
         foreach($resbevtype as $resvaluebevtype) {
@@ -139,6 +145,9 @@ echo "<tr><TD colspan = 5 align=center>BEVERAGE</td></tr>";
         echo "<td width=20%><button onclick='setformupdate($bev_id,$bev_price_id,2);'>Update Current Row</button></td>";  
         echo "<td width=20%><button onclick='setformdelete($bev_id,2);'>Delete This Beverage</button></td>";
         echo "<td width=30%><button onclick='setformdeleteprice($bev_price_id,2);'>Delete This Price Only</button></td>";    
+        echo "<input type=hidden name='bevidloop[$bev_price_id]' id='bevidloop[$bev_price_id]' value=".$bev_id.">";  
+        echo "<input type=hidden name='bevpriceidloop[$bev_price_id]' id='bevpriceidloop[$bev_price_id]' value=".$bev_price_id.">";  
+
         echo "</tr>";
     }
 

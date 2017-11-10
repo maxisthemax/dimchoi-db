@@ -69,18 +69,29 @@ function updateuser() {
 
     global $dbhandler0;
     $userid = !empty($_POST['userid']) ? $_POST['userid'] : ''; 
-    $firstname = !empty($_POST['firstname']) ? $_POST['firstname'] : '';
-    $lastname = !empty($_POST['lastname']) ? $_POST['lastname'] : '';
-    $gender = !empty($_POST['gender']) ? $_POST['gender'] : '';
-    $countrycode = !empty($_POST['countrycode']) ? $_POST['countrycode'] : '';
-    $phonecode = !empty($_POST['phonecode']) ? $_POST['phonecode'] : '';
-    $phone = !empty($_POST['phone']) ? $_POST['phone'] : '';
-    $dob = !empty($_POST['dob']) ? $_POST['dob'] : '0000-00-00';
-    $email = !empty($_POST['email']) ? $_POST['email'] : '';
-    $pass = !empty($_POST['pass']) ? $_POST['pass'] : '';
-    $facebook = !empty($_POST['facebook']) ? $_POST['facebook'] : '';
-    $google = !empty($_POST['google']) ? $_POST['google'] : '';  
-    $token = !empty($_POST['token']) ? $_POST['token'] : '';  
+
+    $sqlcheckuser = "SELECT * FROM USER WHERE i_user_id = '$userid' LIMIT 1"; 
+    $resuser = $dbhandler0->query($sqlcheckuser);
+
+    if (!$resuser)
+    {
+        return $resuser;
+    }
+    else
+    {    
+
+    $firstname = !empty($_POST['firstname']) ? $_POST['firstname'] : $resuser[0]['va_first_name'];
+    $lastname = !empty($_POST['lastname']) ? $_POST['lastname'] : $resuser[0]['va_last_name'];
+    $gender = !empty($_POST['gender']) ? $_POST['gender'] : $resuser[0]['va_gender'];
+    $countrycode = !empty($_POST['countrycode']) ? $_POST['countrycode'] : $resuser[0]['va_country_code'];
+    $phonecode = !empty($_POST['phonecode']) ? $_POST['phonecode'] : $resuser[0]['va_phone_code'];
+    $phone = !empty($_POST['phone']) ? $_POST['phone'] : $resuser[0]['va_phone'];
+    $dob = !empty($_POST['dob']) ? $_POST['dob'] : $resuser[0]['dt_dob'];
+    $email = !empty($_POST['email']) ? $_POST['email'] : $resuser[0]['va_email'];
+    $pass = !empty($_POST['pass']) ? $_POST['pass'] : $resuser[0]['va_pass'];
+    $facebook = !empty($_POST['facebook']) ? $_POST['facebook'] : $resuser[0]['va_facebook'];
+    $google = !empty($_POST['google']) ? $_POST['google'] : $resuser[0]['va_google'];  
+    $token = !empty($_POST['token']) ? $_POST['token'] : $resuser[0]['va_token'];  
 
     $sqlcheck = 
     "UPDATE user
@@ -101,6 +112,7 @@ function updateuser() {
     $res = $dbhandler0->update($sqlcheck);
 
     return $res;
+    }
 }
 //=======================================================
 function updatefood() 
@@ -210,31 +222,39 @@ function updateuser_dev() {
 function updatefood_dev() 
 {
     global $dbhandler0;
-    $foodid=$_POST['food_id'];
     $priceid=$_POST['food_price_id'];
-
-    $foodname=$_POST['food_name'][$foodid][$priceid];
-    $foodname=str_replace("'","\'", $foodname);
-    $fooddesc=str_replace("'","\'", $_POST['food_desc'][$foodid][$priceid]);
-    $foodsize=$_POST['food_size'][$priceid];   
-    $foodprize=$_POST['food_price'][$priceid];        
-    $foodtype=$_POST['food_type'][$priceid]; 
-    $foodurl=$_POST['food_pic_url'][$priceid];
-    $foodstatus=!empty($_POST['food_status'][$priceid]) ? 1 : 0; 
-
+    $foodidlog1 = 0;
 //=============================================== 
 //define variable for query
-//===============================================  
-     $sqlcheck = 
-        "UPDATE food 
-        SET va_food_name = '$foodname', i_food_type_id = '$foodtype',va_food_pic_url = '$foodurl',va_food_desc = '$fooddesc',i_food_status='$foodstatus'
-        where i_food_id = $foodid";
-        $res = $dbhandler0->update($sqlcheck);
-     $sqlcheck1 = 
-        "UPDATE food_price 
-        SET va_food_size = '$foodsize',d_food_price = $foodprize
-        where i_price_id = $priceid";
-        $res1 = $dbhandler0->update($sqlcheck1);
+//===============================================
+
+        foreach(  $_POST['foodpriceidloop'] as $loopfoodpriceid ) 
+        {
+            $foodid=$_POST['foodidloop'][$loopfoodpriceid];  
+            $foodname=$_POST['food_name'][$loopfoodpriceid];
+            $foodname=str_replace("'","\'", $foodname);
+            $fooddesc=str_replace("'","\'", $_POST['food_desc'][$loopfoodpriceid]);
+            $foodsize=$_POST['food_size'][$loopfoodpriceid];   
+            $foodprize=$_POST['food_price'][$loopfoodpriceid];        
+            $foodtype=$_POST['food_type'][$loopfoodpriceid]; 
+            $foodurl=$_POST['food_pic_url'][$loopfoodpriceid];
+            $foodstatus=!empty($_POST['food_status'][$loopfoodpriceid]) ? 1 : 0; 
+
+            if ($foodid<>$foodidlog1)
+            {
+            $sqlcheck = 
+            "UPDATE food 
+            SET va_food_name = '$foodname', i_food_type_id = '$foodtype',va_food_pic_url = '$foodurl',va_food_desc = '$fooddesc',i_food_status='$foodstatus'
+            where i_food_id = (SELECT i_food_id FROM food_price where i_price_id=$loopfoodpriceid LIMIT 1)";
+            $res = $dbhandler0->update($sqlcheck);
+            $foodidlog1 = $foodid;
+            }
+            $sqlcheck1 = 
+            "UPDATE food_price 
+            SET va_food_size = '$foodsize',d_food_price = $foodprize
+            where i_price_id = $loopfoodpriceid";
+            $res1 = $dbhandler0->update($sqlcheck1);
+        }
 
         if ($res && $res1){
             header('Location:'.$_POST['uri']);
@@ -244,29 +264,39 @@ function updatefood_dev()
 function updatebev_dev() 
 {
     global $dbhandler0;
-    $bevid=$_POST['bev_id'];
     $priceid=$_POST['bev_price_id'];
-
-    $bevname=$_POST['bev_name'][$bevid][$priceid];
-    $bevdesc=str_replace("'","\'", $_POST['bev_desc'][$bevid][$priceid]);
-    $bevsize=$_POST['bev_size'][$priceid];   
-    $bevprize=$_POST['bev_price'][$priceid];        
-    $bevtype=$_POST['bev_type'][$priceid]; 
-    $bevurl=$_POST['bev_pic_url'][$priceid];
-    $bevstatus=!empty($_POST['bev_status'][$priceid]) ? 1 : 0; 
+    $bevidlog1 = 0;
 //=============================================== 
 //define variable for query
-//===============================================  
-     $sqlcheck = 
-        "UPDATE bev 
-        SET va_bev_name = '$bevname', i_bev_type_id = '$bevtype',va_bev_pic_url = '$bevurl' , va_bev_desc='$bevdesc',i_bev_status='$bevstatus'
-        where i_bev_id = $bevid";
-        $res = $dbhandler0->update($sqlcheck);
-     $sqlcheck1 = 
-        "UPDATE bev_price 
-        SET va_bev_size = '$bevsize',d_bev_price = $bevprize
-        where i_price_id = $priceid";
-        $res1 = $dbhandler0->update($sqlcheck1);
+//===============================================
+
+        foreach(  $_POST['bevpriceidloop'] as $loopbevpriceid ) 
+        {
+            $bevid=$_POST['bevidloop'][$loopbevpriceid];  
+            $bevname=$_POST['bev_name'][$loopbevpriceid];
+            $bevname=str_replace("'","\'", $bevname);
+            $bevdesc=str_replace("'","\'", $_POST['bev_desc'][$loopbevpriceid]);
+            $bevsize=$_POST['bev_size'][$loopbevpriceid];   
+            $bevprize=$_POST['bev_price'][$loopbevpriceid];        
+            $bevtype=$_POST['bev_type'][$loopbevpriceid]; 
+            $bevurl=$_POST['bev_pic_url'][$loopbevpriceid];
+            $bevstatus=!empty($_POST['bev_status'][$loopbevpriceid]) ? 1 : 0; 
+
+            if ($bevid<>$bevidlog1)
+            {
+            $sqlcheck = 
+            "UPDATE bev 
+            SET va_bev_name = '$bevname', i_bev_type_id = '$bevtype',va_bev_pic_url = '$bevurl',va_bev_desc = '$bevdesc',i_bev_status='$bevstatus'
+            where i_bev_id = (SELECT i_bev_id FROM bev_price where i_price_id=$loopbevpriceid LIMIT 1)";
+            $res = $dbhandler0->update($sqlcheck);
+            $bevidlog1 = $bevid;
+            }
+            $sqlcheck1 = 
+            "UPDATE bev_price 
+            SET va_bev_size = '$bevsize',d_bev_price = $bevprize
+            where i_price_id = $loopbevpriceid";
+            $res1 = $dbhandler0->update($sqlcheck1);
+        }
 
         if ($res && $res1){
             header('Location:'.$_POST['uri']);
