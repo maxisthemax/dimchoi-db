@@ -242,18 +242,23 @@ function updatefood_dev()
             $foodurl=$_POST['food_pic_url'][$loopfoodpriceid];
             $foodstatus=!empty($_POST['food_status'][$loopfoodpriceid]) ? 1 : 0; 
             $foodpricestatus=!empty($_POST['food_price_status'][$loopfoodpriceid]) ? 1 : 0; 
+
+            $foodorder=$_POST['food_order'][$loopfoodpriceid]; 
+            $foodpriceorder=$_POST['food_price_order'][$loopfoodpriceid];
+
             if ($foodid<>$foodidlog1)
             {
             $sqlcheck = 
             "UPDATE food 
-            SET va_food_name = '$foodname', i_food_type_id = '$foodtype',va_food_pic_url = '$foodurl',va_food_desc = '$fooddesc',i_food_status='$foodstatus'
+            SET va_food_name = '$foodname', i_food_type_id = '$foodtype',va_food_pic_url = '$foodurl',va_food_desc = '$fooddesc',i_food_status='$foodstatus',
+            i_food_order = '$foodorder'
             where i_food_id = (SELECT i_food_id FROM food_price where i_price_id=$loopfoodpriceid LIMIT 1)";
             $res = $dbhandler0->update($sqlcheck);
             $foodidlog1 = $foodid;
             }
             $sqlcheck1 = 
             "UPDATE food_price 
-            SET va_food_size = '$foodsize',d_food_price = $foodprize,i_food_price_status = '$foodpricestatus'
+            SET va_food_size = '$foodsize',d_food_price = $foodprize,i_food_price_status = '$foodpricestatus',i_food_price_order = '$foodpriceorder'
             where i_price_id = $loopfoodpriceid";
             $res1 = $dbhandler0->update($sqlcheck1);
         }
@@ -284,18 +289,23 @@ function updatebev_dev()
             $bevurl=$_POST['bev_pic_url'][$loopbevpriceid];
             $bevstatus=!empty($_POST['bev_status'][$loopbevpriceid]) ? 1 : 0; 
             $bevpricestatus=!empty($_POST['bev_price_status'][$loopbevpriceid]) ? 1 : 0; 
+
+            $bevorder=$_POST['bev_order'][$loopbevpriceid]; 
+            $bevpriceorder=$_POST['bev_price_order'][$loopbevpriceid];
+
             if ($bevid<>$bevidlog1)
             {
             $sqlcheck = 
             "UPDATE bev 
-            SET va_bev_name = '$bevname', i_bev_type_id = '$bevtype',va_bev_pic_url = '$bevurl',va_bev_desc = '$bevdesc',i_bev_status='$bevstatus'
+            SET va_bev_name = '$bevname', i_bev_type_id = '$bevtype',va_bev_pic_url = '$bevurl',va_bev_desc = '$bevdesc',i_bev_status='$bevstatus',
+            i_bev_order = '$bevorder'
             where i_bev_id = (SELECT i_bev_id FROM bev_price where i_price_id=$loopbevpriceid LIMIT 1)";
             $res = $dbhandler0->update($sqlcheck);
             $bevidlog1 = $bevid;
             }
             $sqlcheck1 = 
             "UPDATE bev_price 
-            SET va_bev_size = '$bevsize',d_bev_price = $bevprize,i_bev_price_status='$bevpricestatus'
+            SET va_bev_size = '$bevsize',d_bev_price = $bevprize,i_bev_price_status='$bevpricestatus',i_bev_price_order = '$bevpriceorder'
             where i_price_id = $loopbevpriceid";
             $res1 = $dbhandler0->update($sqlcheck1);
         }
