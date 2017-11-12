@@ -359,4 +359,19 @@ function updatebevtype_dev()
         }
 }
 //=======================================================
+function updateresuser() 
+{
+    global $dbhandler0;
+    $resusername = !empty($_POST['resusername']) ? $_POST['resusername'] : ''; 
+    $token = !empty($_POST['token']) ? $_POST['token'] : ''; 
+//=============================================== 
+//define variable for query
+//===============================================  
+     $sqlcheck = 
+        "UPDATE resuser 
+        SET token = '$token'
+        where va_username = $resusername";
+        $res = $dbhandler0->update($sqlcheck);
+}        
+//=======================================================
 ?>

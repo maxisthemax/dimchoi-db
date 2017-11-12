@@ -717,7 +717,6 @@ function getresuser()
     $res_id = !empty($_POST['res_id']) ? $_POST['res_id'] : '';
     $res_user = !empty($_POST['res_user']) ? $_POST['res_user'] : '';
     $res_password = !empty($_POST['res_password']) ? $_POST['res_password'] : '';
-
     //===============================================
     //===============================================
     //start query
@@ -731,7 +730,16 @@ function getresuser()
     { 
         if ($res[0]['va_password'] == $res_password)
         {
-        unset($res[0]['va_password']);    
+        unset($res[0]['va_password']);  
+          
+            $token = !empty($_POST['token']) ? $_POST['token'] : $res[0]['token']; 
+            $sqlcheckres = 
+            "UPDATE resuser 
+            SET token = '$token'
+            where va_username = $res_user";
+
+            $resres = $dbhandler0->update($sqlcheckres);   
+
         return ($res[0]);
         }
         else
