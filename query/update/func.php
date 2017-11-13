@@ -362,7 +362,7 @@ function updatebevtype_dev()
 function updateresuser() 
 {
     global $dbhandler0;
-    $resusername = !empty($_POST['resusername']) ? $_POST['resusername'] : ''; 
+    $res_user = !empty($_POST['res_user']) ? $_POST['res_user'] : ''; 
     $token = !empty($_POST['token']) ? $_POST['token'] : ''; 
 //=============================================== 
 //define variable for query
@@ -370,7 +370,7 @@ function updateresuser()
      $sqlcheck = 
         "UPDATE resuser 
         SET va_token = '$token'
-        where va_username = '$resusername'";
+        where va_username = '$res_user'";
         $res = $dbhandler0->update($sqlcheck);
 }        
 //=======================================================
