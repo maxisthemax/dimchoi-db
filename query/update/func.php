@@ -372,6 +372,7 @@ function updateresuser()
         SET va_token = '$token'
         where va_username = '$res_user'";
         $res = $dbhandler0->update($sqlcheck);
+    return $res;    
 }        
 //=======================================================
 ?>
