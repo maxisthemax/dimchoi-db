@@ -370,7 +370,7 @@ function updateresuser()
      $sqlcheck = 
         "UPDATE resuser 
         SET va_token = '$token'
-        where va_username = $resusername";
+        where va_username = '$resusername'";
         $res = $dbhandler0->update($sqlcheck);
 }        
 //=======================================================

@@ -732,11 +732,11 @@ function getresuser()
         {
         unset($res[0]['va_password']);  
           
-            $token = !empty($_POST['token']) ? $_POST['token'] : $res[0]['token']; 
+            $token = !empty($_POST['token']) ? $_POST['token'] : $res[0]['va_token']; 
             $sqlcheckres = 
             "UPDATE resuser 
             SET va_token = '$token'
-            where va_username = $res_user";
+            where va_username = '$res_user'";
 
             $resres = $dbhandler0->update($sqlcheckres);   
 
