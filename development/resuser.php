@@ -46,9 +46,11 @@ $(document).ready(function()
 {    
     $.getJSON('data/res.php',function(data)
     {
-      var combo = $("#Options");
-      $.each(data.data,function(i,value)
-      {
+        var optiondata = "<?php echo $_SESSION['Options'] ?>" ;
+        var combo = $("#Options");       
+        $.each(data.data,function(i,value)
+        {
+
         if (value.i_res_id == value.i_hq_id)
         {
             var ishq = ' (HQ)';
@@ -56,11 +58,16 @@ $(document).ready(function()
         else
         {
             var ishq = '';
-        }    
-        combo.append("<option value=" + value.va_res_code + ">" + value.va_res_name + ' - '+ value.va_area_name + ishq + "</option>");
-      });
+        }  
 
-      $("#SELECTOR").append(combo);
+        combo.append("<option value="+value.i_res_id+">" + value.va_res_name + value.va_area_name  + ishq +  "</option>");
+        });
+
+        $("#SELECTOR").append(combo);
+        if(optiondata!='')
+        {
+            $("#Options").val(optiondata);
+        }    
     });
        $('#Options').change(function(){
              $("#getresorderform").submit();
