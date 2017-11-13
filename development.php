@@ -52,11 +52,12 @@ if($_SESSION['password']=="123qweasdzxc")
     <input type="submit" name="page" value="Main Test" />
     <input type="submit" name="page" value="Restaurant" />
     <input type="submit" name="page" value="Food" />
+    <input type="submit" name="page" value="Food/Bev Type" />     
     <input type="submit" name="page" value="Qr Code" />
     <input type="submit" name="page" value="User Order" />
     <input type="submit" name="page" value="Res Order" />
-    <input type="submit" name="page" value="User" />  
-    <input type="submit" name="page" value="Food/Bev Type" />   
+    <input type="submit" name="page" value="User" />    
+    <input type="submit" name="page" value="Restaurant User" />    
     <input type="submit" name="page" value="Firebase" />  
     <input type="button" onclick="window.location='https://drive.google.com/open?id=1OnPQu9JX-wyyBAeSzz8YLejGFIPcAheQMnHSQwQ2yp0'" value="API GUIDE"/>
 </form>
@@ -102,7 +103,7 @@ if (!empty($_POST['page']))
   else if ($_POST['page'] == 'User Order')
     {
       $_SESSION['page'] = 'User Order';
-    }       
+    } 
   else if ($_POST['page'] == 'User')
     {
       $_SESSION['page'] = 'User';
@@ -118,7 +119,11 @@ if (!empty($_POST['page']))
   else if ($_POST['page'] == 'Firebase')
     {
       $_SESSION['page'] = 'Firebase';
-    }                            
+    }  
+  else if ($_POST['page'] == 'Restaurant User')
+    {
+      $_SESSION['page'] = 'Restaurant User';
+    }                               
 }
 if (!empty($_SESSION['page']) && $_SESSION['password']=="123qweasdzxc")
 {
@@ -149,7 +154,10 @@ if (!empty($_SESSION['page']) && $_SESSION['password']=="123qweasdzxc")
             break;   
         case "Firebase":
             include "development/firebase.php";
-            break;                                         
+            break;   
+        case "Restaurant User":
+            include "development/resuser.php";
+            break;                                                  
         }
 }
 ?>
