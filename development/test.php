@@ -149,11 +149,19 @@ global $dbhandler0;
     </tr> 
     <tr>
       <td>Res User Password</td><td><input id="res_password" name="res_password"></td>
-    </tr>               
+    </tr>  
+      <td colspan=2>updateresorder</td>
+    </tr>     
+    <tr>
+      <td>Res Order Id</td><td><input id="res_order_id" name="res_order_id"></td>
+    </tr> 
+    <tr>
+      <td>Res Order Status</td><td><input id="res_order_status" name="res_order_status"></td>
+    </tr>                  
     <tr>   
       <td>Func</td><td><select name="func"><option>getresfoodtype</option><option>getresfoodmenu</option><option>getresbeveragemenu</option>
       <option>getorderqrcode</option><option>getresuser</option><option>insertorderfromqr</option><option>getuserorder</option><option>getresorder</option>
-    </select><input type="submit"></td>
+    <option>updateresorder</option></select><input type="submit"></td>
     </tr>        
   
   </table>  

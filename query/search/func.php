@@ -819,15 +819,17 @@ function getresorder()
     //define variable for query
     $res_order = !empty($_POST['res_order']) ? $_POST['res_order'] : '';
     $res_id = !empty($_POST['res_id']) ? $_POST['res_id'] : '';
+    $res_order_status = !empty($_POST['res_order_status']) ? $_POST['res_order_status'] : '';
     //===============================================
 
     //===============================================
     //start query
-    $sqlcheck = "SELECT a.*,b.va_qr_type_name,c.va_res_name,d.va_area_name
+    $sqlcheck = "SELECT a.*,b.va_qr_type_name,c.va_res_name,d.va_area_name,e.va_res_order_status
     FROM resorder a 
     LEFT JOIN qrcode_type b on a.i_resorder_type_id = b.i_qr_type_id
     LEFT JOIN restaurant c on c.i_res_id = a.i_res_id and c.i_res_stat = 1
     LEFT JOIN area d on d.i_area_id = c.i_area_id
+    LEFT JOIN resorderstatus e on e.i_res_order_status = a.i_status 
     WHERE a.i_resorder_type_id = 1";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {   
@@ -838,7 +840,11 @@ function getresorder()
          if (!empty($res_id) or $res_id != 0)
         {
             $sqlcheck .= " and a.i_res_id = $res_id";    
-        }                          
+        } 
+         if (!empty($res_order_status) or $res_order_status != 0)
+        {
+            $sqlcheck .= " and a.res_order_status = $res_order_status";    
+        }                                  
     } 
 
     $sqlcheck .= " ORDER BY a.dt_create DESC";
@@ -857,6 +863,9 @@ function getresorder()
                 'va_area_name' => $resorderkey['va_area_name'],
                 'dt_create' => $resorderkey['dt_create'],
                 'va_qr_type_name' => $resorderkey['va_qr_type_name'],
+                'i_status' => $resorderkey['i_status'],
+                'va_res_order_status' => $resorderkey['va_res_order_status'],
+                'dt_resorderclosed' => $resorderkey['dt_resorderclosed'],
                 'va_resorder_data_1' => $resorder1,
                 'va_resorder_data_2' => $resorder1
                 ];

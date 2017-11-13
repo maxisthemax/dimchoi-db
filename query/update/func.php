@@ -375,4 +375,20 @@ function updateresuser()
     return $res;    
 }        
 //=======================================================
+function updateresorder() 
+{
+    global $dbhandler0;
+    $res_order_id = !empty($_POST['res_order_id']) ? $_POST['res_order_id'] : ''; 
+    $res_order_status = !empty($_POST['res_order_status']) ? $_POST['res_order_status'] : ''; 
+//=============================================== 
+//define variable for query
+//===============================================  
+     $sqlcheck = 
+        "UPDATE resorder 
+        SET i_status = '$res_order_status', dt_resorderclosed = now()
+        where i_resorder_id = '$res_order_id'";
+        $res = $dbhandler0->update($sqlcheck);
+    return $res;    
+}        
+//=======================================================
 ?>
