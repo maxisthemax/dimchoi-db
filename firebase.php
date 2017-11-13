@@ -1,19 +1,20 @@
 <?php
 #API access key from Google API's Console
     define( 'API_ACCESS_KEY', 'AIzaSyAollvd1GougMI5zKme3ntbOZvKYosOJr4' );
-    $registrationIds = $_POST['user_id'];
-    $content = $_POST['content'];
+    $token = $_POST['token'];
+    $title = $_POST['title'];
+    $body = $_POST['body'];
 #prep the bundle
      $msg = array
           (
-        'body'  => 'Body  Of Notification',
-        'title' => 'Title Of Notification',
-                'icon'  => 'myicon',/*Default Icon*/
-                'sound' => 'mySound'/*Default sound*/
+        'body'  => $body,
+        'title' => $title,
+        'icon'  => 'myicon',/*Default Icon*/
+        'sound' => 'mySound'/*Default sound*/
           );
     $fields = array
             (
-                'to'        => $registrationIds,
+                'to'        => $token,
                 'notification'  => $msg
             );  
     
