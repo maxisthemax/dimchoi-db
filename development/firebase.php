@@ -10,11 +10,3 @@
 <table>
 </form>
 </html>
-
-
-/*
-'body'  => 'Body  Of Notification',
-        'title' => 'Title Of Notification',
-                'icon'  => 'myicon',/*Default Icon*/
-                'sound' => 'mySound'/*Default sound*/
-*/
