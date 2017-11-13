@@ -57,6 +57,7 @@ if($_SESSION['password']=="123qweasdzxc")
     <input type="submit" name="page" value="Res Order" />
     <input type="submit" name="page" value="User" />  
     <input type="submit" name="page" value="Food/Bev Type" />   
+    <input type="submit" name="page" value="Firebase" />  
     <input type="button" onclick="window.location='https://drive.google.com/open?id=1OnPQu9JX-wyyBAeSzz8YLejGFIPcAheQMnHSQwQ2yp0'" value="API GUIDE"/>
 </form>
  <?php
@@ -113,7 +114,11 @@ if (!empty($_POST['page']))
   else if ($_POST['page'] == 'Food/Bev Type')
     {
       $_SESSION['page'] = 'Food/Bev Type';
-    }                        
+    }    
+  else if ($_POST['page'] == 'Firebase')
+    {
+      $_SESSION['page'] = 'Firebase';
+    }                            
 }
 if (!empty($_SESSION['page']) && $_SESSION['password']=="123qweasdzxc")
 {
@@ -141,7 +146,10 @@ if (!empty($_SESSION['page']) && $_SESSION['password']=="123qweasdzxc")
             break;      
         case "Food/Bev Type":
             include "development/foodbevtype.php";
-            break;                              
+            break;   
+        case "Firebase":
+            include "development/firebase.php";
+            break;                                         
         }
 }
 ?>
