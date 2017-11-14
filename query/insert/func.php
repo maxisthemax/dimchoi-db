@@ -393,6 +393,7 @@ function insertorderfromqr() {
     global $dbhandler0;
 
     $qr_id = !empty($_POST['qr_id']) ? $_POST['qr_id'] : '';
+    $res_order_table = !empty($_POST['res_order_table']) ? $_POST['res_order_table'] : 0;
     $sqlqr = "SELECT * FROM qrcode where i_qr_id = '$qr_id' and i_qr_type_id = 1 LIMIT 1";
 
     $resqr = $dbhandler0->query($sqlqr);
@@ -415,8 +416,8 @@ function insertorderfromqr() {
 
         $sqlinstoresorder = 
         "INSERT INTO 
-        resorder (i_resorder_id,i_res_id,i_user_id,i_resorder_type_id,va_resorder_data_1,va_resorder_data_2,dt_create,i_status,dt_resordercreate) 
-        values ('$qr_id','$res_id','$user_id','$qr_type_id','$qr_data_1','$qr_data_2','$create_date',1,now())";
+        resorder (i_resorder_id,i_res_id,i_user_id,i_resorder_type_id,va_resorder_data_1,va_resorder_data_2,dt_create,i_status,dt_resordercreate,dt_resorderclosed,i_res_order_table_id) 
+        values ('$qr_id','$res_id','$user_id','$qr_type_id','$qr_data_1','$qr_data_2','$create_date',1,now(),'','$res_order_table')";
 
         $resinsresorder = $dbhandler0->insert($sqlinstoresorder);    
 
