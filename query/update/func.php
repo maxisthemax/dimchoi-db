@@ -359,7 +359,7 @@ function updatebevtype_dev()
         }
 }
 //=======================================================
-function updateresuser() 
+function updateresusertoken() 
 {
     global $dbhandler0;
     $res_user = !empty($_POST['res_user']) ? $_POST['res_user'] : ''; 
@@ -375,7 +375,7 @@ function updateresuser()
     return $res;    
 }        
 //=======================================================
-function updateresorder() 
+function updateresorderstatus() 
 {
     global $dbhandler0;
     $res_order_id = !empty($_POST['res_order_id']) ? $_POST['res_order_id'] : ''; 
