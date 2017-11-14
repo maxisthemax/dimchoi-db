@@ -367,12 +367,15 @@ function updateresusertoken()
 //=============================================== 
 //define variable for query
 //===============================================  
+    if ($res_user != '')
+    {    
      $sqlcheck = 
         "UPDATE resuser 
         SET va_token = '$token'
         where va_username = '$res_user'";
         $res = $dbhandler0->update($sqlcheck);
     return $res;    
+    }
 }        
 //=======================================================
 function updateresorderstatus() 
@@ -383,12 +386,34 @@ function updateresorderstatus()
 //=============================================== 
 //define variable for query
 //===============================================  
+    if ($res_order_id > 0)
+    {    
      $sqlcheck = 
         "UPDATE resorder 
         SET i_status = '$res_order_status', dt_resorderclosed = now()
         where i_resorder_id = '$res_order_id'";
         $res = $dbhandler0->update($sqlcheck);
     return $res;    
+    }
+}        
+//=======================================================
+function updateresordertable() 
+{
+    global $dbhandler0;
+    $res_order_id = !empty($_POST['res_order_id']) ? $_POST['res_order_id'] : ''; 
+    $res_order_table = !empty($_POST['res_order_table']) ? $_POST['res_order_table'] : ''; 
+//=============================================== 
+//define variable for query
+//===============================================  
+    if ($res_order_id > 0)
+    {  
+     $sqlcheck = 
+        "UPDATE resorder 
+        SET i_res_order_table = '$res_order_table'
+        where i_resorder_id = '$res_order_id'";
+        $res = $dbhandler0->update($sqlcheck);
+    return $res;  
+    }  
 }        
 //=======================================================
 ?>
