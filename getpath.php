@@ -38,6 +38,7 @@ function get_path($func)
 		case "updatebevtype_dev":
 		case "updateresusertoken":
 		case "updateresorderstatus":
+		case "updateresordertable":
 	    	return array("path" => "query/update/func.php","querytype"=>"update");
 	        break;	
 		case "deletefood":
