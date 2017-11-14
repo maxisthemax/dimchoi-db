@@ -843,7 +843,7 @@ function getresorder()
         } 
          if (!empty($res_order_status) or $res_order_status != 0)
         {
-            $sqlcheck .= " and a.res_order_status = $res_order_status";    
+            $sqlcheck .= " and a.i_status = $res_order_status";    
         }                                  
     } 
 
