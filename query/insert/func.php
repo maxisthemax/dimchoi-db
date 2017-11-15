@@ -7,7 +7,10 @@ function insertnewqrcoderow() {
     global $dbhandler0;
 
     $qrdatanew1 = !empty($_POST['qrdatanew1']) ? $_POST['qrdatanew1'] : '';
+    $qrdatanew1=str_replace("'","\'", $qrdatanew1);
     $qrdatanew2 = !empty($_POST['qrdatanew2']) ? $_POST['qrdatanew2'] : '';
+    $qrdatanew2=str_replace("'","\'", $qrdatanew2);
+    
     $qrtypenew = !empty($_POST['qrtypenew']) ? $_POST['qrtypenew'] : '';
     $resid_insert = !empty($_POST['resid_insert']) ? $_POST['resid_insert'] : '';
     $userid_insert = !empty($_POST['userid_insert']) ? $_POST['userid_insert'] : 0;
