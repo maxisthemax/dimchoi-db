@@ -215,7 +215,7 @@ echo "<td>Bev Order</td><td>Bev Price Order</td></tr>";
         echo "<tr><td>Size</td><td>Price</td></tr>";
         echo "<tr><td><input name='food_size_new[1]' id='food_size_new[]' size=10 value='"."'></td>";
         echo "<td><input name='food_price_new[1]' id='food_price_new[]' size=10 value='"."'></td></tr>";
-        echo "<input type=hidden name='func' value='insertnewfood'>";    
+        echo "<input type=hidden name='func' value='insertnewfood_dev'>";    
         echo "<input type=hidden id='resid_insert' name='resid_insert'>";
         echo "<input type=hidden id='resname_insert' name='resname_insert'>";
         echo "<input type=hidden id='menucode_insert' name='menucode_insert'>"; 
@@ -250,7 +250,7 @@ echo "<td>Bev Order</td><td>Bev Price Order</td></tr>";
         echo "<tr><td>Size</td><td>Price</td></tr>";
         echo "<tr><td><input name='bev_size_new[1]' id='bev_size_new[]' size=10 value='"."'></td>";
         echo "<td><input name='bev_price_new[1]' id='bev_price_new[]' size=10 value='"."'></td></tr>";
-        echo "<input type=hidden name='func' value='insertnewbev'>";    
+        echo "<input type=hidden name='func' value='insertnewbev_dev'>";    
         echo "<input type=hidden id='resid_insertbev' name='resid_insertbev'>";
         echo "<input type=hidden id='resname_insertbev' name='resname_insertbev'>";
         echo "<input type=hidden id='menucode_insertbev' name='menucode_insertbev'>"; 
@@ -291,12 +291,12 @@ function setformdelete(id,type)
 if (type == 1)
 {
     $("#food_id").val(id);
-    $("#func").val('deletefood');
+    $("#func").val('deletefood_dev');
 }
 else if (type == 2)
 {
     $("#bev_id").val(id);
-    $("#func").val('deletebev');
+    $("#func").val('deletebev_dev');
 }
 }
 function setformdeleteprice(price_id,type)
@@ -304,12 +304,12 @@ function setformdeleteprice(price_id,type)
 if (type == 1)
 {    
     $("#food_price_id").val(price_id);
-    $("#func").val('deletefoodprice');
+    $("#func").val('deletefoodprice_dev');
 }
 else if (type == 2)
 {
     $("#bev_price_id").val(price_id);
-    $("#func").val('deletebevprice');
+    $("#func").val('deletebevprice_dev');
 }    
 }
 function setforminsert()

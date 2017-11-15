@@ -1,6 +1,7 @@
 <?php
 function get_path($func) 
 {
+/*---------------------------------------FOR MOBILE LIVE----------------------------------------------------------*/	
 	switch ($func) 
 	{
 		case "getallstateandcity":
@@ -17,36 +18,44 @@ function get_path($func)
 	    case "getresorder":
 	    	return array("path" => "query/search/func.php","querytype"=>"search");
 	        break;
-		case "insertnewres":
-		case "insertnewfood":
-		case "insertnewbev":
-		case "insertnewqrcoderow":
-		case "insertnewuser":
-		case "insertorderfromqr":
-		case "insertnewfoodtype":
-		case "insertnewbevtype":
+
+		case "insertnewqrcoderow": //shared
+		case "insertnewuser": //shared
+		case "insertorderfromqr": //shared
 	    	return array("path" => "query/insert/func.php","querytype"=>"insert");
-	        break;	
-		case "updateres":
-		case "updatefood":
-		case "updatebev":
-		case "updateuser":		
-		case "updatefood_dev":
-		case "updatebev_dev":
-		case "updateuser_dev":
-		case "updatefoodtype_dev":
-		case "updatebevtype_dev":
+	        break;
+
+		case "updateuser":				
 		case "updateresusertoken":
 		case "updateresorderstatus":
 		case "updateresordertable":
 	    	return array("path" => "query/update/func.php","querytype"=>"update");
+	        break;
+/*---------------------------------------FOR DEVELOPMENT.PHP ONLY----------------------------------------------------------*/
+
+		case "insertnewres_dev":
+		case "insertnewfood_dev":
+		case "insertnewbev_dev":
+		case "insertnewfoodtype_dev":
+		case "insertnewbevtype_dev":		
+	    	return array("path" => "query/dev/insert/func.php","querytype"=>"insert");
+	        break;
+
+		case "updateres_dev":
+		case "updateuser_dev":
+		case "updatefood_dev":
+		case "updatebev_dev":
+		case "updatefoodtype_dev":
+		case "updatebevtype_dev":	    
+	    	return array("path" => "query/dev/update/func.php","querytype"=>"update");
 	        break;	
-		case "deletefood":
-		case "deletefoodprice":
-		case "deletebev":
-		case "deletebevprice":		
-	    	return array("path" => "query/delete/func.php","querytype"=>"delete");
-	        break;		        	        
+
+		case "deletefood_dev":
+		case "deletefoodprice_dev":
+		case "deletebev_dev":
+		case "deletebevprice_dev":		
+	    	return array("path" => "query/dev/delete/func.php","querytype"=>"delete");
+	        break;		                
 	}
 }
 ?>

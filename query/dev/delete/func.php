@@ -1,136 +1,143 @@
 <?php
+
 include "system/function.php";
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
-function updateuser() 
+function deletefood_dev() 
 {
     global $dbhandler0;
-
-//define variable for query >>>
-    $userid = !empty($_POST['userid']) ? $_POST['userid'] : ''; 
-//define variable for query <<<
-
-    $sqlcheckuser = "SELECT * FROM user WHERE i_user_id = '$userid' LIMIT 1"; 
-    $resuser = $dbhandler0->query($sqlcheckuser);
-
-    if (!$resuser)
-    {
-        return $resuser;
-    }
-    else
-    {    
-
-//define variable for query >>>
-    $firstname = !empty($_POST['firstname']) ? $_POST['firstname'] : $resuser[0]['va_first_name'];
-    $lastname = !empty($_POST['lastname']) ? $_POST['lastname'] : $resuser[0]['va_last_name'];
-    $gender = !empty($_POST['gender']) ? $_POST['gender'] : $resuser[0]['va_gender'];
-    $countrycode = !empty($_POST['countrycode']) ? $_POST['countrycode'] : $resuser[0]['va_country_code'];
-    $phonecode = !empty($_POST['phonecode']) ? $_POST['phonecode'] : $resuser[0]['va_phone_code'];
-    $phone = !empty($_POST['phone']) ? $_POST['phone'] : $resuser[0]['va_phone'];
-    $dob = !empty($_POST['dob']) ? $_POST['dob'] : $resuser[0]['dt_dob'];
-    $email = !empty($_POST['email']) ? $_POST['email'] : $resuser[0]['va_email'];
-    $pass = !empty($_POST['pass']) ? $_POST['pass'] : $resuser[0]['va_pass'];
-    $facebook = !empty($_POST['facebook']) ? $_POST['facebook'] : $resuser[0]['va_facebook'];
-    $google = !empty($_POST['google']) ? $_POST['google'] : $resuser[0]['va_google'];  
-    $token = !empty($_POST['token']) ? $_POST['token'] : $resuser[0]['va_token'];  
-//define variable for query <<<
+//define variable for query >>>    
+    $food_id = !empty($_POST['food_id']) ? $_POST['food_id'] : '';
+//define variable for query <<< 
 
     $sqlcheck = 
-    "UPDATE user
-    set va_first_name = '$firstname',
-    va_last_name ='$lastname',    
-    va_gender ='$gender',
-    va_country_code = '$countrycode',
-    va_phone_code = '$phonecode',
-    va_phone ='$phone',
-    dt_dob ='$dob',
-    va_email ='$email',
-    va_pass ='$pass',
-    va_facebook ='$facebook',
-    va_google ='$google',
-    va_token = '$token'
-    where i_user_id = '$userid'";
+        "SELECT a.* FROM food a where a.i_food_id = '$food_id'";
 
-    $res = $dbhandler0->update($sqlcheck);
+        $res = $dbhandler0->query($sqlcheck);
 
-    return $res;
-    }
+    if ($res)
+        {
+            //start delete 
+                $sqldelete1 = "DELETE FROM food_price where i_food_id = '$food_id'"; 
+                $res1 = $dbhandler0->delete($sqldelete1);
+
+                $sqldelete2 = "DELETE FROM food where i_food_id = '$food_id'";
+                $res2 = $dbhandler0->delete($sqldelete2);
+        }
+    if ($res1 && $res2){
+        header('Location:'.$_POST['uri']);
+    }        
 }
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
-function updateresusertoken() 
+function deletefoodprice_dev() 
 {
     global $dbhandler0;
 
 //define variable for query >>>    
-    $res_user = !empty($_POST['res_user']) ? $_POST['res_user'] : ''; 
-    $token = !empty($_POST['token']) ? $_POST['token'] : ''; 
-//define variable for query <<<
+    $food_price_id = !empty($_POST['food_price_id']) ? $_POST['food_price_id'] : '';
+ //define variable for query <<< 
 
-    if ($res_user != '')
-    {    
-     $sqlcheck = 
-        "UPDATE resuser 
-        SET va_token = '$token'
-        where va_username = '$res_user'";
-        $res = $dbhandler0->update($sqlcheck);
-    return $res;    
-    }
-}        
+    $sqlcheck = 
+        "SELECT a.* FROM food_price a where a.i_price_id = '$food_price_id'";
+
+        $res = $dbhandler0->query($sqlcheck);
+
+    $sqlcheckcount = 
+        "SELECT a.* FROM food_price a where a.i_food_id = (SELECT a.i_food_id FROM food_price a where a.i_price_id = '$food_price_id')";
+
+        $rescount = $dbhandler0->query($sqlcheckcount);
+
+    if (count($rescount) > 1)
+        {
+            //start delete 
+                $sqldelete1 = "DELETE FROM food_price where i_price_id = '$food_price_id'"; 
+                $res1 = $dbhandler0->delete($sqldelete1);
+        }
+    else if ($rescount = 1) {
+            //start delete 
+                $sqldelete1 = "DELETE FROM food where i_food_id = (SELECT a.i_food_id FROM food_price a where a.i_price_id = '$food_price_id')"; 
+                $res1 = $dbhandler0->delete($sqldelete1);        
+    }    
+    if ($res1){
+        header('Location:'.$_POST['uri']);
+    }        
+}
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
-function updateresorderstatus() 
+function deletebev_dev() 
 {
     global $dbhandler0;
 
-//define variable for query >>>       
-    $res_order_id = !empty($_POST['res_order_id']) ? $_POST['res_order_id'] : ''; 
-    $res_order_status = !empty($_POST['res_order_status']) ? $_POST['res_order_status'] : ''; 
+//define variable for query >>>     
+    $bev_id = !empty($_POST['bev_id']) ? $_POST['bev_id'] : '';
 //define variable for query <<<  
 
-    if ($res_order_id > 0)
-    {    
-     $sqlcheck = 
-        "UPDATE resorder 
-        SET i_status = '$res_order_status', dt_resorderclosed = now()
-        where i_resorder_id = '$res_order_id'";
-        $res = $dbhandler0->update($sqlcheck);
-    return $res;    
-    }
-}        
+    $sqlcheck = 
+        "SELECT a.* FROM bev a where a.i_bev_id = '$bev_id'";
+
+        $res = $dbhandler0->query($sqlcheck);
+
+    if ($res)
+        {
+            //start delete 
+                $sqldelete1 = "DELETE FROM bev_price where i_bev_id = '$bev_id'"; 
+                $res1 = $dbhandler0->delete($sqldelete1);
+
+                $sqldelete2 = "DELETE FROM bev where i_bev_id = '$bev_id'";
+                $res2 = $dbhandler0->delete($sqldelete2);
+        }
+    if ($res1 && $res2){
+        header('Location:'.$_POST['uri']);
+    }        
+}
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
-function updateresordertable() 
+function deletebevprice_dev() 
 {
     global $dbhandler0;
 
-//define variable for query >>>       
-    $res_order_id = !empty($_POST['res_order_id']) ? $_POST['res_order_id'] : ''; 
-    $res_order_table = !empty($_POST['res_order_table']) ? $_POST['res_order_table'] : ''; 
-//define variable for query <<<
-   
-    if ($res_order_id > 0)
-    {  
-     $sqlcheck = 
-        "UPDATE resorder 
-        SET i_res_order_table = '$res_order_table'
-        where i_resorder_id = '$res_order_id'";
-        $res = $dbhandler0->update($sqlcheck);
-    return $res;  
-    }  
-}        
+//define variable for query >>>    
+    $bev_price_id = !empty($_POST['bev_price_id']) ? $_POST['bev_price_id'] : '';
+ //define variable for query <<< 
+
+    $sqlcheck = 
+        "SELECT a.* FROM bev_price a where a.i_price_id = '$bev_price_id'";
+
+        $res = $dbhandler0->query($sqlcheck);
+
+    $sqlcheckcount = 
+        "SELECT a.* FROM bev_price a where a.i_bev_id = (SELECT a.i_bev_id FROM bev_price a where a.i_price_id = '$bev_price_id')";
+
+        $rescount = $dbhandler0->query($sqlcheckcount);
+
+    if (count($rescount) > 1)
+        {
+            //start delete 
+                $sqldelete1 = "DELETE FROM bev_price where i_price_id = '$bev_price_id'"; 
+                $res1 = $dbhandler0->delete($sqldelete1);
+        }
+    else if ($rescount = 1) {
+            //start delete 
+                $sqldelete1 = "DELETE FROM bev where i_bev_id = (SELECT a.i_bev_id FROM bev_price a where a.i_price_id = '$bev_price_id')"; 
+                $res1 = $dbhandler0->delete($sqldelete1);        
+    }    
+    if ($res1){
+        header('Location:'.$_POST['uri']);
+    }        
+}
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
