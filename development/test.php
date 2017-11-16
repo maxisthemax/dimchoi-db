@@ -156,7 +156,7 @@ global $dbhandler0;
   <form action="index.php" method="post" target="_blank">
   <table>
   <tr><td><h2>updateresorderstatus</h2></td></tr> 
-  <tr><td>Res Order ID</td><td><input name="res_order"></td></tr> 
+  <tr><td>Res Order ID</td><td><input name="res_order_id"></td></tr> 
   <tr><td>Res Order Status</td><td><input name="res_order_status"></td></tr>  
   <td colspan=2><input type="submit" name="func" value="updateresorderstatus"></td>
   </table>

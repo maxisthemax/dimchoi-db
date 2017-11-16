@@ -816,7 +816,7 @@ function getresorder()
 
     //=============================================== 
     //define variable for query
-    $res_order = !empty($_POST['res_order']) ? $_POST['res_order'] : '';
+    $res_order_id = !empty($_POST['res_order_id']) ? $_POST['res_order_id'] : '';
     $res_id = !empty($_POST['res_id']) ? $_POST['res_id'] : '';
     $res_order_status = !empty($_POST['res_order_status']) ? $_POST['res_order_status'] : '';
     //===============================================
@@ -832,9 +832,9 @@ function getresorder()
     WHERE a.i_resorder_type_id = 1";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {   
-         if (!empty($res_order) or $res_order != 0)
+         if (!empty($res_order_id) or $res_order_id != 0)
         {
-            $sqlcheck .= " and a.i_resorder_id = $res_order";    
+            $sqlcheck .= " and a.i_resorder_id = $res_order_id";    
         }
          if (!empty($res_id) or $res_id != 0)
         {
