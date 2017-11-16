@@ -97,7 +97,7 @@ global $dbhandler0;
   <tr><td><h2>getorderqrcode</h2></td></tr> 
   <tr><td>Restaurant</td><td><select id="res_id2" name="res_id"></select></td></tr>  
   <tr><td>QR ID</td><td><input type="qr_id" name="qr_id"></td></tr>
-  <tr><td>User ID</td><td><input type="user_id" name="user_id"></td></tr
+  <tr><td>User ID</td><td><input type="user_id" name="user_id"></td></tr>
   <td colspan=2><input type="submit" name="func" value="getorderqrcode"></td>
   </table>
   </form>
