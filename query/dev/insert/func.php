@@ -288,8 +288,8 @@ function insertnewbev_dev() {
 //=====================================================================================================================================================================
 function insertnewfoodtype_dev() {
     global $dbhandler0;
-    $foodtypepicurlnew = !empty($_POST['foodtypepicurlnew']) ? $_POST['foodtypepicurlnew'] : '';
-    $foodtypenew = !empty($_POST['foodtypenew']) ? $_POST['foodtypenew'] : '';
+    $food_type_pic_url_new = !empty($_POST['food_type_pic_url_new']) ? $_POST['food_type_pic_url_new'] : '';
+    $food_type_new = !empty($_POST['food_type_new']) ? $_POST['food_type_new'] : '';
     $resid_insertfood = !empty($_POST['resid_insertfood']) ? $_POST['resid_insertfood'] : '';
 
     $sqlcheck = 
@@ -299,8 +299,8 @@ function insertnewfoodtype_dev() {
     i_res_id,
     i_food_type_order)
     VALUES (
-    '$foodtypenew',
-    '$foodtypepicurlnew',
+    '$food_type_new',
+    '$food_type_pic_url_new',
     '$resid_insertfood',
     '0')";
 
@@ -317,8 +317,8 @@ function insertnewfoodtype_dev() {
 //=====================================================================================================================================================================
 function insertnewbevtype_dev() {
     global $dbhandler0;
-    $bevtypepicurlnew = !empty($_POST['bevtypepicurlnew']) ? $_POST['bevtypepicurlnew'] : '';
-    $bevtypenew = !empty($_POST['bevtypenew']) ? $_POST['bevtypenew'] : '';
+    $bev_type_pic_url_new = !empty($_POST['bev_type_pic_url_new']) ? $_POST['bev_type_pic_url_new'] : '';
+    $bev_type_new = !empty($_POST['bev_type_new']) ? $_POST['bev_type_new'] : '';
     $resid_insertbev = !empty($_POST['resid_insertbev']) ? $_POST['resid_insertbev'] : '';
 
     $sqlcheck = 
@@ -328,8 +328,8 @@ function insertnewbevtype_dev() {
     i_res_id,
     i_bev_type_order)
     VALUES (
-    '$bevtypenew',
-    '$bevtypepicurlnew',
+    '$bev_type_new',
+    '$bev_type_pic_url_new',
     '$resid_insertbev',
     '0')";
 

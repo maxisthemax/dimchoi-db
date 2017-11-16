@@ -60,8 +60,8 @@ function getfoodtype($resid) {
 
     echo "<tr><td width=10%>Food Type Name</td><td width=10%>Food Pic Url</td>";
 
-    echo "<tr><td><input id=foodtypenew name=foodtypenew></td>";
-    echo "<td><input id=foodtypepicurlnew name=foodtypepicurlnew></td></tr>";
+    echo "<tr><td><input id=food_type_new name=food_type_new></td>";
+    echo "<td><input id=food_type_pic_url_new name=food_type_pic_url_new></td></tr>";
 
     echo "<tr><TD colspan = 3 align=center><button onclick='setforminsertfood(".$resid.");'>Insert New Food Type</button></td></tr>";   
     echo "<input type=hidden id='func' name='func' value='insertnewfoodtype_dev'>";
@@ -109,8 +109,8 @@ function getbevtype($resid) {
 
     echo "<tr><td width=10%>Bev Type Name</td><td width=10%>Bev Pic Url</td>";
 
-    echo "<tr><td><input id=bevtypenew name=bevtypenew></td>";
-    echo "<td><input id=bevtypepicurlnew name=bevtypepicurlnew></td></tr>";
+    echo "<tr><td><input id=bev_type_new name=bev_type_new></td>";
+    echo "<td><input id=bev_type_pic_url_new name=bev_type_pic_url_new></td></tr>";
 
     echo "<tr><TD colspan = 3 align=center><button onclick='setforminsertbev(".$resid.");'>Insert New Bev Type</button></td></tr>";   
     echo "<input type=hidden id='func' name='func' value='insertnewbevtype_dev'>";
