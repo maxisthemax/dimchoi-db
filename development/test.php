@@ -96,8 +96,8 @@ global $dbhandler0;
   <table>
   <tr><td><h2>getorderqrcode</h2></td></tr> 
   <tr><td>Restaurant</td><td><select id="res_id2" name="res_id"></select></td></tr>  
-  <tr><td>QR ID</td><td><input type="qr_id" name="qr_id"></td></tr>
-  <tr><td>User ID</td><td><input type="user_id" name="user_id"></td></tr>
+  <tr><td>QR ID</td><td><input name="qr_id"></td></tr>
+  <tr><td>User ID</td><td><input name="user_id"></td></tr>
   <td colspan=2><input type="submit" name="func" value="getorderqrcode"></td>
   </table>
   </form>
@@ -120,8 +120,8 @@ global $dbhandler0;
   <form action="index.php" method="post" target="_blank">
   <table>
   <tr><td><h2>getuserorder</h2></td></tr> 
-  <tr><td>User ID</td><td><input type="user_id" name="user_id"></td></tr>
-  <tr><td>User Order ID</td><td><input type="user_order_id" name="user_order_id"></td></tr>  
+  <tr><td>User ID</td><td><input name="user_id"></td></tr>
+  <tr><td>User Order ID</td><td><input name="user_order_id"></td></tr>  
   <td colspan=2><input type="submit" name="func" value="getuserorder"></td>
   </table>
   </form>
@@ -132,8 +132,8 @@ global $dbhandler0;
   <table>
   <tr><td><h2>getresorder</h2></td></tr> 
   <tr><td>Restaurant</td><td><select id="res_id3" name="res_id"></select></td></tr> 
-  <tr><td>Res Order ID</td><td><input type="res_order_id" name="res_order_id"></td></tr> 
-  <tr><td>Res Order Status</td><td><input type="res_order_status" name="res_order_status"></td></tr>  
+  <tr><td>Res Order ID</td><td><input name="res_order_id"></td></tr> 
+  <tr><td>Res Order Status</td><td><input name="res_order_status"></td></tr>  
   <td colspan=2><input type="submit" name="func" value="getresorder"></td>
   </table>
   </form>
@@ -143,8 +143,8 @@ global $dbhandler0;
   <form action="index.php" method="post" target="_blank">
   <table>
   <tr><td><h2>insertorderfromqr</h2></td></tr> 
-  <tr><td>QR ID</td><td><input type="qr_id" name="qr_id"></td></tr>
-  <tr><td>Res Order Table</td><td><input type="res_order_table" name="res_order_table"></td></tr>
+  <tr><td>QR ID</td><td><input name="qr_id"></td></tr>
+  <tr><td>Res Order Table</td><td><input name="res_order_table"></td></tr>
   <td colspan=2><input type="submit" name="func" value="insertorderfromqr"></td>
   </table>
   </form>
@@ -156,8 +156,8 @@ global $dbhandler0;
   <form action="index.php" method="post" target="_blank">
   <table>
   <tr><td><h2>updateresorderstatus</h2></td></tr> 
-  <tr><td>Res Order ID</td><td><input type="res_order_id" name="res_order_id"></td></tr> 
-  <tr><td>Res Order Status</td><td><input type="res_order_status" name="res_order_status"></td></tr>  
+  <tr><td>Res Order ID</td><td><input name="res_order"></td></tr> 
+  <tr><td>Res Order Status</td><td><input name="res_order_status"></td></tr>  
   <td colspan=2><input type="submit" name="func" value="updateresorderstatus"></td>
   </table>
   </form>
@@ -167,8 +167,8 @@ global $dbhandler0;
   <form action="index.php" method="post" target="_blank">
   <table>
   <tr><td><h2>updateresordertable</h2></td></tr> 
-  <tr><td>Res Order ID</td><td><input type="res_order_id" name="res_order_id"></td></tr> 
-  <tr><td>Res Order Table</td><td><input type="res_order_table" name="res_order_table"></td></tr>  
+  <tr><td>Res Order ID</td><td><input name="res_order_id"></td></tr> 
+  <tr><td>Res Order Table</td><td><input name="res_order_table"></td></tr>  
   <td colspan=2><input type="submit" name="func" value="updateresordertable"></td>
   </table>
   </form>
