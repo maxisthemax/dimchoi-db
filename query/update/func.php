@@ -125,7 +125,7 @@ function updateresordertable()
     {  
      $sqlcheck = 
         "UPDATE resorder 
-        SET i_res_order_table = '$res_order_table'
+        SET i_res_order_table_id = '$res_order_table'
         where i_resorder_id = '$res_order_id'";
         $res = $dbhandler0->update($sqlcheck);
     return $res;  

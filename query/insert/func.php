@@ -130,7 +130,9 @@ function insertorderfromqr() {
         $user_id = $resqr[0]['i_user_id'];
         $qr_type_id = $resqr[0]['i_qr_type_id'];
         $qr_data_1 = $resqr[0]['va_qr_data_1'];
+        $qr_data_1=str_replace("'","\'", $qr_data_1);
         $qr_data_2 = $resqr[0]['va_qr_data_2'];
+        $qr_data_2=str_replace("'","\'", $qr_data_2);
         $create_date = $resqr[0]['dt_create'];
 
         $sqlinstouserorder = 

@@ -714,7 +714,6 @@ function getresuser()
     global $dbhandler0;
     //=============================================== 
     //define variable for query
-    $res_id = !empty($_POST['res_id']) ? $_POST['res_id'] : '';
     $res_user = !empty($_POST['res_user']) ? $_POST['res_user'] : '';
     $res_password = !empty($_POST['res_password']) ? $_POST['res_password'] : '';
     //===============================================
@@ -867,7 +866,8 @@ function getresorder()
                 'va_res_order_status' => $resorderkey['va_res_order_status'],
                 'dt_resorderclosed' => $resorderkey['dt_resorderclosed'],
                 'va_resorder_data_1' => $resorder1,
-                'va_resorder_data_2' => $resorder1
+                'va_resorder_data_2' => $resorder1,
+                'i_res_order_table_id' => $resorderkey['i_res_order_table_id']
                 ];
     } 
 
