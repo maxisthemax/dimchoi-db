@@ -25,9 +25,6 @@ if (!empty($output) and $querytype == 'search' and $output > 0 )
 				'message' => 'success',
 				'data' => $output
 			);
-		$fp = fopen('result.php', 'w');
-
-		fwrite($fp, json_encode ($result, JSON_UNESCAPED_SLASHES));
 		print_r(json_encode ($result, JSON_UNESCAPED_SLASHES));			
 }
 else if ($output == true and $querytype == 'insert' and $output > 0)
