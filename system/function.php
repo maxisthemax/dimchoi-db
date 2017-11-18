@@ -1,4 +1,7 @@
 <?php
+include_once "../lib/db.php";
+include "../config.php";
+include "../getpath.php";
 
 $runfunction = !empty($_POST['runfunction']) ? $_POST['runfunction'] : '';
 if ($runfunction == 'generatefirebase')
@@ -125,17 +128,17 @@ function generatefirebase($title,$body,$broadcast,$userid,$resuserid,$token,$mod
 global $dbhandler0;
 $url = $_SERVER['SERVER_NAME'].'/dimchoi/firebase.php';
 
-if ($token != '')
+if ($token == '')
 {
     if ($userid > 0)
-    {     
+    {    
         $sqluser = "SELECT va_token FROM user where i_user_id = $userid LIMIT 1";
         $resuser = $dbhandler0->query($sqluser);
         $token = $resuser[0]['va_token'];
     }
     else if ($resuserid > 0)
     {
-        $sqlresuser = "SELECT va_token FROM resuser where i_res_user_id = $userid LIMIT 1";
+        $sqlresuser = "SELECT va_token FROM resuser where i_res_user_id = $resuserid LIMIT 1";
         $resresuser = $dbhandler0->query($sqlresuser);   
         $token = $resresuser[0]['va_token'];
     }
