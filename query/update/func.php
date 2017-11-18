@@ -207,7 +207,7 @@ function updateresorderdata()
             {            
             $sqlorderdata = 
                 "UPDATE resorder 
-                SET va_resorder_data_1 = '$res_order_data_1',va_resorder_data_1 = '$res_order_data_2'
+                SET va_resorder_data_1 = '$res_order_data_1',va_resorder_data_2 = '$res_order_data_2'
                 where i_resorder_id = $res_order_id";
 
                 $resorderdata= $dbhandler0->update($sqlorderdata);
