@@ -866,7 +866,7 @@ function getresorder()
                 'va_res_order_status' => $resorderkey['va_res_order_status'],
                 'dt_resorderclosed' => $resorderkey['dt_resorderclosed'],
                 'va_resorder_data_1' => $resorder1,
-                'va_resorder_data_2' => $resorder1,
+                'va_resorder_data_2' => $resorder2,
                 'i_res_order_table_id' => $resorderkey['i_res_order_table_id']
                 ];
     } 

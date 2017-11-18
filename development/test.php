@@ -195,6 +195,25 @@ table, th, td {
     </form>
   </td>
 </tr>
+<tr>
+  <td> 
+    <form action="index.php" method="post" target="_blank">
+    <table>
+    <tr><td><h2>updateresorderdata</h2></td></tr> 
+    <tr><td>res_order_id</td><td><input name="res_order_id"></td></tr> 
+    <tr><td>res_order_data_1</td><td><input name="res_order_data_1"></td></tr>  
+    <tr><td>res_order_data_2</td><td><input name="res_order_data_2"></td></tr>  
+    <td colspan=2><input type="submit" name="func" value="updateresorderdata"></td>
+    </table>
+    </form>
+  </td>
+
+  <td> 
+  </td>
+
+  <td>     
+  </td>
+</tr>
 </table>
 
 

@@ -74,13 +74,18 @@ function updateresusertoken()
 //define variable for query <<<
 
     if ($res_user != '')
-    {    
-     $sqlcheck = 
-        "UPDATE resuser 
-        SET va_token = '$token'
-        where va_username = '$res_user'";
-        $res = $dbhandler0->update($sqlcheck);
-    return $res;    
+    {
+        $sqlcheck = "SELECT 1 FROM resuser where va_username = $res_user";
+        $rescheck= $dbhandler0->query($sqlcheck); 
+        if($rescheck)
+        {         
+         $sqlcheck = 
+            "UPDATE resuser 
+            SET va_token = '$token'
+            where va_username = '$res_user'";
+            $res = $dbhandler0->update($sqlcheck);
+        return $res;  
+        }  
     }
 }        
 //=====================================================================================================================================================================
@@ -98,13 +103,18 @@ function updateresorderstatus()
 //define variable for query <<<  
 
     if ($res_order_id > 0)
-    {    
-     $sqlcheck = 
-        "UPDATE resorder 
-        SET i_status = '$res_order_status', dt_resorderclosed = now()
-        where i_resorder_id = '$res_order_id'";
-        $res = $dbhandler0->update($sqlcheck);
-    return $res;    
+    {
+        $sqlcheck = "SELECT 1 FROM resorder where i_resorder_id = $res_order_id";
+        $rescheck= $dbhandler0->query($sqlcheck); 
+        if($rescheck)
+        {        
+         $sqlcheck = 
+            "UPDATE resorder 
+            SET i_status = '$res_order_status', dt_resorderclosed = now()
+            where i_resorder_id = '$res_order_id'";
+            $res = $dbhandler0->update($sqlcheck);
+        return $res; 
+        }   
     }
 }        
 //=====================================================================================================================================================================
@@ -122,13 +132,18 @@ function updateresordertable()
 //define variable for query <<<
    
     if ($res_order_id > 0)
-    {  
-     $sqlcheck = 
-        "UPDATE resorder 
-        SET i_res_order_table_id = '$res_order_table'
-        where i_resorder_id = '$res_order_id'";
-        $res = $dbhandler0->update($sqlcheck);
-    return $res;  
+    {
+        $sqlcheck = "SELECT 1 FROM resorder where i_resorder_id = $res_order_id";
+        $rescheck= $dbhandler0->query($sqlcheck); 
+        if($rescheck)
+        {
+        $sqlqrtable = 
+            "UPDATE resorder 
+            SET i_res_order_table_id = '$res_order_table'
+            where i_resorder_id = '$res_order_id'";
+            $restable = $dbhandler0->update($sqlqrtable);
+        return $restable;
+        }  
     }  
 }        
 //=====================================================================================================================================================================
@@ -144,17 +159,61 @@ function updateqrdata()
 //define variable for query <<< 
     if ($qr_id > 0)
     {    
-    //define variable for query >>>       
-        $qr_data_1 = addslashes(!empty($_POST['qr_data_1'])? $_POST['qr_data_1'] : '');
-        $qr_data_2 = addslashes(!empty($_POST['qr_data_2'])? $_POST['qr_data_2'] : '');
-    //define variable for query <<<
-        $sqlqrcodeupdate = 
-            "UPDATE qrcode 
-            SET va_qr_data_1 = '$qr_data_1',va_qr_data_2 = '$qr_data_2'
-            where i_qr_id = $qr_id";
+        $sqlcheck = "SELECT 1 FROM qrcode where i_qr_id = $qr_id";
+        $rescheck= $dbhandler0->query($sqlcheck); 
+  
+        if($rescheck)
+        {
+        //define variable for query >>>       
+            $qr_data_1 = addslashes(!empty($_POST['qr_data_1'])? $_POST['qr_data_1'] : '');
+            $qr_data_2 = addslashes(!empty($_POST['qr_data_2'])? $_POST['qr_data_2'] : '');
+        //define variable for query <<<
+            if (!empty($qr_data_1) OR !empty($qr_data_2))
+            {
+            $sqlqrcodeupdate = 
+                "UPDATE qrcode 
+                SET va_qr_data_1 = '$qr_data_1',va_qr_data_2 = '$qr_data_2'
+                where i_qr_id = $qr_id";
 
-            $resqr = $dbhandler0->update($sqlqrcodeupdate);
-        return $resqr;  
+                $resqr = $dbhandler0->update($sqlqrcodeupdate);
+            return $resqr; 
+            }
+        }
+    }     
+}        
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+function updateresorderdata() 
+{
+    global $dbhandler0;
+//define variable for query >>>       
+    $res_order_id = !empty($_POST['res_order_id']) ? $_POST['res_order_id'] : ''; 
+//define variable for query <<< 
+    if ($res_order_id > 0)
+    {    
+        $sqlcheck = "SELECT 1 FROM resorder where i_resorder_id = $res_order_id";
+        $rescheck= $dbhandler0->query($sqlcheck);
+
+        if($rescheck)
+        {    
+        //define variable for query >>>       
+            $res_order_data_1 = addslashes(!empty($_POST['res_order_data_1'])? $_POST['res_order_data_1'] : '');
+            $res_order_data_2 = addslashes(!empty($_POST['res_order_data_2'])? $_POST['res_order_data_2'] : '');
+        //define variable for query <<<
+            if (!empty($res_order_data_1) OR !empty($res_order_data_2))
+            {            
+            $sqlorderdata = 
+                "UPDATE resorder 
+                SET va_resorder_data_1 = '$res_order_data_1',va_resorder_data_1 = '$res_order_data_2'
+                where i_resorder_id = $res_order_id";
+
+                $resorderdata= $dbhandler0->update($sqlorderdata);
+            return $resorderdata; 
+            }   
+        } 
     }     
 }        
 //=====================================================================================================================================================================
