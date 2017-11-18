@@ -29,6 +29,7 @@ function get_path($func)
 		case "updateresusertoken":
 		case "updateresorderstatus":
 		case "updateresordertable":
+		case "updateqrdata":
 	    	return array("path" => "query/update/func.php","querytype"=>"update");
 	        break;
 /*---------------------------------------FOR DEVELOPMENT.PHP ONLY----------------------------------------------------------*/
