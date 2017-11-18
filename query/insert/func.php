@@ -156,6 +156,10 @@ function insertorderfromqr() {
         }
      }
 
+    if ($resinsuseroder != '' AND $resinsresorder !='' AND $resdeleteqr != '')
+    {;
+        generatefirebase('','','BACK_TO_MAIN',$user_id,'','',1);//generatefirebase($title,$body,$broadcast,$userid,$resuserid,$token,$mode);
+    }
     return $resdeleteqr;
 }
 ?>

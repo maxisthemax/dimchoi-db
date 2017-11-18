@@ -1,5 +1,19 @@
 <?php
 
+$runfunction = !empty($_POST['runfunction']) ? $_POST['runfunction'] : '';
+if ($runfunction == 'generatefirebase')
+{
+$userid = !empty($_POST['userid']) ? $_POST['userid'] : 0;
+$resuserid = !empty($_POST['resuserid']) ? $_POST['resuserid'] : 0;
+$token = !empty($_POST['token']) ? $_POST['token'] : '';
+$title = !empty($_POST['title']) ? $_POST['title'] : '';
+$body = !empty($_POST['body']) ? $_POST['body'] : '';
+$broadcast = !empty($_POST['broadcast']) ? $_POST['broadcast'] : '';
+$mode = !empty($_POST['mode']) ? $_POST['mode'] : 0;    
+
+generatefirebase($title,$body,$broadcast,$userid,$resuserid,$token,$mode);
+}
+
 function WriteDebugLog($Name, $MustWrite = 0, $MainInfo = "") {
 
     global $mustwritelevel;
@@ -103,6 +117,59 @@ function decrypted($key, $string) {
         return $decrypted;
     }
     return $string;   
+}
+
+function generatefirebase($title,$body,$broadcast,$userid,$resuserid,$token,$mode) //1-send message, 2-send broadcast to phone
+{
+
+global $dbhandler0;
+$url = $_SERVER['SERVER_NAME'].'/dimchoi/firebase.php';
+
+if ($token != '')
+{
+    if ($userid > 0)
+    {     
+        $sqluser = "SELECT va_token FROM user where i_user_id = $userid LIMIT 1";
+        $resuser = $dbhandler0->query($sqluser);
+        $token = $resuser[0]['va_token'];
+    }
+    else if ($resuserid > 0)
+    {
+        $sqlresuser = "SELECT va_token FROM resuser where i_res_user_id = $userid LIMIT 1";
+        $resresuser = $dbhandler0->query($sqlresuser);   
+        $token = $resresuser[0]['va_token'];
+    }
+}
+
+if ($mode == 1)
+{
+$sendpost = array
+        (
+            'title' => $title,
+            'body'  => $body,
+            'token' => $token,
+            'mode' => $mode
+        );
+}
+else if ($mode == 2)
+{
+$sendpost = array
+        (
+            'broadcast'  => $broadcast,
+            'token' => $token,
+            'mode' => $mode
+        );
+}
+
+$ch = curl_init($url);
+curl_setopt( $ch, CURLOPT_POST, 1);
+curl_setopt( $ch, CURLOPT_POSTFIELDS, $sendpost);
+curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
+curl_setopt( $ch, CURLOPT_HEADER, 0);
+curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
+
+$response = curl_exec( $ch );  
+echo $response;
 }
 
 ?>
