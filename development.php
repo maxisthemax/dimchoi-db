@@ -7,7 +7,7 @@ include "lib/db.php";
 include "config.php";
 include "getpath.php";
 include "setvariable.php";
-include "system/function.php";
+
 ?>
 <?php
 session_start();
