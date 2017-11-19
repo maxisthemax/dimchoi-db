@@ -171,8 +171,12 @@ curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
 curl_setopt( $ch, CURLOPT_HEADER, 0);
 curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
 
-$response = curl_exec( $ch );  
-echo $response;
+$response = curl_exec( $ch ); 
+
+    if ($_SERVER['SERVER_NAME'] == 'localhost')
+    {
+        echo $response;
+    }
 }
 
 ?>

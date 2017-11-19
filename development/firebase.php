@@ -7,7 +7,7 @@
     $sqlresuser = "SELECT * FROM resuser";
     $resresuser = $dbhandler0->query($sqlresuser);
 echo "<html><form action=system/function.php method=post id=test_form><table>";
-
+echo "<tr><td>Mode</td><td><select id=mode name=mode required><option></option><option value = 1>TRIGGER MESSAGE</option><option value = 2>TRIGGER BROADCAST TO DIMCHOI</option></select></td></tr>";
 echo "<tr><td>Name</td><td><select id=userid name=userid onchange=filltokenuser()><option></option>";
 foreach($resuser as $resvalue1) 
 {
@@ -29,11 +29,11 @@ echo "<select></td>";
 
 echo "</tr>";
 echo "<tr><td>Token</td><td><input id=token name=token value=></td></tr>";
-echo "<tr><td>Title</td><td><input id=title name=title value=></td></tr>";
-echo "<tr><td>Body</td><td><input id=body name=body value=></td></tr>";
-echo "<tr><td>Broadcast</td><td><input id=broadcast name=broadcast value=></td></tr>";
-echo "<tr><td>Mode</td><td><select id=mode name=mode required><option></option><option value = 1>TRIGGER MESSAGE</option><option value = 2>TRIGGER BROADCAST TO DIMCHOI</option></select></td></tr>";
-echo "<tr><td colspan = 2><input type=submit name=firebase value='Launch Cheok Dick'</td></tr>";
+echo "<tr><td>Title</td><td><input id=title name=title disabled value=></td></tr>";
+echo "<tr><td>Body</td><td><input id=body name=body disabled value=></td></tr>";
+echo "<tr><td>Broadcast</td><td><input id=broadcast disabled name=broadcast value=></td></tr>";
+echo "<tr><td colspan = 2><input id=send type=submit name=firebase value='Launch Cheok Dick'</td></tr>";
+echo "<tr><td id=functionname colspan = 2></td></tr>";
 echo "<input type=hidden id=runfunction name=runfunction value='generatefirebase'>";
 echo "<table></form></html>";
 ?>
@@ -55,7 +55,7 @@ function filltokenresuser()
 }  
 $(document).ready(function() 
 {
-   $("#mode").change(function()
+   	$("#mode").change(function()
     {
     	if (this.value==1)
     	{
@@ -75,7 +75,46 @@ $(document).ready(function()
 			$("#body").prop("disabled", true);	
 			$("#broadcast").prop("disabled", false);						 
 		}
-
-   });	
+		else
+		{
+			$("#title").val(""); 	
+			$("#body").val(""); 
+			$("#broadcast").val(""); 
+			$("#title").prop("disabled", true);	
+			$("#body").prop("disabled", true);	
+			$("#broadcast").prop("disabled", true);				
+		}
+//generatefirebase($title,$body,$broadcast,$userid,$resuserid,$token,$mode);
+   }); 	
 }); 
+   	$("#title").change(function()
+    {
+	msg = "generatefirebase('"+$('#title').val()+"','"+$('#body').val()+"','"+$('#broadcast').val()+"','"+$('#userid').val()+"','"+$('#resuserid').val()+"','"+$('#token').val()+"','"+$('#mode').val()+"')";
+	$('#functionname').html(msg);
+    });  
+   	$("#token").change(function()
+    {
+	msg = "generatefirebase('"+$('#title').val()+"','"+$('#body').val()+"','"+$('#broadcast').val()+"','"+$('#userid').val()+"','"+$('#resuserid').val()+"','"+$('#token').val()+"','"+$('#mode').val()+"')";
+	$('#functionname').html(msg);
+    });  
+   	$("#body").change(function()
+    {
+	msg = "generatefirebase('"+$('#title').val()+"','"+$('#body').val()+"','"+$('#broadcast').val()+"','"+$('#userid').val()+"','"+$('#resuserid').val()+"','"+$('#token').val()+"','"+$('#mode').val()+"')";
+	$('#functionname').html(msg);
+    });  
+   	$("#broadcast").change(function()
+    {
+	msg = "generatefirebase('"+$('#title').val()+"','"+$('#body').val()+"','"+$('#broadcast').val()+"','"+$('#userid').val()+"','"+$('#resuserid').val()+"','"+$('#token').val()+"','"+$('#mode').val()+"')";
+	$('#functionname').html(msg);
+    });  
+   	$("#userid").change(function()
+    {
+	msg = "generatefirebase('"+$('#title').val()+"','"+$('#body').val()+"','"+$('#broadcast').val()+"','"+$('#userid').val()+"','"+$('#resuserid').val()+"','"+$('#token').val()+"','"+$('#mode').val()+"')";
+	$('#functionname').html(msg);
+    });
+   	$("#resuserid").change(function()
+    {
+	msg = "generatefirebase('"+$('#title').val()+"','"+$('#body').val()+"','"+$('#broadcast').val()+"','"+$('#userid').val()+"','"+$('#resuserid').val()+"','"+$('#token').val()+"','"+$('#mode').val()+"')";
+	$('#functionname').html(msg);
+    });                   
 </script>
