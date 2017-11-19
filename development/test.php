@@ -125,7 +125,7 @@ table, th, td {
     <tr><td><h2>getuserorder</h2></td></tr> 
     <tr><td>user_id</td><td><input name="user_id"></td></tr>
     <tr><td>user_order_id</td><td><input name="user_order_id"></td></tr>
-    <tr><td>user_order_status</td><td><input name="user_order_id"></td></tr> 
+    <tr><td>user_order_status</td><td><input name="user_order_status"></td></tr> 
     <td colspan=2><input type="submit" name="func" value="getuserorder"></td>
     </table>
     </form>
@@ -210,6 +210,14 @@ table, th, td {
   </td>
 
   <td> 
+    <form action="index.php" method="post" target="_blank">
+    <table>
+    <tr><td><h2>updateuserorderstatus</h2></td></tr> 
+    <tr><td>user_order_id</td><td><input name="user_order_id"></td></tr> 
+    <tr><td>user_order_status</td><td><input name="user_order_status"></td></tr>  
+    <td colspan=2><input type="submit" name="func" value="updateuserorderstatus"></td>
+    </table>
+    </form>
   </td>
 
   <td>     

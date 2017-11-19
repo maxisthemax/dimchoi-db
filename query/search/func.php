@@ -765,11 +765,12 @@ function getuserorder()
 
     //===============================================
     //start query
-    $sqlcheck = "SELECT a.*,b.va_qr_type_name,c.va_res_name,d.va_area_name
+    $sqlcheck = "SELECT a.*,b.va_qr_type_name,c.va_res_name,d.va_area_name,e.va_user_order_status
     FROM userorder a 
     LEFT JOIN qrcode_type b on a.i_userorder_type_id = b.i_qr_type_id
     LEFT JOIN restaurant c on c.i_res_id = a.i_res_id and c.i_res_stat = 1
     LEFT JOIN area d on d.i_area_id = c.i_area_id
+    LEFT JOIN userorderstatus e on e.i_user_order_status = a.i_status 
     WHERE a.i_userorder_type_id = 1";
     if (!empty($_POST)) //if all string url variable is 0 or null
     {   
@@ -803,8 +804,11 @@ function getuserorder()
                 'va_area_name' => $userorderkey['va_area_name'],
                 'dt_create' => $userorderkey['dt_create'],
                 'va_qr_type_name' => $userorderkey['va_qr_type_name'],
+                'i_status' => $userorderkey['i_status'],
+                'va_user_order_status' => $userorderkey['va_user_order_status'],
+                'dt_userorderclosed' => $userorderkey['dt_userorderclosed'],                
                 'va_userorder_data_1' => $userorder1,
-                'va_userorder_data_2' => $userorder1
+                'va_userorder_data_2' => $userorder2,
                 ];
     } 
 

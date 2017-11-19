@@ -100,6 +100,15 @@ function updateresorderstatus()
 //define variable for query >>>       
     $res_order_id = !empty($_POST['res_order_id']) ? $_POST['res_order_id'] : ''; 
     $res_order_status = !empty($_POST['res_order_status']) ? $_POST['res_order_status'] : ''; 
+
+    if ($res_order_status == 99)
+    {
+        $time = date("Y-m-d H:i:s");
+    }
+    else
+    {
+        $time = "0000-00-00 00:00:00";    
+    }        
 //define variable for query <<<  
 
     if ($res_order_id > 0)
@@ -110,8 +119,47 @@ function updateresorderstatus()
         {        
          $sqlcheck = 
             "UPDATE resorder 
-            SET i_status = '$res_order_status', dt_resorderclosed = now()
+            SET i_status = '$res_order_status', dt_resorderclosed = '$time'
             where i_resorder_id = '$res_order_id'";
+            $res = $dbhandler0->update($sqlcheck);
+        return $res; 
+        }   
+    }
+}        
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+function updateuserorderstatus() 
+{
+    global $dbhandler0;
+
+//define variable for query >>>       
+    $user_order_id = !empty($_POST['user_order_id']) ? $_POST['user_order_id'] : ''; 
+    $user_order_status = !empty($_POST['user_order_status']) ? $_POST['user_order_status'] : ''; 
+
+    if ($user_order_status == 99)
+    {
+        $time = date("Y-m-d H:i:s");
+    }
+    else
+    {
+        $time = "0000-00-00 00:00:00";    
+    }    
+
+//define variable for query <<<  
+
+    if ($user_order_id > 0)
+    {
+        $sqlcheck = "SELECT 1 FROM userorder where i_userorder_id = $user_order_id";
+        $rescheck= $dbhandler0->query($sqlcheck); 
+        if($rescheck)
+        {        
+         $sqlcheck = 
+            "UPDATE userorder 
+            SET i_status = '$user_order_status', dt_userorderclosed = '$time'
+            where i_userorder_id = '$user_order_id'";
             $res = $dbhandler0->update($sqlcheck);
         return $res; 
         }   
