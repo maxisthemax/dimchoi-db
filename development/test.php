@@ -124,7 +124,8 @@ table, th, td {
     <table>
     <tr><td><h2>getuserorder</h2></td></tr> 
     <tr><td>user_id</td><td><input name="user_id"></td></tr>
-    <tr><td>user_order_id</td><td><input name="user_order_id"></td></tr>  
+    <tr><td>user_order_id</td><td><input name="user_order_id"></td></tr>
+    <tr><td>user_order_status</td><td><input name="user_order_id"></td></tr> 
     <td colspan=2><input type="submit" name="func" value="getuserorder"></td>
     </table>
     </form>

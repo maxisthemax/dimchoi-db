@@ -1,5 +1,5 @@
 <?php
-include_once "../lib/db.php";
+include "../lib/db.php";
 include "../config.php";
 include "../getpath.php";
 

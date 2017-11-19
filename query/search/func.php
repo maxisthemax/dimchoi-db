@@ -11,8 +11,6 @@ variable    = state,city,ressearch
 usage       = to get restaurant with speicific query string
 */
 
-include "system/function.php";
-
 //===================================================
 //get all state and city
 function getAllStateAndCity()
@@ -762,6 +760,7 @@ function getuserorder()
     //define variable for query
     $user_order_id = !empty($_POST['user_order_id']) ? $_POST['user_order_id'] : '';
     $user_id = !empty($_POST['user_id']) ? $_POST['user_id'] : '';
+    $user_order_status = !empty($_POST['user_order_status']) ? $_POST['user_order_status'] : '';
     //===============================================
 
     //===============================================
@@ -781,7 +780,11 @@ function getuserorder()
          if (!empty($user_id) or $user_id != 0)
         {
             $sqlcheck .= " and a.i_user_id = $user_id";    
-        }                          
+        }   
+         if (!empty($user_order_status) or $user_order_status != 0)
+        {
+            $sqlcheck .= " and a.i_status = $user_order_status";    
+        }                                
     } 
 
     $sqlcheck .= " ORDER BY a.dt_create DESC";
