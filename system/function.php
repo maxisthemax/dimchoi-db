@@ -1,7 +1,8 @@
 <?php
-include "../lib/db.php";
-include "../config.php";
-include "../getpath.php";
+if(!@include("../lib/db.php"))
+if(!@include("../config.php"))
+if(!@include("../getpath.php"))    
+
 
 $runfunction = !empty($_POST['runfunction']) ? $_POST['runfunction'] : '';
 if ($runfunction == 'generatefirebase')
