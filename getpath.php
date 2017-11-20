@@ -33,6 +33,7 @@ function get_path($func)
 		case "updateresorderdata":
 		case "updateuserorderdata":
 		case "updateuserorderstatus":
+		case "syncorderdata";
 	    	return array("path" => "query/update/func.php","querytype"=>"update");
 	        break;
 /*---------------------------------------FOR DEVELOPMENT.PHP ONLY----------------------------------------------------------*/

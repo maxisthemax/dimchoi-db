@@ -232,6 +232,24 @@ table, th, td {
     </form>
   </td>
 </tr>
+
+<tr>
+  <td> 
+    <form action="index.php" method="post" target="_blank">
+    <table>
+    <tr><td><h2>syncorderdata</h2></td></tr> 
+    <tr><td>order_id</td><td><input name="order_id"></td></tr> 
+    <tr><td>order_data_1</td><td><input name="order_data_1"></td></tr>  
+    <tr><td>order_data_2</td><td><input name="order_data_2"></td></tr>      
+    <td colspan=2><input type="submit" name="func" value="syncorderdata"></td>
+    </table>
+    </form>
+  </td>
+  <td> 
+  </td>
+  <td> 
+  </td>
+</tr>
 </table>
 
 
