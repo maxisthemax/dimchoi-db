@@ -162,16 +162,6 @@ table, th, td {
 
 <tr><td colspan=3 style="background-color:red;"><h1>update</h1></td></tr> 
 <tr>
-  <td> 
-    <form action="index.php" method="post" target="_blank">
-    <table>
-    <tr><td><h2>updateresorderstatus</h2></td></tr> 
-    <tr><td>res_order_id</td><td><input name="res_order_id"></td></tr> 
-    <tr><td>res_order_status</td><td><input name="res_order_status"></td></tr>  
-    <td colspan=2><input type="submit" name="func" value="updateresorderstatus"></td>
-    </table>
-    </form>
-  </td>
 
   <td> 
     <form action="index.php" method="post" target="_blank">
@@ -195,6 +185,18 @@ table, th, td {
     </table>
     </form>
   </td>
+
+  <td> 
+    <form action="index.php" method="post" target="_blank">
+    <table>
+    <tr><td><h2>updateresorderstatus</h2></td></tr> 
+    <tr><td>res_order_id</td><td><input name="res_order_id"></td></tr> 
+    <tr><td>res_order_status</td><td><input name="res_order_status"></td></tr>  
+    <td colspan=2><input type="submit" name="func" value="updateresorderstatus"></td>
+    </table>
+    </form>
+  </td>
+  
 </tr>
 <tr>
   <td> 
@@ -208,7 +210,17 @@ table, th, td {
     </table>
     </form>
   </td>
-
+  <td> 
+    <form action="index.php" method="post" target="_blank">
+    <table>
+    <tr><td><h2>updateuserorderdata</h2></td></tr> 
+    <tr><td>user_order_id</td><td><input name="user_order_id"></td></tr> 
+    <tr><td>user_order_data_1</td><td><input name="user_order_data_1"></td></tr>  
+    <tr><td>user_order_data_2</td><td><input name="user_order_data_2"></td></tr>  
+    <td colspan=2><input type="submit" name="func" value="updateuserorderdata"></td>
+    </table>
+    </form>
+  </td>
   <td> 
     <form action="index.php" method="post" target="_blank">
     <table>
@@ -218,9 +230,6 @@ table, th, td {
     <td colspan=2><input type="submit" name="func" value="updateuserorderstatus"></td>
     </table>
     </form>
-  </td>
-
-  <td>     
   </td>
 </tr>
 </table>
