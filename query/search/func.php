@@ -806,7 +806,7 @@ function getuserorder()
                 'va_qr_type_name' => $userorderkey['va_qr_type_name'],
                 'i_status' => $userorderkey['i_status'],
                 'va_user_order_status' => $userorderkey['va_user_order_status'],
-                'dt_userordercreate' => $resorderkey['dt_userordercreate'],
+                'dt_userordercreate' => $userorderkey['dt_userordercreate'],
                 'dt_userorderclosed' => $userorderkey['dt_userorderclosed'],                
                 'va_userorder_data_1' => $userorder1,
                 'va_userorder_data_2' => $userorder2,
