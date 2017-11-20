@@ -1,23 +1,42 @@
 <?php
+function closeorder() 
+{
+    $_POST['user_order_id']=$_POST['order_id'];
+    $_POST['user_order_status']=99;    
+
+    $_POST['res_order_id']=$_POST['order_id'];
+    $_POST['res_order_status']=99;
+
+    unset($_POST['order_id']);  
+
+    if (updateuserorderstatus() == true AND updateresorderstatus() == true)
+    {
+        return true;
+    }
+}
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
 function syncorderdata() 
 {
-$_POST['user_order_id']=$_POST['order_id'];
-$_POST['user_order_data_1']=$_POST['order_data_1'];    
-$_POST['user_order_data_2']=$_POST['order_data_2'];
+    $_POST['user_order_id']=$_POST['order_id'];
+    $_POST['user_order_data_1']=$_POST['order_data_1'];    
+    $_POST['user_order_data_2']=$_POST['order_data_2'];
 
-$_POST['res_order_id']=$_POST['order_id'];
-$_POST['res_order_data_1']=$_POST['order_data_1'];    
-$_POST['res_order_data_2']=$_POST['order_data_2'];   
+    $_POST['res_order_id']=$_POST['order_id'];
+    $_POST['res_order_data_1']=$_POST['order_data_1'];    
+    $_POST['res_order_data_2']=$_POST['order_data_2'];   
 
-unset($_POST['order_id']);   
-unset($_POST['order_data_1']); 
-unset($_POST['order_data_2']);    
+    unset($_POST['order_id']);   
+    unset($_POST['order_data_1']); 
+    unset($_POST['order_data_2']);    
 
-if (updateuserorderdata() == true AND updateresorderdata() == true);
-{
- return true;
-}
-
+    if (updateuserorderdata() == true AND updateresorderdata() == true)
+    {
+     return true;
+    }
 }
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================

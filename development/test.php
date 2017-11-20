@@ -246,6 +246,13 @@ table, th, td {
     </form>
   </td>
   <td> 
+    <form action="index.php" method="post" target="_blank">
+    <table>
+    <tr><td><h2>closeorder</h2></td></tr> 
+    <tr><td>order_id</td><td><input name="order_id"></td></tr>  
+    <td colspan=2><input type="submit" name="func" value="closeorder"></td>
+    </table>
+    </form>
   </td>
   <td> 
   </td>
