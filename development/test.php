@@ -61,7 +61,7 @@ table, th, td {
     <tr><td>city</td><td><input type="text" name="city"></td></tr>
     <tr><td>ressearch</td><td><input type="text" name="ressearch"></td></tr>
     <tr><td>total</td><td><input type="text" name="total"></td></tr>
-    <tr> <td>startfrom/td><td><input type="text" name="startfrom"></td></tr> 
+    <tr> <td>startfrom</td><td><input type="text" name="startfrom"></td></tr> 
     <tr><td><input type="radio" name="feature" value=1></td><td>feature 1</td></tr> 
     <tr><td><input type="radio" name="feature" value=2></td><td>feature 2</td></tr> 
     <tr><td colspan=2><input type="submit" name="func" value="getresbyfeature"></td>
