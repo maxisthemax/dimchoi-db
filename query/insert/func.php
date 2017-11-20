@@ -154,12 +154,14 @@ function insertorderfromqr() {
             $sqldeleteoqr = "DELETE FROM qrcode where i_qr_id = '$qr_id' and i_qr_type_id = 1";
             $resdeleteqr = $dbhandler0->delete($sqldeleteoqr);
         }
-     }
+     
 
     if ($resinsuseroder != '' AND $resinsresorder !='' AND $resdeleteqr != '')
     {
         generatefirebase('','','BACK_TO_MAIN',$user_id,'','',2);//generatefirebase($title,$body,$broadcast,$userid,$resuserid,$token,$mode);
     }
     return $resdeleteqr;
+
+    }
 }
 ?>
