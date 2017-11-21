@@ -64,6 +64,7 @@ class database
     }
     function delete($sql,$mode = 0) 
     {
+        mysqli_autocommit($this->connection, FALSE);
         if (mysqli_query($this->connection,$sql) === TRUE) 
         {
             if ($mode == 0)
