@@ -30,6 +30,8 @@ function closeorder()
 //=====================================================================================================================================================================
 function syncorderdata() 
 {
+    global $dbhandler0;
+    $dbhandler0->begin();    
     $_POST['user_order_id']=$_POST['order_id'];
     $_POST['user_order_data_1']=$_POST['order_data_1'];    
     $_POST['user_order_data_2']=$_POST['order_data_2'];
@@ -42,10 +44,17 @@ function syncorderdata()
     unset($_POST['order_data_1']); 
     unset($_POST['order_data_2']);    
 
-    if (updateuserorderdata() == true AND updateresorderdata() == true)
+    if (updateuserorderdata(1) == true AND updateresorderdata(1) == true)
     {
+        $dbhandler0->commit();
         return true;
     }
+    else
+    {
+        $dbhandler0->rollback();
+        $dbhandler0->commit();
+        return false;
+    }    
 }
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
@@ -284,7 +293,7 @@ function updateqrdata()
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
-function updateresorderdata() 
+function updateresorderdata($mode=0) 
 {
     global $dbhandler0;
 //define variable for query >>>       
@@ -308,7 +317,7 @@ function updateresorderdata()
                 SET va_resorder_data_1 = '$res_order_data_1',va_resorder_data_2 = '$res_order_data_2'
                 where i_resorder_id = $res_order_id";
 
-                $resorderdata= $dbhandler0->update($sqlorderdata);
+                $resorderdata= $dbhandler0->update($sqlorderdata,$mode);
             return $resorderdata; 
             }   
         } 
@@ -319,7 +328,7 @@ function updateresorderdata()
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
-function updateuserorderdata() 
+function updateuserorderdata($mode=0) 
 {   
     global $dbhandler0;
 //define variable for query >>>       
@@ -343,7 +352,7 @@ function updateuserorderdata()
                 SET va_userorder_data_1 = '$user_order_data_1',va_userorder_data_2 = '$user_order_data_2'
                 where i_userorder_id = $user_order_id";
 
-                $resorderdata= $dbhandler0->update($sqlorderdata);
+                $resorderdata= $dbhandler0->update($sqlorderdata,$mode);
             return $resorderdata; 
             }   
         } 
