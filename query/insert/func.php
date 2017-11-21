@@ -97,13 +97,14 @@ function insertnewuser() {
         if ($last_id > 0)
         {
             $dbhandler0->commit();
+            return true;
         }
         else
         {
             $dbhandler0->rollback();  
-            $dbhandler0->commit();      
-        } 
-        return $res;       
+            $dbhandler0->commit();
+            return false;      
+        }      
     }
     else
     {
@@ -124,8 +125,11 @@ function insertnewuser() {
             va_google = '$googlenew'
             WHERE i_user_id = '$res_i_user_id'"; 
             $resupdate = $dbhandler0->update($sqlcheckupdate,1);
-            $dbhandler0->commit(); 
-            return $resupdate;
+            if ($resupdate)
+            {
+                $dbhandler0->commit();
+                return true;
+            }    
         }
         else
         {
@@ -180,14 +184,15 @@ function insertorderfromqr() {
         if ($resinsuseroder != '' AND $resinsresorder !='' AND $resdeleteqr != '')
             {
                 generatefirebase('','','BACK_TO_MAIN',$user_id,'','',2);//generatefirebase($title,$body,$broadcast,$userid,$resuserid,$token,$mode);
+                $dbhandler0->commit();  
+                return true;
             }
         else
             {
                 $dbhandler0->rollback(); 
+                $dbhandler0->commit();  
+                return false;
             }
-        $dbhandler0->commit();     
-        return $resdeleteqr;
-
         }
 }
 ?>

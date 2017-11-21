@@ -1,6 +1,8 @@
 <?php
 function closeorder() 
 {
+    global $dbhandler0;
+    $dbhandler0->begin();
     $_POST['user_order_id']=$_POST['order_id'];
     $_POST['user_order_status']=99;    
 
@@ -9,9 +11,16 @@ function closeorder()
 
     unset($_POST['order_id']);  
 
-    if (updateuserorderstatus() == true AND updateresorderstatus() == true)
+    if (updateuserorderstatus(1) == true AND updateresorderstatus(1) == true)
     {
+        $dbhandler0->commit();
         return true;
+    }
+    else
+    {
+        $dbhandler0->rollback();
+        $dbhandler0->commit();
+        return false;
     }
 }
 //=====================================================================================================================================================================
@@ -35,7 +44,7 @@ function syncorderdata()
 
     if (updateuserorderdata() == true AND updateresorderdata() == true)
     {
-     return true;
+        return true;
     }
 }
 //=====================================================================================================================================================================
@@ -56,7 +65,7 @@ function updateuser()
 
     if (!$resuser)
     {
-        return $resuser;
+        return false;
     }
     else
     {    
@@ -122,7 +131,10 @@ function updateresusertoken()
             SET va_token = '$token'
             where va_username = '$res_user'";
             $res = $dbhandler0->update($sqlcheck);
-        return $res;  
+        if ($res)
+        {    
+            return true;
+        }  
         }  
     }
 }        
@@ -131,7 +143,7 @@ function updateresusertoken()
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
-function updateresorderstatus() 
+function updateresorderstatus($mode=0) 
 {
     global $dbhandler0;
 
@@ -159,7 +171,7 @@ function updateresorderstatus()
             "UPDATE resorder 
             SET i_status = '$res_order_status', dt_resorderclosed = '$time'
             where i_resorder_id = '$res_order_id'";
-            $res = $dbhandler0->update($sqlcheck);
+            $res = $dbhandler0->update($sqlcheck,$mode);
         return $res; 
         }   
     }
@@ -169,7 +181,7 @@ function updateresorderstatus()
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
-function updateuserorderstatus() 
+function updateuserorderstatus($mode=0) 
 {
     global $dbhandler0;
 
@@ -198,7 +210,7 @@ function updateuserorderstatus()
             "UPDATE userorder 
             SET i_status = '$user_order_status', dt_userorderclosed = '$time'
             where i_userorder_id = '$user_order_id'";
-            $res = $dbhandler0->update($sqlcheck);
+            $res = $dbhandler0->update($sqlcheck,$mode);
         return $res; 
         }   
     }
