@@ -43,81 +43,94 @@ function insertnewqrcoderow() {
 }
 //====================================================================================================== 
 function insertnewuser() {
-    global $dbhandler0;
-    
-    $firstnamenew = !empty($_POST['firstnamenew']) ? $_POST['firstnamenew'] : '';
-    $lastnamenew = !empty($_POST['lastnamenew']) ? $_POST['lastnamenew'] : '';
-    $gendernew = !empty($_POST['gendernew']) ? $_POST['gendernew'] : '';
-    $countrycodenew = !empty($_POST['countrycodenew']) ? $_POST['countrycodenew'] : '';
-    $phonecodenew = !empty($_POST['phonecodenew']) ? $_POST['phonecodenew'] : '';
-    $phonenew = !empty($_POST['phonenew']) ? $_POST['phonenew'] : '';
-    $dobnew = !empty($_POST['dobnew']) ? $_POST['dobnew'] : '0000-00-00';
-    $emailnew = !empty($_POST['emailnew']) ? $_POST['emailnew'] : '';
-    $passnew = !empty($_POST['passnew']) ? $_POST['passnew'] : '';
-    $facebooknew = !empty($_POST['facebooknew']) ? $_POST['facebooknew'] : '';
-    $googlenew = !empty($_POST['googlenew']) ? $_POST['googlenew'] : '';    
-    $tokennew = !empty($_POST['tokennew']) ? $_POST['tokennew'] : ''; 
-    $sqlcheckuser = "SELECT * FROM user where va_email = '$emailnew'";
-    $resuser = $dbhandler0->query($sqlcheckuser);
+        global $dbhandler0;
+        $dbhandler0->begin(); 
+        $firstnamenew = !empty($_POST['firstnamenew']) ? $_POST['firstnamenew'] : '';
+        $lastnamenew = !empty($_POST['lastnamenew']) ? $_POST['lastnamenew'] : '';
+        $gendernew = !empty($_POST['gendernew']) ? $_POST['gendernew'] : '';
+        $countrycodenew = !empty($_POST['countrycodenew']) ? $_POST['countrycodenew'] : '';
+        $phonecodenew = !empty($_POST['phonecodenew']) ? $_POST['phonecodenew'] : '';
+        $phonenew = !empty($_POST['phonenew']) ? $_POST['phonenew'] : '';
+        $dobnew = !empty($_POST['dobnew']) ? $_POST['dobnew'] : '0000-00-00';
+        $emailnew = !empty($_POST['emailnew']) ? $_POST['emailnew'] : '';
+        $passnew = !empty($_POST['passnew']) ? $_POST['passnew'] : '';
+        $facebooknew = !empty($_POST['facebooknew']) ? $_POST['facebooknew'] : '';
+        $googlenew = !empty($_POST['googlenew']) ? $_POST['googlenew'] : '';    
+        $tokennew = !empty($_POST['tokennew']) ? $_POST['tokennew'] : ''; 
+        $sqlcheckuser = "SELECT * FROM user where va_email = '$emailnew'";
+        $resuser = $dbhandler0->query($sqlcheckuser);
 
-if (empty($resuser))
-{
-    $sqlcheck = 
-    "INSERT INTO user (
-    va_first_name,
-    va_last_name,    
-    va_gender,
-    va_country_code,
-    va_phone_code,
-    va_phone,
-    dt_dob,
-    va_email,
-    va_pass,
-    va_facebook,
-    va_google,
-    va_token)
-    VALUES (
-    '$firstnamenew',
-    '$lastnamenew',
-    '$gendernew',
-    '$countrycodenew',
-    '$phonecodenew',
-    '$phonenew',
-    '$dobnew',
-    '$emailnew',
-    '$passnew',
-    '$facebooknew',
-    '$googlenew',
-    '$tokennew'        
-    )";
-
-    $res = $dbhandler0->insert($sqlcheck);
-    $last_id = $res;
-    return $res;
-}
-else
-{
-    if ($facebooknew != '' or $googlenew != '')
+    if (empty($resuser))
     {
-    $res_i_user_id=$resuser[0]['i_user_id'];
-    $sqlcheckupdate = "UPDATE user SET
+        $sqlcheck = 
+        "INSERT INTO user (
+        va_first_name,
+        va_last_name,    
+        va_gender,
+        va_country_code,
+        va_phone_code,
+        va_phone,
+        dt_dob,
+        va_email,
+        va_pass,
+        va_facebook,
+        va_google,
+        va_token)
+        VALUES (
+        '$firstnamenew',
+        '$lastnamenew',
+        '$gendernew',
+        '$countrycodenew',
+        '$phonecodenew',
+        '$phonenew',
+        '$dobnew',
+        '$emailnew',
+        '$passnew',
+        '$facebooknew',
+        '$googlenew',
+        '$tokennew'        
+        )";
 
-    va_facebook = '$facebooknew',
-    va_google = '$googlenew'
-    WHERE i_user_id = '$res_i_user_id'"; 
-    $resupdate = $dbhandler0->update($sqlcheckupdate);
-    return $resupdate;
+        $res = $dbhandler0->insert($sqlcheck,1);
+        $last_id = $res;
+     
+        if ($last_id > 0)
+        {
+            $dbhandler0->commit();
+        }
+        else
+        {
+            $dbhandler0->rollback();  
+            $dbhandler0->commit();      
+        } 
+        return $res;       
     }
     else
     {
-    return -3;
+        if ($facebooknew != '' or $googlenew != '')
+        {
+            $res_i_user_id=$resuser[0]['i_user_id'];
+            $sqlcheckupdate = "UPDATE user SET
+
+            va_facebook = '$facebooknew',
+            va_google = '$googlenew'
+            WHERE i_user_id = '$res_i_user_id'"; 
+            $resupdate = $dbhandler0->update($sqlcheckupdate,1);
+            $dbhandler0->commit(); 
+            return $resupdate;
+        }
+        else
+        {
+            $dbhandler0->rollback();     
+            $dbhandler0->commit();     
+            return -3;
+        }
     }
-}
 }
 //====================================================================================================== 
 function insertorderfromqr() {
     global $dbhandler0;
-
+    $dbhandler0->begin(); 
     $qr_id = !empty($_POST['qr_id']) ? $_POST['qr_id'] : '';
     $res_order_table = !empty($_POST['res_order_table']) ? $_POST['res_order_table'] : 0;
     $sqlqr = "SELECT * FROM qrcode where i_qr_id = '$qr_id' and i_qr_type_id = 1 LIMIT 1";
@@ -140,28 +153,33 @@ function insertorderfromqr() {
         userorder (i_userorder_id,i_res_id,i_user_id,i_userorder_type_id,va_userorder_data_1,va_userorder_data_2,dt_create,i_status,dt_userordercreate,dt_userorderclosed) 
         values ('$qr_id','$res_id','$user_id','$qr_type_id','$qr_data_1','$qr_data_2','$create_date',1,now(),'0000-00-00 00:00:00')";
 
-        $resinsuseroder = $dbhandler0->insert($sqlinstouserorder);
+        $resinsuseroder = $dbhandler0->insert($sqlinstouserorder,1);
 
         $sqlinstoresorder = 
         "INSERT INTO 
         resorder (i_resorder_id,i_res_id,i_user_id,i_resorder_type_id,va_resorder_data_1,va_resorder_data_2,dt_create,i_status,dt_resordercreate,dt_resorderclosed,i_res_order_table_id) 
         values ('$qr_id','$res_id','$user_id','$qr_type_id','$qr_data_1','$qr_data_2','$create_date',1,now(),'0000-00-00 00:00:00','$res_order_table')";
 
-        $resinsresorder = $dbhandler0->insert($sqlinstoresorder);    
+        $resinsresorder = $dbhandler0->insert($sqlinstoresorder,1);    
 
         if ($resinsuseroder == $qr_id && $resinsresorder == $qr_id)
         {
             $sqldeleteoqr = "DELETE FROM qrcode where i_qr_id = '$qr_id' and i_qr_type_id = 1";
-            $resdeleteqr = $dbhandler0->delete($sqldeleteoqr);
+            $resdeleteqr = $dbhandler0->delete($sqldeleteoqr,1);
         }
      
 
-    if ($resinsuseroder != '' AND $resinsresorder !='' AND $resdeleteqr != '')
-    {
-        generatefirebase('','','BACK_TO_MAIN',$user_id,'','',2);//generatefirebase($title,$body,$broadcast,$userid,$resuserid,$token,$mode);
-    }
-    return $resdeleteqr;
+        if ($resinsuseroder != '' AND $resinsresorder !='' AND $resdeleteqr != '')
+            {
+                generatefirebase('','','BACK_TO_MAIN',$user_id,'','',2);//generatefirebase($title,$body,$broadcast,$userid,$resuserid,$token,$mode);
+            }
+        else
+            {
+                $dbhandler0->rollback(); 
+            }
+        $dbhandler0->commit();     
+        return $resdeleteqr;
 
-    }
+        }
 }
 ?>
