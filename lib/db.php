@@ -32,11 +32,14 @@ class database
         mysqli_free_result($query);               
     }
 
-    function update($sql) 
+    function update($sql,$mode = 0) 
     {
         if (mysqli_query($this->connection,$sql) === TRUE) 
         {
-            mysqli_commit($this->connection);  
+            if ($mode == 0)
+            {            
+                mysqli_commit($this->connection);  
+            }    
             return true;
         } 
         else 
@@ -44,21 +47,28 @@ class database
             echo mysqli_error($this->connection);
         }
     }
-    function insert($sql) 
+    function insert($sql,$mode = 0) 
     {   mysqli_autocommit($this->connection, FALSE);
             if (mysqli_query($this->connection,$sql) === TRUE) {
                 $last_id = mysqli_insert_id($this->connection);
-                mysqli_commit($this->connection); 
+                if ($mode == 0)
+                {
+                    mysqli_commit($this->connection);
+                }
                 return $last_id;
+
             } else {
                 echo mysqli_error($this->connection);
             }
     }
-    function delete($sql) 
+    function delete($sql,$mode = 0) 
     {
         if (mysqli_query($this->connection,$sql) === TRUE) 
         {
-            mysqli_commit($this->connection);  
+            if ($mode == 0)
+            {            
+                mysqli_commit($this->connection); 
+            } 
             return true;
         } 
         else 
@@ -70,5 +80,20 @@ class database
     {
         mysqli_close($this->connection);
     }
+    function begin() 
+    {
+        mysqli_query($this->connection,"START TRANSACTION;");
+    }
+    
+    function rollback() 
+    {
+        mysqli_query($this->connection,"ROLLBACK;");
+    }   
+     
+    function commit() 
+    {
+        mysqli_commit($this->connection);
+    }    
+
 }
 ?>
