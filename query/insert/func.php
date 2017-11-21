@@ -194,5 +194,9 @@ function insertorderfromqr() {
                 return false;
             }
         }
+        else
+        {
+            return false;
+        }
 }
 ?>
