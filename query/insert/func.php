@@ -107,6 +107,14 @@ function insertnewuser() {
     }
     else
     {
+        if ($resuser[0]['va_facebook'] != '')
+        {
+          $facebooknew = $resuser[0]['va_facebook'];
+        }
+        if ($resuser[0]['va_google'] != '')
+        {
+          $googlenew = $resuser[0]['va_google'];
+        }        
         if ($facebooknew != '' or $googlenew != '')
         {
             $res_i_user_id=$resuser[0]['i_user_id'];
