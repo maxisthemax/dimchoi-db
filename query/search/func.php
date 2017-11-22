@@ -133,6 +133,20 @@ FROM
     }
     //===================================================
     $res = $dbhandler0->query($sqlcheck);
+    if($res)   
+    {
+        $typebit = $res[0]['i_res_type_bit'];  
+        $sqlcheck = "SELECT * FROM res_type where i_res_type_bit&'$typebit'>0";
+        $restypebit = $dbhandler0->query($sqlcheck);
+        if ($restypebit)
+        {
+            $res[0]['res_type'] = $restypebit; 
+        }
+        else
+        {
+            $res[0]['res_type'] = ''; 
+        }       
+    }
     return ($res);  
 }
 function getresbyfeature() 
