@@ -135,16 +135,16 @@ FROM
     $res = $dbhandler0->query($sqlcheck);
     if($res)   
     {
-        $typebit = $res[0]['i_res_type_bit'];  
-        $sqlcheck = "SELECT * FROM res_type where i_res_type_bit&'$typebit'>0";
-        $restypebit = $dbhandler0->query($sqlcheck);
-        if ($restypebit)
+        $settingbit = $res[0]['i_res_setting_bit'];  
+        $sqlcheck = "SELECT * FROM res_setting where i_res_setting_bit&'$settingbit'>0";
+        $ressettingbit = $dbhandler0->query($sqlcheck);
+        if ($ressettingbit)
         {
-            $res[0]['res_type'] = $restypebit; 
+            $res[0]['res_setting'] = $ressettingbit; 
         }
         else
         {
-            $res[0]['res_type'] = ''; 
+            $res[0]['res_setting'] = ''; 
         }       
     }
     return ($res);  
