@@ -47,20 +47,18 @@ $(document).ready(function()
     $.getJSON('data/res.php',function(data)
     {
         var optiondata = "<?php echo $_SESSION['Options'] ?>" ;
-        var combo = $("#Options");       
+        var combo = $("#Options");
         $.each(data.data,function(i,value)
         {
-
         if (value.i_res_id == value.i_hq_id)
         {
-            var ishq = ' (HQ)';
+        var hq = ' (HQ)';    
         }    
         else
         {
-            var ishq = '';
-        }  
-
-        combo.append("<option value="+value.i_res_id+">" + value.va_res_name + value.va_area_name  + ishq +  "</option>");
+        var hq = '';
+        }    
+        combo.append("<option value="+value.i_res_id+">" + value.va_res_name + ' - ' + value.va_area_name + hq + "</option>");
         });
 
         $("#SELECTOR").append(combo);

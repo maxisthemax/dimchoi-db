@@ -368,13 +368,13 @@ $(document).ready(function()
         {
         if (value.i_res_id == value.i_hq_id)
         {
-        var hq = '- HQ';   
+        var hq = ' (HQ)';    
         }    
         else
         {
         var hq = '';
         }    
-        combo.append("<option value="+value.i_res_id+">" + value.va_res_name + hq + "</option>");
+        combo.append("<option value="+value.i_res_id+">" + value.va_res_name + ' - ' + value.va_area_name + hq + "</option>");
         });
 
         $("#SELECTOR").append(combo);
@@ -382,8 +382,7 @@ $(document).ready(function()
         {
             $("#Options").val(optiondata);
         }    
-    }); 
-
+    });
 
        $('#Options').change(function(){
              $("#getfoodform").submit();
