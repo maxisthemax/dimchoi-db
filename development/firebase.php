@@ -32,7 +32,7 @@ echo "<tr><td>Token</td><td><input id=token name=token value=></td></tr>";
 echo "<tr><td>Title</td><td><input id=title name=title disabled value=></td></tr>";
 echo "<tr><td>Body</td><td><input id=body name=body disabled value=></td></tr>";
 echo "<tr><td>Broadcast</td><td><input id=broadcast disabled name=broadcast value=></td></tr>";
-echo "<tr><td colspan = 2><input id=send type=submit name=firebase value='Launch Cheok Dick'</td></tr>";
+echo "<tr><td colspan = 2><input id=send type=submit name=firebase value='Launch Firebase'</td></tr>";
 echo "<tr><td id=functionname colspan = 2></td></tr>";
 echo "<input type=hidden id=runfunction name=runfunction value='generatefirebase'>";
 echo "<table></form></html>";
