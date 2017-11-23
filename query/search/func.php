@@ -145,7 +145,31 @@ FROM
         else
         {
             $res[0]['res_setting'] = ''; 
-        }       
+        }   
+
+        $typebit = $res[0]['i_res_type_bit'];  
+        $sqlcheck = "SELECT * FROM res_type where i_res_type_bit&'$typebit'>0";
+        $restypebit = $dbhandler0->query($sqlcheck);
+        if ($restypebit)
+        {
+            $res[0]['res_type'] = $restypebit; 
+        }
+        else
+        {
+            $res[0]['res_type'] = ''; 
+        }    
+
+        $amenitiesbit = $res[0]['i_res_amenities_bit'];  
+        $sqlcheck = "SELECT * FROM res_amenities where i_res_amenities_bit&'$amenitiesbit'>0";
+        $resamenitiesbit = $dbhandler0->query($sqlcheck);
+        if ($resamenitiesbit)
+        {
+            $res[0]['res_amenities'] = $resamenitiesbit; 
+        }
+        else
+        {
+            $res[0]['res_amenities'] = ''; 
+        }                  
     }
     return ($res);  
 }
