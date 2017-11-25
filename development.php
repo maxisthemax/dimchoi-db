@@ -58,7 +58,10 @@ if($_SESSION['password']=="123qweasdzxc")
     <input type="submit" name="page" value="User Order" />
     <input type="submit" name="page" value="Res Order" />
     <input type="submit" name="page" value="User" />    
-    <input type="submit" name="page" value="Restaurant User" />    
+    <input type="submit" name="page" value="Restaurant User" />   
+    <input type="submit" name="page" value="Restaurant Setting" />
+    <input type="submit" name="page" value="Restaurant Type" />    
+    <input type="submit" name="page" value="Restaurant Amenities" />      
     <input type="submit" name="page" value="Firebase" />  
     <input type="button" onclick="window.location='https://drive.google.com/open?id=1OnPQu9JX-wyyBAeSzz8YLejGFIPcAheQMnHSQwQ2yp0'" value="API GUIDE"/>
 </form>
@@ -124,7 +127,21 @@ if (!empty($_POST['page']))
   else if ($_POST['page'] == 'Restaurant User')
     {
       $_SESSION['page'] = 'Restaurant User';
-    }                               
+    }  
+
+  else if ($_POST['page'] == 'Restaurant Setting')
+    {
+      $_SESSION['page'] = 'Restaurant Setting';
+    }    
+  else if ($_POST['page'] == 'Restaurant Type')
+    {
+      $_SESSION['page'] = 'Restaurant Type';
+    }  
+  else if ($_POST['page'] == 'Restaurant Amenities')
+    {
+      $_SESSION['page'] = 'Restaurant Amenities';
+    }  
+
 }
 if (!empty($_SESSION['page']) && $_SESSION['password']=="123qweasdzxc")
 {
@@ -158,7 +175,17 @@ if (!empty($_SESSION['page']) && $_SESSION['password']=="123qweasdzxc")
             break;   
         case "Restaurant User":
             include "development/resuser.php";
-            break;                                                  
+            break;  
+
+        case "Restaurant Setting":
+            include "development/ressetting.php";
+            break;   
+        case "Restaurant Type":
+            include "development/restype.php";
+            break;   
+        case "Restaurant Amenities":
+            include "development/resamenities.php";
+            break;                                                             
         }
 }
 ?>

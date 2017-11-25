@@ -43,7 +43,8 @@ function get_path($func)
 		case "insertnewfood_dev":
 		case "insertnewbev_dev":
 		case "insertnewfoodtype_dev":
-		case "insertnewbevtype_dev":		
+		case "insertnewbevtype_dev":
+		case "insertnewrestype_dev":
 	    	return array("path" => "query/dev/insert/func.php","querytype"=>"insert");
 	        break;
 
@@ -52,14 +53,17 @@ function get_path($func)
 		case "updatefood_dev":
 		case "updatebev_dev":
 		case "updatefoodtype_dev":
-		case "updatebevtype_dev":	    
+		case "updatebevtype_dev":	
+		case "updaterestypetable_dev":	
+		case "updaterestype_dev":	    
 	    	return array("path" => "query/dev/update/func.php","querytype"=>"update");
 	        break;	
 
 		case "deletefood_dev":
 		case "deletefoodprice_dev":
 		case "deletebev_dev":
-		case "deletebevprice_dev":		
+		case "deletebevprice_dev":
+		case "deletecurrentrestype_dev":		
 	    	return array("path" => "query/dev/delete/func.php","querytype"=>"delete");
 	        break;		                
 	}
