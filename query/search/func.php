@@ -386,7 +386,19 @@ function getresfoodmenu()
     }   
     $sqlfoodprice .= " ORDER BY b.i_food_id ASC,c.i_food_price_order ASC";
     $foodprice = $dbhandler0->query($sqlfoodprice);
+
+    $sqlsetting = "SELECT * FROM restaurant a LEFT JOIN res_setting b ON a.i_res_setting_bit&b.i_res_setting_bit>0 
+    WHERE a.i_res_id=$res_id";
+    $ressetting = $dbhandler0->query($sqlsetting);   
     //===================================================
+    foreach ($ressetting as $key3)
+    {
+        $setting[]=[
+                       'i_res_setting_bit' => $key3['i_res_setting_bit'],     
+                       'va_res_setting_name' => $key3['va_res_setting_name']
+                      ];
+    }
+
     foreach ($foodtype as $key1)
     {
            foreach ($food as $key2)
@@ -553,7 +565,8 @@ function getresfoodmenu()
                 'va_menu_code' => $key2['va_menu_code'], 
                 'food_menu_type_id' => $food_menu_type_id,                 
                 'food_menu' => $foodresult,
-                'beverage_menu' => $bevresult
+                'beverage_menu' => $bevresult,
+                'setting' => $setting
             );
 
    return ($finalresult);  
