@@ -301,15 +301,25 @@ function updateresorderdata($mode=0)
 //define variable for query <<< 
     if ($res_order_id > 0)
     {    
-        $sqlcheck = "SELECT 1 FROM resorder where i_resorder_id = $res_order_id LIMIT 0";
+        $sqlcheck = "SELECT * FROM resorder where i_resorder_id = $res_order_id LIMIT 1";
         $rescheck= $dbhandler0->query($sqlcheck);
 
         if($rescheck)
-        {    
+        {
         //define variable for query >>>       
-            $res_order_data_1 = addslashes(!empty($_POST['res_order_data_1'])? $_POST['res_order_data_1'] : $rescheck[0]['res_order_data_1']);
-            $res_order_data_2 = addslashes(!empty($_POST['res_order_data_2'])? $_POST['res_order_data_2'] : $rescheck[0]['res_order_data_2']);
+            $res_order_data_1 = addslashes(!empty($_POST['res_order_data_1'])? $_POST['res_order_data_1'] : $rescheck[0]['va_resorder_data_1']);
+            $res_order_data_2 = addslashes(!empty($_POST['res_order_data_2'])? $_POST['res_order_data_2'] : $rescheck[0]['va_resorder_data_2']);
         //define variable for query <<<
+
+            if (!empty($_POST['res_order_data_1']) AND $_POST['res_order_data_1'] == '')
+            {
+                $res_order_data_1 = '';
+            }
+            if (!empty($_POST['res_order_data_2']) AND $_POST['res_order_data_2'] == '')
+            {
+                $res_order_data_2 = '';
+            }
+
             if (!empty($res_order_data_1) OR !empty($res_order_data_2))
             {            
             $sqlorderdata = 
@@ -336,15 +346,16 @@ function updateuserorderdata($mode=0)
 //define variable for query <<< 
     if ($user_order_id > 0)
     {    
-        $sqlcheck = "SELECT 1 FROM userorder where i_userorder_id = $user_order_id LIMIT 0";
+        $sqlcheck = "SELECT * FROM userorder where i_userorder_id = $user_order_id LIMIT 1";
         $rescheck= $dbhandler0->query($sqlcheck);
 
         if($rescheck)
         {    
         //define variable for query >>>       
-            $user_order_data_1 = addslashes(!empty($_POST['user_order_data_1'])? $_POST['user_order_data_1'] : $rescheck[0]['user_order_data_1']);
-            $user_order_data_2 = addslashes(!empty($_POST['user_order_data_2'])? $_POST['user_order_data_2'] : $rescheck[0]['user_order_data_2']);
+            $user_order_data_1 = addslashes(!empty($_POST['user_order_data_1'])? $_POST['user_order_data_1'] : $rescheck[0]['va_userorder_data_1']);
+            $user_order_data_2 = addslashes(!empty($_POST['user_order_data_2'])? $_POST['user_order_data_2'] : $rescheck[0]['va_userorder_data_2']);
         //define variable for query <<<
+            
             if (!empty($user_order_data_1) OR !empty($user_order_data_2))
             {            
             $sqlorderdata = 
