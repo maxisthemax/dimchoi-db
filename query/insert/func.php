@@ -146,7 +146,7 @@ function insertorderfromqr() {
     $qr_id = !empty($_POST['qr_id']) ? $_POST['qr_id'] : '';
     $res_order_table = !empty($_POST['res_order_table']) ? $_POST['res_order_table'] : 0;
     $sqlqr = "SELECT * FROM qrcode where i_qr_id = '$qr_id' and i_qr_type_id = 1 LIMIT 1";
-
+    $time = date("Y-m-d H:i:s");
     $resqr = $dbhandler0->query($sqlqr);
 
      if ($resqr)
@@ -159,6 +159,17 @@ function insertorderfromqr() {
         $qr_data_2 = $resqr[0]['va_qr_data_2'];
         $qr_data_2=str_replace("'","\'", $qr_data_2);
         $create_date = $resqr[0]['dt_create'];
+
+
+        $qr_data_1_temp = json_decode($qr_data_1,true);
+        unset($qr_data_1);
+
+        $qr_data_1[] = [
+            'date' => $time,
+            'data' => $qr_data_1_temp
+        ];
+
+        $qr_data_1 = json_encode($qr_data_1,JSON_UNESCAPED_SLASHES);
 
         $sqlinstouserorder = 
         "INSERT INTO 
