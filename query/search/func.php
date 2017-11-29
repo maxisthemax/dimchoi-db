@@ -371,7 +371,7 @@ function getresfoodmenu()
     //===================================================    
     //===============================================
     //start query
-    $sqlfoodprice = "SELECT c.i_food_id AS i_food_id,c.va_food_size AS va_food_size, FORMAT(c.d_food_price,2) AS d_food_price
+    $sqlfoodprice = "SELECT c.i_food_id AS i_food_id,c.va_food_size AS va_food_size, FORMAT(c.d_food_price,2) AS d_food_price,c.i_price_id
     FROM menu a 
     LEFT JOIN food b ON b.i_menu_id = a.i_menu_id
     LEFT JOIN food_price c ON c.i_food_id = b.i_food_id
@@ -409,7 +409,11 @@ function getresfoodmenu()
                     {
                         if ($key2['i_food_id']==$price['i_food_id'])
                         {   
-                            $food_price[] = ['va_food_size' => $price['va_food_size'],'d_food_price' => $price['d_food_price']];            
+                            $food_price[] = [
+                            'i_price_id' => $price['i_price_id'],
+                            'va_food_size' => $price['va_food_size'],
+                            'd_food_price' => $price['d_food_price']
+                            ];            
                         }
                     }                      
                 $foodarray[]=[
@@ -451,7 +455,7 @@ function getresfoodmenu()
                 'i_res_id' => $key2['i_res_id'],
                 'va_menu_code' => $key2['va_menu_code'], 
                 'food_menu_type_id' => $food_menu_type_id,                 
-                'food_menu' => $foodresult
+                'food_menu' => $foodresult,
                 'setting' => $setting
             );
 
