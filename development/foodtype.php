@@ -27,9 +27,8 @@ function getfoodtype($resid) {
     FROM food_type a 
     LEFT JOIN restaurant b on b.i_hq_id = a.i_res_id
     WHERE b.i_res_id = $resid ORDER BY a.i_food_type_order ASC";
-
     $resfoodtype = $dbhandler0->query($sqlfoodtype);
-    
+    $resid=$resfoodtype[0]['i_res_id'];  
 
 
     echo'<form action="index.php" method="post"><table id="tab" width=100%  border=1 style="font-size:100%;">';
