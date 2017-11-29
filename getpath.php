@@ -9,7 +9,6 @@ function get_path($func)
 	    case "getresbyfeature":
 	    case "getresbylocation":
 	    case "getresfoodmenu":
-	    case "getresbeveragemenu":
 	    case "getresfoodtype":
 	    case "getorderqrcode":
 	    case "getuser":
@@ -41,9 +40,7 @@ function get_path($func)
 
 		case "insertnewres_dev":
 		case "insertnewfood_dev":
-		case "insertnewbev_dev":
 		case "insertnewfoodtype_dev":
-		case "insertnewbevtype_dev":
 		case "insertnewrestype_dev":
 		case "insertnewressetting_dev":
 		case "insertnewresamenities_dev":
@@ -53,9 +50,7 @@ function get_path($func)
 		case "updateres_dev":
 		case "updateuser_dev":
 		case "updatefood_dev":
-		case "updatebev_dev":
-		case "updatefoodtype_dev":
-		case "updatebevtype_dev":	
+		case "updatefoodtype_dev":	
 		case "updaterestypetable_dev":	
 		case "updaterestype_dev":	
 		case "updateressettingtable_dev":	
@@ -67,8 +62,6 @@ function get_path($func)
 
 		case "deletefood_dev":
 		case "deletefoodprice_dev":
-		case "deletebev_dev":
-		case "deletebevprice_dev":
 		case "deletecurrentrestype_dev":		
 		case "deletecurrentressetting_dev":
 		case "deletecurrentresamenities_dev":

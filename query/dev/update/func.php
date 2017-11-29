@@ -171,57 +171,6 @@ function updatefood_dev()
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
-function updatebev_dev() 
-{
-    global $dbhandler0;
-    $priceid=$_POST['bev_price_id'];
-    $bevidlog1 = 0;
-//=============================================== 
-//define variable for query
-//===============================================
-
-        foreach(  $_POST['bevpriceidloop'] as $loopbevpriceid ) 
-        {
-            $bevid=$_POST['bevidloop'][$loopbevpriceid];  
-            $bevname=$_POST['bev_name'][$loopbevpriceid];
-            $bevname=str_replace("'","\'", $bevname);
-            $bevdesc=str_replace("'","\'", $_POST['bev_desc'][$loopbevpriceid]);
-            $bevsize=$_POST['bev_size'][$loopbevpriceid];   
-            $bevprize=$_POST['bev_price'][$loopbevpriceid];        
-            $bevtype=$_POST['bev_type'][$loopbevpriceid]; 
-            $bevurl=$_POST['bev_pic_url'][$loopbevpriceid];
-            $bevstatus=!empty($_POST['bev_status'][$loopbevpriceid]) ? 1 : 0; 
-            $bevpricestatus=!empty($_POST['bev_price_status'][$loopbevpriceid]) ? 1 : 0; 
-
-            $bevorder=$_POST['bev_order'][$loopbevpriceid]; 
-            $bevpriceorder=$_POST['bev_price_order'][$loopbevpriceid];
-
-            if ($bevid<>$bevidlog1)
-            {
-            $sqlcheck = 
-            "UPDATE bev 
-            SET va_bev_name = '$bevname', i_bev_type_id = '$bevtype',va_bev_pic_url = '$bevurl',va_bev_desc = '$bevdesc',i_bev_status='$bevstatus',
-            i_bev_order = '$bevorder'
-            where i_bev_id = (SELECT i_bev_id FROM bev_price where i_price_id=$loopbevpriceid LIMIT 1)";
-            $res = $dbhandler0->update($sqlcheck);
-            $bevidlog1 = $bevid;
-            }
-            $sqlcheck1 = 
-            "UPDATE bev_price 
-            SET va_bev_size = '$bevsize',d_bev_price = $bevprize,i_bev_price_status='$bevpricestatus',i_bev_price_order = '$bevpriceorder'
-            where i_price_id = $loopbevpriceid";
-            $res1 = $dbhandler0->update($sqlcheck1);
-        }
-
-        if ($res && $res1){
-            header('Location:'.$_POST['uri']);
-        }
-}
-//=====================================================================================================================================================================
-//=====================================================================================================================================================================
-//=====================================================================================================================================================================
-//=====================================================================================================================================================================
-//=====================================================================================================================================================================
 function updatefoodtype_dev() 
 {
     global $dbhandler0;
@@ -236,32 +185,6 @@ function updatefoodtype_dev()
         "UPDATE food_type 
         SET va_food_type_name = '$foodtypename', va_food_type_pic_url = '$foodpictypeurl',i_food_type_order = '$foodtypeorder'
         where i_food_type_id = $foodtype_update";
-
-        $res = $dbhandler0->update($sqlcheck);
-
-        if ($res){
-            header('Location:'.$_POST['uri']);
-        }
-}
-//=====================================================================================================================================================================
-//=====================================================================================================================================================================
-//=====================================================================================================================================================================
-//=====================================================================================================================================================================
-//=====================================================================================================================================================================
-function updatebevtype_dev() 
-{
-    global $dbhandler0;
-    $bevtype_update = !empty($_POST['bevtype_update']) ? $_POST['bevtype_update'] : ''; 
-    $bevtypename = !empty($_POST['bevtypename'][$bevtype_update]) ? $_POST['bevtypename'][$bevtype_update] : ''; 
-    $bevpictypeurl = !empty($_POST['bevpictypeurl'][$bevtype_update]) ? $_POST['bevpictypeurl'][$bevtype_update] : ''; 
-    $bevtypeorder = !empty($_POST['bevtypeorder'][$bevtype_update]) ? $_POST['bevtypeorder'][$bevtype_update] : 0;    
-//=============================================== 
-//define variable for query
-//===============================================  
-     $sqlcheck = 
-        "UPDATE bev_type 
-        SET va_bev_type_name = '$bevtypename', va_bev_type_pic_url = '$bevpictypeurl',i_bev_type_order = '$bevtypeorder'
-        where i_bev_type_id = $bevtype_update";
 
         $res = $dbhandler0->update($sqlcheck);
 

@@ -301,17 +301,6 @@
         resultarray($res,'data/foodtype.php');
     }
 //==============================================================================================
-    global $dbhandler0;
-    $sqlcheck = "SELECT a.*  
-    FROM bev_type a";
-
-    $res = $dbhandler0->query($sqlcheck);
-
-    if($res)
-    {
-        resultarray($res,'data/bevtype.php');
-    }
-//==============================================================================================
 function resultarray($res,$filenameurl)
     {
         if (!empty($res))

@@ -12,8 +12,6 @@ if (isset($_SESSION['Options'])) {
     if ($_SESSION['Options'] != '')
     {
     getfoodtype($_SESSION['Options']);
-    echo("<br><br>");
-    getbevtype($_SESSION['Options']);
     }
 }
 else
@@ -69,55 +67,6 @@ function getfoodtype($resid) {
     echo "<input type=hidden name='uri' id='uri' value=".$uri.">"; 
     echo '</table></form>';  
     } 
-
-function getbevtype($resid) {
-    $uri = $_SERVER['REQUEST_URI']; // holds url for last page visited.s
-    global $dbhandler0;
-    
-    $sqlbevtype = "SELECT DISTINCT a.*
-    FROM bev_type a 
-    LEFT JOIN restaurant b on b.i_hq_id = a.i_res_id
-    WHERE b.i_res_id = $resid ORDER BY i_bev_type_order ASC";
-
-    $resbevtype = $dbhandler0->query($sqlbevtype);
-    
-
-
-    echo'<form action="index.php" method="post"><table id="tab" width=100%  border=1 style="font-size:100%;">';
-    echo "<tr><TD colspan = 3 align=center>BEV TYPE</td></tr>";    
-    echo "<tr><td width=10%>Bev Type ID</td><td width=10%>Bev Type Name</td><td width=10%>Bev Pic URL</td><td width=10%></td>";
-
-    foreach($resbevtype as $resbevtypevalue) 
-    {
-        $bevtypeid = $resbevtypevalue['i_bev_type_id'];    
-        echo "<tr><td>".$resbevtypevalue['i_bev_type_id'];
-        echo "</td><td><input name = bevtypename[$bevtypeid] id = bevtypename[$bevtypeid] value ='".$resbevtypevalue['va_bev_type_name']
-        ."'></td><td><input name = bevpictypeurl[$bevtypeid] id = bevpictypeurl[$bevtypeid] value ='".$resbevtypevalue['va_bev_type_pic_url']."'></td>";
-
-        echo "</td><td><input name = bevtypeorder[$bevtypeid] id = bevtypeorder[$bevtypeid] value ='".$resbevtypevalue['i_bev_type_order']."'></td>";
-
-        echo "<td>"."<button onclick='setformupdatebev(".$resbevtypevalue['i_bev_type_id'].");'>Update bev Type</button>"."</td></tr>";    
-    }   
-    echo "<input type=hidden id='bevtype_update' name='bevtype_update'>";
-    echo "<input type=hidden id='func' name='func' value='updatebevtype_dev'>";
-    echo "<input type=hidden name='uri' id='uri' value=".$uri.">"; 
-    echo '</table></form>';    
- 
-
-    echo'<form action="index.php" method="post"><table id="tab" width=100%  border=1 style="font-size:100%;">';
-    echo "<tr><TD colspan = 3 align=center>Bev TYPE</td></tr>"; 
-
-    echo "<tr><td width=10%>Bev Type Name</td><td width=10%>Bev Pic Url</td>";
-
-    echo "<tr><td><input id=bev_type_new name=bev_type_new></td>";
-    echo "<td><input id=bev_type_pic_url_new name=bev_type_pic_url_new></td></tr>";
-
-    echo "<tr><TD colspan = 3 align=center><button onclick='setforminsertbev(".$resid.");'>Insert New Bev Type</button></td></tr>";   
-    echo "<input type=hidden id='func' name='func' value='insertnewbevtype_dev'>";
-    echo "<input type=hidden id='resid_insertbev' name='resid_insertbev'>";
-    echo "<input type=hidden name='uri' id='uri' value=".$uri.">"; 
-    echo '</table></form>';   
-    }     
 ?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -129,15 +78,6 @@ $("#resid_insertfood").val(resid);
 function setformupdatefood(foodtypeid)
 {   
 $("#foodtype_update").val(foodtypeid);
-}
-
-function setforminsertbev(resid)
-{   
-$("#resid_insertbev").val(resid);
-}
-function setformupdatebev(bevtypeid)
-{   
-$("#bevtype_update").val(bevtypeid);
 }
 
 $(document).ready(function() 

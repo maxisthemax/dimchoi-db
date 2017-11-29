@@ -49,30 +49,10 @@ function getresmenufood($resid) {
     LEFT JOIN restaurant c on c.i_res_id = b.i_res_id and c.i_res_stat = 1
     WHERE c.i_res_id = $hqid";
     $res1 = $dbhandler0->query($sqlcheck1);
-
-    $sqlbev = "SELECT *,a.i_bev_id AS bevid
-    FROM bev a LEFT JOIN menu b on a.i_menu_id = b.i_menu_id
-    LEFT JOIN restaurant c on c.i_res_id = b.i_res_id and c.i_res_stat = 1
-    LEFT JOIN bev_price e on a.i_bev_id = e.i_bev_id
-    LEFT JOIN bev_type f on f.i_bev_type_id = a.i_bev_type_id
-    WHERE c.i_res_id = $hqid
-    ORDER BY f.i_bev_type_order ASC,a.i_bev_id ASC";
-    $res2 = $dbhandler0->query($sqlbev);    
-
-    $sqlbevlist = "SELECT *,a.i_bev_id AS bevid
-    FROM bev a LEFT JOIN menu b on a.i_menu_id = b.i_menu_id
-    LEFT JOIN restaurant c on c.i_res_id = b.i_res_id and c.i_res_stat = 1
-    WHERE c.i_res_id = $resid
-    ORDER BY a.i_bev_id ASC";
-    $resbev = $dbhandler0->query($sqlbevlist);
-
+   
     $sqlfoodtype = "SELECT * FROM food_type
     WHERE i_res_id = $hqid order by i_food_type_order ASC";
     $resfoodtype = $dbhandler0->query($sqlfoodtype);
-
-    $sqlbevtype = "SELECT * FROM bev_type
-    WHERE i_res_id = $hqid order by i_bev_type_order ASC";
-    $resbevtype = $dbhandler0->query($sqlbevtype);
 
 echo'<form action="index.php" method="post"><table id="tab" width=100%  border=1 style="font-size:100%;">';
 echo "<tr><td>Restaurant Name</td><td id=resname>".$res1[count($res1)-1]['va_res_name']."</td></tr>";
@@ -116,70 +96,19 @@ echo "<tr><TD colspan = 5 align=center>FOOD</td></tr>";
         echo "></td>";  
         echo "<td><input name='food_order[$food_price_id]' value='".$resvalue["i_food_order"]."'></td>";       
         echo "<td><input name='food_price_order[$food_price_id]' value='".$resvalue["i_food_price_order"]."'></td>";     
-        echo "<td width=20%><button onclick='setformupdate($food_id,$food_price_id,1);'>Update Current Row</button></td>";  
-        echo "<td width=20%><button onclick='setformdelete($food_id,1);'>Delete This Food</button></td>";  
-        echo "<td width=30%><button onclick='setformdeleteprice($food_price_id,1);'>Delete This Price Only</button></td>";  
+        echo "<td width=20%><button onclick='setformupdate($food_id,$food_price_id);'>Update Current Row</button></td>";  
+        echo "<td width=20%><button onclick='setformdelete($food_id);'>Delete This Food</button></td>";  
+        echo "<td width=30%><button onclick='setformdeleteprice($food_price_id);'>Delete This Price Only</button></td>";  
 
         echo "<input type=hidden name='foodidloop[$food_price_id]' id='foodidloop[$food_price_id]' value=".$food_id.">";  
         echo "<input type=hidden name='foodpriceidloop[$food_price_id]' id='foodpriceidloop[$food_price_id]' value=".$food_price_id.">";  
         echo "</tr>";
     }
-echo "<tr><td colspan = 5>&nbsp;</td></tr>";
-echo "<tr><td colspan = 5>&nbsp;</td></tr>";
-echo "<tr><td colspan = 5>&nbsp;</td></tr>";
-echo "<tr><TD colspan = 5 align=center>BEVERAGE</td></tr>";
-echo "<tr><td>Food ID</td><td>Bev Name</td><td>Bev Desc</td><td>Bev Type</td><td>Size</td><td>Price</td><td>Pic Url</td><td>Pic Display</td><td>Hide This Bev</td><td>Hide This Price</td></tr>";
-echo "<td>Bev Order</td><td>Bev Price Order</td></tr>";    
-    foreach($res2 as $res2value) {
-        $bev_id=$res2value["bevid"];
-        $bev_price_id=$res2value["i_price_id"];
-        echo "<tr>";
-        echo "<td ";
-        if ($res2value["i_bev_price_status"] != 1)
-        echo "style='background-color:#000000;color:white;'";
-        if ($res2value["i_bev_status"] != 1)
-        echo "style='background-color:#000000;color:white;'"; 
-        echo " >".$res2value["bevid"]."</td>";       
-        $bevname=str_replace("'","&#39;", $res2value["va_bev_name"]);
-        echo "<td><input name='bev_name[$bev_price_id]' size=50 value='".$bevname."'></td>";
-        echo "<td><textarea name='bev_desc[$bev_price_id]' rows=5 cols=50>".$res2value["va_bev_desc"]."</textarea></td>"; 
-
-        echo "<td><select name='bev_type[$bev_price_id]'>";    
-        foreach($resbevtype as $resvaluebevtype) {
-            echo "<option value =".$resvaluebevtype["i_bev_type_id"];
-            if ($res2value["i_bev_type_id"]==$resvaluebevtype["i_bev_type_id"]){echo " selected";}
-            echo ">".$resvaluebevtype["va_bev_type_name"]."</option>";  
-        }
-        echo "</select></td>"; 
-       
-        echo "<td><input name='bev_size[$bev_price_id]' value='".$res2value["va_bev_size"]."'></td>";    
-        echo "<td><input name='bev_price[$bev_price_id]' value='".$res2value["d_bev_price"]."'></td>";
-
-        echo "<td><input name='bev_pic_url[$bev_price_id]' value='".$res2value["va_bev_pic_url"]."'></td>";
-        echo "<td><img src='".$_SESSION["file"].$res1[count($res1)-1]['va_res_code']."/".$res2value["va_bev_pic_url"]."' height='150' width='180'></td>";
-        echo "<td><input type='checkbox' name='bev_status[$bev_price_id]' id=bev_status[$bev_price_id]";
-        if ($res2value["i_bev_status"] == 1){echo " checked";}
-        echo "></td>";     
-        echo "<td><input type='checkbox' name='bev_price_status[$bev_price_id]' id=bev_price_status[$bev_price_id]";
-        if ($res2value["i_bev_price_status"] == 1){echo " checked";}
-        echo "></td>";      
-        echo "<td><input name='bev_order[$bev_price_id]' value='".$res2value["i_bev_order"]."'></td>";       
-        echo "<td><input name='bev_price_order[$bev_price_id]' value='".$res2value["i_bev_price_order"]."'></td>";                  
-        echo "<td width=20%><button onclick='setformupdate($bev_id,$bev_price_id,2);'>Update Current Row</button></td>";  
-        echo "<td width=20%><button onclick='setformdelete($bev_id,2);'>Delete This Beverage</button></td>";
-        echo "<td width=30%><button onclick='setformdeleteprice($bev_price_id,2);'>Delete This Price Only</button></td>";    
-        echo "<input type=hidden name='bevidloop[$bev_price_id]' id='bevidloop[$bev_price_id]' value=".$bev_id.">";  
-        echo "<input type=hidden name='bevpriceidloop[$bev_price_id]' id='bevpriceidloop[$bev_price_id]' value=".$bev_price_id.">";  
-
-        echo "</tr>";
-    }
-
+        echo "<tr><td colspan = 5>&nbsp;</td></tr>";
         echo '</table>';
         echo "<input type=hidden name='func' id='func' value=''>";
         echo "<input type=hidden name='food_id' id='food_id'>";  
-        echo "<input type=hidden name='bev_id' id='bev_id'>";
         echo "<input type=hidden name='food_price_id' id='food_price_id'>";     
-        echo "<input type=hidden name='bev_price_id' id='bev_price_id'>";  
         echo "<input type=hidden name='uri' id='uri' value=".$uri.">"; 
         if (!empty($_POST["page"])){
         echo "<input type=hidden name='page' id='page' value=".$_POST["page"].">";
@@ -223,41 +152,7 @@ echo "<td>Bev Order</td><td>Bev Price Order</td></tr>";
         echo "<input type=hidden name='uri' id='uri' value=".$uri.">"; 
         echo '</form>';
         echo '<button onclick=addnewvariantfood();>Add New Variant</button>';
-
-        echo '<br><br>';
-        echo'<form action="index.php" method="post"><table id="addbev" border=1 style="font-size:100%;">';
-        echo "<tr><TD colspan =2 align=center>BEVERAGE</td></tr>";
-        echo "<tr><td><select name=inserttypebev id=inserttypebev><option value=1>Insert New Bev</option><option value=2>Insert New Variant</option></select></td><td><button onclick='setforminsert1();'>GO</button></td></tr>";
-        echo "<tr><td>Bev Name</td><td>Bev Type</td></tr>";
-        echo "<tr>";
-
-        echo "<td id = updatebev1><input name='bev_name_new' size=50 value='"."'></td>";
-        echo "<td id = updatebev2 style='display:none;'><select name = bev_name_update>";
-        foreach($resbev as $res4value) {
-        echo "<option value=".$res4value["bevid"].">";    
-        echo $res4value["va_bev_name"];  
-        echo "</option>";  
-        }
-        echo "</select></td>";
-        echo "<td><select name='bev_type_new' id='bev_type_new' required>";
-        foreach($resbevtype as $resvaluebevtype) {
-            echo "<option value =".$resvaluebevtype["i_bev_type_id"];
-            echo ">".$resvaluebevtype["va_bev_type_name"]."</option>";  
-        }
-        echo "</select></td>";     
-        echo "</tr>"; 
-        echo "<tr><td>VARIANT</td></tr>";          
-        echo "<tr><td>Size</td><td>Price</td></tr>";
-        echo "<tr><td><input name='bev_size_new[1]' id='bev_size_new[]' size=10 value='"."'></td>";
-        echo "<td><input name='bev_price_new[1]' id='bev_price_new[]' size=10 value='"."'></td></tr>";
-        echo "<input type=hidden name='func' value='insertnewbev_dev'>";    
-        echo "<input type=hidden id='resid_insertbev' name='resid_insertbev'>";
-        echo "<input type=hidden id='resname_insertbev' name='resname_insertbev'>";
-        echo "<input type=hidden id='menucode_insertbev' name='menucode_insertbev'>"; 
-        echo '</table>';    
-        echo "<input type=hidden name='uri' id='uri' value=".$uri.">"; 
-        echo '</form>';
-        echo '<button onclick=addnewvariantbev();>Add New Variant</button>';        
+        echo '<br><br>';    
     }
 ?>
 
@@ -267,50 +162,27 @@ function addnewvariantfood()
 {
 $('#addfood tr:last').after('<tr><td><input name=food_size_new[] id=food_size_new[] size=10 value=></td><td><input name=food_price_new[] id=food_price_new[] size=10></td></tr>');
 }
-function addnewvariantbev()
-{
-$('#addbev tr:last').after('<tr><td><input name=bev_size_new[] id=bev_size_new[] size=10 value=></td><td><input name=bev_price_new[] id=bev_price_new[] size=10></td></tr>');
-}
-function setformupdate(id,price_id,type)
+
+function setformupdate(id,price_id)
 {  
-if (type == 1)
-{
+
     $("#food_id").val(id);
     $("#food_price_id").val(price_id);    
     $("#func").val('updatefood_dev');
+
+
 }
-else if (type == 2)
-{
-    $("#bev_id").val(id); 
-    $("#bev_price_id").val(price_id);   
-    $("#func").val('updatebev_dev');
-}
-}
-function setformdelete(id,type)
-{
-if (type == 1)
+function setformdelete(id)
 {
     $("#food_id").val(id);
     $("#func").val('deletefood_dev');
+
 }
-else if (type == 2)
-{
-    $("#bev_id").val(id);
-    $("#func").val('deletebev_dev');
-}
-}
-function setformdeleteprice(price_id,type)
-{   
-if (type == 1)
-{    
+function setformdeleteprice(price_id)
+{       
     $("#food_price_id").val(price_id);
     $("#func").val('deletefoodprice_dev');
-}
-else if (type == 2)
-{
-    $("#bev_price_id").val(price_id);
-    $("#func").val('deletebevprice_dev');
-}    
+  
 }
 function setforminsert()
 {  
@@ -326,9 +198,6 @@ function setforminsert1()
 var resid = "<?php echo $_SESSION['Options'] ?>" ;    
 var menucode = $("#menucode").html();
 var resname= $("#resname").html(); 
-$("#resid_insertbev").val(resid);   
-$("#resname_insertbev").val(resname);
-$("#menucode_insertbev").val(menucode); 
 }
 $(document).ready(function() 
 {
@@ -345,21 +214,7 @@ $(document).ready(function()
         $("#updatefood2").show();
         $('#food_type_new').hide();
         }
-    })  
-    $('#inserttypebev').change(function(){
-        if (this.value == 1)
-        {
-        $("#updatebev1").show();
-        $("#updatebev2").hide();
-        $('#bev_type_new').show();
-        }
-        else if (this.value == 2)
-        {
-        $("#updatebev1").hide();     
-        $("#updatebev2").show();
-        $('#bev_type_new').hide();
-        }
-    })        
+    })         
     $.getJSON('data/res.php',function(data)
     {
         var optiondata = "<?php echo $_SESSION['Options'] ?>" ;

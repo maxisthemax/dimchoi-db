@@ -53,7 +53,7 @@ if($_SESSION['password']=="123qweasdzxc")
     <input type="submit" name="page" value="Main Test" />
     <input type="submit" name="page" value="Restaurant" />
     <input type="submit" name="page" value="Food" />
-    <input type="submit" name="page" value="Food/Bev Type" />     
+    <input type="submit" name="page" value="Food Type" />     
     <input type="submit" name="page" value="Qr Code" />
     <input type="submit" name="page" value="User Order" />
     <input type="submit" name="page" value="Res Order" />
@@ -116,9 +116,9 @@ if (!empty($_POST['page']))
     {
       $_SESSION['page'] = 'Res Order';
     } 
-  else if ($_POST['page'] == 'Food/Bev Type')
+  else if ($_POST['page'] == 'Food Type')
     {
-      $_SESSION['page'] = 'Food/Bev Type';
+      $_SESSION['page'] = 'Food Type';
     }    
   else if ($_POST['page'] == 'Firebase')
     {
@@ -167,8 +167,8 @@ if (!empty($_SESSION['page']) && $_SESSION['password']=="123qweasdzxc")
         case "User":
             include "development/user.php";
             break;      
-        case "Food/Bev Type":
-            include "development/foodbevtype.php";
+        case "Food Type":
+            include "development/foodtype.php";
             break;   
         case "Firebase":
             include "development/firebase.php";
