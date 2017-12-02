@@ -450,9 +450,7 @@ function getresfoodmenu()
 //=============================================================FOOD===================================================================================
 
     $finalresult = array (
-                'i_menu_id' => $key2['i_menu_id'], 
-                'i_res_id' => $key2['i_res_id'],
-                'va_menu_code' => $key2['va_menu_code'],                
+                'i_res_id' => $key2['i_res_id'],           
                 'food_menu' => $foodresult,
                 'setting' => $setting
             );
