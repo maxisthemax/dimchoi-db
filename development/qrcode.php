@@ -30,7 +30,7 @@ function getqrcode($resid) {
 
     echo'<form action="index.php" method="post"><table id="tab" width=100%  border=1 style="font-size:100%;">';
     echo "<tr><TD colspan = 3 align=center>QR CODE</td></tr>";    
-    echo "<tr><td width=10%>Qr ID</td><td width=10%>Qr Type</td><td width=10%>User ID</td><td>Qr Data 1</td><td>Qr Data 2</td></tr>";
+    echo "<tr><td width=10%>Qr ID</td><td width=10%>Qr Type</td><td width=10%>User ID</td><td>Food Order In Json Format</td><td>Qr Data 2</td></tr>";
 
     foreach($resqr as $resvalue) 
     {
@@ -41,10 +41,10 @@ function getqrcode($resid) {
 
     echo'<form action="index.php" method="post"><table id="tab" width=100%  border=1 style="font-size:100%;">';
     echo "<tr><TD colspan = 3 align=center>QR CODE</td></tr>";    
-    echo "<tr><td width=10%>Qr Type</td><td width=10%>User ID</td><td>Qr Data 1</td><td>Qr Data 2</td></tr>";
+    echo "<tr><td width=10%>Qr Type</td><td width=10%>User ID</td><td>Food Order In Json Format</td></tr>";
     echo "<tr><td width=10%><select name=qrtypenew id=qrtypenew><option value=1>food</option></select></td>
     <td><input id=userid_insert name=userid_insert></td>
-    <td><textarea name=qrdatanew1 id=qrdatanew1 rows=8 cols=50></textarea></td><td><textarea name=qrdatanew2 id=qrdatanew2 rows=8 cols=50></textarea></td></tr>";
+    <td><textarea name=jsonfoodorderdata id=jsonfoodorderdata rows=8 cols=50></textarea></td></tr>";
     echo "<tr><TD colspan = 3 align=center><button onclick='setforminsert(".$resid.");'>Insert New Qr Code</button></td></tr>";   
     echo "<input type=hidden id='func' name='func' value='insertnewqrcoderow'>";
     echo "<input type=hidden id='resid_insert' name='resid_insert'>";

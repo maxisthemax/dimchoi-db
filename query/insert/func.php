@@ -5,41 +5,136 @@ include "system/function.php";
 //====================================================================================================== 
 function insertnewqrcoderow() {
     global $dbhandler0;
-
-    $qrdatanew1 = !empty($_POST['qrdatanew1']) ? $_POST['qrdatanew1'] : '';
-    $qrdatanew1=str_replace("'","\'", $qrdatanew1);
-    $qrdatanew2 = !empty($_POST['qrdatanew2']) ? $_POST['qrdatanew2'] : '';
-    $qrdatanew2=str_replace("'","\'", $qrdatanew2);
-    
+    $dbhandler0->begin(); 
+    $jsonfoodorderdata = !empty($_POST['jsonfoodorderdata']) ? $_POST['jsonfoodorderdata'] : '';
+    $jsonfoodorderdata=str_replace("'","\'", $jsonfoodorderdata);
     $qrtypenew = !empty($_POST['qrtypenew']) ? $_POST['qrtypenew'] : '';
     $resid_insert = !empty($_POST['resid_insert']) ? $_POST['resid_insert'] : '';
     $userid_insert = !empty($_POST['userid_insert']) ? $_POST['userid_insert'] : 0;
+
+    $foodresult = array();
+    $foodpriceresult = array();  
+    $finalfoodresult = array();
+
+    $foodtypeloop = array();
+    $foodtypearray = array();  
 
     $sqlcheck = 
     "INSERT INTO qrcode (
     i_res_id,
     i_user_id,
-    i_qr_type_id,    
-    va_qr_data_1,
-    va_qr_data_2)
+    i_qr_type_id)
     VALUES (
     '$resid_insert',
     '$userid_insert',
-    '$qrtypenew',
-    '$qrdatanew1',
-    '$qrdatanew2')";
+    '$qrtypenew')";
 
-    $res = $dbhandler0->insert($sqlcheck);
+    $res = $dbhandler0->insert($sqlcheck,1);
     $last_id = $res;
+    if ($last_id > 0)
+    {
+       $arrayfoodorderdata = json_decode($jsonfoodorderdata);
 
-    $sqlqrcode = "SELECT * FROM qrcode WHERE i_qr_id = '$last_id' LIMIT 1";    
-    $resqrcode = $dbhandler0->query($sqlqrcode);
-    
-    $finalresult = array (
-        'i_res_id' => $resqrcode[0]['i_res_id'],
-        'i_qr_id' => $last_id
-            );
-    return $finalresult;
+        foreach ($arrayfoodorderdata as $data) 
+        {
+            $food_item_id = $data->food_id;
+            $price_item_id = $data->price_id;
+            $item_quantity = $data->quantity;
+            $item_remark = $data->remark;
+            $sqlitem = "INSERT INTO item (i_order_id,i_food_id,i_price_id,i_quantity,va_remark,i_status) VALUES ($last_id,$food_item_id,$price_item_id,$item_quantity,'$item_remark',0)";
+            $resitem = $dbhandler0->insert($sqlitem,1);
+        }
+
+            $sqlfood = 
+            "SELECT d.va_food_type_name,d.i_food_type_id,b.va_food_name,b.i_food_id,c.va_food_size,c.d_food_price,c.i_price_id,a.i_quantity,a.va_remark,a.i_status,b.va_food_pic_url
+            FROM item a
+            LEFT JOIN food b on a.i_food_id = b.i_food_id
+            LEFT JOIN food_price c on a.i_price_id = c.i_price_id AND a.i_food_id = c.i_food_id 
+            LEFT JOIN food_type d on d.i_food_type_id = b.i_food_type_id
+            WHERE a.i_order_id = '$last_id'
+            ORDER BY i_food_type_order ASC";    
+            $resfood = $dbhandler0->query($sqlfood);
+
+            $sqlhqid = 
+            "SELECT i_hq_id FROM restaurant where i_res_id = '$resid_insert' LIMIT 1";    
+            $reshqid = $dbhandler0->query($sqlhqid);
+            $hqid = $reshqid[0]['i_hq_id'];
+
+            $sqlrescode = 
+            "SELECT va_res_code FROM restaurant where i_hq_id = '$hqid' LIMIT 1";    
+            $resrescode = $dbhandler0->query($sqlrescode);
+            $rescode = $resrescode[0]['va_res_code'];
+
+            foreach($resfood as $foodtypedata){
+                if ( in_array($foodtypedata['va_food_type_name'], $foodtypeloop) ) {
+                    continue;
+                }
+                $foodtypeloop[] = $foodtypedata['va_food_type_name'];
+
+                $foodtypearray[] = ['food_type' => $foodtypedata['va_food_type_name'],'food_type_id' => $foodtypedata['i_food_type_id'] ];
+            }
+
+            foreach($foodtypearray as $data1){    
+
+                foreach($resfood as $data2){
+                            if ($data1['food_type'] == $data2['va_food_type_name'])
+                            {
+                            $foodpriceresult[] = [
+                                            'price_id' => $data2['i_price_id'],
+                                            'quantity' => $data2['i_quantity'],
+                                            'size' => $data2['va_food_size'],
+                                            'remark' => $data2['va_remark'],
+                                            'status' => $data2['i_status']
+                                            ];   
+
+                            $foodresult[] = [
+                                            'name' => $data2['va_food_name'],
+                                            'order' => $foodpriceresult,
+                                            'image_url' => $_SESSION['file'].$rescode.'/'.$data2['va_food_pic_url'],
+                                            'food_id' => $data2['i_food_id'],
+                                            ]; 
+                            }  
+                            unset($foodpriceresult);               
+                }
+
+                $finalfoodresult[] = 
+                [
+                'food_type' => $data1['food_type'],
+                'food_type_id' => $data1['food_type_id'],
+                'menu' => $foodresult
+                ];
+
+                unset($foodresult);
+            }
+            $finalfoodresult=str_replace("'","\'", $finalfoodresult);
+            $finalfoodresultjson = json_encode($finalfoodresult,JSON_UNESCAPED_SLASHES);
+
+            $sqlfoodinsert = "UPDATE qrcode set va_qr_data_1 = '$finalfoodresultjson' WHERE i_qr_id = $last_id";
+            $ressqlfoodinsert = $dbhandler0->update($sqlfoodinsert);     
+    }  
+
+    if ($last_id>0 AND $resitem>0)
+    {
+            $sqlqrcode = "SELECT * FROM qrcode WHERE i_qr_id = '$last_id' LIMIT 1";
+            $resqrcode = $dbhandler0->query($sqlqrcode);
+            $finalresult = array (
+                'i_res_id' => $resqrcode[0]['i_res_id'],
+                'i_qr_id' => $last_id
+                    );
+            $dbhandler0->commit();  
+            return $finalresult;            
+    }
+    else    
+    {
+            $sqlauto = "ALTER TABLE qrcode AUTO_INCREMENT = 1"; 
+            $res = $dbhandler0->update($sqlauto);
+            $sqlauto = "ALTER TABLE item AUTO_INCREMENT = 1";
+            $res = $dbhandler0->update($sqlauto);  
+
+            $dbhandler0->rollback(); 
+            $dbhandler0->commit();         
+    }    
+
 }
 //====================================================================================================== 
 function insertnewuser() {
