@@ -27,9 +27,9 @@ function deletefood_dev()
                 $res2 = $dbhandler0->delete($sqldelete2);
 
                 $sqlauto = "ALTER TABLE food AUTO_INCREMENT = 1"; 
-                $res = $dbhandler0->query($sqlauto);  
+                $res = $dbhandler0->update($sqlauto);  
                 $sqlauto = "ALTER TABLE food_price AUTO_INCREMENT = 1"; 
-                $res = $dbhandler0->query($sqlauto);                                  
+                $res = $dbhandler0->update($sqlauto);                                  
         }
     if ($res1 && $res2){
         header('Location:'.$_POST['uri']);
@@ -64,14 +64,14 @@ function deletefoodprice_dev()
                 $sqldelete1 = "DELETE FROM food_price where i_price_id = '$food_price_id'"; 
                 $res1 = $dbhandler0->delete($sqldelete1);
                 $sqlauto = "ALTER TABLE food_price AUTO_INCREMENT = 1"; 
-                $res = $dbhandler0->query($sqlauto);                 
+                $res = $dbhandler0->update($sqlauto);                 
         }
     else if ($rescount = 1) {
             //start delete 
                 $sqldelete1 = "DELETE FROM food where i_food_id = (SELECT a.i_food_id FROM food_price a where a.i_price_id = '$food_price_id')"; 
                 $res1 = $dbhandler0->delete($sqldelete1); 
                 $sqlauto = "ALTER TABLE food AUTO_INCREMENT = 1"; 
-                $res = $dbhandler0->query($sqlauto);                          
+                $res = $dbhandler0->update($sqlauto);                          
     }    
     if ($res1){
         header('Location:'.$_POST['uri']);
@@ -100,7 +100,7 @@ function deletecurrentrestype_dev()
                 $res1 = $dbhandler0->delete($sqldelete1);
 
                 $sqlauto = "ALTER TABLE res_type AUTO_INCREMENT = 1"; 
-                $res = $dbhandler0->query($sqlauto);                
+                $res = $dbhandler0->update($sqlauto);                
         }
     if ($res1){
         header('Location:'.$_POST['uri']);
@@ -129,7 +129,7 @@ function deletecurrentressetting_dev()
                 $res1 = $dbhandler0->delete($sqldelete1);
 
                 $sqlauto = "ALTER TABLE res_setting AUTO_INCREMENT = 1"; 
-                $res = $dbhandler0->query($sqlauto);                
+                $res = $dbhandler0->update($sqlauto);                
         }
     if ($res1){
         header('Location:'.$_POST['uri']);
@@ -158,7 +158,7 @@ function deletecurrentresamenities_dev()
                 $res1 = $dbhandler0->delete($sqldelete1);
 
                 $sqlauto = "ALTER TABLE res_amenities AUTO_INCREMENT = 1"; 
-                $res = $dbhandler0->query($sqlauto);                
+                $res = $dbhandler0->update($sqlauto);                
         }
     if ($res1){
         header('Location:'.$_POST['uri']);
