@@ -438,12 +438,11 @@ function getresfoodmenu()
                 $foodtypepicurl = $_SESSION['file'].'DIMCHOI/'.$key1['va_food_type_pic_url'];
             }
 
-            $foodtypearray[]=array('menu_type'=>$key1['va_food_type_name'],'va_food_type_pic_url'=>$foodtypepicurl,'menu_data'=>$foodarray); 
+            $foodtypearray[]=array('food_type'=>$key1['va_food_type_name'],'food_type_id'=>$key1['food_type_id'],'va_food_type_pic_url'=>$foodtypepicurl,'menu_data'=>$foodarray); 
 
             unset($foodarray); 
             $foodarray = array();            
       
-    $food_menu_type_id[$key1['va_food_type_name']] = $key1['food_type_id'];  
     }
 
     $in = json_encode($foodtypearray,JSON_UNESCAPED_SLASHES);
@@ -453,8 +452,7 @@ function getresfoodmenu()
     $finalresult = array (
                 'i_menu_id' => $key2['i_menu_id'], 
                 'i_res_id' => $key2['i_res_id'],
-                'va_menu_code' => $key2['va_menu_code'], 
-                'food_menu_type_id' => $food_menu_type_id,                 
+                'va_menu_code' => $key2['va_menu_code'],                
                 'food_menu' => $foodresult,
                 'setting' => $setting
             );
