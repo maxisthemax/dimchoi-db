@@ -46,7 +46,7 @@ function insertnewqrcoderow() {
         }
 
             $sqlfood = 
-            "SELECT d.va_food_type_name,d.i_food_type_id,b.va_food_name,b.i_food_id,c.va_food_size,c.d_food_price,c.i_price_id,a.i_quantity,a.va_remark,a.i_status,b.va_food_pic_url
+            "SELECT d.va_food_type_name,d.i_food_type_id,b.va_food_name,b.i_food_id,c.va_food_size,FORMAT(c.d_food_price,2) AS d_food_price,c.i_price_id,a.i_quantity,a.va_remark,a.i_status,b.va_food_pic_url
             FROM item a
             LEFT JOIN food b on a.i_food_id = b.i_food_id
             LEFT JOIN food_price c on a.i_price_id = c.i_price_id AND a.i_food_id = c.i_food_id 
@@ -81,6 +81,7 @@ function insertnewqrcoderow() {
                             {
                             $foodpriceresult[] = [
                                             'price_id' => $data2['i_price_id'],
+                                            'price' => $data2['d_food_price'],
                                             'quantity' => $data2['i_quantity'],
                                             'size' => $data2['va_food_size'],
                                             'remark' => $data2['va_remark'],
