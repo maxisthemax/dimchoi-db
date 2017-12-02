@@ -8,20 +8,28 @@ function closeorder()
 
     $_POST['res_order_id']=$_POST['order_id'];
     $_POST['res_order_status']=99;
+    $order_id=$_POST['order_id'];
+    $sqlcloseitem = "UPDATE item set i_status = 99 where i_order_id = '$order_id'";
+    $rescloseitem = $dbhandler0->update($sqlcloseitem);
 
-    unset($_POST['order_id']);  
-
-    if (updateuserorderstatus(1) == true AND updateresorderstatus(1) == true)
+    $_POST['order_data_1'] = generatejsonfromitem($order_id);
+    
+    if (updateuserorderstatus(1) == true AND updateresorderstatus(1) == true AND syncorderdata() == true)
     {
+    	unset($_POST['order_id']);
+        unset($_POST['order_data_1']);
         $dbhandler0->commit();
         return true;
     }
     else
     {
+    	unset($_POST['order_id']);
+        unset($_POST['order_data_1']);
         $dbhandler0->rollback();
         $dbhandler0->commit();
         return false;
     }
+
 }
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
@@ -374,4 +382,84 @@ function updateuserorderdata($mode=0)
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
+function generatejsonfromitem ($last_id)
+{
+$foodtypeloop = array();    
+global $dbhandler0;
+$sqlfood = 
+"SELECT d.va_food_type_name,d.i_food_type_id,b.va_food_name,b.i_food_id,c.va_food_size,FORMAT(c.d_food_price,2) AS d_food_price,c.i_price_id,a.i_quantity,a.va_remark,a.i_status,b.va_food_pic_url
+,a.dt_itemcreate,e.va_item_status
+FROM item a
+LEFT JOIN food b on a.i_food_id = b.i_food_id
+LEFT JOIN food_price c on a.i_price_id = c.i_price_id AND a.i_food_id = c.i_food_id 
+LEFT JOIN food_type d on d.i_food_type_id = b.i_food_type_id
+LEFT JOIN itemstatus e on e.i_item_status_id = a.i_status
+WHERE a.i_order_id = '$last_id'
+ORDER BY i_food_type_order ASC";    
+$resfood = $dbhandler0->query($sqlfood);
+
+$sqlhqid = 
+"SELECT b.i_hq_id FROM qrcode a LEFT JOIN restaurant b on a.i_res_id = b.i_res_id WHERE a.i_qr_id = '$last_id'";    
+$reshqid = $dbhandler0->query($sqlhqid);
+
+if ($reshqid == '')
+{
+$sqlhqid = "SELECT b.i_hq_id FROM userorder a LEFT JOIN restaurant b on a.i_res_id = b.i_res_id WHERE a.i_userorder_id = '$last_id'";    
+$reshqid = $dbhandler0->query($sqlhqid);  
+}
+
+$hqid = $reshqid[0]['i_hq_id'];
+
+$sqlrescode = 
+"SELECT va_res_code FROM restaurant where i_hq_id = '$hqid' LIMIT 1";    
+$resrescode = $dbhandler0->query($sqlrescode);
+$rescode = $resrescode[0]['va_res_code'];
+
+foreach($resfood as $foodtypedata){
+    if ( in_array($foodtypedata['va_food_type_name'], $foodtypeloop) ) {
+        continue;
+    }
+    $foodtypeloop[] = $foodtypedata['va_food_type_name'];
+
+    $foodtypearray[] = ['food_type' => $foodtypedata['va_food_type_name'],'food_type_id' => $foodtypedata['i_food_type_id'] ];
+}
+
+foreach($foodtypearray as $data1){    
+
+    foreach($resfood as $data2){
+                if ($data1['food_type'] == $data2['va_food_type_name'])
+                {
+                $foodpriceresult[] = [
+                                'price_id' => $data2['i_price_id'],
+                                'price' => $data2['d_food_price'],
+                                'quantity' => $data2['i_quantity'],
+                                'size' => $data2['va_food_size'],
+                                'remark' => $data2['va_remark'],
+                                'item_create_date' => $data2['dt_itemcreate'],
+                                'status' => $data2['va_item_status']
+                                ];   
+
+                $foodresult[] = [
+                                'name' => $data2['va_food_name'],
+                                'order' => $foodpriceresult,
+                                'image_url' => $_SESSION['file'].$rescode.'/'.$data2['va_food_pic_url'],
+                                'food_id' => $data2['i_food_id'],
+                                ]; 
+                }  
+                unset($foodpriceresult);               
+    }
+
+    $finalfoodresult[] = 
+    [
+    'food_type' => $data1['food_type'],
+    'food_type_id' => $data1['food_type_id'],
+    'menu' => $foodresult
+    ];
+
+    unset($foodresult);
+}
+$finalfoodresult=str_replace("'","\'", $finalfoodresult);
+$finalfoodresultjson = json_encode($finalfoodresult,JSON_UNESCAPED_SLASHES);
+return $finalfoodresultjson;
+}
 ?>
