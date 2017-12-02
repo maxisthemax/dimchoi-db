@@ -16,7 +16,6 @@ function insertnewqrcoderow() {
     $foodpriceresult = array();  
     $finalfoodresult = array();
 
-    $foodtypeloop = array();
     $foodtypearray = array();  
 
     $sqlcheck = 
@@ -44,76 +43,9 @@ function insertnewqrcoderow() {
             $sqlitem = "INSERT INTO item (i_order_id,i_food_id,i_price_id,i_quantity,va_remark,dt_itemcreate,i_status) VALUES ($last_id,$food_item_id,$price_item_id,$item_quantity,'$item_remark',now(),0)";
             $resitem = $dbhandler0->insert($sqlitem,1);
         }
-
-            $sqlfood = 
-            "SELECT d.va_food_type_name,d.i_food_type_id,b.va_food_name,b.i_food_id,c.va_food_size,FORMAT(c.d_food_price,2) AS d_food_price,c.i_price_id,a.i_quantity,a.va_remark,a.i_status,b.va_food_pic_url
-            ,a.dt_itemcreate
-            FROM item a
-            LEFT JOIN food b on a.i_food_id = b.i_food_id
-            LEFT JOIN food_price c on a.i_price_id = c.i_price_id AND a.i_food_id = c.i_food_id 
-            LEFT JOIN food_type d on d.i_food_type_id = b.i_food_type_id
-            WHERE a.i_order_id = '$last_id'
-            ORDER BY i_food_type_order ASC";    
-            $resfood = $dbhandler0->query($sqlfood);
-
-            $sqlhqid = 
-            "SELECT i_hq_id FROM restaurant where i_res_id = '$resid_insert' LIMIT 1";    
-            $reshqid = $dbhandler0->query($sqlhqid);
-            $hqid = $reshqid[0]['i_hq_id'];
-
-            $sqlrescode = 
-            "SELECT va_res_code FROM restaurant where i_hq_id = '$hqid' LIMIT 1";    
-            $resrescode = $dbhandler0->query($sqlrescode);
-            $rescode = $resrescode[0]['va_res_code'];
-
-            foreach($resfood as $foodtypedata){
-                if ( in_array($foodtypedata['va_food_type_name'], $foodtypeloop) ) {
-                    continue;
-                }
-                $foodtypeloop[] = $foodtypedata['va_food_type_name'];
-
-                $foodtypearray[] = ['food_type' => $foodtypedata['va_food_type_name'],'food_type_id' => $foodtypedata['i_food_type_id'] ];
-            }
-
-            foreach($foodtypearray as $data1){    
-
-                foreach($resfood as $data2){
-                            if ($data1['food_type'] == $data2['va_food_type_name'])
-                            {
-                            $foodpriceresult[] = [
-                                            'price_id' => $data2['i_price_id'],
-                                            'price' => $data2['d_food_price'],
-                                            'quantity' => $data2['i_quantity'],
-                                            'size' => $data2['va_food_size'],
-                                            'remark' => $data2['va_remark'],
-                                            'item_create_date' => $data2['dt_itemcreate'],
-                                            'status' => $data2['i_status']
-                                            ];   
-
-                            $foodresult[] = [
-                                            'name' => $data2['va_food_name'],
-                                            'order' => $foodpriceresult,
-                                            'image_url' => $_SESSION['file'].$rescode.'/'.$data2['va_food_pic_url'],
-                                            'food_id' => $data2['i_food_id'],
-                                            ]; 
-                            }  
-                            unset($foodpriceresult);               
-                }
-
-                $finalfoodresult[] = 
-                [
-                'food_type' => $data1['food_type'],
-                'food_type_id' => $data1['food_type_id'],
-                'menu' => $foodresult
-                ];
-
-                unset($foodresult);
-            }
-            $finalfoodresult=str_replace("'","\'", $finalfoodresult);
-            $finalfoodresultjson = json_encode($finalfoodresult,JSON_UNESCAPED_SLASHES);
-
-            $sqlfoodinsert = "UPDATE qrcode set va_qr_data_1 = '$finalfoodresultjson' WHERE i_qr_id = $last_id";
-            $ressqlfoodinsert = $dbhandler0->update($sqlfoodinsert);     
+            $jsondata = generatejsonfromitem($last_id);  
+            $sqlfoodinsert = "UPDATE qrcode set va_qr_data_1 = '$jsondata' WHERE i_qr_id = $last_id";
+            $ressqlfoodinsert = $dbhandler0->update($sqlfoodinsert);   
     }  
 
     if ($last_id>0 AND $resitem>0)
@@ -258,17 +190,23 @@ function insertorderfromqr() {
         $qr_data_2=str_replace("'","\'", $qr_data_2);
         $create_date = $resqr[0]['dt_create'];
 
+        $sqlupdateitem = 
+        "UPDATE item SET i_status = 1 WHERE i_order_id = $qr_id";
+        $resupdateitem = $dbhandler0->update($sqlupdateitem,1);
+
+        $jsondata = generatejsonfromitem($qr_id);
+
         $sqlinstouserorder = 
         "INSERT INTO 
         userorder (i_userorder_id,i_res_id,i_user_id,i_userorder_type_id,va_userorder_data_1,va_userorder_data_2,dt_create,i_status,dt_userordercreate,dt_userorderclosed) 
-        values ('$qr_id','$res_id','$user_id','$qr_type_id','$qr_data_1','$qr_data_2','$create_date',1,now(),'0000-00-00 00:00:00')";
+        values ('$qr_id','$res_id','$user_id','$qr_type_id','$jsondata','$qr_data_2','$create_date',1,now(),'0000-00-00 00:00:00')";
 
         $resinsuseroder = $dbhandler0->insert($sqlinstouserorder,1);
 
         $sqlinstoresorder = 
         "INSERT INTO 
         resorder (i_resorder_id,i_res_id,i_user_id,i_resorder_type_id,va_resorder_data_1,va_resorder_data_2,dt_create,i_status,dt_resordercreate,dt_resorderclosed,i_res_order_table_id) 
-        values ('$qr_id','$res_id','$user_id','$qr_type_id','$qr_data_1','$qr_data_2','$create_date',1,now(),'0000-00-00 00:00:00','$res_order_table')";
+        values ('$qr_id','$res_id','$user_id','$qr_type_id','$jsondata','$qr_data_2','$create_date',1,now(),'0000-00-00 00:00:00','$res_order_table')";
 
         $resinsresorder = $dbhandler0->insert($sqlinstoresorder,1);    
 
@@ -296,5 +234,78 @@ function insertorderfromqr() {
         {
             return false;
         }
+}
+//====================================================================================================== 
+function generatejsonfromitem ($last_id)
+{
+$foodtypeloop = array();    
+global $dbhandler0;
+$sqlfood = 
+"SELECT d.va_food_type_name,d.i_food_type_id,b.va_food_name,b.i_food_id,c.va_food_size,FORMAT(c.d_food_price,2) AS d_food_price,c.i_price_id,a.i_quantity,a.va_remark,a.i_status,b.va_food_pic_url
+,a.dt_itemcreate
+FROM item a
+LEFT JOIN food b on a.i_food_id = b.i_food_id
+LEFT JOIN food_price c on a.i_price_id = c.i_price_id AND a.i_food_id = c.i_food_id 
+LEFT JOIN food_type d on d.i_food_type_id = b.i_food_type_id
+WHERE a.i_order_id = '$last_id'
+ORDER BY i_food_type_order ASC";    
+$resfood = $dbhandler0->query($sqlfood);
+
+$sqlhqid = 
+"SELECT b.i_hq_id FROM qrcode a LEFT JOIN restaurant b on a.i_res_id = b.i_res_id WHERE a.i_qr_id = '$last_id'";    
+$reshqid = $dbhandler0->query($sqlhqid);
+$hqid = $reshqid[0]['i_hq_id'];
+
+$sqlrescode = 
+"SELECT va_res_code FROM restaurant where i_hq_id = '$hqid' LIMIT 1";    
+$resrescode = $dbhandler0->query($sqlrescode);
+$rescode = $resrescode[0]['va_res_code'];
+
+foreach($resfood as $foodtypedata){
+    if ( in_array($foodtypedata['va_food_type_name'], $foodtypeloop) ) {
+        continue;
+    }
+    $foodtypeloop[] = $foodtypedata['va_food_type_name'];
+
+    $foodtypearray[] = ['food_type' => $foodtypedata['va_food_type_name'],'food_type_id' => $foodtypedata['i_food_type_id'] ];
+}
+
+foreach($foodtypearray as $data1){    
+
+    foreach($resfood as $data2){
+                if ($data1['food_type'] == $data2['va_food_type_name'])
+                {
+                $foodpriceresult[] = [
+                                'price_id' => $data2['i_price_id'],
+                                'price' => $data2['d_food_price'],
+                                'quantity' => $data2['i_quantity'],
+                                'size' => $data2['va_food_size'],
+                                'remark' => $data2['va_remark'],
+                                'item_create_date' => $data2['dt_itemcreate'],
+                                'status' => $data2['i_status']
+                                ];   
+
+                $foodresult[] = [
+                                'name' => $data2['va_food_name'],
+                                'order' => $foodpriceresult,
+                                'image_url' => $_SESSION['file'].$rescode.'/'.$data2['va_food_pic_url'],
+                                'food_id' => $data2['i_food_id'],
+                                ]; 
+                }  
+                unset($foodpriceresult);               
+    }
+
+    $finalfoodresult[] = 
+    [
+    'food_type' => $data1['food_type'],
+    'food_type_id' => $data1['food_type_id'],
+    'menu' => $foodresult
+    ];
+
+    unset($foodresult);
+}
+$finalfoodresult=str_replace("'","\'", $finalfoodresult);
+$finalfoodresultjson = json_encode($finalfoodresult,JSON_UNESCAPED_SLASHES);
+return $finalfoodresultjson;
 }
 ?>
