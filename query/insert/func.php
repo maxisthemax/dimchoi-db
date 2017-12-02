@@ -41,12 +41,13 @@ function insertnewqrcoderow() {
             $price_item_id = $data->price_id;
             $item_quantity = $data->quantity;
             $item_remark = $data->remark;
-            $sqlitem = "INSERT INTO item (i_order_id,i_food_id,i_price_id,i_quantity,va_remark,i_status) VALUES ($last_id,$food_item_id,$price_item_id,$item_quantity,'$item_remark',0)";
+            $sqlitem = "INSERT INTO item (i_order_id,i_food_id,i_price_id,i_quantity,va_remark,dt_itemcreate,i_status) VALUES ($last_id,$food_item_id,$price_item_id,$item_quantity,'$item_remark',now(),0)";
             $resitem = $dbhandler0->insert($sqlitem,1);
         }
 
             $sqlfood = 
             "SELECT d.va_food_type_name,d.i_food_type_id,b.va_food_name,b.i_food_id,c.va_food_size,FORMAT(c.d_food_price,2) AS d_food_price,c.i_price_id,a.i_quantity,a.va_remark,a.i_status,b.va_food_pic_url
+            ,a.dt_itemcreate
             FROM item a
             LEFT JOIN food b on a.i_food_id = b.i_food_id
             LEFT JOIN food_price c on a.i_price_id = c.i_price_id AND a.i_food_id = c.i_food_id 
@@ -85,6 +86,7 @@ function insertnewqrcoderow() {
                                             'quantity' => $data2['i_quantity'],
                                             'size' => $data2['va_food_size'],
                                             'remark' => $data2['va_remark'],
+                                            'item_create_date' => $data2['dt_itemcreate'],
                                             'status' => $data2['i_status']
                                             ];   
 
