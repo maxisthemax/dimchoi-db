@@ -719,6 +719,7 @@ function getuserorder()
                 'dt_userorderclosed' => $userorderkey['dt_userorderclosed'],                
                 'va_userorder_data_1' => $userorder1,
                 'va_userorder_data_2' => $userorder2,
+                'i_user_order_table_id' => $userorderkey['i_user_order_table_id']
                 ];
     } 
 

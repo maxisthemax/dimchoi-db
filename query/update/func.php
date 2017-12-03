@@ -252,12 +252,27 @@ function updateresordertable()
         $rescheck= $dbhandler0->query($sqlcheck); 
         if($rescheck)
         {
+        $order_id = $res_order_id;  
         $sqlqrtable = 
             "UPDATE resorder 
             SET i_res_order_table_id = '$res_order_table'
-            where i_resorder_id = '$res_order_id'";
+            where i_resorder_id = '$order_id'";
             $restable = $dbhandler0->update($sqlqrtable);
-        return $restable;
+
+        $sqlqrtable = 
+            "UPDATE userorder 
+            SET i_user_order_table_id = '$res_order_table'
+            where i_userorder_id = '$order_id'";
+            $usertable = $dbhandler0->update($sqlqrtable);
+            
+            if ($restable and $sertable)
+            {
+                return true;
+            }
+            else
+            { 
+                return false;
+            }    
         }  
     }  
 }        
