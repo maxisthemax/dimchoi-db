@@ -81,7 +81,7 @@ if ($item_status != '')
 $sqlfood .= " and a.i_status = '$item_status'";
 }
 
-$sqlfood .= " ORDER BY i_food_type_order ASC"; 
+$sqlfood .= " ORDER BY a.dt_itemcreate ASC"; 
 
 $resfood = $dbhandler0->query($sqlfood);
 
