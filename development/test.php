@@ -158,6 +158,21 @@ table, th, td {
     </table>
     </form>
   </td>
+  <td> 
+    <form action="index.php" method="post" target="_blank">
+    <table>
+    <tr><td><h2>insertitem</h2></td></tr> 
+    <tr><td>order_id</td><td><input name="order_id"></td></tr>
+    <tr><td>food_id</td><td><input name="food_id"></td></tr>
+    <tr><td>price_id</td><td><input name="price_id"></td></tr>
+    <tr><td>item_quantity</td><td><input name="item_quantity"></td></tr>
+    <tr><td>item_remark</td><td><input name="item_remark"></td></tr>
+    <tr><td>item_status</td><td><input name="item_status"></td></tr>    
+    <td colspan=2><input type="submit" name="func" value="insertitem"></td>
+    </table>
+    </form>
+  </td>
+
 </tr>
 
 <tr><td colspan=3 style="background-color:red;"><h1>update</h1></td></tr> 
@@ -255,6 +270,14 @@ table, th, td {
     </form>
   </td>
   <td> 
+    <form action="index.php" method="post" target="_blank">
+    <table>
+    <tr><td><h2>updateitemstatus</h2></td></tr> 
+    <tr><td>item_id</td><td><input name="item_id"></td></tr>  
+    <tr><td>item_status</td><td><input name="item_status"></td></tr>  
+    <td colspan=2><input type="submit" name="func" value="updateitemstatus"></td>
+    </table>
+    </form>
   </td>
 </tr>
 </table>

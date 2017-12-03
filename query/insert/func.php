@@ -2,7 +2,11 @@
 
 include "system/function.php";
 
-//====================================================================================================== 
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
 function insertnewqrcoderow() {
     global $dbhandler0;
     $dbhandler0->begin(); 
@@ -43,7 +47,8 @@ function insertnewqrcoderow() {
             $sqlitem = "INSERT INTO item (i_order_id,i_food_id,i_price_id,i_quantity,va_remark,dt_itemcreate,i_status) VALUES ($last_id,$food_item_id,$price_item_id,$item_quantity,'$item_remark',now(),0)";
             $resitem = $dbhandler0->insert($sqlitem,1);
         }
-            $jsondata = generatejsonfromitem($last_id);  
+            $jsondata = generatejsonfromitem($last_id,'0'); 
+            $jsondata=str_replace("'","\'", $jsondata); 
             $sqlfoodinsert = "UPDATE qrcode set va_qr_data_1 = '$jsondata' WHERE i_qr_id = $last_id";
             $ressqlfoodinsert = $dbhandler0->update($sqlfoodinsert);   
     }  
@@ -71,7 +76,11 @@ function insertnewqrcoderow() {
     }    
 
 }
-//====================================================================================================== 
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
 function insertnewuser() {
         global $dbhandler0;
         $dbhandler0->begin(); 
@@ -169,7 +178,11 @@ function insertnewuser() {
         }
     }
 }
-//====================================================================================================== 
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
 function insertorderfromqr() {
     global $dbhandler0;
     $dbhandler0->begin(); 
@@ -194,8 +207,8 @@ function insertorderfromqr() {
         "UPDATE item SET i_status = 1 WHERE i_order_id = $qr_id";
         $resupdateitem = $dbhandler0->update($sqlupdateitem,1);
 
-        $jsondata = generatejsonfromitem($qr_id);
-
+        $jsondata = generatejsonfromitem($qr_id,'1');
+        $jsondata=str_replace("'","\'", $jsondata);
         $sqlinstouserorder = 
         "INSERT INTO 
         userorder (i_userorder_id,i_res_id,i_user_id,i_userorder_type_id,va_userorder_data_1,va_userorder_data_2,dt_create,i_status,dt_userordercreate,dt_userorderclosed) 
@@ -235,21 +248,86 @@ function insertorderfromqr() {
             return false;
         }
 }
-//====================================================================================================== 
-function generatejsonfromitem ($last_id)
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+function insertitem() {
+    global $dbhandler0;
+    $dbhandler0->begin(); 
+    
+    $order_id = !empty($_POST['order_id']) ? $_POST['order_id'] : '';
+    $food_id = !empty($_POST['food_id']) ? $_POST['food_id'] : '';
+    $price_id = !empty($_POST['price_id']) ? $_POST['price_id'] : '';
+    $item_quantity = !empty($_POST['item_quantity']) ? $_POST['item_quantity'] : 0;
+    $item_remark = !empty($_POST['item_remark']) ? $_POST['item_remark'] : '';
+    $item_remark=str_replace("'","\'", $item_remark);
+    $item_status = !empty($_POST['item_status']) ? $_POST['item_status'] : 0;
+    $sqluserorder = "SELECT 1 FROM userorder where i_userorder_id = '$order_id' LIMIT 1";
+    $resuserorder = $dbhandler0->query($sqluserorder);
+
+    if ($resuserorder)
+    {
+    $sqlitem = "INSERT INTO item (i_order_id,i_food_id,i_price_id,i_quantity,va_remark,dt_itemcreate,i_status) 
+    VALUES ($order_id,$food_id,$price_id,$item_quantity,'$item_remark',now(),$item_status)";
+
+    $resitem = $dbhandler0->insert($sqlitem,1);
+
+        if ($resitem)
+        {
+
+            $jsondata = generatejsonfromitem($order_id,'0');  
+            $jsondata=str_replace("'","\'", $jsondata);
+            
+            $sqlupdate = "UPDATE userorder SET va_userorder_data_2 = '$jsondata' WHERE i_userorder_id = $order_id";
+            $ressqlupdate = $dbhandler0->update($sqlupdate);
+            $sqlupdate = "UPDATE resorder SET va_resorder_data_2 = '$jsondata' WHERE i_resorder_id = $order_id";
+            $ressqlupdate = $dbhandler0->update($sqlupdate);
+
+            $dbhandler0->commit();  
+            return true;
+        }   
+        else
+        {
+            $dbhandler0->rollback(); 
+            $dbhandler0->commit();
+            return false;               
+        } 
+    }
+    else
+    {
+    $dbhandler0->rollback(); 
+    $dbhandler0->commit();  
+    return false;    
+    }         
+}
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+function generatejsonfromitem ($last_id,$item_status)
 {
 $foodtypeloop = array();    
 global $dbhandler0;
 $sqlfood = 
 "SELECT d.va_food_type_name,d.i_food_type_id,b.va_food_name,b.i_food_id,c.va_food_size,FORMAT(c.d_food_price,2) AS d_food_price,c.i_price_id,a.i_quantity,a.va_remark,a.i_status,b.va_food_pic_url
-,a.dt_itemcreate,e.va_item_status
+,a.dt_itemcreate,e.va_item_status,a.i_item_id
 FROM item a
 LEFT JOIN food b on a.i_food_id = b.i_food_id
 LEFT JOIN food_price c on a.i_price_id = c.i_price_id AND a.i_food_id = c.i_food_id 
 LEFT JOIN food_type d on d.i_food_type_id = b.i_food_type_id
 LEFT JOIN itemstatus e on e.i_item_status_id = a.i_status
-WHERE a.i_order_id = '$last_id'
-ORDER BY i_food_type_order ASC";    
+WHERE a.i_order_id = '$last_id'";
+
+if ($item_status != '')
+{
+$sqlfood .= " and a.i_status = '$item_status'";
+}
+
+$sqlfood .= " ORDER BY i_food_type_order ASC";
+
 $resfood = $dbhandler0->query($sqlfood);
 
 $sqlhqid = 
@@ -277,6 +355,7 @@ foreach($foodtypearray as $data1){
                 if ($data1['food_type'] == $data2['va_food_type_name'])
                 {
                 $foodpriceresult[] = [
+                                'item_id' => $data2['i_item_id'],
                                 'price_id' => $data2['i_price_id'],
                                 'price' => $data2['d_food_price'],
                                 'quantity' => $data2['i_quantity'],
