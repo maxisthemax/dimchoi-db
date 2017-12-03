@@ -141,6 +141,7 @@ function updatefood_dev()
             $foodurl=$_POST['food_pic_url'][$loopfoodpriceid];
             $foodstatus=!empty($_POST['food_status'][$loopfoodpriceid]) ? 1 : 0; 
             $foodpricestatus=!empty($_POST['food_price_status'][$loopfoodpriceid]) ? 1 : 0; 
+            $foodcode=$_POST['food_code'][$loopfoodpriceid]; 
 
             $foodorder=$_POST['food_order'][$loopfoodpriceid]; 
             $foodpriceorder=$_POST['food_price_order'][$loopfoodpriceid];
@@ -150,7 +151,7 @@ function updatefood_dev()
             $sqlcheck = 
             "UPDATE food 
             SET va_food_name = '$foodname', i_food_type_id = '$foodtype',va_food_pic_url = '$foodurl',va_food_desc = '$fooddesc',i_food_status='$foodstatus',
-            i_food_order = '$foodorder'
+            i_food_order = '$foodorder',va_food_code = '$foodcode'
             where i_food_id = (SELECT i_food_id FROM food_price where i_price_id=$loopfoodpriceid LIMIT 1)";
             $res = $dbhandler0->update($sqlcheck);
             $foodidlog1 = $foodid;

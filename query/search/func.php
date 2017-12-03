@@ -419,6 +419,7 @@ function getresfoodmenu()
                 $foodarray[]=[
                             'i_food_id' => $key2['i_food_id'],
                             'va_food_name' => $key2['va_food_name'],
+                            'va_food_code' => $key2['va_food_code'],
                             'va_food_pic_url' => $_SESSION['file'].$key1['va_res_code'].'/'.$key2['va_food_pic_url'],
                             'va_food_desc' => $key2['va_food_desc'],
                             'food_price' => $food_price

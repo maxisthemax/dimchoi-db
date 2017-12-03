@@ -59,7 +59,7 @@ echo "<tr><td>Restaurant Name</td><td id=resname>".$res1[count($res1)-1]['va_res
 echo "<tr><td>Res Code</td><td>".$res1[count($res1)-1]['va_res_code']."</td></tr>";
 echo "<tr><td>Menu Code</td><td id=menucode>".$res1[count($res1)-1]['va_menu_code']."</td></tr>";
 echo "<tr><td>Food ID</td><td>Food Name</td><td>Food Desc</td><td>Food Type</td><td>Size</td><td>Price</td><td>Pic Url</td><td>Pic Display</td><td>Hide This Food</td><td>Hide This Price</td>";
-echo "<td>Food Order</td><td>Food Price Order</td></tr>";
+echo "<td>Food Code</td><td>Food Order</td><td>Food Price Order</td></tr>";
 
 echo "<tr><TD colspan = 5 align=center>FOOD</td></tr>";
     foreach($res as $resvalue) {
@@ -93,8 +93,9 @@ echo "<tr><TD colspan = 5 align=center>FOOD</td></tr>";
         echo "></td>";
         echo "<td><input type='checkbox' name='food_price_status[$food_price_id]' id=food_price_status[$food_price_id]";
         if ($resvalue["i_food_price_status"] == 1){echo " checked";}
-        echo "></td>";  
-        echo "<td><input name='food_order[$food_price_id]' value='".$resvalue["i_food_order"]."'></td>";       
+        echo "></td>";
+        echo "<td><input name='food_code[$food_price_id]' value='".$resvalue["va_food_code"]."'></td>";           
+        echo "<td><input name='food_order[$food_price_id]' value='".$resvalue["i_food_order"]."'></td>";     
         echo "<td><input name='food_price_order[$food_price_id]' value='".$resvalue["i_food_price_order"]."'></td>";     
         echo "<td width=20%><button onclick='setformupdate($food_id,$food_price_id);'>Update Current Row</button></td>";  
         echo "<td width=20%><button onclick='setformdelete($food_id);'>Delete This Food</button></td>";  
