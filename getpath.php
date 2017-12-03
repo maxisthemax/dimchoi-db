@@ -25,6 +25,10 @@ function get_path($func)
 	    	return array("path" => "query/insert/func.php","querytype"=>"insert");
 	        break;
 
+		case "deleteitem": //shared
+	    	return array("path" => "query/delete/func.php","querytype"=>"delete");
+	        break;
+
 		case "updateuser":				
 		case "updateresusertoken":
 		case "updateresorderstatus":

@@ -280,6 +280,19 @@ table, th, td {
     </form>
   </td>
 </tr>
+
+<tr><td colspan=3 style="background-color:red;"><h1>delete</h1></td></tr> 
+<tr>
+  <td> 
+    <form action="index.php" method="post" target="_blank">
+    <table>
+    <tr><td><h2>deleteitem</h2></td></tr> 
+    <tr><td>item_id</td><td><input name="item_id"></td></tr>  
+    <td colspan=2><input type="submit" name="func" value="deleteitem"></td>
+    </table>
+    </form>
+  </td>
+</tr>
 </table>
 
 
