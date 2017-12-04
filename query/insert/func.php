@@ -212,7 +212,7 @@ function insertorderfromqr() {
         $sqlinstouserorder = 
         "INSERT INTO 
         userorder (i_userorder_id,i_res_id,i_user_id,i_userorder_type_id,va_userorder_data_1,va_userorder_data_2,dt_create,i_status,dt_userordercreate,dt_userorderclosed,i_user_order_table_id) 
-        values ('$qr_id','$res_id','$user_id','$qr_type_id','$jsondata','$qr_data_2','$create_date',1,now(),'0000-00-00 00:00:00')";
+        values ('$qr_id','$res_id','$user_id','$qr_type_id','$jsondata','$qr_data_2','$create_date',1,now(),'0000-00-00 00:00:00','$res_order_table')";
 
         $resinsuseroder = $dbhandler0->insert($sqlinstouserorder,1);
 
