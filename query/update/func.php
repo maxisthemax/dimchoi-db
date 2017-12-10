@@ -265,7 +265,7 @@ function updateresordertable()
             where i_userorder_id = '$order_id'";
             $usertable = $dbhandler0->update($sqlqrtable);
 
-            if ($restable and $sertable)
+            if ($restable and $usertable)
             {
                 return true;
             }
@@ -461,6 +461,50 @@ function updateitemstatus() {
         return false;               
     }       
   
+}
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+function updateresetpassword() {
+    global $dbhandler0;
+
+    $token = $_POST['token'];
+
+    $sql = "SELECT 1 FROM usertoken where va_forgot_token = '$token'";
+    $ressql  = $dbhandler0->query($sql);    
+
+    if (!$ressql)
+    {
+        return false;
+    }
+
+    $user_id = $_POST['userid'];
+    $password = $_POST['password'];
+    $repassword = $_POST['repassword'];
+
+    if ($password != $repassword)
+    {
+        return false;
+    }
+
+    $sql = "SELECT * FROM user where i_user_id = '$user_id'";
+    $ressql  = $dbhandler0->query($sql);
+
+    if ($ressql)
+    {
+
+    $updatesql = "UPDATE user SET va_pass = '$password' where i_user_id = '$user_id'";
+    $ressqlupdate  = $dbhandler0->update($updatesql); 
+
+    if ($ressqlupdate)
+        {
+            $deletesql = "DELETE FROM usertoken where i_user_id = '$user_id'";  
+            $resdelete = $dbhandler0->delete($deletesql); 
+            return $resdelete;       
+        }
+    }
 }
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
