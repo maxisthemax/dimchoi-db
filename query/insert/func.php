@@ -313,8 +313,9 @@ function insertnewusertoken() {
     
     $email = !empty($_POST['email']) ? $_POST['email'] : '';
 
-    $sqlsearchuser = "SELECT i_user_id FROM user where va_email = '$email' LIMIT 1";
+    $sqlsearchuser = "SELECT i_user_id,va_first_name,va_last_name FROM user where va_email = '$email' LIMIT 1";
     $ressearchuser = $dbhandler0->query($sqlsearchuser);
+    $recipientname = $ressearchuser[0]['va_first_name'].' '.$ressearchuser[0]['va_last_name'];
 
     if (empty($ressearchuser))
     {
@@ -329,11 +330,17 @@ function insertnewusertoken() {
     $token = openssl_random_pseudo_bytes(16);
     $token = bin2hex($token);
 
+    $subject = 'Reset Password For Dimchoi Account';
+
+    $body = '<h1>Please Click The Link Below to Redirect To Our Page For Reset Password</h1><br><br>';
+    $link = 'http://103.233.1.196/dimchoi/forgotpassword.php?token='.$token;
+    $finalbody = $body.'<h1>'.$link.'</h1>';
+
     if ($ressearchusertoken)
     {
     $sqlupdatetoken = "UPDATE usertoken SET va_forgot_token = '$token',dt_create=now() WHERE i_user_id = $user_id";
     $resupdatetoken = $dbhandler0->update($sqlupdatetoken);
-    sendmail($email);
+    sendmail($email,$recipientname,$subject,$finalbody);
     return $resupdatetoken;
     }
     else        
@@ -341,7 +348,7 @@ function insertnewusertoken() {
     $sqlinserttoken = "INSERT INTO usertoken (i_user_id,va_forgot_token,dt_create,i_token_expired) 
     VALUES ($user_id,'$token',now(),'1800')";
     $reinsertoken = $dbhandler0->update($sqlinserttoken);
-    sendmail($email);
+    sendmail($email,$recipientname,$subject,$finalbody);
     return $reinsertoken;
     }         
 }
@@ -433,7 +440,7 @@ $finalfoodresultjson = json_encode($finalfoodresult,JSON_UNESCAPED_SLASHES);
 return $finalfoodresultjson;
 }
 
-function sendmail($email)
+function sendmail($recipientemail,$recipientname,$subject,$body)
 {
     $mail = new PHPMailer;
     $mail->isSMTP();                                   // Set mailer to use SMTP
@@ -444,14 +451,12 @@ function sendmail($email)
     $mail->SMTPSecure = 'ssl';                         // Enable TLS encryption, `ssl` also accepted
     $mail->Port = 465;                                 // TCP port to connect to
     $mail->setFrom('dimchoi.my@gmail.com', 'Max Leong');
-    $mail->addAddress($email, 'Max Leong');   // Add a recipient
+    $mail->addAddress($recipientemail, $recipientname);   // Add a recipient
     //$mail->addCC('cc@example.com');
     //$mail->addBCC('bcc@example.com');
     $mail->isHTML(true);  // Set email format to HTML
-    $bodyContent = '<h1>Sending Email From LocalHost</h1>';
-    $bodyContent .= '<p>Finaly Now I can send mail <b>offline</b></p>';
-    $mail->Subject = 'Email from Localhost By Mohsin Shoukat';
-    $mail->Body    = $bodyContent;
+    $mail->Subject = $subject;
+    $mail->Body    = $body;
     if(!$mail->send()) {
         echo 'Message could not be sent.';
         echo 'Mailer Error: ' . $mail->ErrorInfo;
