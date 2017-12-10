@@ -136,7 +136,7 @@ function insertnewuser() {
         if ($last_id > 0)
         {
             $dbhandler0->commit();
-            return true;
+            return $last_id;
         }
         else
         {
@@ -167,7 +167,7 @@ function insertnewuser() {
             if ($resupdate)
             {
                 $dbhandler0->commit();
-                return true;
+                return $res_i_user_id;
             }    
         }
         else
@@ -307,6 +307,49 @@ function insertitem() {
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
 //=====================================================================================================================================================================
+function insertnewusertoken() {
+    global $dbhandler0;
+    $dbhandler0->begin(); 
+    
+    $email = !empty($_POST['email']) ? $_POST['email'] : '';
+
+    $sqlsearchuser = "SELECT i_user_id FROM user where va_email = '$email' LIMIT 1";
+    $ressearchuser = $dbhandler0->query($sqlsearchuser);
+
+    if (empty($ressearchuser))
+    {
+        return false;
+    }
+
+    $user_id = $ressearchuser[0]['i_user_id'];
+
+    $sqlsearchusertoken = "SELECT * FROM usertoken where i_user_id = '$user_id' LIMIT 1";
+    $ressearchusertoken = $dbhandler0->query($sqlsearchusertoken);   
+
+    $token = openssl_random_pseudo_bytes(16);
+    $token = bin2hex($token);
+
+    if ($ressearchusertoken)
+    {
+    $sqlupdatetoken = "UPDATE usertoken SET va_forgot_token = '$token',dt_create=now() WHERE i_user_id = $user_id";
+    $resupdatetoken = $dbhandler0->update($sqlupdatetoken);
+    sendmail($email);
+    return $resupdatetoken;
+    }
+    else        
+    {    
+    $sqlinserttoken = "INSERT INTO usertoken (i_user_id,va_forgot_token,dt_create,i_token_expired) 
+    VALUES ($user_id,'$token',now(),'1800')";
+    $reinsertoken = $dbhandler0->update($sqlinserttoken);
+    sendmail($email);
+    return $reinsertoken;
+    }         
+}
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
+//=====================================================================================================================================================================
 function generatejsonfromitem ($last_id,$item_status)
 {
 $foodtypeloop = array();    
@@ -388,5 +431,49 @@ foreach($foodtypearray as $data1){
 $finalfoodresult=str_replace("'","\'", $finalfoodresult);
 $finalfoodresultjson = json_encode($finalfoodresult,JSON_UNESCAPED_SLASHES);
 return $finalfoodresultjson;
+}
+
+function sendmail($email)
+{
+    
+$mail = new PHPMailer(true);
+
+try {
+
+    $mail = new PHPMailer;
+
+    $mail->isSMTP();                                   // Set mailer to use SMTP
+    $mail->Host = 'mail.maxisthemax.com';                    // Specify main and backup SMTP servers
+    $mail->SMTPAuth = true;                            // Enable SMTP authentication
+    $mail->Username = 'test@maxisthemax.com';          // SMTP username
+    $mail->Password = '123qweasdzxc'; // SMTP password
+    $mail->SMTPSecure = 'ssl';                         // Enable TLS encryption, `ssl` also accepted
+    $mail->Port = 465;                                 // TCP port to connect to
+
+    $mail->setFrom('dimchoi.my@gmail.com', 'Max Leong');
+    $mail->addAddress('maxisthemax89@gmail.com', 'Max Leong');   // Add a recipient
+    //$mail->addCC('cc@example.com');
+    //$mail->addBCC('bcc@example.com');
+
+    $mail->isHTML(true);  // Set email format to HTML
+
+    $bodyContent = '<h1>Sending Email From LocalHost</h1>';
+    $bodyContent .= '<p>Finaly Now I can send mail <b>offline</b></p>';
+
+    $mail->Subject = 'Email from Localhost By Mohsin Shoukat';
+    $mail->Body    = $bodyContent;
+
+    if(!$mail->send()) {
+        echo 'Message could not be sent.';
+        echo 'Mailer Error: ' . $mail->ErrorInfo;
+    } else {
+        echo 'Message has been sent';
+        // visit our site www.studyofcs.com for more learning
+    }
+} catch (Exception $e) {
+    echo 'Message could not be sent.';
+    echo 'Mailer Error: ' . $mail->ErrorInfo;
+}
+
 }
 ?>
