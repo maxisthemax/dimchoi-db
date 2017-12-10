@@ -514,6 +514,7 @@ function updateresetpassword() {
 function generatejsonfromitem ($last_id,$item_status)
 {
 $foodtypeloop = array();    
+$finalfoodresult = array(); 
 global $dbhandler0;
 $sqlfood = 
 "SELECT d.va_food_type_name,d.i_food_type_id,b.va_food_name,b.i_food_id,c.va_food_size,FORMAT(c.d_food_price,2) AS d_food_price,c.i_price_id,a.i_quantity,a.va_remark,a.i_status,b.va_food_pic_url
