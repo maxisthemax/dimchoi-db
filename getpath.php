@@ -22,6 +22,7 @@ function get_path($func)
 		case "insertnewuser": //shared
 		case "insertorderfromqr": //shared
 		case "insertitem": //shared
+		case "insertnewusertoken": //shared
 	    	return array("path" => "query/insert/func.php","querytype"=>"insert");
 	        break;
 
@@ -40,6 +41,7 @@ function get_path($func)
 		case "syncorderdata";
 		case "closeorder";
 		case "updateitemstatus";
+		case "updateresetpassword";
 	    	return array("path" => "query/update/func.php","querytype"=>"update");
 	        break;
 /*---------------------------------------FOR DEVELOPMENT.PHP ONLY----------------------------------------------------------*/

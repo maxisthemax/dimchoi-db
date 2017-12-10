@@ -172,7 +172,15 @@ table, th, td {
     </table>
     </form>
   </td>
-
+<td> 
+    <form action="index.php" method="post" target="_blank">
+    <table>
+    <tr><td><h2>insertnewusertoken</h2></td></tr> 
+    <tr><td>email</td><td><input name="email"></td></tr> 
+    <td colspan=2><input type="submit" name="func" value="insertnewusertoken"></td>
+    </table>
+    </form>
+  </td>
 </tr>
 
 <tr><td colspan=3 style="background-color:red;"><h1>update</h1></td></tr> 
