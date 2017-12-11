@@ -63,7 +63,7 @@ function deleteitem() {
 //=====================================================================================================================================
 function generatejsonfromitem ($last_id,$item_status)
 {
-
+$finalfoodresult = array();
 $foodtypeloop = array();    
 global $dbhandler0;
 $sqlfood = 
