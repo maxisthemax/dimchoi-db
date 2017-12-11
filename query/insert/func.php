@@ -285,8 +285,16 @@ function insertitem() {
             $sqlupdate = "UPDATE resorder SET va_resorder_data_2 = '$jsondata' WHERE i_resorder_id = $order_id";
             $ressqlupdate = $dbhandler0->update($sqlupdate);
 
+            $jsondata = generatejsonfromitem($order_id,'1');  
+            $jsondata=str_replace("'","\'", $jsondata);
+            
+            $sqlupdate = "UPDATE userorder SET va_userorder_data_1 = '$jsondata' WHERE i_userorder_id = $order_id";
+            $ressqlupdate = $dbhandler0->update($sqlupdate);
+            $sqlupdate = "UPDATE resorder SET va_resorder_data_1 = '$jsondata' WHERE i_resorder_id = $order_id";
+            $ressqlupdate = $dbhandler0->update($sqlupdate);
+
             $dbhandler0->commit();  
-            return true;
+            return $resitem;
         }   
         else
         {
