@@ -99,6 +99,9 @@ function insertnewuser() {
         $sqlcheckuser = "SELECT * FROM user where va_email = '$emailnew'";
         $resuser = $dbhandler0->query($sqlcheckuser);
 
+        $c = uniqid (rand(), true);
+        $md5c = md5($c);  
+
     if (empty($resuser))
     {
         $sqlcheck = 
@@ -114,7 +117,8 @@ function insertnewuser() {
         va_pass,
         va_facebook,
         va_google,
-        va_token)
+        va_token,
+        va_uuid)
         VALUES (
         '$firstnamenew',
         '$lastnamenew',
@@ -127,8 +131,8 @@ function insertnewuser() {
         '$passnew',
         '$facebooknew',
         '$googlenew',
-        '$tokennew'        
-        )";
+        '$tokennew' ,       
+        '$md5c')";
 
         $res = $dbhandler0->insert($sqlcheck,1);
         $last_id = $res;
