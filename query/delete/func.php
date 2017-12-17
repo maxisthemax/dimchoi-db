@@ -69,8 +69,15 @@ function deleteqrcode() {
 
     $sqldeleteqr = "DELETE FROM qrcode WHERE i_qr_id = $qrid" 
     $resdeleteqr = $dbhandler0->delete($sqldeleteqr,1);    
-    $dbhandler0->commit();    
-    return
+    $dbhandler0->commit();
+    if ($resdeleteqr)
+    {
+    return true;
+    }
+    else
+    {
+    return false;    
+    }
 }
 //=====================================================================================================================================
 //=====================================================================================================================================
