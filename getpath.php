@@ -27,6 +27,7 @@ function get_path($func)
 	        break;
 
 		case "deleteitem": //shared
+		case "deleteqrcode":
 	    	return array("path" => "query/delete/func.php","querytype"=>"delete");
 	        break;
 
