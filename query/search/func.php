@@ -463,7 +463,7 @@ function getorderqrcode()
 {
 
     global $dbhandler0;
-
+    $qrcode = array();
     //=============================================== 
     //define variable for query
     $res_id = !empty($_POST['res_id']) ? $_POST['res_id'] : '';
@@ -665,7 +665,7 @@ function getuserorder()
 {
 
     global $dbhandler0;
-
+    $userorder = array();
     //=============================================== 
     //define variable for query
     $user_order_id = !empty($_POST['user_order_id']) ? $_POST['user_order_id'] : '';
@@ -732,7 +732,7 @@ function getresorder()
 {
 
     global $dbhandler0;
-
+    $resorder = array();
     //=============================================== 
     //define variable for query
     $res_order_id = !empty($_POST['res_order_id']) ? $_POST['res_order_id'] : '';
