@@ -177,8 +177,8 @@ function insertorderfromqr() {
     $res_order_table = !empty($_POST['res_order_table']) ? $_POST['res_order_table'] : 0;
     $sqlqr = "SELECT * FROM qrcode where i_qr_id = '$qr_id' and i_qr_type_id = 1 LIMIT 1";
     $resqr = $dbhandler0->query($sqlqr);
-    $qrid = $resqr[0]['i_qr_id'];
-    if ($qrid>0)
+    $qr_id = $resqr[0]['i_qr_id'];
+    if ($qr_id>0)
     {
        $arrayfoodorderdata = json_decode($resqr[0]['va_qr_data_1']);
 
@@ -188,12 +188,12 @@ function insertorderfromqr() {
             $price_item_id = $data->price_id;
             $item_quantity = $data->quantity;
             $item_remark = $data->remark;
-            $sqlitem = "INSERT INTO item (i_order_id,i_food_id,i_price_id,i_quantity,va_remark,dt_itemcreate,i_status) VALUES ($qrid,$food_item_id,$price_item_id,$item_quantity,'$item_remark',now(),0)";
+            $sqlitem = "INSERT INTO item (i_order_id,i_food_id,i_price_id,i_quantity,va_remark,dt_itemcreate,i_status) VALUES ($qr_id,$food_item_id,$price_item_id,$item_quantity,'$item_remark',now(),0)";
             $resitem = $dbhandler0->insert($sqlitem,1);
         }
     }    
 
-     if ($qrid>0)
+     if ($qr_id>0)
      {
         $res_id = $resqr[0]['i_res_id'];
         $user_id = $resqr[0]['i_user_id'];
