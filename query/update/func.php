@@ -518,7 +518,7 @@ $finalfoodresult = array();
 global $dbhandler0;
 $sqlfood = 
 "SELECT d.va_food_type_name,d.i_food_type_id,b.va_food_name,b.i_food_id,c.va_food_size,FORMAT(c.d_food_price,2) AS d_food_price,c.i_price_id,a.i_quantity,a.va_remark,a.i_status,b.va_food_pic_url
-,a.dt_itemcreate,e.va_item_status,a.i_item_id,b.va_food_code
+,a.dt_itemcreate,e.va_item_status,a.i_item_id,b.va_food_code,a.i_status
 FROM item a
 LEFT JOIN food b on a.i_food_id = b.i_food_id
 LEFT JOIN food_price c on a.i_price_id = c.i_price_id AND a.i_food_id = c.i_food_id 
@@ -574,7 +574,8 @@ foreach($foodtypearray as $data1){
                                 'size' => $data2['va_food_size'],
                                 'remark' => $data2['va_remark'],
                                 'item_create_date' => $data2['dt_itemcreate'],
-                                'status' => $data2['va_item_status']
+                                'status' => $data2['va_item_status'],
+                                'statusid' => $data2['i_status']
                                 ];   
 
                 $foodresult[] = [
