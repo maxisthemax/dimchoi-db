@@ -26,17 +26,34 @@ function insertnewqrcoderow() {
     "INSERT INTO qrcode (
     i_res_id,
     i_user_id,
-    i_qr_type_id,
-    va_qr_data_1)
+    i_qr_type_id)
     VALUES (
     '$resid_insert',
     '$userid_insert',
-    '$qrtypenew',
-    '$jsonfoodorderdata')";
+    '$qrtypenew')";
 
     $res = $dbhandler0->insert($sqlcheck,1);
     $last_id = $res;
-    if ($last_id>0)
+    if ($last_id > 0)
+    {
+       $arrayfoodorderdata = json_decode($jsonfoodorderdata);
+
+        foreach ($arrayfoodorderdata as $data) 
+        {
+            $food_item_id = $data->food_id;
+            $price_item_id = $data->price_id;
+            $item_quantity = $data->quantity;
+            $item_remark = $data->remark;
+            $sqlitem = "INSERT INTO item (i_order_id,i_food_id,i_price_id,i_quantity,va_remark,dt_itemcreate,i_status) VALUES ($last_id,$food_item_id,$price_item_id,$item_quantity,'$item_remark',now(),0)";
+            $resitem = $dbhandler0->insert($sqlitem,1);
+        }
+            $jsondata = generatejsonfromitem($last_id,'0'); 
+            $jsondata=str_replace("'","\'", $jsondata); 
+            $sqlfoodinsert = "UPDATE qrcode set va_qr_data_1 = '$jsondata' WHERE i_qr_id = $last_id";
+            $ressqlfoodinsert = $dbhandler0->update($sqlfoodinsert);   
+    }  
+
+    if ($last_id>0 AND $resitem>0)
     {
             $sqlqrcode = "SELECT * FROM qrcode WHERE i_qr_id = '$last_id' LIMIT 1";
             $resqrcode = $dbhandler0->query($sqlqrcode);
@@ -51,11 +68,12 @@ function insertnewqrcoderow() {
     {
             $sqlauto = "ALTER TABLE qrcode AUTO_INCREMENT = 1"; 
             $res = $dbhandler0->update($sqlauto);
+            $sqlauto = "ALTER TABLE item AUTO_INCREMENT = 1";
+            $res = $dbhandler0->update($sqlauto);  
 
             $dbhandler0->rollback(); 
             $dbhandler0->commit();         
-    }
-
+    }    
 
 }
 //=====================================================================================================================================================================
@@ -172,26 +190,11 @@ function insertnewuser() {
 function insertorderfromqr() {
     global $dbhandler0;
     $dbhandler0->begin(); 
-    $arrayfoodorderdata = array();
     $qr_id = !empty($_POST['qr_id']) ? $_POST['qr_id'] : '';
     $res_order_table = !empty($_POST['res_order_table']) ? $_POST['res_order_table'] : 0;
     $sqlqr = "SELECT * FROM qrcode where i_qr_id = '$qr_id' and i_qr_type_id = 1 LIMIT 1";
+
     $resqr = $dbhandler0->query($sqlqr);
-
-    if ($resqr)
-    {
-       $arrayfoodorderdata = json_decode($resqr[0]['va_qr_data_1']);
-
-        foreach ($arrayfoodorderdata as $data) 
-        {
-            $food_item_id = $data->food_id;
-            $price_item_id = $data->price_id;
-            $item_quantity = $data->quantity;
-            $item_remark = $data->remark;
-            $sqlitem = "INSERT INTO item (i_order_id,i_food_id,i_price_id,i_quantity,va_remark,dt_itemcreate,i_status) VALUES ($qr_id,$food_item_id,$price_item_id,$item_quantity,'$item_remark',now(),0)";
-            $resitem = $dbhandler0->insert($sqlitem,1);
-        }
-    }    
 
      if ($resqr)
      {
@@ -295,9 +298,6 @@ function insertitem() {
             $ressqlupdate = $dbhandler0->update($sqlupdate);
 
             $dbhandler0->commit();  
-
-
-
             return $resitem;
         }   
         else
@@ -375,7 +375,7 @@ $foodtypeloop = array();
 global $dbhandler0;
 $sqlfood = 
 "SELECT d.va_food_type_name,d.i_food_type_id,b.va_food_name,b.i_food_id,c.va_food_size,FORMAT(c.d_food_price,2) AS d_food_price,c.i_price_id,a.i_quantity,a.va_remark,a.i_status,b.va_food_pic_url
-,a.dt_itemcreate,e.va_item_status,a.i_item_id,a.i_status,b.va_food_code
+,a.dt_itemcreate,e.va_item_status,a.i_item_id,a.i_status
 FROM item a
 LEFT JOIN food b on a.i_food_id = b.i_food_id
 LEFT JOIN food_price c on a.i_price_id = c.i_price_id AND a.i_food_id = c.i_food_id 
