@@ -177,8 +177,8 @@ function insertorderfromqr() {
     $res_order_table = !empty($_POST['res_order_table']) ? $_POST['res_order_table'] : 0;
     $sqlqr = "SELECT * FROM qrcode where i_qr_id = '$qr_id' and i_qr_type_id = 1 LIMIT 1";
     $resqr = $dbhandler0->query($sqlqr);
-    
-    if ($sqlqr>0)
+
+    if ($resqr)
     {
        $arrayfoodorderdata = json_decode($resqr[0]['va_qr_data_1']);
 
@@ -193,7 +193,7 @@ function insertorderfromqr() {
         }
     }    
 
-     if ($sqlqr>0)
+     if ($resqr)
      {
         $res_id = $resqr[0]['i_res_id'];
         $user_id = $resqr[0]['i_user_id'];
