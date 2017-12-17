@@ -65,9 +65,9 @@ function deleteqrcode() {
     global $dbhandler0;
     $dbhandler0->begin(); 
     
-    $qrid = !empty($_POST['qrid']) ? $_POST['qrid'] : '';
+    $qr_id = !empty($_POST['qr_id']) ? $_POST['qr_id'] : '';
 
-    $sqldeleteqr = "DELETE FROM qrcode WHERE i_qr_id = $qrid" 
+    $sqldeleteqr = "DELETE FROM qrcode WHERE i_qr_id = $qr_id"; 
     $resdeleteqr = $dbhandler0->delete($sqldeleteqr,1);    
     $dbhandler0->commit();
     if ($resdeleteqr)

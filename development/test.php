@@ -306,7 +306,7 @@ table, th, td {
     <form action="index.php" method="post" target="_blank">
     <table>
     <tr><td><h2>deleteqrcode</h2></td></tr> 
-    <tr><td>qrid</td><td><input name="qrid"></td></tr>  
+    <tr><td>qr_id</td><td><input name="qr_id"></td></tr>  
     <td colspan=2><input type="submit" name="func" value="deleteqrcode"></td>
     </table>
     </form>
