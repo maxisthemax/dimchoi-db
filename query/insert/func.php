@@ -10,7 +10,7 @@ include "system/function.php";
 function insertnewqrcoderow() {
     global $dbhandler0;
     $dbhandler0->begin(); 
-    $jsonfoodorderdata = !empty($_POST['jsonfoodorderdata']) ? $_POST['jsonfoodorderdata'] : '';
+    $jsonfoodorderdata = !empty($_POST['jsonfoodorderdata']) ? $_POST['jsonfoodorderdata'] : '[]';
     $jsonfoodorderdata=str_replace("'","\'", $jsonfoodorderdata);
     $qrtypenew = !empty($_POST['qrtypenew']) ? $_POST['qrtypenew'] : '';
     $resid_insert = !empty($_POST['resid_insert']) ? $_POST['resid_insert'] : '';
@@ -33,7 +33,7 @@ function insertnewqrcoderow() {
     '$resid_insert',
     '$userid_insert',
     '$qrtypenew',
-    '',
+    '[]',
     '$jsonfoodorderdata')";
 
     $res = $dbhandler0->insert($sqlcheck,1);
@@ -206,9 +206,9 @@ function insertorderfromqr() {
         $res_id = $resqr[0]['i_res_id'];
         $user_id = $resqr[0]['i_user_id'];
         $qr_type_id = $resqr[0]['i_qr_type_id'];
-        $qr_data_1 = $resqr[0]['va_qr_data_1'];
+        $qr_data_1 = !empty($resqr[0]['va_qr_data_1']) ? $resqr[0]['va_qr_data_1'] : '[]';        
         $qr_data_1=str_replace("'","\'", $qr_data_1);
-        $qr_data_2 = $resqr[0]['va_qr_data_2'];
+        $qr_data_2 = !empty($resqr[0]['va_qr_data_2']) ? $resqr[0]['va_qr_data_2'] : '[]';
         $qr_data_2=str_replace("'","\'", $qr_data_2);
         $create_date = $resqr[0]['dt_create'];
 
@@ -463,6 +463,7 @@ foreach($foodtypearray as $data1){
 }
 $finalfoodresult=str_replace("'","\'", $finalfoodresult);
 $finalfoodresultjson = json_encode($finalfoodresult,JSON_UNESCAPED_SLASHES);
+$finalfoodresultjson = !empty($finalfoodresultjson) ? $finalfoodresultjson : '[]';
 return $finalfoodresultjson;
 }
 //=====================================================================================================================================================================
@@ -551,6 +552,7 @@ foreach($foodtypearray as $data1){
 }
 $finalfoodresult=str_replace("'","\'", $finalfoodresult);
 $finalfoodresultjson = json_encode($finalfoodresult,JSON_UNESCAPED_SLASHES);
+$finalfoodresultjson = !empty($finalfoodresultjson) ? $finalfoodresultjson : '[]';
 return $finalfoodresultjson;
 }
 function sendmail($recipientemail,$recipientname,$subject,$body)
