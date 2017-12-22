@@ -429,7 +429,7 @@ function updateitemstatus() {
 
             unset($jsondata);
 
-            $jsondata = generatejsonfromitem($order_id,$item_status);  
+            $jsondata = generatejsonfromitem($order_id,0);  
             $jsondata=str_replace("'","\'", $jsondata);
             $sqlupdate = "UPDATE userorder SET va_userorder_data_2 = '$jsondata' WHERE i_userorder_id = $order_id";
             $ressqlupdate3 = $dbhandler0->update($sqlupdate);
