@@ -417,7 +417,7 @@ function updateitemstatus() {
 
     if ($resitem)
     {
-        if ($item_status>0)
+        if ($item_status != '')
         {    
             $jsondata = generatejsonfromitem($order_id,$item_status);  
             $jsondata=str_replace("'","\'", $jsondata);
