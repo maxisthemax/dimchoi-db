@@ -100,9 +100,16 @@ LEFT JOIN food_type d on d.i_food_type_id = b.i_food_type_id
 LEFT JOIN itemstatus e on e.i_item_status_id = a.i_status
 WHERE a.i_order_id = '$last_id'";
 
-if ($item_status != '')
+if ($item_status >= 0)
 {
-$sqlfood .= " and a.i_status = '$item_status'";
+    if ($item_status == 0)
+    {
+        $sqlfood .= " and a.i_status = 0";
+    }
+    else if ($item_status == 1)
+    {
+        $sqlfood .= " and a.i_status > 0";
+    }
 }
 
 $sqlfood .= " ORDER BY a.dt_itemcreate ASC"; 

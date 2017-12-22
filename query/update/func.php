@@ -12,7 +12,7 @@ function closeorder()
     $sqlcloseitem = "UPDATE item set i_status = 99 where i_order_id = '$order_id'";
     $rescloseitem = $dbhandler0->update($sqlcloseitem);
 
-    $_POST['order_data_1'] = generatejsonfromitem($order_id);
+    $_POST['order_data_1'] = generatejsonfromitem($order_id,1);
     
     if (updateuserorderstatus(1) == true AND updateresorderstatus(1) == true AND syncorderdata() == true)
     {
