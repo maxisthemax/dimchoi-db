@@ -16,14 +16,14 @@ function closeorder()
     
     if (updateuserorderstatus(1) == true AND updateresorderstatus(1) == true AND syncorderdata() == true)
     {
-    	unset($_POST['order_id']);
+        unset($_POST['order_id']);
         unset($_POST['order_data_1']);
         $dbhandler0->commit();
         return true;
     }
     else
     {
-    	unset($_POST['order_id']);
+        unset($_POST['order_id']);
         unset($_POST['order_data_1']);
         $dbhandler0->rollback();
         $dbhandler0->commit();
@@ -416,12 +416,9 @@ function updateitemstatus() {
     $order_id = $resorderid[0]['i_order_id'];
 
     if ($resitem)
-    {
-        if ($item_status != '')
-        {    
-            $jsondata = generatejsonfromitem($order_id,$item_status);  
-            $jsondata=str_replace("'","\'", $jsondata);
-            
+    { 
+            $jsondata = generatejsonfromitem($order_id,1);  
+            $jsondata=str_replace("'","\'", $jsondata);          
             $sqlupdate = "UPDATE userorder SET va_userorder_data_1 = '$jsondata' WHERE i_userorder_id = $order_id";
             $ressqlupdate1 = $dbhandler0->update($sqlupdate);
             $sqlupdate = "UPDATE resorder SET va_resorder_data_1 = '$jsondata' WHERE i_resorder_id = $order_id";
@@ -447,12 +444,6 @@ function updateitemstatus() {
                 $dbhandler0->commit();  
                 return false;
             }         
-        }
-        else
-        {
-            $dbhandler0->commit();  
-            return true;
-        }
     }   
     else
     {
@@ -526,9 +517,16 @@ LEFT JOIN food_type d on d.i_food_type_id = b.i_food_type_id
 LEFT JOIN itemstatus e on e.i_item_status_id = a.i_status
 WHERE a.i_order_id = '$last_id'";
 
-if ($item_status != '')
+if ($item_status >= 0)
 {
-$sqlfood .= " and a.i_status = '$item_status'";
+    if ($item_status == 0)
+    {
+        $sqlfood .= " and a.i_status = 0";
+    }
+    else if ($item_status == 1)
+    {
+        $sqlfood .= " and a.i_status > 0";
+    }
 }
 
 $sqlfood .= " ORDER BY a.dt_itemcreate ASC"; 
