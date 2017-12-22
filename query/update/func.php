@@ -1,4 +1,7 @@
 <?php
+
+include "system/function.php";
+
 function closeorder() 
 {
     global $dbhandler0;
@@ -405,6 +408,7 @@ function updateitemstatus() {
     $item_status = !empty($_POST['item_status']) ? $_POST['item_status'] : 0;
 
 
+
     $sqlitem = "UPDATE item SET i_status=$item_status WHERE i_item_id = $item_id";
 
     $resitem = $dbhandler0->update($sqlitem,1);
@@ -414,6 +418,12 @@ function updateitemstatus() {
     $resorderid  = $dbhandler0->query($sqlorderid);
 
     $order_id = $resorderid[0]['i_order_id'];
+
+    $sqluserid = "SELECT i_user_id FROM userorder WHERE i_userorder_id = $order_id LIMIT 1";
+
+    $resuserid  = $dbhandler0->query($sqluserid);
+
+    $user_id = $resuserid[0]['i_user_id'];
 
     if ($resitem)
     { 
@@ -436,6 +446,7 @@ function updateitemstatus() {
             if ($ressqlupdate1 and $ressqlupdate2 and $ressqlupdate3 and $ressqlupdate4)
             {    
                 $dbhandler0->commit();  
+                generatefirebase('','','REFRESH_ORDER',$user_id,'','',2);//generatefirebase($title,$body,$broadcast,$userid,$resuserid,$token,$mode);
                 return true;
             }
             else
