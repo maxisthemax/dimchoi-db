@@ -52,7 +52,7 @@ function insertnewqrcoderow() {
             $sqlitem = "INSERT INTO temp_item (i_order_id,i_food_id,i_price_id,i_quantity,va_remark,dt_itemcreate,i_status) VALUES ($last_id,$food_item_id,$price_item_id,$item_quantity,'$item_remark',now(),0)";
             $resitem = $dbhandler0->insert($sqlitem,1);
         }
-            $jsondata = generatejsonfromitem_temp($last_id,'0'); 
+            $jsondata = generatejsonfromitem_temp($last_id,0); 
             $jsondata=str_replace("'","\'", $jsondata); 
             $sqlfoodinsert = "UPDATE qrcode set va_qr_data_1 = '$jsondata' WHERE i_qr_id = $last_id";
             $ressqlfoodinsert = $dbhandler0->update($sqlfoodinsert);   
@@ -224,7 +224,7 @@ function insertorderfromqr() {
             $resitem = $dbhandler0->insert($sqlitem,1);
         }
 
-        $jsondata = generatejsonfromitem($qr_id,'1');
+        $jsondata = generatejsonfromitem($qr_id,1);
         $jsondata=str_replace("'","\'", $jsondata);
         $sqlinstouserorder = 
         "INSERT INTO 
@@ -294,7 +294,7 @@ function insertitem() {
         if ($resitem)
         {
 
-            $jsondata = generatejsonfromitem($order_id,'0');  
+            $jsondata = generatejsonfromitem($order_id,0);  
             $jsondata=str_replace("'","\'", $jsondata);
             
             $sqlupdate = "UPDATE userorder SET va_userorder_data_2 = '$jsondata' WHERE i_userorder_id = $order_id";
@@ -302,7 +302,9 @@ function insertitem() {
             $sqlupdate = "UPDATE resorder SET va_resorder_data_2 = '$jsondata' WHERE i_resorder_id = $order_id";
             $ressqlupdate = $dbhandler0->update($sqlupdate);
 
-            $jsondata = generatejsonfromitem($order_id,'1');  
+            unset($jsondata);
+
+            $jsondata = generatejsonfromitem($order_id,1);  
             $jsondata=str_replace("'","\'", $jsondata);
             
             $sqlupdate = "UPDATE userorder SET va_userorder_data_1 = '$jsondata' WHERE i_userorder_id = $order_id";
