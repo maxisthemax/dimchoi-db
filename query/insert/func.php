@@ -470,9 +470,15 @@ foreach($foodtypearray as $data1){
 
     unset($foodresult);
 }
+if ($finalfoodresult)
+{
 $finalfoodresult=str_replace("'","\'", $finalfoodresult);
 $finalfoodresultjson = json_encode($finalfoodresult,JSON_UNESCAPED_SLASHES);
-$finalfoodresultjson = !empty($finalfoodresultjson) ? $finalfoodresultjson : '[]';
+}
+else
+{
+$finalfoodresultjson = '[]';    
+}
 return $finalfoodresultjson;
 }
 //=====================================================================================================================================================================
@@ -566,9 +572,15 @@ foreach($foodtypearray as $data1){
 
     unset($foodresult);
 }
+if ($finalfoodresult)
+{
 $finalfoodresult=str_replace("'","\'", $finalfoodresult);
 $finalfoodresultjson = json_encode($finalfoodresult,JSON_UNESCAPED_SLASHES);
-$finalfoodresultjson = !empty($finalfoodresultjson) ? $finalfoodresultjson : '[]';
+}
+else
+{
+$finalfoodresultjson = '[]';    
+}
 return $finalfoodresultjson;
 }
 function sendmail($recipientemail,$recipientname,$subject,$body)
