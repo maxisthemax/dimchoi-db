@@ -10,8 +10,9 @@ $title = !empty($_POST['title']) ? $_POST['title'] : '';
 $body = !empty($_POST['body']) ? $_POST['body'] : '';
 $broadcast = !empty($_POST['broadcast']) ? $_POST['broadcast'] : '';
 $mode = !empty($_POST['mode']) ? $_POST['mode'] : 0;    
-
-generatefirebase($title,$body,$broadcast,$userid,$resuserid,$token,$mode);
+$resid = !empty($_POST['resid']) ? $_POST['resid'] : 0;
+    
+generatefirebase($title,$body,$broadcast,$userid,$resuserid,$resid,$token,$mode);
 }
 
 function WriteDebugLog($Name, $MustWrite = 0, $MainInfo = "") {
@@ -119,7 +120,7 @@ function decrypted($key, $string) {
     return $string;   
 }
 
-function generatefirebase($title,$body,$broadcast,$userid,$resuserid,$token,$mode) //1-send message, 2-send broadcast to phone
+function generatefirebase($title,$body,$broadcast,$userid,$resuserid,$resid,$token,$mode) //1-send message, 2-send broadcast to phone, 3-send broadcast to many
 {
 
 global $dbhandler0;
@@ -139,6 +140,13 @@ if ($token == '')
         $resresuser = $dbhandler0->query($sqlresuser);   
         $token = $resresuser[0]['va_token'];
     }
+    else if ($resid > 0)
+    {
+        $sqlallresuser = "SELECT GROUP_CONCAT(va_token) as va_token FROM resuser where i_res_id = $resid";
+        $resallresuser = $dbhandler0->query($sqlallresuser);   
+        $token = $resallresuser[0]['va_token'];
+    }    
+
 }
 
 if ($mode == 1)
@@ -160,7 +168,15 @@ $sendpost = array
             'mode' => $mode
         );
 }
-
+else if ($mode == 3)
+{
+$sendpost = array
+        (
+            'broadcast'  => $broadcast,
+            'token' => $token,
+            'mode' => $mode
+        );
+}
 $ch = curl_init($url);
 curl_setopt( $ch, CURLOPT_POST, 1);
 curl_setopt( $ch, CURLOPT_POSTFIELDS, $sendpost);

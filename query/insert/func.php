@@ -249,7 +249,7 @@ function insertorderfromqr() {
 
         if ($resinsuseroder != '' AND $resinsresorder !='' AND $resdeleteqr != '')
             {
-                generatefirebase('','','BACK_TO_MAIN',$user_id,'','',2);//generatefirebase($title,$body,$broadcast,$userid,$resuserid,$token,$mode);
+                generatefirebase('','','BACK_TO_MAIN',$user_id,'','','',2);//generatefirebase($title,$body,$broadcast,$userid,$resuserid,$resid,$token,$mode);
                 $dbhandler0->commit();  
                 return true;
             }

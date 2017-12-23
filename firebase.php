@@ -40,7 +40,25 @@ else if ($mode == 2)
             'data'  => $data
         );          
 }
-    
+else if ($mode == 3)
+{       
+
+        $data = array
+        (
+            'broadcast'  => $broadcast,
+            'icon'  => 'myicon',/*Default Icon*/
+            'sound' => 'mySound'/*Default sound*/
+        );
+        
+$tokenarray = array();
+$tokenarray = explode(',', $token);
+
+        $fields = array
+        (
+            'registration_ids'    => $tokenarray,
+            'data'  => $data
+        );          
+}    
         $headers = array
         (
             'Authorization: key=' . API_ACCESS_KEY,
