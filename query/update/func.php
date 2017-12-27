@@ -16,12 +16,27 @@ function closeorder()
     $rescloseitem = $dbhandler0->update($sqlcloseitem);
 
     $_POST['order_data_1'] = generatejsonfromitem($order_id,1);
+
+    $sqluserid = "SELECT i_user_id FROM userorder WHERE i_userorder_id = $order_id LIMIT 1";
+
+    $resuserid  = $dbhandler0->query($sqluserid);
+
+    $user_id = $resuserid[0]['i_user_id'];
+
+    $sqlresuserid = "SELECT i_res_id FROM userorder WHERE i_userorder_id = $order_id LIMIT 1";
+
+    $resresuserid  = $dbhandler0->query($sqlresuserid);
+
+    $res_id = $resresuserid[0]['i_res_id'];
     
     if (updateuserorderstatus(1) == true AND updateresorderstatus(1) == true AND syncorderdata() == true)
     {
         unset($_POST['order_id']);
         unset($_POST['order_data_1']);
         $dbhandler0->commit();
+
+        generatefirebase('','','REFRESH_ORDER',$user_id,'','','',2);//generatefirebase($title,$body,$broadcast,$userid,$resuserid,$resid,$token,$mode);
+        generatefirebase('','','REFRESH_ORDER','','',$res_id,'',3);//generatefirebase($title,$body,$broadcast,$userid,$resuserid,$resid,$token,$mode);           
         return true;
     }
     else
