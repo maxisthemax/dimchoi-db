@@ -285,6 +285,19 @@ function updateresordertable()
 
             if ($restable and $usertable)
             {
+                $sqluserid = "SELECT i_user_id FROM userorder WHERE i_userorder_id = $order_id LIMIT 1";
+
+                $resuserid  = $dbhandler0->query($sqluserid);
+
+                $user_id = $resuserid[0]['i_user_id'];
+
+                $sqlresuserid = "SELECT i_res_id FROM userorder WHERE i_userorder_id = $order_id LIMIT 1";
+
+                $resresuserid  = $dbhandler0->query($sqlresuserid);
+
+                $res_id = $resresuserid[0]['i_res_id'];                
+                generatefirebase('','','REFRESH_ORDER',$user_id,'','','',2);//generatefirebase($title,$body,$broadcast,$userid,$resuserid,$resid,$token,$mode);
+                generatefirebase('','','REFRESH_ORDER','','',$res_id,'',3);//generatefirebase($title,$body,$broadcast,$userid,$resuserid,$resid,$token,$mode);                   
                 return true;
             }
             else
