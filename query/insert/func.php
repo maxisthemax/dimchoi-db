@@ -250,6 +250,9 @@ function insertorderfromqr() {
         if ($resinsuseroder != '' AND $resinsresorder !='' AND $resdeleteqr != '')
             {
                 generatefirebase('','','BACK_TO_MAIN',$user_id,'','','',2);//generatefirebase($title,$body,$broadcast,$userid,$resuserid,$resid,$token,$mode);
+
+                generatefirebase('','','REFRESH_ORDER',$user_id,'','','',2);//generatefirebase($title,$body,$broadcast,$userid,$resuserid,$resid,$token,$mode);
+                generatefirebase('','','REFRESH_ORDER','','',$res_id,'',3);//generatefirebase($title,$body,$broadcast,$userid,$resuserid,$resid,$token,$mode);    
                 $dbhandler0->commit();  
                 return true;
             }
