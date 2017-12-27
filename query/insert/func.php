@@ -284,6 +284,18 @@ function insertitem() {
     $sqluserorder = "SELECT 1 FROM userorder where i_userorder_id = '$order_id' LIMIT 1";
     $resuserorder = $dbhandler0->query($sqluserorder);
 
+    $sqluserid = "SELECT i_user_id FROM userorder WHERE i_userorder_id = $order_id LIMIT 1";
+
+    $resuserid  = $dbhandler0->query($sqluserid);
+
+    $user_id = $resuserid[0]['i_user_id'];
+
+    $sqlresuserid = "SELECT i_res_id FROM userorder WHERE i_userorder_id = $order_id LIMIT 1";
+
+    $resresuserid  = $dbhandler0->query($sqlresuserid);
+
+    $res_id = $resresuserid[0]['i_res_id'];
+    
     if ($resuserorder)
     {
     $sqlitem = "INSERT INTO item (i_order_id,i_food_id,i_price_id,i_quantity,va_remark,dt_itemcreate,i_status) 
@@ -313,6 +325,8 @@ function insertitem() {
             $ressqlupdate = $dbhandler0->update($sqlupdate);
 
             $dbhandler0->commit();  
+                generatefirebase('','','REFRESH_ORDER',$user_id,'','','',2);//generatefirebase($title,$body,$broadcast,$userid,$resuserid,$resid,$token,$mode);
+                generatefirebase('','','REFRESH_ORDER','','',$res_id,'',3);//generatefirebase($title,$body,$broadcast,$userid,$resuserid,$resid,$token,$mode);            
             return $resitem;
         }   
         else
