@@ -157,7 +157,7 @@ function updateresusertoken()
 
     if ($res_user != '')
     {
-        $sqlcheck = "SELECT 1 FROM resuser where va_username = $res_user";
+        $sqlcheck = "SELECT 1 FROM resuser where va_username = '$res_user'";
         $rescheck= $dbhandler0->query($sqlcheck); 
         if($rescheck)
         {         
@@ -170,6 +170,10 @@ function updateresusertoken()
         {    
             return true;
         }  
+        else
+        {
+            return false;
+        }
         }  
     }
 }        

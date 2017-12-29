@@ -289,6 +289,19 @@ table, th, td {
   </td>
 </tr>
 
+<tr>
+    <td> 
+    <form action="index.php" method="post" target="_blank">
+    <table>
+    <tr><td><h2>updateresusertoken</h2></td></tr> 
+    <tr><td>res_user</td><td><input name="res_user"></td></tr>  
+    <tr><td>token</td><td><input name="token"></td></tr>  
+    <td colspan=2><input type="submit" name="func" value="updateresusertoken"></td>
+    </table>
+    </form>
+  </td>
+</tr>
+
 <tr><td colspan=3 style="background-color:red;"><h1>delete</h1></td></tr> 
 <tr>
   <td> 
